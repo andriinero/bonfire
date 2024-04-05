@@ -11,11 +11,10 @@ const AuthTextInput = ({
   placeholder,
   id,
   name,
-  className,
 }: AuthTextInputProps) => {
   return (
     <input
-      className=" rounded-md border border-solid p-2 shadow-sm focus:border-solid focus:border-sky-400 focus:outline-0"
+      className="rounded-md border border-solid p-2 text-black shadow-sm transition focus:border-solid focus:border-sky-400 focus:outline-0"
       type="text"
       name={name}
       id={id}

@@ -2,22 +2,26 @@ import { MouseEventHandler, ReactNode } from 'react';
 
 type AuthButtonProps = {
   value?: string;
-  type?: string;
-  onClick?: MouseEventHandler<HTMLInputElement>;
+  type?: 'button' | 'submit' | 'reset' | undefined;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  children?: ReactNode;
 };
 
 const AuthButton = ({
   value = 'Button',
   type = 'button',
   onClick,
+  children,
 }: AuthButtonProps) => {
   return (
-    <input
-      className="cursor-pointer bg-blue rounded-md bg-sky-500 p-2 font-bold text-white transition hover:bg-sky-600"
+    <button
+      className="bg-blue cursor-pointer rounded-md bg-sky-500 p-2 font-bold text-white transition hover:bg-sky-600"
       onClick={onClick}
       type={type}
       value={value}
-    />
+    >
+      {children}
+    </button>
   );
 };
 
