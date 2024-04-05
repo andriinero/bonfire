@@ -1,8 +1,7 @@
-import SignInPanel from './components/SignInPanel';
-import SignIn from './pages/SignIn';
+import Router from './Router';
 
 const App = () => {
-  return <SignIn />;
+  return <Router />;
 };
 
 export default App;
