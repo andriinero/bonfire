@@ -1,11 +1,5 @@
-import clsx from 'clsx';
-import {
-  ButtonHTMLAttributes,
-  ComponentPropsWithoutRef,
-  DetailedHTMLProps,
-  PropsWithoutRef,
-  ReactNode,
-} from 'react';
+import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
+
 import cn from '@/utils/cn';
 
 type ButtonProps = {
