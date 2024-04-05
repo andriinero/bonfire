@@ -3,7 +3,7 @@ import SignInPanel from '@/components/SignInPanel';
 const SignIn = () => {
   return (
     <div className="flex min-h-dvh items-center justify-center bg-slate-100">
-      <main className="space-y-8">
+      <main className="w-full max-w-lg space-y-8">
         <img
           className="mx-auto size-12"
           src="/messenger.png"
