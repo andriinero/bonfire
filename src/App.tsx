@@ -1,4 +1,5 @@
-import SignIn from './components/SignIn';
+import SignInPanel from './components/SignInPanel';
+import SignIn from './pages/SignIn';
 
 const App = () => {
   return <SignIn />;
