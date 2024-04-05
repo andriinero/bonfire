@@ -1,11 +1,11 @@
 import { FormEvent } from 'react';
 
 import { FaGithub, FaGoogle } from 'react-icons/fa6';
-import Form from './form/Form';
-import InputGroup from './form/InputGroup';
-import Button from './general/Button';
-import TextInput from './form/TextInput';
-import InputLabel from './form/InputLabel';
+import Form from '../../../components/form/Form';
+import InputGroup from '../../../components/form/InputGroup';
+import Button from '../../../components/general/Button';
+import TextInput from '../../../components/form/TextInput';
+import InputLabel from '../../../components/form/InputLabel';
 
 const SignInPanel = () => {
   const handleFormSubmit = (e: FormEvent): void => {

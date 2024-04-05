@@ -1,4 +1,4 @@
-import SignInPanel from '@/components/SignInPanel';
+import SignInPanel from '@/features/auth/components/SignInPanel';
 
 const SignIn = () => {
   return (
