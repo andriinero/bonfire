@@ -11,7 +11,7 @@ const initialState: AuthState = {
   authData: null,
 };
 
-export const signedOut: AppThunk = (dispatch) => {
+export const signedOut = (): AppThunk => (dispatch) => {
   dispatch(dataCleared());
 };
 

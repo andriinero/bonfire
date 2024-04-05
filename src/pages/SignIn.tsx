@@ -1,4 +1,7 @@
+import { useAppDispatch } from '@/app/hooks';
+import { dataInitialized } from '@/features/auth/authSlice';
 import SignInPanel from '@/features/auth/components/SignInPanel';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   return (

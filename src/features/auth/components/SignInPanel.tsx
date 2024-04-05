@@ -6,15 +6,22 @@ import InputGroup from '../../../components/form/InputGroup';
 import Button from '../../../components/general/Button';
 import TextInput from '../../../components/form/TextInput';
 import InputLabel from '../../../components/form/InputLabel';
+import { useAppDispatch } from '@/app/hooks';
+import { useNavigate } from 'react-router-dom';
+import { dataInitialized } from '../authSlice';
 
 const SignInPanel = () => {
-  const handleFormSubmit = (e: FormEvent): void => {
-    e.preventDefault();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleSignInClick = (): void => {
+    dispatch(dataInitialized());
+    navigate('/home');
   };
 
   return (
     <div className="container space-y-8 rounded-md bg-white p-10 font-medium text-slate-400 shadow">
-      <Form onSubmit={handleFormSubmit}>
+      <Form>
         <InputGroup>
           <InputLabel htmlFor="sign-in-email">Email address</InputLabel>
           <TextInput name="email" id="sign-in-email" />
@@ -23,7 +30,7 @@ const SignInPanel = () => {
           <InputLabel htmlFor="sign-in-password">Password</InputLabel>
           <TextInput name="password" id="sign-in-password" />
         </InputGroup>
-        <Button style="success" type="submit">
+        <Button onClick={handleSignInClick} style="success" type="submit">
           Sign In
         </Button>
       </Form>
@@ -33,10 +40,10 @@ const SignInPanel = () => {
         <div className="border"></div>
       </div>
       <div className="grid grid-cols-2 gap-x-2">
-        <Button style="hollow">
+        <Button type="button" style="hollow">
           <FaGithub size="1.5rem" />
         </Button>
-        <Button style="hollow">
+        <Button type="button" style="hollow">
           <FaGoogle size="1.5rem" />
         </Button>
       </div>
