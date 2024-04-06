@@ -9,7 +9,7 @@ type AuthFormProps = {
 
 const Form = ({ className, children, ...otherProps }: AuthFormProps) => {
   return (
-    <form {...otherProps} className={cn('flex flex-col gap-y-6', className)}>
+    <form {...otherProps} className={cn('flex flex-col gap-y-3', className)}>
       {children}
     </form>
   );

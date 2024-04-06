@@ -17,6 +17,7 @@ import InputGroup from '../../../components/form/InputGroup';
 import Button from '../../../components/general/Button';
 import TextInput from '../../../components/form/TextInput';
 import InputLabel from '../../../components/form/InputLabel';
+import ValidationError from '@/components/form/ValidationError';
 
 const SignInSchema = z.object({
   email: z.string().email(),
@@ -52,6 +53,9 @@ const SignInPanel = () => {
         <InputGroup>
           <InputLabel htmlFor="sign-in-email">Email address</InputLabel>
           <TextInput id="sign-in-email" {...register('email')} />
+          <ValidationError visible={!!errors.email}>
+            {errors.email?.message}
+          </ValidationError>
         </InputGroup>
         <InputGroup>
           <InputLabel htmlFor="sign-in-password">Password</InputLabel>
@@ -60,6 +64,9 @@ const SignInPanel = () => {
             id="sign-in-password"
             type="password"
           />
+          <ValidationError visible={!!errors.password}>
+            {errors.password?.message}
+          </ValidationError>
         </InputGroup>
         <Button disabled={isSubmitDisabled} style="success" type="submit">
           Sign In
