@@ -1,9 +1,13 @@
-import { useAppDispatch } from '@/app/hooks';
-import { dataInitialized } from '@/features/auth/authSlice';
+import { useAppSelector } from '@/app/hooks';
+import { selectIsSignedIn } from '@/features/auth/authSlice';
 import SignInPanel from '@/features/auth/components/SignInPanel';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const SignIn = () => {
+  const isSignedIn = useAppSelector(selectIsSignedIn);
+
+  if (isSignedIn) return <Navigate to="/home" />;
+
   return (
     <div className="flex min-h-dvh items-center justify-center bg-slate-100">
       <main className="w-full max-w-lg space-y-8">

@@ -23,7 +23,7 @@ const Button = ({
       {...otherProps}
       disabled={disabled}
       className={cn(
-        'cursor-pointer rounded-md p-2 font-bold text-white shadow-sm transition focus:border-sky-500 focus:outline-0',
+        'cursor-pointer rounded-md px-4 py-2 font-bold text-white shadow-sm transition focus:border-sky-500 focus:outline-0',
         className,
         {
           'pointer-events-none opacity-60 ': disabled,

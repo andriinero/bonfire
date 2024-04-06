@@ -1,4 +1,15 @@
+import { z } from 'zod';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FormEvent } from 'react';
+
+import {
+  authDataFetched,
+  selectSignInPostedState,
+  signInPosted,
+} from '../authSlice';
 
 import { FaGithub, FaGoogle } from 'react-icons/fa6';
 import Form from '../../../components/form/Form';
@@ -6,31 +17,51 @@ import InputGroup from '../../../components/form/InputGroup';
 import Button from '../../../components/general/Button';
 import TextInput from '../../../components/form/TextInput';
 import InputLabel from '../../../components/form/InputLabel';
-import { useAppDispatch } from '@/app/hooks';
-import { useNavigate } from 'react-router-dom';
-import { dataInitialized } from '../authSlice';
+
+const SignInSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
+type TSignIn = z.infer<typeof SignInSchema>;
 
 const SignInPanel = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<TSignIn>({ resolver: zodResolver(SignInSchema) });
+
+  const signInState = useAppSelector(selectSignInPostedState);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleSignInClick = (): void => {
-    dispatch(dataInitialized());
-    navigate('/home');
+  const handleFormSubmit = (data: TSignIn) => {
+    dispatch(signInPosted(data)).then(() => {
+      dispatch(authDataFetched()).then(() => {
+        navigate('/home');
+      });
+    });
   };
+
+  const isSubmitDisabled = isSubmitting || signInState === 'loading';
 
   return (
     <div className="container space-y-8 rounded-md bg-white p-10 font-medium text-slate-400 shadow">
-      <Form>
+      <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputGroup>
           <InputLabel htmlFor="sign-in-email">Email address</InputLabel>
-          <TextInput name="email" id="sign-in-email" />
+          <TextInput id="sign-in-email" {...register('email')} />
         </InputGroup>
         <InputGroup>
           <InputLabel htmlFor="sign-in-password">Password</InputLabel>
-          <TextInput name="password" id="sign-in-password" />
+          <TextInput
+            {...register('password')}
+            id="sign-in-password"
+            type="password"
+          />
         </InputGroup>
-        <Button onClick={handleSignInClick} style="success" type="submit">
+        <Button disabled={isSubmitDisabled} style="success" type="submit">
           Sign In
         </Button>
       </Form>
