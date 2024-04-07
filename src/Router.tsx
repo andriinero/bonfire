@@ -7,14 +7,15 @@ import {
 import SignIn from './pages/SignIn';
 import Home from './pages/Home';
 import Protected from './pages/Protected';
+import Paths from './constants/Paths';
 
 const Router = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/">
-        <Route path="/sign-in" element={<SignIn />} index />
+      <Route path={Paths.Base}>
+        <Route path={Paths.Auth.SIGN_IN} element={<SignIn />} index />
         <Route
-          path="/home"
+          path={Paths.Main.HOME}
           element={
             <Protected>
               <Home />

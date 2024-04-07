@@ -29,7 +29,7 @@ const SignInPanel = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<TSignIn>({ resolver: zodResolver(SignInSchema) });
 
   const signInState = useAppSelector(selectSignInPostedState);
@@ -45,7 +45,7 @@ const SignInPanel = () => {
     });
   };
 
-  const isSubmitDisabled = isSubmitting || signInState === 'loading';
+  const isSubmitDisabled = signInState === 'loading';
 
   return (
     <div className="container space-y-8 rounded-md bg-white p-10 font-medium text-slate-400 shadow">

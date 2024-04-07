@@ -12,7 +12,7 @@ const Protected = ({ children }: ProtectedProps) => {
   const isSignedIn = useAppSelector(selectIsSignedIn);
   const state = useAppSelector(selectAuthDataFetchedState);
 
-  if (state === 'failure' && !isSignedIn) return <Navigate to="/" />;
+  if (state === 'failure' && !isSignedIn) return <Navigate to="/sign-in" />;
 
   return state === 'loading' ? <></> : <>{children}</>;
 };
