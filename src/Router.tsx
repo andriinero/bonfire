@@ -15,13 +15,22 @@ const Router = () => {
       <Route path={Paths.Base}>
         <Route path={Paths.Auth.SIGN_IN} element={<SignIn />} index />
         <Route
-          path={Paths.Main.HOME}
+          path={Paths.Home.BASE}
           element={
             <Protected>
               <Home />
             </Protected>
           }
-        />
+        >
+          <Route
+            path={Paths.Home.BASE + Paths.Home.CHATS}
+            element={<p>Chats</p>}
+          />
+          <Route
+            path={Paths.Home.BASE + Paths.Home.CONTACTS}
+            element={<p>Contacts</p>}
+          />
+        </Route>
       </Route>,
     ),
   );
