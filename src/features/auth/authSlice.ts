@@ -15,7 +15,7 @@ type AuthState = {
 
 const initialState: AuthState = {
   authData: null,
-  authDataFetchedState: 'idle',
+  authDataFetchedState: 'loading',
   signInPostedState: 'idle',
 };
 
@@ -49,6 +49,7 @@ export const signInPosted = createAsyncThunk<
 });
 
 export const signedOut = (): AppThunk => (dispatch) => {
+  storage.clearToken();
   dispatch(dataCleared());
 };
 
@@ -63,14 +64,14 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(authDataFetched.pending, (state) => {
-        state.signInPostedState = 'loading';
+        state.authDataFetchedState = 'loading';
       })
       .addCase(authDataFetched.fulfilled, (state, action) => {
         state.authData = action.payload;
-        state.signInPostedState = 'success';
+        state.authDataFetchedState = 'success';
       })
       .addCase(authDataFetched.rejected, (state) => {
-        state.signInPostedState = 'failure';
+        state.authDataFetchedState = 'failure';
       });
     builder
       .addCase(signInPosted.pending, (state) => {
@@ -92,7 +93,13 @@ export default authSlice;
 export const selectSignInPostedState = (state: RootState) =>
   state.auth.signInPostedState;
 
+export const selectAuthDataFetchedState = (state: RootState) =>
+  state.auth.authDataFetchedState;
+
 export const selectAuthUserId = (state: RootState) => state.auth.authData?.sub;
+
+export const selectIsSignedIn = (state: RootState) =>
+  !!state.auth.authData && state.auth.authDataFetchedState === 'success';
 
 export const selectAuthUsername = (state: RootState) =>
   state.auth.authData?.username;
@@ -100,5 +107,6 @@ export const selectAuthUsername = (state: RootState) =>
 export const selectAuthUserRole = (state: RootState) =>
   state.auth.authData?.role;
 
-export const selectIsSignedIn = (state: RootState) =>
-  Boolean(state.auth.authData);
+export const selectAuthEmail = (state: RootState) => state.auth.authData?.email;
+
+export const selectAuthRole = (state: RootState) => state.auth.authData?.role;

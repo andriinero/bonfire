@@ -1,17 +1,15 @@
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { useAppDispatch } from '@/app/hooks';
 import Button from '@/components/general/Button';
-import { selectIsSignedIn, signedOut } from '@/features/auth/authSlice';
-import { Navigate } from 'react-router-dom';
+import { signedOut } from '@/features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const isSignedIn = useAppSelector(selectIsSignedIn);
-
   const dispatch = useAppDispatch();
-
-  if (!isSignedIn) return <Navigate to="/sign-in" />;
+  const navigate = useNavigate();
 
   const handleSignOutClick = (): void => {
     dispatch(signedOut());
+    navigate('/sign-in');
   };
 
   return (
