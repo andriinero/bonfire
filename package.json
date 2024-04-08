@@ -17,6 +17,8 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^2.0.1",
+    "@types/luxon": "^3.4.2",
+    "@types/uuid": "^9.0.8",
     "axios": "^1.6.8",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.25",

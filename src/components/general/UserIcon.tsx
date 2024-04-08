@@ -15,17 +15,20 @@ const UserIcon = ({
     <div>
       <div
         className={cn(
-          'invisible absolute ml-6 rounded-full border-2 border-white bg-green-400 p-1.5',
+          'invisible absolute ml-6 select-none rounded-full border-2 border-white bg-green-400 p-1.5',
           { visible: isOnline },
           { 'ml-8': style === 'lg' },
         )}
       />
       <img
         src="/profile-placeholder.jpeg"
-        className={cn('size-10 rounded-full text-gray-400', {
-          'size-10': style === 'md',
-          'size-12': style === 'lg',
-        })}
+        className={cn(
+          'size-10 select-none rounded-full object-cover text-gray-400',
+          {
+            'size-10': style === 'md',
+            'size-12': style === 'lg',
+          },
+        )}
         alt="User Icon"
         {...otherProps}
       />

@@ -5,7 +5,7 @@ import ChatsList from './ChatsList';
 const Chats = () => {
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-16">
         <h1 className="text-2xl font-bold text-neutral-800">Messages</h1>
         <IconButton style="round">
           <FaUserPlus />

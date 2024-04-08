@@ -1,12 +1,13 @@
 import authSlice from '@/features/auth/authSlice';
 import chatsSlice from '@/features/chats/chatsSlice';
+import messagesSlice from '@/features/messages/messagesSlice';
 import type { Action, ThunkAction } from '@reduxjs/toolkit';
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
-const rootReducer = combineSlices(authSlice, chatsSlice);
+const rootReducer = combineSlices(authSlice, chatsSlice, messagesSlice);
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>;
 
