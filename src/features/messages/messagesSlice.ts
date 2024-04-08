@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@/app/store';
 import { MessageData } from '@/types/MessageData';
 
-import { testMessage } from '@/data/testData';
+import { testMessages } from '@/data/testData';
 
 type MessagesState = {
   messagesList: MessageData[];
 };
 
 const initialState: MessagesState = {
-  messagesList: [testMessage],
+  messagesList: [...testMessages],
 };
 
 const messagesSlice = createSlice({

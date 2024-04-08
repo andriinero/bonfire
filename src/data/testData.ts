@@ -54,12 +54,32 @@ export const testParticipantsList: UserData[] = [
   },
 ];
 
-export const testMessage: MessageData = {
-  _id: '',
-  user: 'john01',
-  chat_room: 'johnchat01',
-  body: 'Hey! This is a test message.',
-  created: new Date().toJSON(),
-  reply: null,
-  type: MessageType.MESSAGE,
-};
+export const testMessages: MessageData[] = [
+  {
+    _id: 'm03',
+    user: 'john01',
+    chat_room: 'johnchat01',
+    body: 'Another test message!',
+    created: new Date().toJSON(),
+    reply: null,
+    type: MessageType.MESSAGE,
+  },
+  {
+    _id: 'm02',
+    user: 'john01',
+    chat_room: 'johnchat01',
+    body: 'Hey! This is a test message.',
+    created: new Date().toJSON(),
+    reply: null,
+    type: MessageType.MESSAGE,
+  },
+  {
+    _id: 'm01',
+    user: null,
+    chat_room: 'johnchat01',
+    body: 'Chat room created',
+    created: new Date().toJSON(),
+    reply: null,
+    type: MessageType.ACTION,
+  },
+];

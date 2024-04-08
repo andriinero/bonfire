@@ -5,9 +5,9 @@ import { selectMessagesListByChatId } from '@/features/messages/messagesSlice';
 import { selectParticipantsListByChatId } from '../chatsSlice';
 
 import UserIcon from '@/components/general/UserIcon';
+import TimeStamp from '@/components/general/TimeStamp';
 import ChatTitle from './ChatTitle';
 import MessagePreview from './MessagePreview';
-import TimeStamp from '@/components/general/TimeStamp';
 
 type ChatsItemProps = {
   chatId: string;
@@ -20,7 +20,7 @@ const ChatsItem = ({ chatId }: ChatsItemProps) => {
   const nonAuthUsers = useNonAuthUserParticipants(participants!);
 
   return (
-    <li className="flex gap-4 rounded-md bg-neutral-100 p-2">
+    <li className="flex cursor-pointer gap-4 rounded-md bg-neutral-100 p-2">
       <div>
         {nonAuthUsers.length === 1 ? (
           nonAuthUsers.map((u) => (
@@ -42,7 +42,7 @@ const ChatsItem = ({ chatId }: ChatsItemProps) => {
           <ChatTitle participants={nonAuthUsers!} />
           {lastMessage && <MessagePreview messageId={lastMessage._id} />}
         </div>
-        <div className="">
+        <div>
           <TimeStamp date={lastMessage.created} />
         </div>
       </div>

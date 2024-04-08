@@ -8,7 +8,7 @@ const Sidebar = () => {
   const profileImage = useAppSelector(selectAuthProfileImage);
 
   return (
-    <aside className="text flex h-full border-r">
+    <aside className="text row-start-1 row-end-3 flex h-full border-r">
       <div className="flex flex-col items-center justify-between border-r px-2 py-4">
         <NavControls />
         <UserIcon src={profileImage} isOnline />

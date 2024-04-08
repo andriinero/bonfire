@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { testParticipant } from '@/data/testData';
+
 import { ChatData } from '@/types/ChatData';
 import { RootState } from '@/app/store';
-import { testMessage, testParticipant } from '@/data/testData';
 
 type ChatsState = {
   chatsList: ChatData[];
