@@ -9,9 +9,9 @@ const Sidebar = () => {
     <aside className="text flex h-full border-r">
       <div className="flex flex-col items-center justify-between border-r px-2 py-4">
         <NavControls />
-        <UserIcon />
+        <UserIcon isOnline />
       </div>
-      <section className="p-4 w-full">
+      <section className="w-full p-4">
         <Outlet />
       </section>
     </aside>

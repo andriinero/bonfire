@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const MessageDataSchema = z.object({
+  _id: z.string(),
   user: z.string(),
   body: z.string(),
   created: z.string(),
