@@ -67,7 +67,7 @@ const SignInPanel = () => {
             {errors.password?.message}
           </ValidationError>
         </InputGroup>
-        <Button disabled={isSubmitDisabled} style="success" type="submit">
+        <Button disabled={isSubmitDisabled} style="primary" type="submit">
           Sign In
         </Button>
       </Form>

@@ -8,6 +8,7 @@ import SignIn from './pages/SignIn';
 import Home from './pages/Home';
 import Protected from './pages/Protected';
 import Paths from './constants/Paths';
+import Chats from './features/nav/components/Chats';
 
 const Router = () => {
   const router = createBrowserRouter(
@@ -24,7 +25,7 @@ const Router = () => {
         >
           <Route
             path={Paths.Home.BASE + Paths.Home.CHATS}
-            element={<p>Chats</p>}
+            element={<Chats />}
           />
           <Route
             path={Paths.Home.BASE + Paths.Home.CONTACTS}

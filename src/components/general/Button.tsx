@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 import cn from '@/utils/cn';
 
 type ButtonProps = {
-  style?: 'success' | 'hollow';
+  style?: 'primary' | 'hollow' | 'icon';
   className?: string;
   children?: ReactNode;
 } & DetailedHTMLProps<
@@ -12,7 +12,7 @@ type ButtonProps = {
 >;
 
 const Button = ({
-  style = 'success',
+  style = 'primary',
   disabled,
   className,
   children,
@@ -23,12 +23,12 @@ const Button = ({
       {...otherProps}
       disabled={disabled}
       className={cn(
-        'cursor-pointer rounded-md px-4 py-2 font-bold text-white shadow-sm transition focus:border-sky-500 focus:outline-0',
+        'cursor-pointer rounded-md px-4 py-2 font-bold text-white transition focus:border-sky-500 focus:outline-0',
         className,
         {
           'pointer-events-none opacity-60 ': disabled,
-          'bg-blue bg-sky-500 hover:bg-sky-600': style === 'success',
-          'flex justify-center border border-solid p-2 text-slate-500  hover:bg-slate-50':
+          'bg-blue bg-sky-500 shadow-sm hover:bg-sky-600 ': style === 'primary',
+          'flex justify-center border border-solid p-2 text-slate-500 shadow-sm hover:bg-slate-50':
             style === 'hollow',
         },
       )}
