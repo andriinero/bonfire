@@ -1,6 +1,6 @@
 import useHandleSignOut from '@/features/auth/hooks/useHandleSignOut';
 
-import IconButton from '@/components/general/ControlsIcon';
+import IconButton from '@/components/general/IconButton';
 import {
   FaArrowRightFromBracket,
   FaMessage,
@@ -16,7 +16,7 @@ const NavControls = () => {
   const handleSignOutClick = useHandleSignOut();
 
   return (
-    <nav>
+    <nav className="">
       <ul className="space-y-1">
         <li>
           <AppLink to={Paths.Home.BASE + Paths.Home.CHATS}>

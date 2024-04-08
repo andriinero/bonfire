@@ -39,7 +39,7 @@ const SignInPanel = () => {
   const handleFormSubmit = (data: TSignIn) => {
     dispatch(signInPosted(data)).then(() => {
       dispatch(authDataFetched()).then(() => {
-        navigate('/home');
+        navigate('/home/chats');
       });
     });
   };
