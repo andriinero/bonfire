@@ -22,8 +22,8 @@ const IconButton = ({
         'rounded-md p-3 text-neutral-500 transition hover:bg-neutral-100',
         className,
         {
-          'bg-neutral-100 text-black': isSelected,
-          'rounded-full bg-neutral-100 p-2 text-black hover:bg-neutral-200':
+          'bg-neutral-100 text-neutral-800': isSelected,
+          'rounded-full bg-neutral-100 p-2 text-neutral-800 hover:bg-neutral-200':
             style === 'round',
         },
       )}

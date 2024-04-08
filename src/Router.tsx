@@ -8,7 +8,7 @@ import SignIn from './pages/SignIn';
 import Home from './pages/Home';
 import Protected from './pages/Protected';
 import Paths from './constants/Paths';
-import Chats from './features/nav/components/Chats';
+import Chats from './features/chats/components/Chats';
 
 const Router = () => {
   const router = createBrowserRouter(
