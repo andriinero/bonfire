@@ -14,12 +14,11 @@ const MessagePreview = ({ messageId }: MessagePreviewProps) => {
 
   return messageData ? (
     <p
-      className={cn('text-ellipsis text-sm text-neutral-600', {
+      className={cn('text-ellipsis text-sm text-neutral-700', {
         'font-medium text-neutral-800': messageData.type === MessageType.ACTION,
       })}
     >
       {messageData.body}
-      <TimeStamp date={messageData.created.toString()} />
     </p>
   ) : (
     <p>No messages...</p>

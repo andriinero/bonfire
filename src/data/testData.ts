@@ -10,7 +10,7 @@ export const testParticipant: UserData = {
   email: 'john@gmail.com',
   role: 'user',
   created: new Date().toISOString(),
-  is_online: false,
+  is_online: true,
   profile_image:
     'https://img.freepik.com/premium-photo/profile-picture-happy-young-caucasian-man-spectacles-show-confidence-leadership-headshot-portrait-smiling-millennial-male-glasses-posing-indoors-home-employment-success-concept_774935-1446.jpg',
 };
@@ -59,7 +59,7 @@ export const testMessage: MessageData = {
   user: 'john01',
   chat_room: 'johnchat01',
   body: 'Hey! This is a test message.',
-  created: new Date().toString(),
+  created: new Date().toJSON(),
   reply: null,
   type: MessageType.MESSAGE,
 };

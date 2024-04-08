@@ -29,7 +29,9 @@ const Router = () => {
           />
           <Route
             path={Paths.Home.BASE + Paths.Home.CONTACTS}
-            element={<p>Contacts</p>}
+            element={
+              <p className="text-2xl font-bold text-neutral-800">Contacts</p>
+            }
           />
         </Route>
       </Route>,

@@ -15,7 +15,7 @@ const UserIcon = ({
     <div>
       <div
         className={cn(
-          'invisible absolute ml-6 select-none rounded-full border-2 border-white bg-green-400 p-1.5',
+          'invisible absolute ml-6 size-4 select-none rounded-full border-2 border-white bg-green-400',
           { visible: isOnline },
           { 'ml-8': style === 'lg' },
         )}
