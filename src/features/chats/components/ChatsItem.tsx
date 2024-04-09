@@ -24,14 +24,12 @@ const ChatsItem = ({ chatId }: ChatsItemProps) => {
       <div>
         {nonAuthUsers.length === 1 ? (
           nonAuthUsers.map((u) => (
-            <>
-              <UserIcon
-                key="0"
-                isOnline={u.is_online}
-                src={u.profile_image}
-                style="lg"
-              />
-            </>
+            <UserIcon
+              key={u._id}
+              isOnline={u.is_online}
+              src={u.profile_image}
+              style="lg"
+            />
           ))
         ) : (
           <p>TODO: multiple users icon</p>

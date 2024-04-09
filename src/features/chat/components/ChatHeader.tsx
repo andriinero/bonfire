@@ -1,11 +1,9 @@
 import { useAppSelector } from '@/app/hooks';
 
 import { selectSelectedChatId } from '../chatSlice';
+import { selectChatById } from '@/features/chats/chatsSlice';
+
 import ChatTitle from '@/features/chats/components/ChatTitle';
-import {
-  selectChatById,
-  selectParticipantsListByChatId,
-} from '@/features/chats/chatsSlice';
 import UserIcon from '@/components/general/UserIcon';
 import IconButton from '@/components/general/IconButton';
 import { FaEllipsis } from 'react-icons/fa6';
