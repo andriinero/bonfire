@@ -1,8 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export type postsApiResponse = {};
 
-const apiSlice = createApi({
+export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/' }),
   endpoints: (build) => ({
     getChats: build.query<postsApiResponse, number>({
@@ -11,4 +11,4 @@ const apiSlice = createApi({
   }),
 });
 
-export default apiSlice;
+export const { useGetChatsQuery } = apiSlice;

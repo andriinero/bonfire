@@ -1,11 +1,12 @@
 import { z } from 'zod';
 
 import { MessageType } from './MessageType';
+import { UserDataSchema } from './UserData';
 
 export const MessageDataSchema = z.object({
   _id: z.string(),
   chat_room: z.string(),
-  user: z.string().nullable(),
+  user: z.nullable(UserDataSchema),
   body: z.string(),
   created: z.string(),
   reply: z.string().nullable(),

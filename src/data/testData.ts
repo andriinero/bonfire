@@ -22,8 +22,9 @@ export const testParticipantsList: UserData[] = [
     email: 'john@gmail.com',
     role: 'user',
     created: new Date().toISOString(),
-    is_online: false,
-    profile_image: '/profile-placeholder.jpeg',
+    is_online: true,
+    profile_image:
+      'https://img.freepik.com/premium-photo/profile-picture-happy-young-caucasian-man-spectacles-show-confidence-leadership-headshot-portrait-smiling-millennial-male-glasses-posing-indoors-home-employment-success-concept_774935-1446.jpg',
   },
   {
     _id: 'kate01',
@@ -56,8 +57,17 @@ export const testParticipantsList: UserData[] = [
 
 export const testMessages: MessageData[] = [
   {
+    _id: 'm01',
+    user: null,
+    chat_room: 'johnchat01',
+    body: 'Chat room created',
+    created: new Date().toJSON(),
+    reply: null,
+    type: MessageType.ACTION,
+  },
+  {
     _id: 'm03',
-    user: 'john01',
+    user: testParticipantsList[0],
     chat_room: 'johnchat01',
     body: 'Another test message!',
     created: new Date().toJSON(),
@@ -66,20 +76,11 @@ export const testMessages: MessageData[] = [
   },
   {
     _id: 'm02',
-    user: 'john01',
+    user: testParticipantsList[3],
     chat_room: 'johnchat01',
     body: 'Hey! This is a test message.',
     created: new Date().toJSON(),
     reply: null,
     type: MessageType.MESSAGE,
-  },
-  {
-    _id: 'm01',
-    user: null,
-    chat_room: 'johnchat01',
-    body: 'Chat room created',
-    created: new Date().toJSON(),
-    reply: null,
-    type: MessageType.ACTION,
   },
 ];

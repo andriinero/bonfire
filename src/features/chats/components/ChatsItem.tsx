@@ -6,7 +6,7 @@ import { selectParticipantsListByChatId } from '../chatsSlice';
 
 import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
-import ChatTitle from './ChatTitle';
+import ChatTitle from '../../../components/general/ChatTitle';
 import MessagePreview from './MessagePreview';
 
 type ChatsItemProps = {

@@ -1,5 +1,11 @@
+import MessageList from './MessageList';
+
 const ChatMain = () => {
-  return <div className="flex items-center justify-center">Main</div>;
+  return (
+    <div className="p-4">
+      <MessageList />
+    </div>
+  );
 };
 
 export default ChatMain;

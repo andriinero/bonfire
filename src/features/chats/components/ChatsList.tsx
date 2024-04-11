@@ -3,7 +3,6 @@ import { useAppSelector } from '@/app/hooks';
 import cn from '@/utils/cn';
 
 import { selectChatsList } from '../chatsSlice';
-
 import ChatsItem from './ChatsItem';
 
 type ChatsListProps = { className?: string };
