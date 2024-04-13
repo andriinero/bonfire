@@ -8,7 +8,7 @@ const MessageList = () => {
   const messageList = testMessages;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-1 flex-col gap-6 p-4">
       {messageList.map((m) => (
         <MessageItem {...m} />
       ))}

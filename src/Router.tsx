@@ -1,6 +1,7 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
   RouterProvider,
 } from 'react-router-dom';
@@ -23,6 +24,7 @@ const Router = () => {
             </Protected>
           }
         >
+          <Route index element={<Navigate to="/home/chats" />} />
           <Route
             path={Paths.Home.BASE + Paths.Home.CHATS}
             element={<Chats />}
