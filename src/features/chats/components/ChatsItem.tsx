@@ -20,7 +20,7 @@ const ChatsItem = ({ chatId }: ChatsItemProps) => {
   const nonAuthUsers = useNonAuthUserParticipants(participants!);
 
   return (
-    <li className="flex cursor-pointer gap-4 rounded-md bg-gray-100 p-2">
+    <li className="flex cursor-pointer gap-4 rounded-lg bg-gray-100 p-2">
       <div>
         {nonAuthUsers.length === 1 ? (
           nonAuthUsers.map((u) => (

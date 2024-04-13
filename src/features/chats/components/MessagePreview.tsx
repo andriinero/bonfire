@@ -13,8 +13,8 @@ const MessagePreview = ({ messageId }: MessagePreviewProps) => {
 
   return messageData ? (
     <p
-      className={cn('text-ellipsis text-sm text-gray-700', {
-        'font-medium text-gray-800': messageData.type === MessageType.ACTION,
+      className={cn('text-ellipsis text-sm text-gray-500', {
+        'font-medium': messageData.type === MessageType.ACTION,
       })}
     >
       {messageData.body}
