@@ -1,20 +1,16 @@
 import cn from '@/utils/cn';
-
-import { useGetChatsQuery } from '@/features/api/apiSlice';
-
-import Spinner from '@/components/general/Spinner';
 import ChatsItem from './ChatsItem';
-import ErrorMessage from '@/components/general/ErrorMessage';
+import { useGetChatsQuery } from '@/features/api/apiSlice';
+import Spinner from '@/components/general/Spinner';
+import { ChatsListProps } from './ChatsList';
 
-type ChatsListProps = { className?: string };
-
-const ChatsList = ({ className }: ChatsListProps) => {
+export const ChatsList = ({ className }: ChatsListProps) => {
   const {
-    data: chatList,
-    isLoading,
-    isFetching,
-    isSuccess,
+    data: chatList, isLoading, isFetching, isSuccess,
   } = useGetChatsQuery();
+
+  // FIXME: remove comment
+  console.log(chatList);
 
   return isFetching || isLoading ? (
     <Spinner />
@@ -25,8 +21,6 @@ const ChatsList = ({ className }: ChatsListProps) => {
       ))}
     </ul>
   ) : (
-    <ErrorMessage />
+    <Error />
   );
 };
-
-export default ChatsList;
