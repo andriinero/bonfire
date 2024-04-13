@@ -22,13 +22,13 @@ const IconButton = ({
   return (
     <button
       className={cn(
-        'rounded-lg p-3 text-neutral-500 transition hover:bg-neutral-100',
+        'rounded-lg p-3 text-gray-500 transition hover:bg-gray-100',
         className,
         {
-          'bg-neutral-100 text-neutral-800': isSelected,
+          'bg-gray-100 text-gray-800': isSelected,
         },
         {
-          'rounded-full bg-neutral-100 p-2 text-neutral-800 hover:bg-neutral-200':
+          'rounded-full bg-gray-100 p-2 text-gray-800 hover:bg-gray-200':
             style === 'round',
         },
       )}

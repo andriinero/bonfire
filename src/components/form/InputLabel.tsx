@@ -15,7 +15,7 @@ const InputLabel = ({
   return (
     <label
       {...otherProps}
-      className={cn('cursor-pointer font-medium text-black', className)}
+      className={cn('cursor-pointer font-medium text-gray-800', className)}
     >
       {children}
     </label>

@@ -22,7 +22,7 @@ const TextInput = forwardRef(
         ref={ref}
         type="text"
         className={cn(
-          'rounded-md border border-solid p-2 text-black shadow-sm transition focus:border-solid focus:border-sky-400 focus:outline-0',
+          'rounded-md border border-solid p-2 text-gray-800 shadow-sm transition focus:border-solid focus:border-sky-400 focus:outline-0',
           className,
         )}
         {...otherProps}

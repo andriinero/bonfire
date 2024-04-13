@@ -29,15 +29,16 @@ const UserMessage = ({
         <div
           className={cn('flex items-center gap-2', { 'justify-end': isAuthor })}
         >
-          <p className="text-sm font-medium text-neutral-500">
-            {user!.username}
-          </p>
+          <p className="text-sm font-medium text-gray-500">{user!.username}</p>
           <TimeStamp date={created} className="text-xs" />
         </div>
         <p
-          className={cn('rounded-full text-neutral-800 bg-neutral-100 p-2 text-sm font-medium', {
-            'bg-sky-500 text-white': isAuthor,
-          })}
+          className={cn(
+            'rounded-full bg-gray-100 p-2 text-sm font-medium text-gray-800',
+            {
+              'bg-sky-500 text-white': isAuthor,
+            },
+          )}
         >
           {body}
         </p>

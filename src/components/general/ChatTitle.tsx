@@ -13,7 +13,7 @@ const ChatTitle = ({ participants, className }: ChatTitleProps) => {
   const title = `${firstNames.join(', ')} ${names.length > 2 ? `and ${names.length - MAX_N_OF_NAMES} other(s)` : ''}`;
 
   return (
-    <p className={cn('font-medium text-neutral-800', className)}>{title}</p>
+    <p className={cn('font-medium text-gray-800', className)}>{title}</p>
   );
 };
 

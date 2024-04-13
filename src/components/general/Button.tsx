@@ -28,7 +28,7 @@ const Button = ({
         {
           'pointer-events-none opacity-60 ': disabled,
           'bg-blue bg-sky-500 shadow-sm hover:bg-sky-600 ': style === 'primary',
-          'flex justify-center border border-solid p-2 text-slate-500 shadow-sm hover:bg-slate-50':
+          'flex justify-center border border-solid p-2 text-gray-500 shadow-sm hover:bg-gray-50':
             style === 'hollow',
         },
       )}

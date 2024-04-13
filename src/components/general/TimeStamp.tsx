@@ -19,7 +19,7 @@ const TimeStamp = ({ date, className }: DateStampProps) => {
   const dateResult = wholeDaysDiff < 1 ? simple : absoluteNoYear;
 
   return (
-    <span className={cn('text-sm font-medium text-neutral-500', className)}>
+    <span className={cn('text-sm font-medium text-gray-500', className)}>
       {dateResult}
     </span>
   );

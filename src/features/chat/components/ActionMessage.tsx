@@ -1,6 +1,3 @@
-import { ReactNode } from 'react';
-
-import cn from '@/utils/cn';
 import { MessageData } from '@/types/MessageData';
 
 type ActionMessageProps = {} & MessageData;
@@ -16,9 +13,7 @@ const ActionMessage = ({
 }: ActionMessageProps) => {
   return (
     <div className="flex justify-center text-sm">
-      <p className="rounded-full bg-neutral-100 px-2 py-1 text-neutral-800">
-        {body}
-      </p>
+      <p className="rounded-full bg-gray-100 px-2 py-1 text-gray-800">{body}</p>
     </div>
   );
 };

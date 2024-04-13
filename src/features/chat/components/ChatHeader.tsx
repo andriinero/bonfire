@@ -23,7 +23,7 @@ const ChatHeader = () => {
         />
         <div>
           <ChatTitle participants={chat?.participants!} />
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-gray-500">
             {participant?.is_online ? 'Online' : 'Offline'}
           </p>
         </div>
