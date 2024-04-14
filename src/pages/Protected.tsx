@@ -1,7 +1,11 @@
-import { useAppSelector } from '@/app/hooks';
-import { useGetAuthDataQuery } from '@/features/api/apiSlice';
-import { selectIsSignedIn } from '@/features/auth/authSlice';
 import { ReactNode } from 'react';
+import { useAppSelector } from '@/app/hooks';
+
+import {
+  selectIsSignedIn,
+  useGetAuthDataQuery,
+} from '@/features/auth/authSlice';
+
 import { Navigate } from 'react-router-dom';
 
 type ProtectedProps = { children?: ReactNode };

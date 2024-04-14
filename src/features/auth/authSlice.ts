@@ -2,8 +2,12 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import storage from '@/lib/storage';
 
+import { apiSlice } from '../api/apiSlice';
+
 import { AuthData } from '@/types/AuthData';
 import { AppThunk, RootState } from '@/app/store';
+
+import { TSignInBody } from './components/SignInPanel';
 
 type AuthState = {
   authData: AuthData | null;
@@ -32,6 +36,25 @@ export const signedOut = (): AppThunk => (dispatch) => {
   dispatch(clearToken());
 };
 
+export const extendedApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getAuthData: builder.query<AuthData, void>({
+      query: () => '/auth/data',
+    }),
+    postSignIn: builder.mutation<
+      { message: string; token: string },
+      TSignInBody
+    >({
+      query: (body) => ({
+        url: '/auth/sign-in',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['authData'],
+    }),
+  }),
+});
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -49,6 +72,8 @@ const authSlice = createSlice({
 });
 
 const { setToken, clearToken, dataCleared } = authSlice.actions;
+
+export const { useGetAuthDataQuery, usePostSignInMutation } = extendedApiSlice;
 
 export default authSlice;
 

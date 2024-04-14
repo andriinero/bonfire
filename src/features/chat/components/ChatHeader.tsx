@@ -1,28 +1,21 @@
+import useNonAuthUserParticipants from '@/features/chats/hooks/useNonAuthUserParticipants';
+
+import { selectChatById, useGetChatsQuery } from '@/features/chats/chatsSlice';
+
+import { FaEllipsis } from 'react-icons/fa6';
 import ChatTitle from '@/components/general/ChatTitle';
 import UserIcon from '@/components/general/UserIcon';
 import IconButton from '@/components/general/IconButton';
-import { FaEllipsis } from 'react-icons/fa6';
-import { selectChatById } from '@/features/chats/chatsSlice';
-import { useGetChatsQuery } from '@/features/api/apiSlice';
-import useNonAuthUserParticipants from '@/features/chats/hooks/useNonAuthUserParticipants';
 import Spinner from '@/components/general/Spinner';
+import { useAppSelector } from '@/app/hooks';
 
 type ChatHeaderProps = { selectedChatId: string };
 
 const ChatHeader = ({ selectedChatId }: ChatHeaderProps) => {
-  const { data, isLoading, isFetching } = useGetChatsQuery();
+  const { isLoading, isFetching } = useGetChatsQuery();
 
-  // FIXME: remove comment
-  console.log(selectedChatId);
+  const chat = useAppSelector(selectChatById(selectedChatId));
 
-  const { chat } = useGetChatsQuery(undefined, {
-    selectFromResult: (result) => ({
-      ...result,
-      chat: selectChatById(result, selectedChatId),
-    }),
-  });
-  // FIXME: remove comment
-  console.log(chat);
   const nonAuthUser = useNonAuthUserParticipants(chat?.participants);
   const participant = nonAuthUser[0];
 

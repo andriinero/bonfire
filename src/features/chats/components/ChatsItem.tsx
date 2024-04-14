@@ -1,7 +1,6 @@
 import useNonAuthUserParticipants from '../hooks/useNonAuthUserParticipants';
 
-import { selectChatById, selectChatList } from '../chatsSlice';
-import { useGetChatsQuery } from '@/features/api/apiSlice';
+import { selectChatById } from '../chatsSlice';
 
 import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
@@ -17,6 +16,7 @@ const ChatsItem = ({ chatId }: ChatsItemProps) => {
   const chatById = useAppSelector(selectChatById(chatId));
 
   const lastMessage = chatById?.messages[0];
+
   const nonAuthUsers = useNonAuthUserParticipants(chatById?.participants);
 
   return (

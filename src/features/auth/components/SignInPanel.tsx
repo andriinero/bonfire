@@ -1,14 +1,14 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch } from '@/app/hooks';
 
-import { tokenInitialized } from '../authSlice';
 import {
+  tokenInitialized,
   useGetAuthDataQuery,
   usePostSignInMutation,
-} from '@/features/api/apiSlice';
+} from '../authSlice';
 
 import { ErrorData } from '@/types/ErrorData';
 
@@ -44,7 +44,7 @@ const SignInPanel = () => {
     try {
       const response = await postLogin(data).unwrap();
       if (response) {
-        dispatch(tokenInitialized());
+        dispatch(tokenInitialized(response.token));
         refetch();
       }
     } catch (err) {

@@ -1,6 +1,6 @@
 import cn from '@/utils/cn';
 
-import { useGetChatsQuery } from '@/features/api/apiSlice';
+import { useGetChatsQuery } from '../chatsSlice';
 
 import Spinner from '@/components/general/Spinner';
 import ChatsItem from './ChatsItem';
