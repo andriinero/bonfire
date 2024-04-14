@@ -1,20 +1,16 @@
 import { useAppSelector } from '@/app/hooks';
-import {
-  selectAuthDataFetchedState,
-  selectIsSignedIn,
-} from '@/features/auth/authSlice';
-import SignInPanel from '@/features/auth/components/SignInPanel';
+
+import { selectIsSignedIn } from '@/features/auth/authSlice';
+
 import { Navigate } from 'react-router-dom';
+import SignInPanel from '@/features/auth/components/SignInPanel';
 
 const SignIn = () => {
   const isSignedIn = useAppSelector(selectIsSignedIn);
-  const state = useAppSelector(selectAuthDataFetchedState);
 
   if (isSignedIn) return <Navigate to="/home" />;
 
-  return state === 'loading' ? (
-    <></>
-  ) : (
+  return (
     <div className="flex min-h-dvh items-center justify-center bg-neutral-100">
       <main className="w-full max-w-lg space-y-8">
         <img

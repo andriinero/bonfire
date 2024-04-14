@@ -1,33 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector } from '@reduxjs/toolkit';
 
-import { testParticipant } from '@/data/testData';
+import { apiSlice } from '../api/apiSlice';
 
 import { ChatData } from '@/types/ChatData';
-import { RootState } from '@/app/store';
 
-type ChatsState = {
-  chatsList: ChatData[];
-};
+export const selectChatListResult = apiSlice.endpoints.getChats.select();
 
-const initialState: ChatsState = {
-  chatsList: [
-    {
-      _id: 'johnchat01',
-      participants: [testParticipant],
-      created: new Date().toString(),
-    },
-  ],
-};
+export const selectChatList = createSelector(
+  selectChatListResult,
+  (chatList) => chatList.data ?? [],
+);
 
-const chatsSlice = createSlice({ name: 'chats', initialState, reducers: {} });
+export const selectChatById = (chatId: string) =>
+  createSelector(selectChatList, (chatList: ChatData[]) =>
+    chatList.find((c) => c._id === chatId),
+  );
 
-export default chatsSlice;
-
-export const selectChatsList = (state: RootState) => state.chats.chatsList;
-
-export const selectChatById = (id: string) => (state: RootState) =>
-  state.chats.chatsList.find((c) => c._id === id);
-
-export const selectParticipantsListByChatId =
-  (id: string) => (state: RootState) =>
-    state.chats.chatsList.find((c) => c._id === id)?.participants ?? [];
+export const selectParticipantListByChatId = (chatId: string) =>
+  createSelector(
+    selectChatList,
+    (chatList: ChatData[]) =>
+      chatList.find((c) => c._id === chatId)?.participants,
+  );

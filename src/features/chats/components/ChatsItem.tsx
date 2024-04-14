@@ -1,23 +1,23 @@
-import { useAppSelector } from '@/app/hooks';
 import useNonAuthUserParticipants from '../hooks/useNonAuthUserParticipants';
 
-import { selectMessagesListByChatId } from '@/features/messages/messagesSlice';
-import { selectParticipantsListByChatId } from '../chatsSlice';
+import { selectChatById, selectChatList } from '../chatsSlice';
+import { useGetChatsQuery } from '@/features/api/apiSlice';
 
 import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
 import ChatTitle from '../../../components/general/ChatTitle';
 import MessagePreview from './MessagePreview';
+import { useAppSelector } from '@/app/hooks';
 
 type ChatsItemProps = {
   chatId: string;
 };
 
 const ChatsItem = ({ chatId }: ChatsItemProps) => {
-  const participants = useAppSelector(selectParticipantsListByChatId(chatId));
-  const lastMessage = useAppSelector(selectMessagesListByChatId(chatId))[0];
+  const chatById = useAppSelector(selectChatById(chatId));
 
-  const nonAuthUsers = useNonAuthUserParticipants(participants!);
+  const lastMessage = chatById?.messages[0];
+  const nonAuthUsers = useNonAuthUserParticipants(chatById?.participants);
 
   return (
     <li className="flex cursor-pointer gap-4 rounded-lg bg-gray-100 p-2">
@@ -40,9 +40,7 @@ const ChatsItem = ({ chatId }: ChatsItemProps) => {
           <ChatTitle participants={nonAuthUsers!} />
           {lastMessage && <MessagePreview messageId={lastMessage._id} />}
         </div>
-        <div>
-          <TimeStamp date={lastMessage.created} />
-        </div>
+        <div>{lastMessage && <TimeStamp date={lastMessage.created} />}</div>
       </div>
     </li>
   );

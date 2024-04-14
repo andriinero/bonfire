@@ -1,6 +1,5 @@
 import authSlice from '@/features/auth/authSlice';
 import chatSlice from '@/features/chat/chatSlice';
-import chatsSlice from '@/features/chats/chatsSlice';
 import messagesSlice from '@/features/messages/messagesSlice';
 import type { Action, ThunkAction } from '@reduxjs/toolkit';
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
@@ -11,7 +10,6 @@ import { apiSlice } from '@/features/api/apiSlice';
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
 const rootReducer = combineSlices(
   authSlice,
-  chatsSlice,
   messagesSlice,
   chatSlice,
   apiSlice,

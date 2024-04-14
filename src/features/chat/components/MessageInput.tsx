@@ -11,7 +11,7 @@ const MessageBarSchema = z.object({
 
 type TMessageBar = z.infer<typeof MessageBarSchema>;
 
-const MessageBar = () => {
+const MessageInput = () => {
   const {
     register,
     handleSubmit,
@@ -47,4 +47,4 @@ const MessageBar = () => {
   );
 };
 
-export default MessageBar;
+export default MessageInput;

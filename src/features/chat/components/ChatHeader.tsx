@@ -1,20 +1,34 @@
-import { useAppSelector } from '@/app/hooks';
-
-import { selectSelectedChatId } from '../chatSlice';
-import { selectChatById } from '@/features/chats/chatsSlice';
-
 import ChatTitle from '@/components/general/ChatTitle';
 import UserIcon from '@/components/general/UserIcon';
 import IconButton from '@/components/general/IconButton';
 import { FaEllipsis } from 'react-icons/fa6';
+import { selectChatById } from '@/features/chats/chatsSlice';
+import { useGetChatsQuery } from '@/features/api/apiSlice';
+import useNonAuthUserParticipants from '@/features/chats/hooks/useNonAuthUserParticipants';
+import Spinner from '@/components/general/Spinner';
 
-const ChatHeader = () => {
-  const chatId = useAppSelector(selectSelectedChatId);
-  const chat = useAppSelector(selectChatById(chatId!));
+type ChatHeaderProps = { selectedChatId: string };
 
-  const participant = chat?.participants[0];
+const ChatHeader = ({ selectedChatId }: ChatHeaderProps) => {
+  const { data, isLoading, isFetching } = useGetChatsQuery();
 
-  return (
+  // FIXME: remove comment
+  console.log(selectedChatId);
+
+  const { chat } = useGetChatsQuery(undefined, {
+    selectFromResult: (result) => ({
+      ...result,
+      chat: selectChatById(result, selectedChatId),
+    }),
+  });
+  // FIXME: remove comment
+  console.log(chat);
+  const nonAuthUser = useNonAuthUserParticipants(chat?.participants);
+  const participant = nonAuthUser[0];
+
+  return isLoading || isFetching ? (
+    <Spinner />
+  ) : (
     <header className="flex items-center justify-between border-b p-4 shadow-[0_2px_4px_-2px_rgb(0,0,0,0.1)]">
       <div className="flex items-center gap-2">
         <UserIcon

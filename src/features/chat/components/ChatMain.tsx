@@ -1,11 +1,11 @@
-import MessageBar from './MessageBar';
+import MessageInput from './MessageInput';
 import MessageList from './MessageList';
 
 const ChatMain = () => {
   return (
     <div className="flex flex-col">
       <MessageList />
-      <MessageBar />
+      <MessageInput />
     </div>
   );
 };

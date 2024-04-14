@@ -1,50 +1,58 @@
 import { z } from 'zod';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { useForm } from 'react-hook-form';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAppDispatch } from '@/app/hooks';
 
+import { tokenInitialized } from '../authSlice';
 import {
-  authDataFetched,
-  selectSignInPostedState,
-  signInPosted,
-} from '../authSlice';
+  useGetAuthDataQuery,
+  usePostSignInMutation,
+} from '@/features/api/apiSlice';
 
-import { FaGithub, FaGoogle } from 'react-icons/fa6';
+import { ErrorData } from '@/types/ErrorData';
+
 import Form from '../../../components/form/Form';
-import InputGroup from '../../../components/form/InputGroup';
 import Button from '../../../components/general/Button';
 import TextInput from '../../../components/form/TextInput';
 import InputLabel from '../../../components/form/InputLabel';
+import InputGroup from '../../../components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
+import { FaGithub, FaGoogle } from 'react-icons/fa6';
 
-const SignInSchema = z.object({
+const SignInBodySchema = z.object({
   email: z.string().email(),
   password: z.string(),
 });
-type TSignIn = z.infer<typeof SignInSchema>;
+export type TSignInBody = z.infer<typeof SignInBodySchema>;
 
 const SignInPanel = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TSignIn>({ resolver: zodResolver(SignInSchema) });
+  } = useForm<TSignInBody>({ resolver: zodResolver(SignInBodySchema) });
 
-  const signInState = useAppSelector(selectSignInPostedState);
+  const { refetch, isSuccess } = useGetAuthDataQuery();
+  const [postLogin, { isLoading }] = usePostSignInMutation();
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  const handleFormSubmit = (data: TSignIn) => {
-    dispatch(signInPosted(data)).then(() => {
-      dispatch(authDataFetched()).then(() => {
-        navigate('/home/chats');
-      });
-    });
+  if (isSuccess) return <Navigate to="/home" />;
+
+  const handleFormSubmit = async (data: TSignInBody): Promise<void> => {
+    try {
+      const response = await postLogin(data).unwrap();
+      if (response) {
+        dispatch(tokenInitialized());
+        refetch();
+      }
+    } catch (err) {
+      console.error((err as ErrorData).message);
+    }
   };
 
-  const isSubmitDisabled = signInState === 'loading';
+  const isSubmitDisabled = isLoading;
 
   return (
     <div className="container space-y-8 rounded-md bg-white p-10 font-medium text-slate-400 shadow">

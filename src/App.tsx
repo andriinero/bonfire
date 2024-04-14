@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import Router from './Router';
 import { useAppDispatch } from './app/hooks';
-import { authDataFetched } from './features/auth/authSlice';
+import { tokenInitialized } from './features/auth/authSlice';
 
 const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(authDataFetched());
+    dispatch(tokenInitialized());
   }, [dispatch]);
 
   return <Router />;

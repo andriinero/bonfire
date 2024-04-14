@@ -7,7 +7,7 @@ type ChatState = {
 };
 
 const initialState: ChatState = {
-  selectedChatId: 'johnchat01',
+  selectedChatId: null,
 };
 
 const chatSlice = createSlice({
