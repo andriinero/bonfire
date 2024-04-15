@@ -23,6 +23,7 @@ export const tokenInitialized =
   (token?: string): AppThunk =>
   (dispatch) => {
     if (token) {
+      storage.setToken(token);
       dispatch(setToken(token));
     } else {
       const storageToken = storage.getToken();
@@ -56,17 +57,12 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['authData'],
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
           const {
             data: { token },
           } = await queryFulfilled;
           dispatch(tokenInitialized(token));
-
-          dispatch(extendedApiSlice.endpoints.getAuthData.initiate());
-          // FIXME: remove comment
-          console.log('initiated');
         } catch (err) {}
       },
     }),

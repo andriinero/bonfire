@@ -5,8 +5,15 @@ type SpinnerProps = { className?: string };
 
 const Spinner = ({ className }: SpinnerProps) => {
   return (
-    <div className={cn('animate-spin', className)}>
-      <FaCircleNotch />
+    <div
+      className={cn(
+        'flex h-full w-full items-center justify-center',
+        className,
+      )}
+    >
+      <div className="animate-spin">
+        <FaCircleNotch size="2rem" />
+      </div>
     </div>
   );
 };

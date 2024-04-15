@@ -1,14 +1,20 @@
-import { useEffect } from 'react';
-import Router from './Router';
+import { useMemo } from 'react';
 import { useAppDispatch } from './app/hooks';
-import { tokenInitialized } from './features/auth/authSlice';
+
+import {
+  tokenInitialized,
+  useGetAuthDataQuery,
+} from './features/auth/authSlice';
+
+import Router from './Router';
 
 const App = () => {
+  useGetAuthDataQuery();
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  useMemo(() => {
     dispatch(tokenInitialized());
-  }, [dispatch]);
+  }, []);
 
   return <Router />;
 };

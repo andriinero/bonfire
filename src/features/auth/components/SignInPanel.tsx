@@ -20,6 +20,8 @@ const SignInBodySchema = z.object({
 export type TSignInBody = z.infer<typeof SignInBodySchema>;
 
 const SignInPanel = () => {
+  const { refetch } = useGetAuthDataQuery();
+
   const {
     register,
     handleSubmit,
@@ -28,13 +30,11 @@ const SignInPanel = () => {
 
   const [postSignIn, { isLoading, isSuccess }] = usePostSignInMutation();
 
-  // FIXME: remove comment
-  console.log('Post sing-in success: ' + isSuccess);
-
   if (isSuccess) return <Navigate to="/home/chats" />;
 
-  const handleFormSubmit = (data: TSignInBody): void => {
-    postSignIn(data);
+  const handleFormSubmit = async (data: TSignInBody): Promise<void> => {
+    await postSignIn(data).unwrap();
+    refetch();
   };
 
   const isSubmitDisabled = isLoading;

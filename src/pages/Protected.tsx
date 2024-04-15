@@ -11,10 +11,10 @@ import { Navigate } from 'react-router-dom';
 type ProtectedProps = { children?: ReactNode };
 
 const Protected = ({ children }: ProtectedProps) => {
-  const isSignedIn = useAppSelector(selectIsSignedIn);
   const { isFetching, isLoading, isError } = useGetAuthDataQuery();
+  const isSignedIn = useAppSelector(selectIsSignedIn);
 
-  if (!isSignedIn || isError) return <Navigate to="/sign-in" />;
+  if (!isSignedIn && !isFetching) return <Navigate to="/sign-in" />;
 
   return isLoading || isFetching || isError ? <></> : <>{children}</>;
 };
