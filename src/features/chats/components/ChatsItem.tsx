@@ -6,7 +6,8 @@ import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
 import ChatTitle from '../../../components/general/ChatTitle';
 import MessagePreview from './MessagePreview';
-import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { setSelectedChatId } from '@/features/chat/chatSlice';
 
 type ChatsItemProps = {
   chatId: string;
@@ -19,18 +20,29 @@ const ChatsItem = ({ chatId }: ChatsItemProps) => {
 
   const nonAuthUsers = useNonAuthUserParticipants(chatById?.participants);
 
+  const dispatch = useAppDispatch();
+
+  const handleChatClick = (): void => {
+    dispatch(setSelectedChatId(chatId));
+  };
+
   return (
-    <li className="flex cursor-pointer gap-4 rounded-lg bg-gray-100 p-2">
+    <li
+      className="flex cursor-pointer gap-4 rounded-lg bg-gray-100 p-2"
+      onClick={handleChatClick}
+    >
       <div>
         {nonAuthUsers.length === 1 ? (
-          nonAuthUsers.map((u) => (
-            <UserIcon
-              key={u._id}
-              isOnline={u.is_online}
-              src={u.profile_image}
-              style="lg"
-            />
-          ))
+          nonAuthUsers.map((u) => {
+            return (
+              <UserIcon
+                key={u._id}
+                isOnline={u.is_online}
+                src={u.profile_image}
+                style="lg"
+              />
+            );
+          })
         ) : (
           <p>TODO: multiple users icon</p>
         )}

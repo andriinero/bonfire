@@ -19,7 +19,7 @@ const ChatsList = ({ className }: ChatsListProps) => {
   return isFetching || isLoading ? (
     <Spinner />
   ) : isSuccess ? (
-    <ul className={cn('', className)}>
+    <ul className={cn('space-y-2', className)}>
       {chatList!.map((c) => (
         <ChatsItem key={c._id} chatId={c._id} />
       ))}

@@ -9,6 +9,7 @@ type UserIconProps = {
 const UserIcon = ({
   isOnline = false,
   style = 'md',
+  src = '/profile-placeholder.jpeg',
   ...otherProps
 }: UserIconProps) => {
   return (
@@ -21,7 +22,7 @@ const UserIcon = ({
         )}
       />
       <img
-        src="/profile-placeholder.jpeg"
+        src={src}
         className={cn(
           'size-10 select-none rounded-full object-cover text-gray-400',
           {
