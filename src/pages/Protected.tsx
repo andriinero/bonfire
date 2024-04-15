@@ -14,9 +14,9 @@ const Protected = ({ children }: ProtectedProps) => {
   const isSignedIn = useAppSelector(selectIsSignedIn);
   const { isFetching, isLoading, isError } = useGetAuthDataQuery();
 
-  if (isError && !isSignedIn) return <Navigate to="/sign-in" />;
+  if (!isSignedIn || isError) return <Navigate to="/sign-in" />;
 
-  return isLoading || isFetching ? <></> : <>{children}</>;
+  return isLoading || isFetching || isError ? <></> : <>{children}</>;
 };
 
 export default Protected;

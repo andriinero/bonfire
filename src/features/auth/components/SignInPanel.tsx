@@ -2,15 +2,8 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch } from '@/app/hooks';
 
-import {
-  tokenInitialized,
-  useGetAuthDataQuery,
-  usePostSignInMutation,
-} from '../authSlice';
-
-import { ErrorData } from '@/types/ErrorData';
+import { useGetAuthDataQuery, usePostSignInMutation } from '../authSlice';
 
 import Form from '../../../components/form/Form';
 import Button from '../../../components/general/Button';
@@ -33,23 +26,15 @@ const SignInPanel = () => {
     formState: { errors },
   } = useForm<TSignInBody>({ resolver: zodResolver(SignInBodySchema) });
 
-  const { refetch, isSuccess } = useGetAuthDataQuery();
-  const [postLogin, { isLoading }] = usePostSignInMutation();
+  const [postSignIn, { isLoading, isSuccess }] = usePostSignInMutation();
 
-  const dispatch = useAppDispatch();
+  // FIXME: remove comment
+  console.log('Post sing-in success: ' + isSuccess);
 
-  if (isSuccess) return <Navigate to="/home" />;
+  if (isSuccess) return <Navigate to="/home/chats" />;
 
-  const handleFormSubmit = async (data: TSignInBody): Promise<void> => {
-    try {
-      const response = await postLogin(data).unwrap();
-      if (response) {
-        dispatch(tokenInitialized(response.token));
-        refetch();
-      }
-    } catch (err) {
-      console.error((err as ErrorData).message);
-    }
+  const handleFormSubmit = (data: TSignInBody): void => {
+    postSignIn(data);
   };
 
   const isSubmitDisabled = isLoading;

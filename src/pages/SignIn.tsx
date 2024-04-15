@@ -2,8 +2,8 @@ import { useAppSelector } from '@/app/hooks';
 
 import { selectIsSignedIn } from '@/features/auth/authSlice';
 
-import { Navigate } from 'react-router-dom';
 import SignInPanel from '@/features/auth/components/SignInPanel';
+import { Navigate } from 'react-router-dom';
 
 const SignIn = () => {
   const isSignedIn = useAppSelector(selectIsSignedIn);

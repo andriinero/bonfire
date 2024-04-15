@@ -40,6 +40,12 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAuthData: builder.query<AuthData, void>({
       query: () => '/auth/data',
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setAuthData(data));
+        } catch (err) {}
+      },
     }),
     postSignIn: builder.mutation<
       { message: string; token: string },
@@ -51,6 +57,18 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         body,
       }),
       invalidatesTags: ['authData'],
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const {
+            data: { token },
+          } = await queryFulfilled;
+          dispatch(tokenInitialized(token));
+
+          dispatch(extendedApiSlice.endpoints.getAuthData.initiate());
+          // FIXME: remove comment
+          console.log('initiated');
+        } catch (err) {}
+      },
     }),
   }),
 });
@@ -59,6 +77,9 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    setAuthData: (state, action: PayloadAction<AuthData>) => {
+      state.authData = action.payload;
+    },
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
@@ -71,7 +92,7 @@ const authSlice = createSlice({
   },
 });
 
-const { setToken, clearToken, dataCleared } = authSlice.actions;
+const { setAuthData, setToken, clearToken, dataCleared } = authSlice.actions;
 
 export const { useGetAuthDataQuery, usePostSignInMutation } = extendedApiSlice;
 
