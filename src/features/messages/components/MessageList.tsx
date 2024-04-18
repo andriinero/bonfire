@@ -1,10 +1,10 @@
 import { useAppSelector } from '@/app/hooks';
 
-import { selectSelectedChatId } from '../chatSlice';
+import { selectSelectedChatId } from '../../chat/chatSlice';
 import { useGetMessagesQuery } from '@/features/messages/messagesSlice';
 
-import MessageItem from './MessageItem';
 import Spinner from '@/components/general/Spinner';
+import MessageItem from './MessageItem';
 import ErrorMessage from '@/components/general/ErrorMessage';
 
 const MessageList = () => {
@@ -15,19 +15,28 @@ const MessageList = () => {
     isSuccess,
   } = useGetMessagesQuery(selectedChatId);
 
-  return isFetching ? (
-    <Spinner />
-  ) : isSuccess ? (
+  return (
     <div className="flex flex-1 flex-col gap-6 p-4">
-      <ul>
-        {messagesList!.map((m) => (
-          <MessageItem key={m._id} messageId={m._id} />
-        ))}
-      </ul>
-      <p>No messages</p>
+      {isFetching ? (
+        <Spinner />
+      ) : isSuccess ? (
+        <ul>
+          {messagesList ? (
+            messagesList!.map((m) => (
+              <MessageItem
+                key={m._id}
+                chatRoomId={selectedChatId}
+                messageId={m._id}
+              />
+            ))
+          ) : (
+            <p>No messages</p>
+          )}
+        </ul>
+      ) : (
+        <ErrorMessage />
+      )}
     </div>
-  ) : (
-    <ErrorMessage />
   );
 };
 

@@ -1,8 +1,9 @@
 import { useAppSelector } from '@/app/hooks';
 
-import cn from '@/utils/cn';
+import { selectMessageById } from '../messagesSlice';
 
-import { selectMessagesById } from '../messagesSlice';
+import UserMessage from '@/features/messages/components/UserMessage';
+import ActionMessage from '@/features/messages/components/ActionMessage';
 
 type MessageProps = {
   chatRoomId: string;
@@ -10,13 +11,13 @@ type MessageProps = {
   className?: string;
 };
 
-const MessageItem = ({ chatRoomId, messageId, className }: MessageProps) => {
-  const message = useAppSelector(selectMessagesById(chatRoomId, messageId));
+const MessageItem = ({ chatRoomId, messageId }: MessageProps) => {
+  const message = useAppSelector(selectMessageById(chatRoomId, messageId));
 
-  return (
-    <p className={cn('', className, { '': message?.type === 'action' })}>
-      {message?.body}
-    </p>
+  return message?.type === 'message' ? (
+    <UserMessage {...message} />
+  ) : (
+    <ActionMessage body={message?.body} />
   );
 };
 

@@ -1,6 +1,6 @@
 import { MessageData } from '@/types/MessageData';
 
-type ActionMessageProps = { body: string };
+type ActionMessageProps = { body?: string };
 
 const ActionMessage = ({ body }: ActionMessageProps) => {
   return (

@@ -2,9 +2,9 @@ import { useAppSelector } from '@/app/hooks';
 
 import { selectSelectedChatId } from '@/features/chat/chatSlice';
 
+import Sidebar from '@/layout/Sidebar';
 import ChatHeader from '@/features/chat/components/ChatHeader';
 import ChatMain from '@/features/chat/components/ChatMain';
-import Sidebar from '@/layout/Sidebar';
 
 const Home = () => {
   const selectedChatId = useAppSelector(selectSelectedChatId);
@@ -18,7 +18,9 @@ const Home = () => {
           <ChatMain />
         </>
       ) : (
-        <h1>No chat selected!</h1>
+        <div className="row-span-2 flex items-center justify-center bg-gray-50">
+          No chat selected!
+        </div>
       )}
     </div>
   );

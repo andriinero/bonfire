@@ -17,7 +17,7 @@ export const selectMessagesByChatId =
   (chatRoomId: string) => (state: RootState) =>
     extendedApiSlice.endpoints.getMessages.select(chatRoomId)(state).data;
 
-export const selectMessagesById =
+export const selectMessageById =
   (chatRoomId: string, messageId: string) => (state: RootState) =>
     extendedApiSlice.endpoints.getMessages
       .select(chatRoomId)(state)

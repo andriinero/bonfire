@@ -1,5 +1,5 @@
 import MessageInput from './MessageInput';
-import MessageList from './MessageList';
+import MessageList from '../../messages/components/MessageList';
 
 const ChatMain = () => {
   return (
