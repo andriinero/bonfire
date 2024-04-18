@@ -15,10 +15,8 @@ type ChatsItemProps = {
 
 const ChatsItem = ({ chatId }: ChatsItemProps) => {
   const chatById = useAppSelector(selectChatById(chatId));
-
-  const lastMessage = chatById?.messages[0];
-
   const nonAuthUsers = useNonAuthUserParticipants(chatById?.participants);
+  const lastMessage = chatById?.messages[0];
 
   const dispatch = useAppDispatch();
 

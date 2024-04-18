@@ -14,14 +14,13 @@ const UserMessage = ({
   body,
   created,
   reply,
-  type,
 }: UserMessageProps) => {
   const authUserId = useAppSelector(selectAuthUserId);
 
   const isAuthor = authUserId === user!._id;
 
   return (
-    <div className={cn('flex gap-2', { 'flex-row-reverse': isAuthor })}>
+    <li className={cn('flex gap-2', { 'flex-row-reverse': isAuthor })}>
       <div>
         <UserIcon src={user!.profile_image} isOnline={user!.is_online} />
       </div>
@@ -43,7 +42,7 @@ const UserMessage = ({
           {body}
         </p>
       </div>
-    </div>
+    </li>
   );
 };
 

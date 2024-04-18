@@ -1,28 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { apiSlice } from '../api/apiSlice';
 
 import { RootState } from '@/app/store';
 import { MessageData } from '@/types/MessageData';
 
-import { testMessages } from '@/data/testData';
-
-type MessagesState = {
-  messagesList: MessageData[];
-};
-
-const initialState: MessagesState = {
-  messagesList: [...testMessages],
-};
-
-const messagesSlice = createSlice({
-  name: 'messages',
-  initialState,
-  reducers: {},
+export const extendedApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getMessages: builder.query<MessageData[], string>({
+      query: (chatRoomId) => `/chat-rooms/${chatRoomId}/messages`,
+    }),
+  }),
 });
 
-export default messagesSlice;
+export const { useGetMessagesQuery } = extendedApiSlice;
 
-export const selectMessagesListByChatId = (id: string) => (state: RootState) =>
-  state.messages.messagesList.filter((m) => m.chat_room === id);
+export const selectMessagesByChatId =
+  (chatRoomId: string) => (state: RootState) =>
+    extendedApiSlice.endpoints.getMessages.select(chatRoomId)(state).data;
 
-export const selectMessageById = (id: string) => (state: RootState) =>
-  state.messages.messagesList.find((m) => m._id === id);
+export const selectMessagesById =
+  (chatRoomId: string, messageId: string) => (state: RootState) =>
+    extendedApiSlice.endpoints.getMessages
+      .select(chatRoomId)(state)
+      .data?.find((m) => m._id === messageId);

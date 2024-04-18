@@ -1,26 +1,21 @@
-import { ReactNode } from 'react';
 import { useAppSelector } from '@/app/hooks';
 
 import cn from '@/utils/cn';
 
-import { selectMessageById } from '@/features/messages/messagesSlice';
+import { selectMessagesById } from '../messagesSlice';
 
 type MessageProps = {
+  chatRoomId: string;
   messageId: string;
-  type?: string;
   className?: string;
 };
 
-const MessageItem = ({
-  messageId,
-  type = 'message',
-  className,
-}: MessageProps) => {
-  const messageData = useAppSelector(selectMessageById(messageId));
+const MessageItem = ({ chatRoomId, messageId, className }: MessageProps) => {
+  const message = useAppSelector(selectMessagesById(chatRoomId, messageId));
 
   return (
-    <p className={cn('', className, { '': type === 'action' })}>
-      {messageData?.body}
+    <p className={cn('', className, { '': message?.type === 'action' })}>
+      {message?.body}
     </p>
   );
 };

@@ -12,7 +12,7 @@ const Spinner = ({ className }: SpinnerProps) => {
       )}
     >
       <div className="animate-spin">
-        <FaCircleNotch size="2rem" />
+        <FaCircleNotch size="1.5rem" />
       </div>
     </div>
   );

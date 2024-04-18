@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid';
-
 import { MessageData } from '@/types/MessageData';
 import { UserData } from '@/types/UserData';
 import { MessageType } from '@/types/MessageType';

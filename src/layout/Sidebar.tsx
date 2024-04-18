@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import UserIcon from '@/components/general/UserIcon';
-import NavControls from '@/features/nav/components/NavControls';
+import NavControls from '@/layout/NavControls';
 import { useAppSelector } from '@/app/hooks';
 import { selectAuthProfileImage } from '@/features/auth/authSlice';
 
