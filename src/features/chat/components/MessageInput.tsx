@@ -1,9 +1,16 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-
-import { FaPaperPlane } from 'react-icons/fa6';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import Button from '@/components/general/Button';
+import { FaPaperPlane } from 'react-icons/fa6';
+import {
+  TPostMessageBody,
+  usePostMessageMutation,
+} from '@/features/messages/messagesSlice';
+import { useAppSelector } from '@/app/hooks';
+import { selectSelectedChatId } from '../chatSlice';
+import { selectAuthUserId } from '@/features/auth/authSlice';
 
 const MessageBarSchema = z.object({
   body: z.string(),
@@ -12,15 +19,25 @@ const MessageBarSchema = z.object({
 type TMessageBar = z.infer<typeof MessageBarSchema>;
 
 const MessageInput = () => {
+  const selectedChatId = useAppSelector(selectSelectedChatId);
+  const authUserId = useAppSelector(selectAuthUserId) as string;
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
+    reset,
   } = useForm<TMessageBar>({ resolver: zodResolver(MessageBarSchema) });
 
-  const handleFormSubmit = async (data: TMessageBar): Promise<void> => {};
+  const [postMessage, { isLoading }] = usePostMessageMutation();
 
-  const isSubmitDisabled = isSubmitting;
+  const handleFormSubmit = async (data: TMessageBar): Promise<void> => {
+    const postBody: TPostMessageBody = { body: data.body, user: authUserId };
+    await postMessage({ chatRoomId: selectedChatId!, body: postBody });
+    reset();
+  };
+
+  const isSubmitDisabled = isSubmitting || isLoading;
 
   return (
     <div className="border-t px-4 py-2">

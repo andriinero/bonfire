@@ -1,13 +1,14 @@
+import { useEffect } from 'react';
+import { useAppDispatch } from '@/app/hooks';
+
 import cn from '@/utils/cn';
 
 import { useGetChatsQuery } from '../chatsSlice';
-
-import Spinner from '@/components/general/Spinner';
-import ChatsItem from './ChatsItem';
-import ErrorMessage from '@/components/general/ErrorMessage';
-import { useEffect } from 'react';
-import { useAppDispatch } from '@/app/hooks';
 import { setSelectedChatId } from '@/features/chat/chatSlice';
+
+import ChatsItem from './ChatsItem';
+import Spinner from '@/components/general/Spinner';
+import ErrorMessage from '@/components/general/ErrorMessage';
 
 type ChatsListProps = { className?: string };
 

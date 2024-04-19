@@ -1,13 +1,14 @@
 import useNonAuthUserParticipants from '../hooks/useNonAuthUserParticipants';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import { selectChatById } from '../chatsSlice';
+import { setSelectedChatId } from '@/features/chat/chatSlice';
 
 import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
 import ChatTitle from '../../../components/general/ChatTitle';
 import MessagePreview from './MessagePreview';
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { setSelectedChatId } from '@/features/chat/chatSlice';
+import { useGetMessagesQuery } from '@/features/messages/messagesSlice';
 
 type ChatsItemProps = {
   chatId: string;
@@ -16,6 +17,7 @@ type ChatsItemProps = {
 const ChatsItem = ({ chatId }: ChatsItemProps) => {
   const chatById = useAppSelector(selectChatById(chatId));
   const nonAuthUsers = useNonAuthUserParticipants(chatById?.participants);
+  const { data } = useGetMessagesQuery(chatId);
   const lastMessage = chatById?.messages[0];
 
   const dispatch = useAppDispatch();

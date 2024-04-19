@@ -37,7 +37,7 @@ export const signedOut = (): AppThunk => (dispatch) => {
   dispatch(clearToken());
 };
 
-export const extendedApiSlice = apiSlice.injectEndpoints({
+export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAuthData: builder.query<AuthData, void>({
       query: () => '/auth/data',
@@ -90,7 +90,7 @@ const authSlice = createSlice({
 
 const { setAuthData, setToken, clearToken, dataCleared } = authSlice.actions;
 
-export const { useGetAuthDataQuery, usePostSignInMutation } = extendedApiSlice;
+export const { useGetAuthDataQuery, usePostSignInMutation } = authApiSlice;
 
 export default authSlice;
 

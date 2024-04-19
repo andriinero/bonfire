@@ -15,7 +15,8 @@ const chatSlice = createSlice({
   initialState,
   reducers: {
     setSelectedChatId: (state, action: PayloadAction<string>) => {
-      state.selectedChatId = action.payload;
+      if (state.selectedChatId !== action.payload)
+        state.selectedChatId = action.payload;
     },
     clearSelectedChat: (state) => {
       state.selectedChatId = null;
