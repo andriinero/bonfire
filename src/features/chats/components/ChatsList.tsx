@@ -4,7 +4,7 @@ import { useAppDispatch } from '@/app/hooks';
 import cn from '@/utils/cn';
 
 import { useGetChatsQuery } from '../chatsSlice';
-import { setSelectedChatId } from '@/features/chat/chatSlice';
+import { selectedChatIdSet } from '@/features/chat/chatSlice';
 
 import ChatsItem from './ChatsItem';
 import Spinner from '@/components/general/Spinner';
@@ -23,7 +23,7 @@ const ChatsList = ({ className }: ChatsListProps) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (chatList) dispatch(setSelectedChatId(chatList[0]._id));
+    if (chatList) dispatch(selectedChatIdSet(chatList[0]._id));
   }, [chatList]);
 
   return isFetching || isLoading ? (
