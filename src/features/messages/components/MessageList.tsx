@@ -16,11 +16,11 @@ const MessageList = () => {
   } = useGetMessagesQuery(selectedChatId);
 
   return (
-    <div className="flex-1 p-4">
+    <div className="overflow-y-auto">
       {isFetching ? (
         <Spinner />
       ) : isSuccess ? (
-        <ul className="flex flex-col gap-6">
+        <ul className="flex flex-col gap-6 overflow-y-auto p-4">
           {messagesList ? (
             messagesList!.map((m) => (
               <MessageItem

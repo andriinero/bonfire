@@ -8,13 +8,13 @@ import UserIcon from '@/components/general/UserIcon';
 import IconButton from '@/components/general/IconButton';
 import Spinner from '@/components/general/Spinner';
 import { useAppSelector } from '@/app/hooks';
+import { selectSelectedChatId } from '../chatSlice';
 
-type ChatHeaderProps = { selectedChatId: string };
-
-const ChatHeader = ({ selectedChatId }: ChatHeaderProps) => {
+const ChatHeader = () => {
+  const selectedChatId = useAppSelector(selectSelectedChatId);
   const { isLoading, isFetching } = useGetChatsQuery();
 
-  const chat = useAppSelector(selectChatById(selectedChatId));
+  const chat = useAppSelector(selectChatById(selectedChatId!));
 
   const nonAuthUser = useNonAuthUserParticipants(chat?.participants);
   const participant = nonAuthUser[0];

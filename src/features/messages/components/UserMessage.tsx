@@ -33,7 +33,7 @@ const UserMessage = ({
         </div>
         <p
           className={cn(
-            'rounded-full bg-gray-100 p-2 text-sm font-medium text-gray-800',
+            'rounded-full bg-gray-100 p-2 text-center text-sm font-medium text-gray-800',
             {
               'bg-sky-500 text-white': isAuthor,
             },

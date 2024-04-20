@@ -25,7 +25,6 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
       }),
       onQueryStarted: async ({ chatRoomId }, { dispatch, queryFulfilled }) => {
         const result = (await queryFulfilled).data;
-
         dispatch(
           messagesApiSlice.util.updateQueryData(
             'getMessages',

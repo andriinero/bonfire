@@ -3,10 +3,10 @@ import MessageList from '../../messages/components/MessageList';
 
 const ChatMain = () => {
   return (
-    <div className="flex flex-col">
+    <main className="h-full flex flex-col row-span-3">
       <MessageList />
       <MessageInput />
-    </div>
+    </main>
   );
 };
 
