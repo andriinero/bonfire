@@ -2,12 +2,31 @@ import { apiSlice } from '../api/apiSlice';
 
 import { RootState } from '@/app/store';
 import { MessageData } from '@/types/MessageData';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export type TPostMessageBody = {
   user: string;
   body: string;
   reply?: string;
 };
+
+type MessagesState = {
+  shouldScrollDown: boolean;
+};
+
+const initialState: MessagesState = {
+  shouldScrollDown: false,
+};
+
+const messagesSlice = createSlice({
+  name: 'messages',
+  initialState,
+  reducers: {
+    shouldScrollDownSet: (state, action: PayloadAction<boolean>) => {
+      state.shouldScrollDown = action.payload;
+    },
+  },
+});
 
 export const messagesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -34,12 +53,20 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
             },
           ),
         );
+        dispatch(shouldScrollDownSet(true));
       },
     }),
   }),
 });
 
 export const { useGetMessagesQuery, usePostMessageMutation } = messagesApiSlice;
+
+export const { shouldScrollDownSet } = messagesSlice.actions;
+
+export default messagesSlice;
+
+export const selectShouldScrollDown = (state: RootState) =>
+  state.messages.shouldScrollDown;
 
 export const selectMessagesByChatId =
   (chatRoomId: string) => (state: RootState) =>

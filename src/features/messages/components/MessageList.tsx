@@ -1,13 +1,20 @@
-import { useAppSelector } from '@/app/hooks';
+import { ForwardedRef, forwardRef, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import { selectSelectedChatId } from '../../chat/chatSlice';
-import { useGetMessagesQuery } from '@/features/messages/messagesSlice';
+import {
+  selectShouldScrollDown,
+  shouldScrollDownSet,
+  useGetMessagesQuery,
+} from '@/features/messages/messagesSlice';
 
 import Spinner from '@/components/general/Spinner';
 import MessageItem from './MessageItem';
 import ErrorMessage from '@/components/general/ErrorMessage';
 
 const MessageList = () => {
+  const ulRef = useRef<HTMLUListElement>(null);
+  const shouldScrollDown = useAppSelector(selectShouldScrollDown);
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
   const {
     data: messagesList,
@@ -15,12 +22,30 @@ const MessageList = () => {
     isSuccess,
   } = useGetMessagesQuery(selectedChatId);
 
+  const dispatch = useAppDispatch();
+
+  const handleScrollToBottom = (): void => {
+    if (ulRef.current) {
+      const ul = ulRef.current;
+      const scrollHeight = ulRef.current.scrollHeight;
+      ul.scrollTo(0, scrollHeight);
+    }
+  };
+
+  if (shouldScrollDown) {
+    handleScrollToBottom();
+    dispatch(shouldScrollDownSet(false));
+  }
+
   return (
     <div className="flex-1 overflow-y-auto">
       {isFetching ? (
         <Spinner />
       ) : isSuccess ? (
-        <ul className="flex h-full flex-col gap-6 overflow-y-auto p-4">
+        <ul
+          ref={ulRef}
+          className="flex h-full flex-col gap-6 overflow-y-auto p-4"
+        >
           {messagesList ? (
             messagesList!.map((m) => (
               <MessageItem

@@ -12,6 +12,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 
 export const { useGetUsersQuery } = usersApiSlice;
 
+export const selectUsersByChatId = (chatRoomId: string) => (state: RootState) =>
+  usersApiSlice.endpoints.getUsers.select(chatRoomId)(state);
+
 export const selectUserById =
   (chatRoomId: string, userId: string) => (state: RootState) =>
     usersApiSlice.endpoints.getUsers
