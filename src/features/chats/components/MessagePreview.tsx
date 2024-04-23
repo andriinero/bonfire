@@ -5,19 +5,18 @@ import { selectMessageById } from '@/features/messages/messagesSlice';
 import cn from '@/utils/cn';
 
 import { MessageType } from '@/types/MessageType';
+import { MessageData } from '@/types/MessageData';
 
-type MessagePreviewProps = { messageId: string };
+type MessagePreviewProps = { message?: MessageData };
 
-const MessagePreview = ({ messageId }: MessagePreviewProps) => {
-  const messageData = useAppSelector(selectMessageById(messageId));
-
-  return messageData ? (
+const MessagePreview = ({ message }: MessagePreviewProps) => {
+  return message ? (
     <p
       className={cn('text-ellipsis text-sm text-gray-500', {
-        'font-medium': messageData.type === MessageType.ACTION,
+        'font-medium': message.type === MessageType.ACTION,
       })}
     >
-      {messageData.body}
+      {message.body}
     </p>
   ) : (
     <p>No messages...</p>

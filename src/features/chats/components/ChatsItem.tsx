@@ -10,6 +10,7 @@ import MessagePreview from './MessagePreview';
 import { useGetMessagesQuery } from '@/features/messages/messagesSlice';
 import { selectUserById, useGetUsersQuery } from '@/features/users/usersSlice';
 import ChatTitle from '@/components/general/ChatTitle';
+import useChatLastMessage from '@/features/chat/hooks/useChatLastMessage';
 
 type ChatsItemProps = {
   chatId: string;
@@ -17,9 +18,9 @@ type ChatsItemProps = {
 
 const ChatsItem = ({ chatId }: ChatsItemProps) => {
   const chatById = useAppSelector(selectChatById(chatId));
-  const lastMessage = chatById?.messages[0];
   const nonAuthUsers = useNonAuthUserIds(chatById?.participants);
   const user = useAppSelector(selectUserById(chatId, nonAuthUsers[0]));
+  const lastMessage = useChatLastMessage(chatId);
 
   // TODO: move to query?
   useGetMessagesQuery(chatId);
@@ -49,7 +50,7 @@ const ChatsItem = ({ chatId }: ChatsItemProps) => {
       <div className="flex grow justify-between gap-2">
         <div className="flex flex-col justify-between">
           {chatById && <ChatTitle title={chatById.name} />}
-          {lastMessage && <MessagePreview messageId={lastMessage._id} />}
+          {lastMessage && <MessagePreview message={lastMessage} />}
         </div>
         <div>{lastMessage && <TimeStamp date={lastMessage.created} />}</div>
       </div>
