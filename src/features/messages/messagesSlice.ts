@@ -15,7 +15,7 @@ type MessagesState = {
 };
 
 const initialState: MessagesState = {
-  shouldScrollDown: false,
+  shouldScrollDown: true,
 };
 
 const messagesSlice = createSlice({

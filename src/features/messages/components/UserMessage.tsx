@@ -8,7 +8,7 @@ import { selectSelectedChatId } from '@/features/chat/chatSlice';
 import { selectUserById } from '@/features/users/usersSlice';
 import { UserData } from '@/types/UserData';
 
-type UserMessageProps = {} & MessageData;
+type UserMessageProps = MessageData;
 
 const UserMessage = ({
   _id,

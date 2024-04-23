@@ -3,7 +3,7 @@ import MessageList from '../../messages/components/MessageList';
 
 const ChatMain = () => {
   return (
-    <main className="row-span-3 flex h-full flex-col">
+    <main className="row-span-2 flex h-full flex-col">
       <MessageList />
       <MessageInput />
     </main>

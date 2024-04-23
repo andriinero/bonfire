@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, useRef } from 'react';
+import { ForwardedRef, forwardRef, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import { selectSelectedChatId } from '../../chat/chatSlice';
@@ -32,10 +32,12 @@ const MessageList = () => {
     }
   };
 
-  if (shouldScrollDown) {
-    handleScrollToBottom();
-    dispatch(shouldScrollDownSet(false));
-  }
+  useEffect(() => {
+    if (shouldScrollDown && ulRef.current) {
+      handleScrollToBottom();
+      dispatch(shouldScrollDownSet(false));
+    }
+  }, [isSuccess, shouldScrollDown]);
 
   return (
     <div className="flex-1 overflow-y-auto">
