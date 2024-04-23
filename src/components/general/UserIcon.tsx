@@ -1,10 +1,10 @@
 import cn from '@/utils/cn';
-import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
+import { ComponentProps } from 'react';
 
 type UserIconProps = {
   isOnline?: boolean;
   style?: 'md' | 'lg';
-} & DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
+} & ComponentProps<'img'>;
 
 const UserIcon = ({
   isOnline = false,
@@ -13,7 +13,7 @@ const UserIcon = ({
   ...otherProps
 }: UserIconProps) => {
   return (
-    <div>
+    <div className="relative">
       <div
         className={cn(
           'invisible absolute ml-6 size-4 select-none rounded-full border-2 border-white bg-green-400',
