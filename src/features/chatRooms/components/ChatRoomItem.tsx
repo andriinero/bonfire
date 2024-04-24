@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import useNonAuthUserIds from '../../../hooks/useNonAuthUserParticipants';
-import useChatLastMessage from '@/features/chat/hooks/useChatLastMessage';
+import useChatLastMessage from '@/features/messages/hooks/useChatLastMessage';
 
 import { selectChatRoomById } from '../chatRoomsSlice';
 import { selectedChatIdSet } from '@/features/chat/chatSlice';
@@ -55,7 +55,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
       <div className="flex grow justify-between gap-2">
         <div className="flex flex-col justify-between">
           {chatById && <ChatTitle title={chatById.name} />}
-          {lastMessage && <MessagePreview message={lastMessage} />}
+          {lastMessage && <MessagePreview {...lastMessage} />}
         </div>
         <div>{lastMessage && <TimeStamp date={lastMessage.created} />}</div>
       </div>

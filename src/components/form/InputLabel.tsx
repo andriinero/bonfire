@@ -1,11 +1,11 @@
-import { DetailedHTMLProps, LabelHTMLAttributes, ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 
 import cn from '@/utils/cn';
 
 type InputLabelProps = {
   className?: string;
   children?: ReactNode;
-} & DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
+} & ComponentProps<'label'>;
 
 const InputLabel = ({
   className,

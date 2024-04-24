@@ -19,7 +19,7 @@ const MessageBarSchema = z.object({
 
 type TMessageBar = z.infer<typeof MessageBarSchema>;
 
-const MessageInput = () => {
+const ChatMessageInput = () => {
   const selectedChatId = useAppSelector(selectSelectedChatId);
   const authUserId = useAppSelector(selectAuthUserId) as string;
 
@@ -65,4 +65,4 @@ const MessageInput = () => {
   );
 };
 
-export default MessageInput;
+export default ChatMessageInput;
