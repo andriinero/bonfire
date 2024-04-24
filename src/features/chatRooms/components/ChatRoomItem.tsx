@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import useNonAuthUserIds from '../../../hooks/useNonAuthUserParticipants';
 import useChatLastMessage from '@/features/chat/hooks/useChatLastMessage';
 
-import { selectChatById } from '../chatsSlice';
+import { selectChatRoomById } from '../chatRoomsSlice';
 import { selectedChatIdSet } from '@/features/chat/chatSlice';
 import { messagesApiSlice } from '@/features/messages/messagesSlice';
 import {
@@ -16,12 +16,12 @@ import TimeStamp from '@/components/general/TimeStamp';
 import MessagePreview from './MessagePreview';
 import ChatTitle from '@/components/general/ChatTitle';
 
-type ChatsItemProps = {
+type ChatRoomItemProps = {
   chatId: string;
 };
 
-const ChatsItem = ({ chatId }: ChatsItemProps) => {
-  const chatById = useAppSelector(selectChatById(chatId));
+const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
+  const chatById = useAppSelector(selectChatRoomById(chatId));
   const nonAuthUsers = useNonAuthUserIds(chatById?.participants);
   const user = useAppSelector(selectParticipantsById(chatId, nonAuthUsers[0]));
   const lastMessage = useChatLastMessage(chatId);
@@ -63,4 +63,4 @@ const ChatsItem = ({ chatId }: ChatsItemProps) => {
   );
 };
 
-export default ChatsItem;
+export default ChatRoomItem;

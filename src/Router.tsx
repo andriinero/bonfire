@@ -5,11 +5,12 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+
 import SignIn from './pages/SignIn';
 import Home from './pages/Home';
 import Protected from './pages/Protected';
 import Paths from './constants/Paths';
-import Chats from './features/chats/components/Chats';
+import ChatRoomSidebar from './features/chatRooms/components/ChatRoomSidebar';
 
 const Router = () => {
   const router = createBrowserRouter(
@@ -27,7 +28,7 @@ const Router = () => {
           <Route index element={<Navigate to="/home/chats" />} />
           <Route
             path={Paths.Home.BASE + Paths.Home.CHATS}
-            element={<Chats />}
+            element={<ChatRoomSidebar />}
           />
           <Route
             path={Paths.Home.BASE + Paths.Home.CONTACTS}
