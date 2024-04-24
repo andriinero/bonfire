@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import { selectSelectedChatId } from '../../chat/chatSlice';
@@ -37,7 +37,7 @@ const MessageList = () => {
       handleScrollToBottom();
       dispatch(shouldScrollDownSet(false));
     }
-  }, [isSuccess, shouldScrollDown]);
+  }, [shouldScrollDown]);
 
   return (
     <div className="flex-1 overflow-y-auto">
@@ -46,7 +46,7 @@ const MessageList = () => {
       ) : isSuccess ? (
         <ul
           ref={ulRef}
-          className="flex h-full flex-col gap-6 overflow-y-auto p-4"
+          className="flex h-full flex-col-reverse gap-6 overflow-y-auto p-4"
         >
           {messagesList ? (
             messagesList!.map((m) => (

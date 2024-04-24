@@ -49,7 +49,7 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
             'getMessages',
             chatRoomId,
             (draft) => {
-              draft.push(result);
+              draft.unshift(result);
             },
           ),
         );

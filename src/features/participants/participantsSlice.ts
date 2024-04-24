@@ -4,19 +4,20 @@ import { RootState } from '@/app/store';
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<UserData[], string>({
+    getParticipants: builder.query<UserData[], string>({
       query: (chatRoomId) => `/chat-rooms/${chatRoomId}/participants`,
     }),
   }),
 });
 
-export const { useGetUsersQuery } = usersApiSlice;
+export const { useGetParticipantsQuery } = usersApiSlice;
 
-export const selectUsersByChatId = (chatRoomId: string) => (state: RootState) =>
-  usersApiSlice.endpoints.getUsers.select(chatRoomId)(state);
+export const selectParticipantsByChatId =
+  (chatRoomId: string) => (state: RootState) =>
+    usersApiSlice.endpoints.getParticipants.select(chatRoomId)(state);
 
-export const selectUserById =
+export const selectParticipantsById =
   (chatRoomId: string, userId: string) => (state: RootState) =>
-    usersApiSlice.endpoints.getUsers
+    usersApiSlice.endpoints.getParticipants
       .select(chatRoomId)(state)
       .data?.find((u) => u._id === userId);

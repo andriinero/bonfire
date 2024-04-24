@@ -5,7 +5,7 @@ import TimeStamp from '@/components/general/TimeStamp';
 import { useAppSelector } from '@/app/hooks';
 import { selectAuthUserId } from '@/features/auth/authSlice';
 import { selectSelectedChatId } from '@/features/chat/chatSlice';
-import { selectUserById } from '@/features/users/usersSlice';
+import { selectParticipantsById } from '@/features/participants/participantsSlice';
 import { UserData } from '@/types/UserData';
 
 type UserMessageProps = MessageData;
@@ -21,7 +21,7 @@ const UserMessage = ({
   const selectedChatId = useAppSelector(selectSelectedChatId);
   const authUserId = useAppSelector(selectAuthUserId);
   const userData = useAppSelector(
-    selectUserById(selectedChatId!, user!),
+    selectParticipantsById(selectedChatId!, user!),
   ) as UserData;
 
   const isAuthor = authUserId === userData._id;
