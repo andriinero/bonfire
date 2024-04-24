@@ -14,10 +14,14 @@ type MessageProps = {
 const MessageItem = ({ chatRoomId, messageId }: MessageProps) => {
   const message = useAppSelector(selectMessageById(chatRoomId, messageId));
 
-  return message?.type === 'message' ? (
-    <UserMessage {...message} />
+  return message ? (
+    message?.type === 'message' ? (
+      <UserMessage {...message} />
+    ) : (
+      <ActionMessage body={message.body} />
+    )
   ) : (
-    <ActionMessage body={message?.body} />
+    <p>Message couldn't be loaded</p>
   );
 };
 

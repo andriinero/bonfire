@@ -6,21 +6,17 @@ import ChatMain from './ChatMain';
 import ChatHeader from './ChatHeader';
 import ChatPlaceholder from './ChatPlaceholder';
 
-const Chat = () => {
+const ChatContainer = () => {
   const selectedChatId = useAppSelector(selectSelectedChatId);
 
-  return (
+  return selectedChatId ? (
     <>
-      {selectedChatId ? (
-        <>
-          <ChatHeader />
-          <ChatMain />
-        </>
-      ) : (
-        <ChatPlaceholder />
-      )}
+      <ChatHeader />
+      <ChatMain />
     </>
+  ) : (
+    <ChatPlaceholder />
   );
 };
 
-export default Chat;
+export default ChatContainer;

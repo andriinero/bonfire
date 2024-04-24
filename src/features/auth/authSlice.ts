@@ -6,7 +6,6 @@ import { apiSlice } from '../api/apiSlice';
 
 import { AuthData } from '@/types/AuthData';
 import { AppThunk, RootState } from '@/app/store';
-
 import { TSignInBody } from './components/SignInPanel';
 
 type AuthState = {
@@ -24,17 +23,17 @@ export const tokenInitialized =
   (dispatch) => {
     if (token) {
       storage.setToken(token);
-      dispatch(setToken(token));
+      dispatch(tokenSet(token));
     } else {
       const storageToken = storage.getToken();
-      dispatch(setToken(storageToken));
+      dispatch(tokenSet(storageToken));
     }
   };
 
 export const signedOut = (): AppThunk => (dispatch) => {
   storage.clearToken();
   dispatch(dataCleared());
-  dispatch(clearToken());
+  dispatch(tokenCleared());
 };
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -44,7 +43,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
-          dispatch(setAuthData(data));
+          dispatch(authDataSet(data));
         } catch (err) {}
       },
     }),
@@ -73,13 +72,13 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuthData: (state, action: PayloadAction<AuthData>) => {
+    authDataSet: (state, action: PayloadAction<AuthData>) => {
       state.authData = action.payload;
     },
-    setToken: (state, action: PayloadAction<string>) => {
+    tokenSet: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
-    clearToken: (state) => {
+    tokenCleared: (state) => {
       state.token = null;
     },
     dataCleared: (state) => {
@@ -88,7 +87,7 @@ const authSlice = createSlice({
   },
 });
 
-const { setAuthData, setToken, clearToken, dataCleared } = authSlice.actions;
+const { authDataSet, tokenSet, tokenCleared, dataCleared } = authSlice.actions;
 
 export const { useGetAuthDataQuery, usePostSignInMutation } = authApiSlice;
 

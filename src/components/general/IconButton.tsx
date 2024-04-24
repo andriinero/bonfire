@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 
 import cn from '@/utils/cn';
 
@@ -7,10 +7,7 @@ type ControlsIconProps = {
   style?: 'primary' | 'round';
   className?: string;
   children?: ReactNode;
-} & DetailedHTMLProps<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->;
+} & ComponentProps<'button'>;
 
 const IconButton = ({
   isSelected = false,
