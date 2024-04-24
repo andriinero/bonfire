@@ -5,31 +5,31 @@ import { ChatData } from '@/types/ChatData';
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getChats: builder.query<ChatData[], void>({
+    getChatRooms: builder.query<ChatData[], void>({
       query: () => `/chat-rooms`,
       providesTags: ['authData'],
     }),
   }),
 });
 
-export const { useGetChatsQuery } = extendedApiSlice;
+export const { useGetChatRoomsQuery } = extendedApiSlice;
 
-export const selectChatListResult =
-  extendedApiSlice.endpoints.getChats.select();
+export const selectChatRoomsListResult =
+  extendedApiSlice.endpoints.getChatRooms.select();
 
-export const selectChatList = createSelector(
-  selectChatListResult,
+export const selectChatRoomsList = createSelector(
+  selectChatRoomsListResult,
   (chatList) => chatList.data ?? [],
 );
 
-export const selectChatById = (chatId: string) =>
-  createSelector(selectChatList, (chatList) =>
+export const selectChatRoomById = (chatId: string) =>
+  createSelector(selectChatRoomsList, (chatList) =>
     chatList.find((c: ChatData) => c._id === chatId),
   );
 
-export const selectParticipantListByChatId = (chatId: string) =>
+export const selectParticipantsByChatRoomId = (chatId: string) =>
   createSelector(
-    selectChatList,
+    selectChatRoomsList,
     (chatList) =>
       chatList.find((c: ChatData) => c._id === chatId)?.participants,
   );

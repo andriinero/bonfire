@@ -2,7 +2,7 @@ import { useAppSelector } from '@/app/hooks';
 
 import { selectSelectedChatId } from '../chatSlice';
 import { selectParticipantsById } from '@/features/participants/participantsSlice';
-import { selectChatById } from '@/features/chats/chatsSlice';
+import { selectChatRoomById } from '@/features/chatRooms/chatRoomsSlice';
 
 import { FaEllipsis } from 'react-icons/fa6';
 import UserIcon from '@/components/general/UserIcon';
@@ -12,7 +12,7 @@ import ChatTitle from '@/components/general/ChatTitle';
 const ChatHeader = () => {
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
 
-  const chat = useAppSelector(selectChatById(selectedChatId));
+  const chat = useAppSelector(selectChatRoomById(selectedChatId));
   const firstUser = useAppSelector(
     selectParticipantsById(selectedChatId, chat?.participants[0] as string),
   );
