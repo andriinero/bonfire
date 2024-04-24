@@ -5,7 +5,7 @@ import { selectMessagesByChatId } from '@/features/messages/messagesSlice';
 const useChatLastMessage = (chatId: string) => {
   const messages = useAppSelector(selectMessagesByChatId(chatId));
 
-  return messages ? messages[messages.length - 1] : undefined;
+  return messages ? messages[0] : undefined;
 };
 
 export default useChatLastMessage;

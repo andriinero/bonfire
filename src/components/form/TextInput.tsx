@@ -1,16 +1,10 @@
-import {
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  LegacyRef,
-  ReactNode,
-  forwardRef,
-} from 'react';
+import { ComponentProps, LegacyRef, forwardRef } from 'react';
 
 import cn from '@/utils/cn';
 
 type TextInputProps = {
   className?: string;
-} & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+} & ComponentProps<'input'>;
 
 const TextInput = forwardRef(
   (

@@ -1,15 +1,22 @@
-import { DetailedHTMLProps, FormHTMLAttributes, ReactNode } from 'react';
+import {
+  ComponentProps,
+  ReactNode,
+} from 'react';
 
 import cn from '@/utils/cn';
 
-type AuthFormProps = {
+type FormProps = {
   className?: string;
   children?: ReactNode;
-} & DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
+} & ComponentProps<'form'>;
 
-const Form = ({ className, children, ...otherProps }: AuthFormProps) => {
+const Form = ({ className, children, ...otherProps }: FormProps) => {
   return (
-    <form {...otherProps} className={cn('flex flex-col gap-y-3', className)}>
+    <form
+      aria-label="form"
+      {...otherProps}
+      className={cn('flex flex-col gap-y-3', className)}
+    >
       {children}
     </form>
   );

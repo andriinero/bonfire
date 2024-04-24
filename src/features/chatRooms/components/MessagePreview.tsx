@@ -3,19 +3,17 @@ import cn from '@/utils/cn';
 import { MessageType } from '@/types/MessageType';
 import { MessageData } from '@/types/MessageData';
 
-type MessagePreviewProps = { message?: MessageData };
+type MessagePreviewProps = Pick<MessageData, 'type' | 'body'>;
 
-const MessagePreview = ({ message }: MessagePreviewProps) => {
-  return message ? (
+const MessagePreview = ({ type, body }: MessagePreviewProps) => {
+  return (
     <p
-      className={cn('text-ellipsis text-sm text-gray-500', {
-        'font-medium': message.type === MessageType.ACTION,
+      className={cn('text-ellipsis text-gray-500', {
+        'font-medium': type === MessageType.ACTION,
       })}
     >
-      {message.body}
+      {body}
     </p>
-  ) : (
-    <p>No messages...</p>
   );
 };
 
