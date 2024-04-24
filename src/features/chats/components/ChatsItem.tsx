@@ -1,13 +1,14 @@
 import useNonAuthUserIds from '../../../hooks/useNonAuthUserParticipants';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
-import {
-  selectChatById,
-  selectParticipantsById,
-  useGetParticipantsQuery,
-} from '../chatsSlice';
+import { selectChatById } from '../chatsSlice';
 import { selectedChatIdSet } from '@/features/chat/chatSlice';
 import { useGetMessagesQuery } from '@/features/messages/messagesSlice';
+import {
+  selectParticipantsById,
+  useGetParticipantsQuery,
+} from '@/features/participants/participantsSlice';
+
 import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
 import MessagePreview from './MessagePreview';
