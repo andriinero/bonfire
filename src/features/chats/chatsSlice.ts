@@ -1,6 +1,6 @@
+import { apiSlice } from '../api/apiSlice';
 import { createSelector } from '@reduxjs/toolkit';
 
-import { apiSlice } from '../api/apiSlice';
 import { ChatData } from '@/types/ChatData';
 
 export const extendedApiSlice = apiSlice.injectEndpoints({

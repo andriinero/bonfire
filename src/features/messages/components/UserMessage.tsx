@@ -1,12 +1,16 @@
-import cn from '@/utils/cn';
-import { MessageData } from '@/types/MessageData';
-import UserIcon from '@/components/general/UserIcon';
-import TimeStamp from '@/components/general/TimeStamp';
 import { useAppSelector } from '@/app/hooks';
+
+import cn from '@/utils/cn';
+
 import { selectAuthUserId } from '@/features/auth/authSlice';
 import { selectSelectedChatId } from '@/features/chat/chatSlice';
 import { selectParticipantsById } from '@/features/participants/participantsSlice';
+
+import { MessageData } from '@/types/MessageData';
 import { UserData } from '@/types/UserData';
+
+import UserIcon from '@/components/general/UserIcon';
+import TimeStamp from '@/components/general/TimeStamp';
 
 type UserMessageProps = MessageData;
 

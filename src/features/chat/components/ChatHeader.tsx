@@ -1,5 +1,4 @@
 import { useAppSelector } from '@/app/hooks';
-import useNonAuthUserIds from '@/hooks/useNonAuthUserParticipants';
 
 import { selectSelectedChatId } from '../chatSlice';
 import { selectParticipantsById } from '@/features/participants/participantsSlice';
@@ -24,8 +23,8 @@ const ChatHeader = () => {
         <>
           <div className="flex items-center gap-2">
             <UserIcon
-              isOnline={firstUser?.is_online}
-              src={firstUser?.profile_image}
+              isOnline={firstUser.is_online}
+              src={firstUser.profile_image}
             />
             <div>
               {chat && <ChatTitle title={chat.name} />}

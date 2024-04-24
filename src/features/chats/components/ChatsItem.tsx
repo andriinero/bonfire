@@ -1,19 +1,20 @@
-import useNonAuthUserIds from '../../../hooks/useNonAuthUserParticipants';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import useNonAuthUserIds from '../../../hooks/useNonAuthUserParticipants';
+import useChatLastMessage from '@/features/chat/hooks/useChatLastMessage';
 
 import { selectChatById } from '../chatsSlice';
 import { selectedChatIdSet } from '@/features/chat/chatSlice';
-import { useGetMessagesQuery } from '@/features/messages/messagesSlice';
+import { messagesApiSlice } from '@/features/messages/messagesSlice';
 import {
+  participantsApiSlice,
   selectParticipantsById,
-  useGetParticipantsQuery,
 } from '@/features/participants/participantsSlice';
 
 import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
 import MessagePreview from './MessagePreview';
 import ChatTitle from '@/components/general/ChatTitle';
-import useChatLastMessage from '@/features/chat/hooks/useChatLastMessage';
 
 type ChatsItemProps = {
   chatId: string;
@@ -25,9 +26,10 @@ const ChatsItem = ({ chatId }: ChatsItemProps) => {
   const user = useAppSelector(selectParticipantsById(chatId, nonAuthUsers[0]));
   const lastMessage = useChatLastMessage(chatId);
 
-  // TODO: move to query?
-  useGetMessagesQuery(chatId);
-  useGetParticipantsQuery(chatId);
+  useEffect(() => {
+    dispatch(messagesApiSlice.endpoints.getMessages.initiate(chatId));
+    dispatch(participantsApiSlice.endpoints.getParticipants.initiate(chatId));
+  }, []);
 
   const dispatch = useAppDispatch();
 

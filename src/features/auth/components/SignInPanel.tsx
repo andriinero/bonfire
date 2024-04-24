@@ -5,13 +5,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useGetAuthDataQuery, usePostSignInMutation } from '../authSlice';
 
+import { FaGithub, FaGoogle } from 'react-icons/fa6';
 import Form from '../../../components/form/Form';
 import Button from '../../../components/general/Button';
 import TextInput from '../../../components/form/TextInput';
 import InputLabel from '../../../components/form/InputLabel';
 import InputGroup from '../../../components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
-import { FaGithub, FaGoogle } from 'react-icons/fa6';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),

@@ -1,16 +1,17 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAppSelector } from '@/app/hooks';
 
-import Button from '@/components/general/Button';
-import { FaPaperPlane } from 'react-icons/fa6';
+import { selectSelectedChatId } from '../chatSlice';
+import { selectAuthUserId } from '@/features/auth/authSlice';
 import {
   TPostMessageBody,
   usePostMessageMutation,
 } from '@/features/messages/messagesSlice';
-import { useAppSelector } from '@/app/hooks';
-import { selectSelectedChatId } from '../chatSlice';
-import { selectAuthUserId } from '@/features/auth/authSlice';
+
+import { FaPaperPlane } from 'react-icons/fa6';
+import Button from '@/components/general/Button';
 
 const MessageBarSchema = z.object({
   body: z.string(),

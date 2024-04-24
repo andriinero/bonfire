@@ -1,12 +1,12 @@
+import usePathnameEnd from '@/hooks/usePathnameEnd';
 import useHandleSignOut from '@/features/auth/hooks/useHandleSignOut';
 
-import IconButton from '@/components/general/IconButton';
 import {
   FaArrowRightFromBracket,
   FaMessage,
   FaUserGroup,
 } from 'react-icons/fa6';
-import usePathnameEnd from '@/hooks/usePathnameEnd';
+import IconButton from '@/components/general/IconButton';
 import AppLink from '@/components/general/AppLink';
 import Paths from '@/constants/Paths';
 
