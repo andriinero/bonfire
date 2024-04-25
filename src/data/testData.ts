@@ -56,7 +56,6 @@ export const testParticipantsList: UserData[] = [
 export const testMessages: MessageData[] = [
   {
     _id: 'm01',
-    user: null,
     chat_room: 'johnchat01',
     body: 'Chat room created',
     created: new Date().toJSON(),
@@ -65,7 +64,7 @@ export const testMessages: MessageData[] = [
   },
   {
     _id: 'm03',
-    user: testParticipantsList[0],
+    user: testParticipantsList[0]._id,
     chat_room: 'johnchat01',
     body: 'Another test message!',
     created: new Date().toJSON(),
@@ -74,7 +73,7 @@ export const testMessages: MessageData[] = [
   },
   {
     _id: 'm02',
-    user: testParticipantsList[3],
+    user: testParticipantsList[3]._id,
     chat_room: 'johnchat01',
     body: 'Hey! This is a test message.',
     created: new Date().toJSON(),

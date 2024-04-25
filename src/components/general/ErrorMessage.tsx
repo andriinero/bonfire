@@ -1,11 +1,14 @@
+import cn from '@/utils/cn';
 import { ReactNode } from 'react';
 
-import cn from '@/utils/cn';
+type ErrorProps = { className?: string; children?: ReactNode };
 
-type ErrorProps = { className?: string };
-
-const ErrorMessage = ({ className }: ErrorProps) => {
-  return <div className={cn('', className)}>Error: failed to fetch.</div>;
+const ErrorMessage = ({ className, children }: ErrorProps) => {
+  return (
+    <p className={cn('', className)}>
+      {children ? children : 'Error: failed to fetch.'}
+    </p>
+  );
 };
 
 export default ErrorMessage;

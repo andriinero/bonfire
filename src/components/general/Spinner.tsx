@@ -11,9 +11,11 @@ const Spinner = ({ className }: SpinnerProps) => {
         className,
       )}
     >
-      <div className="animate-spin">
-        <FaSpinner size="1.5rem" />
-      </div>
+      <FaSpinner
+        className="animate-spin"
+        size="1.5rem"
+        aria-label="Spinner Icon"
+      />
     </div>
   );
 };

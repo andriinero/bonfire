@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 import { MessageType } from './MessageType';
-import { UserDataSchema } from './UserData';
 
 export const MessageDataSchema = z.object({
   _id: z.string(),
