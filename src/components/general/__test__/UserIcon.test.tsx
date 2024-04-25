@@ -7,5 +7,5 @@ it('renders user icon with correct path', () => {
 
   const userIcon = screen.getByRole('img');
 
-  expect(userIcon).toHaveAttribute('src', imgPath);
+  expect(userIcon).toHaveAttribute('sr', imgPath);
 });

@@ -1,11 +1,11 @@
 import cn from '@/utils/cn';
-import { ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 
 type ValidationErrorProps = {
   visible?: boolean;
   className?: string;
   children?: ReactNode;
-};
+} & ComponentProps<'span'>;
 
 const ValidationError = ({
   visible = true,
@@ -13,7 +13,7 @@ const ValidationError = ({
   children,
 }: ValidationErrorProps) => {
   return (
-    <p
+    <span
       className={cn(
         'invisible -translate-y-0.5 text-xs text-red-500 opacity-0 transition',
         className,
@@ -23,7 +23,7 @@ const ValidationError = ({
       )}
     >
       * {children}
-    </p>
+    </span>
   );
 };
 

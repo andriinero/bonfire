@@ -44,8 +44,12 @@ const SignInPanel = () => {
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputGroup>
           <InputLabel htmlFor="sign-in-email">Email address</InputLabel>
-          <TextInput id="sign-in-email" {...register('email')} />
-          <ValidationError visible={!!errors.email}>
+          <TextInput
+            {...register('email')}
+            id="sign-in-email"
+            aria-errormessage="email-error"
+          />
+          <ValidationError id="email-error" visible={!!errors.email}>
             {errors.email?.message}
           </ValidationError>
         </InputGroup>
@@ -55,8 +59,9 @@ const SignInPanel = () => {
             {...register('password')}
             id="sign-in-password"
             type="password"
+            aria-errormessage="password-error"
           />
-          <ValidationError visible={!!errors.password}>
+          <ValidationError id="password-error" visible={!!errors.password}>
             {errors.password?.message}
           </ValidationError>
         </InputGroup>
