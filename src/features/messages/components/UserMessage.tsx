@@ -4,7 +4,7 @@ import cn from '@/utils/cn';
 
 import { selectAuthUserId } from '@/features/auth/authSlice';
 import { selectSelectedChatId } from '@/features/chat/chatSlice';
-import { selectParticipantsById } from '@/features/participants/participantsSlice';
+import { selectParticipantById } from '@/features/participants/participantsSlice';
 
 import { MessageData } from '@/types/MessageData';
 import { UserData } from '@/types/UserData';
@@ -12,35 +12,31 @@ import { UserData } from '@/types/UserData';
 import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
 
-type UserMessageProps = MessageData;
+type UserMessageProps = Pick<MessageData, 'user' | 'body' | 'created'>;
 
-const UserMessage = ({
-  _id,
-  chat_room,
-  user,
-  body,
-  created,
-  reply,
-}: UserMessageProps) => {
+const UserMessage = ({ user, body, created }: UserMessageProps) => {
   const selectedChatId = useAppSelector(selectSelectedChatId);
   const authUserId = useAppSelector(selectAuthUserId);
-  const userData = useAppSelector(
-    selectParticipantsById(selectedChatId!, user!),
+  const participantData = useAppSelector(
+    selectParticipantById(selectedChatId!, user!),
   ) as UserData;
 
-  const isAuthor = authUserId === userData._id;
+  const isAuthor = authUserId === participantData._id;
 
   return (
     <li className={cn('flex gap-2', { 'flex-row-reverse': isAuthor })}>
       <div>
-        <UserIcon src={userData.profile_image} isOnline={userData.is_online} />
+        <UserIcon
+          src={participantData.profile_image}
+          isOnline={participantData.is_online}
+        />
       </div>
       <div className="flex flex-col gap-2">
         <div
           className={cn('flex items-center gap-2', { 'justify-end': isAuthor })}
         >
           <p className="text-sm font-medium text-gray-500">
-            {userData.username}
+            {participantData.username}
           </p>
           <TimeStamp date={created} className="text-xs" />
         </div>

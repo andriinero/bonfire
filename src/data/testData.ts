@@ -1,6 +1,7 @@
 import { MessageData } from '@/types/MessageData';
 import { UserData } from '@/types/UserData';
 import { MessageType } from '@/types/MessageType';
+import { AuthData } from '@/types/AuthData';
 
 export const testParticipant: UserData = {
   _id: 'user0',
@@ -11,6 +12,13 @@ export const testParticipant: UserData = {
   is_online: true,
   profile_image:
     'https://img.freepik.com/premium-photo/profile-picture-happy-young-caucasian-man-spectacles-show-confidence-leadership-headshot-portrait-smiling-millennial-male-glasses-posing-indoors-home-employment-success-concept_774935-1446.jpg',
+};
+
+export const testAuthData: AuthData = {
+  sub: 'user0',
+  username: 'John',
+  email: 'john@gmail.com',
+  role: 'user',
 };
 
 export const testParticipantsList: UserData[] = [

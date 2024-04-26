@@ -8,7 +8,7 @@ import { selectedChatIdSet } from '@/features/chat/chatSlice';
 import { messagesApiSlice } from '@/features/messages/messagesSlice';
 import {
   participantsApiSlice,
-  selectParticipantsById,
+  selectParticipantById,
 } from '@/features/participants/participantsSlice';
 
 import UserIcon from '@/components/general/UserIcon';
@@ -23,7 +23,7 @@ type ChatRoomItemProps = {
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
   const chatById = useAppSelector(selectChatRoomById(chatId));
   const nonAuthUsers = useNonAuthUserIds(chatById?.participants);
-  const user = useAppSelector(selectParticipantsById(chatId, nonAuthUsers[0]));
+  const user = useAppSelector(selectParticipantById(chatId, nonAuthUsers[0]));
   const lastMessage = useChatLastMessage(chatId);
 
   useEffect(() => {
