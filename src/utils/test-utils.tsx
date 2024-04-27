@@ -9,9 +9,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { User } from '@/types/User';
 import { ar, faker, fakerEN } from '@faker-js/faker';
 import { Message } from '@/types/Message';
-import { Chat } from '@/types/Chat';
+import { ChatRoom } from '@/types/ChatRoom';
 import { z } from 'zod';
 import { MessageType } from '@/types/MessageType';
+import { AuthData } from '@/types/AuthData';
 
 /**
  * This type extends the default options for
@@ -90,7 +91,16 @@ export const createRandomUser = (): User => {
   };
 };
 
-export const createChatRoom = (): Chat => {
+export const getAuthDataFromUser = (user: User): AuthData => {
+  return {
+    sub: user._id,
+    username: user.username,
+    email: user.email,
+    role: 'user',
+  };
+};
+
+export const createChatRoom = (): ChatRoom => {
   return {
     _id: faker.string.uuid(),
     created: faker.date.recent().toISOString(),

@@ -15,7 +15,8 @@ export const { useGetParticipantsQuery } = participantsApiSlice;
 
 export const selectParticipantsByChatId =
   (chatRoomId: string) => (state: RootState) =>
-    participantsApiSlice.endpoints.getParticipants.select(chatRoomId)(state);
+    participantsApiSlice.endpoints.getParticipants.select(chatRoomId)(state)
+      .data;
 
 export const selectParticipantById =
   (chatRoomId: string, userId: string) => (state: RootState) =>

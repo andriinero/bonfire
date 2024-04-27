@@ -9,6 +9,7 @@ import { messagesApiSlice } from '@/features/messages/messagesSlice';
 import {
   participantsApiSlice,
   selectParticipantById,
+  selectParticipantsByChatId,
 } from '@/features/participants/participantsSlice';
 
 import UserIcon from '@/components/general/UserIcon';
@@ -22,8 +23,11 @@ type ChatRoomItemProps = {
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
   const chatById = useAppSelector(selectChatRoomById(chatId));
-  const nonAuthUsers = useNonAuthUserIds(chatById?.participants);
-  const user = useAppSelector(selectParticipantById(chatId, nonAuthUsers[0]));
+  const participants = useAppSelector(selectParticipantsByChatId(chatId));
+  const nonAuthParticipants = useNonAuthUserIds(participants);
+  const participant = useAppSelector(
+    selectParticipantById(chatId, nonAuthParticipants[0]),
+  );
   const lastMessage = useChatLastMessage(chatId);
 
   useEffect(() => {
@@ -43,18 +47,18 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
       onClick={handleChatClick}
     >
       <div>
-        {user && (
+        {participant && (
           <UserIcon
-            key={user._id}
-            isOnline={user.is_online}
-            src={user.profile_image}
+            key={participant._id}
+            isOnline={participant.is_online}
+            src={participant.profile_image}
             style="lg"
           />
         )}
       </div>
       <div className="flex grow justify-between gap-2">
         <div className="flex flex-col justify-between">
-          {chatById && <ChatTitle title={chatById.name} />}
+          {chatById?.name && <ChatTitle title={chatById.name} />}
           {lastMessage && <MessagePreview {...lastMessage} />}
         </div>
         <div>{lastMessage && <TimeStamp date={lastMessage.created} />}</div>

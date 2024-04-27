@@ -1,11 +1,11 @@
 import { apiSlice } from '../api/apiSlice';
 import { createSelector } from '@reduxjs/toolkit';
 
-import { Chat } from '@/types/Chat';
+import { ChatRoom } from '@/types/ChatRoom';
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getChatRooms: builder.query<Chat[], void>({
+    getChatRooms: builder.query<ChatRoom[], void>({
       query: () => `/chat-rooms`,
       providesTags: ['authData'],
     }),
@@ -24,12 +24,5 @@ export const selectChatRoomsList = createSelector(
 
 export const selectChatRoomById = (chatId: string) =>
   createSelector(selectChatRoomsList, (chatList) =>
-    chatList.find((c: Chat) => c._id === chatId),
-  );
-
-export const selectParticipantsByChatRoomId = (chatId: string) =>
-  createSelector(
-    selectChatRoomsList,
-    (chatList) =>
-      chatList.find((c: Chat) => c._id === chatId)?.participants,
+    chatList.find((c: ChatRoom) => c._id === chatId),
   );

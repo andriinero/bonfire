@@ -4,12 +4,12 @@ import storage from '@/lib/storage';
 
 import { apiSlice } from '../api/apiSlice';
 
-import { Auth } from '@/types/AuthData';
+import { AuthData } from '@/types/AuthData';
 import { AppThunk, RootState } from '@/app/store';
 import { TSignInBody } from './components/SignInPanel';
 
 type AuthState = {
-  authData: Auth | null;
+  authData: AuthData | null;
   token: string | null;
 };
 
@@ -38,7 +38,7 @@ export const signedOut = (): AppThunk => (dispatch) => {
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAuthData: builder.query<Auth, void>({
+    getAuthData: builder.query<AuthData, void>({
       query: () => '/auth/data',
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
@@ -72,7 +72,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    authDataSet: (state, action: PayloadAction<Auth>) => {
+    authDataSet: (state, action: PayloadAction<AuthData>) => {
       state.authData = action.payload;
     },
     tokenSet: (state, action: PayloadAction<string>) => {
