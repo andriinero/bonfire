@@ -1,4 +1,4 @@
-import { UserData } from '@/types/UserData';
+import { User } from '@/types/User';
 import { render, screen } from '@testing-library/react';
 import UserMessage from '../UserMessage';
 
@@ -7,7 +7,7 @@ vi.mock('@/app/hooks', () => ({
   useAppSelector: selectedData,
 }));
 
-const testUser: UserData = {
+const testUser: User = {
   _id: 'user0',
   username: 'John',
   email: 'john@gmail.com',

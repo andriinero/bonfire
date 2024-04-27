@@ -1,9 +1,9 @@
 import cn from '@/utils/cn';
 
 import { MessageType } from '@/types/MessageType';
-import { MessageData } from '@/types/MessageData';
+import { Message } from '@/types/Message';
 
-type MessagePreviewProps = Pick<MessageData, 'type' | 'body'>;
+type MessagePreviewProps = Pick<Message, 'type' | 'body'>;
 
 const MessagePreview = ({ type, body }: MessagePreviewProps) => {
   return (

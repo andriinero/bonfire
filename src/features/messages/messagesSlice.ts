@@ -2,7 +2,7 @@ import { apiSlice } from '../api/apiSlice';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '@/app/store';
-import { MessageData } from '@/types/MessageData';
+import { Message } from '@/types/Message';
 
 export type TPostMessageBody = {
   user: string;
@@ -30,11 +30,11 @@ const messagesSlice = createSlice({
 
 export const messagesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getMessages: builder.query<MessageData[], string>({
+    getMessages: builder.query<Message[], string>({
       query: (chatRoomId) => `/chat-rooms/${chatRoomId}/messages`,
     }),
     postMessage: builder.mutation<
-      MessageData,
+      Message,
       { chatRoomId: string; body: TPostMessageBody }
     >({
       query: ({ chatRoomId, body }) => ({

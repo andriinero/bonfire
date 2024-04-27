@@ -15,19 +15,34 @@ const NavControls = () => {
 
   const handleSignOutClick = useHandleSignOut();
 
+  const isChatsSelected = pathEnd === 'chats';
+  const isContactsSelected = pathEnd === 'contacts';
+
   return (
     <nav className="">
-      <ul className="space-y-1">
+      <ul role="tablist" className="space-y-1">
         <li>
-          <AppLink to={Paths.Home.BASE + Paths.Home.CHATS}>
-            <IconButton isSelected={pathEnd === 'chats'}>
+          <AppLink
+            to={Paths.Home.BASE + Paths.Home.CHATS}
+            role="tab"
+            tabIndex={0}
+            aria-label="Chats Tab"
+            aria-selected={isChatsSelected}
+          >
+            <IconButton tabIndex={-1} isSelected={isChatsSelected}>
               <FaMessage />
             </IconButton>
           </AppLink>
         </li>
         <li>
-          <AppLink to={Paths.Home.BASE + Paths.Home.CONTACTS}>
-            <IconButton isSelected={pathEnd === 'contacts'}>
+          <AppLink
+            to={Paths.Home.BASE + Paths.Home.CONTACTS}
+            role="tab"
+            tabIndex={0}
+            aria-label="Contacts Tab"
+            aria-selected={isContactsSelected}
+          >
+            <IconButton tabIndex={-1} isSelected={isContactsSelected}>
               <FaUserGroup />
             </IconButton>
           </AppLink>

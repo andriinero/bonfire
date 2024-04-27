@@ -6,20 +6,20 @@ import { selectAuthUserId } from '@/features/auth/authSlice';
 import { selectSelectedChatId } from '@/features/chat/chatSlice';
 import { selectParticipantById } from '@/features/participants/participantsSlice';
 
-import { MessageData } from '@/types/MessageData';
-import { UserData } from '@/types/UserData';
+import { Message } from '@/types/Message';
+import { User } from '@/types/User';
 
 import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
 
-type UserMessageProps = Pick<MessageData, 'user' | 'body' | 'created'>;
+type UserMessageProps = Pick<Message, 'user' | 'body' | 'created'>;
 
 const UserMessage = ({ user, body, created }: UserMessageProps) => {
   const selectedChatId = useAppSelector(selectSelectedChatId);
   const authUserId = useAppSelector(selectAuthUserId);
   const participantData = useAppSelector(
     selectParticipantById(selectedChatId!, user!),
-  ) as UserData;
+  ) as User;
 
   const isAuthor = authUserId === participantData._id;
 

@@ -6,6 +6,12 @@ import { Provider } from 'react-redux';
 import type { AppStore, RootState } from '../app/store';
 import { makeStore } from '../app/store';
 import { BrowserRouter } from 'react-router-dom';
+import { User } from '@/types/User';
+import { ar, faker, fakerEN } from '@faker-js/faker';
+import { Message } from '@/types/Message';
+import { Chat } from '@/types/Chat';
+import { z } from 'zod';
+import { MessageType } from '@/types/MessageType';
 
 /**
  * This type extends the default options for
@@ -64,5 +70,44 @@ export const renderWithProviders = (
     store,
     user: userEvent.setup(),
     ...render(ui, { wrapper: Wrapper, ...renderOptions }),
+  };
+};
+
+export const createRandomUser = (): User => {
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.lastName();
+  const username = faker.internet.userName({ firstName, lastName });
+  const email = faker.internet.email({ firstName, lastName });
+
+  return {
+    _id: faker.string.uuid(),
+    username,
+    email,
+    role: 'user',
+    created: faker.date.recent().toISOString(),
+    is_online: faker.helpers.arrayElement<boolean>([true, false]),
+    profile_image: faker.image.avatar(),
+  };
+};
+
+export const createChatRoom = (): Chat => {
+  return {
+    _id: faker.string.uuid(),
+    created: faker.date.recent().toISOString(),
+  };
+};
+
+export const createRandomUserMessage = (
+  chatRoomId: string,
+  userId: string,
+): Message => {
+  return {
+    _id: faker.string.uuid(),
+    chat_room: chatRoomId,
+    user: userId,
+    body: faker.lorem.sentence(),
+    created: faker.date.recent().toISOString(),
+    reply: null,
+    type: MessageType.MESSAGE,
   };
 };

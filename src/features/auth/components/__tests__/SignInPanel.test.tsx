@@ -1,10 +1,9 @@
 import userEvent from '@testing-library/user-event';
 import SignInPanel from '../SignInPanel';
 import { renderWithProviders } from '@/utils/test-utils';
-import { queryByRole, screen, waitFor } from '@testing-library/dom';
+import { screen, waitFor } from '@testing-library/dom';
 import { setupServer } from 'msw/node';
 import { HttpResponse, delay, http } from 'msw';
-import { AuthData } from '@/types/AuthData';
 
 type TSignInBody = {
   email: string;
@@ -16,9 +15,7 @@ type TSingInResponse =
       message: string;
       token: string;
     }
-  | string;
-
-type TGetAuthDataResponse = AuthData | string;
+  | 'Unauthorized';
 
 const dbUser = {
   id: 'userId',
@@ -28,28 +25,11 @@ const dbUser = {
   role: 'user' as const,
 };
 
-const token = 'newToken';
-
 const handlers = [
-  // TODO: unnecessary, reuse in other component
-  // http.get<never, never, TGetAuthDataResponse>(
-  //   '/api/auth/data',
-  //   async ({ request }) => {
-  //     await delay(150);
-  //     const headersToken = request.headers.get('authorization')?.split(' ')[1];
-  //     return headersToken === token
-  //       ? HttpResponse.json({
-  //           sub: dbUser.id,
-  //           username: dbUser.username,
-  //           email: dbUser.email,
-  //           role: dbUser.role,
-  //         })
-  //       : HttpResponse.json('Unauthorized', { status: 401 });
-  //   },
-  // ),
   http.get('/api/auth/data', () => {
     return HttpResponse.json('Unauthorized', { status: 401 });
   }),
+  // most likely an overkill for a mock
   http.post<never, TSignInBody, TSingInResponse>(
     '/api/auth/sign-in',
     async ({ request }) => {
@@ -61,7 +41,7 @@ const handlers = [
         dbUser.email === signInUser.email &&
         dbUser.password === signInUser.password;
       return signInSuccess
-        ? HttpResponse.json({ message: 'Success', token })
+        ? HttpResponse.json({ message: 'Success', token: 'newToken' })
         : HttpResponse.json('Unauthorized', { status: 401 });
     },
   ),
@@ -69,19 +49,11 @@ const handlers = [
 
 const server = setupServer(...handlers);
 
-beforeAll(() => {
-  server.listen();
-});
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
-afterEach(() => {
-  server.resetHandlers;
-});
-
-afterAll(() => {
-  server.close();
-});
-
-it('renders valid response based on user email input', async () => {
+it('renders email validation errors correctly', async () => {
   renderWithProviders(<SignInPanel />);
   const user = userEvent.setup();
 
@@ -99,7 +71,8 @@ it('renders valid response based on user email input', async () => {
   expect(emailErrorLabel).toHaveClass('invisible');
 });
 
-it('submits the form on valid user input and processes the response', async () => {
+// should be split into two different test cases?
+it('redirects the user on successful authentication', async () => {
   renderWithProviders(<SignInPanel />);
   const user = userEvent.setup();
 

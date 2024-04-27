@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import MessageItem from '../MessageItem';
 import { MessageType } from '@/types/MessageType';
-import { MessageData } from '@/types/MessageData';
+import { Message } from '@/types/Message';
 
-const testMessage: MessageData = {
+const testMessage: Message = {
   _id: 'm01',
   chat_room: 'johnchat01',
   body: 'Chat room created',

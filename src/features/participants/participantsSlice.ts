@@ -1,11 +1,11 @@
 import { apiSlice } from '../api/apiSlice';
 
-import { UserData } from '@/types/UserData';
+import { User } from '@/types/User';
 import { RootState } from '@/app/store';
 
 export const participantsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getParticipants: builder.query<UserData[], string>({
+    getParticipants: builder.query<User[], string>({
       query: (chatRoomId) => `/chat-rooms/${chatRoomId}/participants`,
     }),
   }),
