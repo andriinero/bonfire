@@ -121,3 +121,15 @@ export const createRandomUserMessage = (
     type: MessageType.MESSAGE,
   };
 };
+
+export const getMultipleRandomMessages = (
+  count: number,
+  chatRoomId: string,
+  userId: string,
+) => {
+  const result: Message[] = [];
+  for (let i = 0; i < count; i++)
+    result.push(createRandomUserMessage(chatRoomId, userId));
+
+  return result;
+};

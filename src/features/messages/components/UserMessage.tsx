@@ -7,7 +7,6 @@ import { selectSelectedChatId } from '@/features/chat/chatSlice';
 import { selectParticipantById } from '@/features/participants/participantsSlice';
 
 import { Message } from '@/types/Message';
-import { User } from '@/types/User';
 
 import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
@@ -19,25 +18,29 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
   const authUserId = useAppSelector(selectAuthUserId);
   const participantData = useAppSelector(
     selectParticipantById(selectedChatId!, user!),
-  ) as User;
+  );
 
-  const isAuthor = authUserId === participantData._id;
+  const isAuthor = authUserId === participantData?._id;
 
   return (
     <li className={cn('flex gap-2', { 'flex-row-reverse': isAuthor })}>
       <div>
-        <UserIcon
-          src={participantData.profile_image}
-          isOnline={participantData.is_online}
-        />
+        {participantData && (
+          <UserIcon
+            src={participantData.profile_image}
+            isOnline={participantData.is_online}
+          />
+        )}
       </div>
       <div className="flex flex-col gap-2">
         <div
           className={cn('flex items-center gap-2', { 'justify-end': isAuthor })}
         >
-          <p className="text-sm font-medium text-gray-500">
-            {participantData.username}
-          </p>
+          {participantData && (
+            <p className="text-sm font-medium text-gray-500">
+              {participantData.username}
+            </p>
+          )}
           <TimeStamp date={created} className="text-xs" />
         </div>
         <p

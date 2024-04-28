@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/app/hooks';
 
 import { selectSelectedChatId } from '../chatSlice';
-import { selectParticipantById } from '@/features/participants/participantsSlice';
+import { selectParticipantsByChatId } from '@/features/participants/participantsSlice';
 import { selectChatRoomById } from '@/features/chatRooms/chatRoomsSlice';
 
 import { FaEllipsis } from 'react-icons/fa6';
@@ -14,8 +14,8 @@ const ChatHeader = () => {
 
   const chat = useAppSelector(selectChatRoomById(selectedChatId));
   const firstUser = useAppSelector(
-    selectParticipantById(selectedChatId, chat?.participants[0] as string),
-  );
+    selectParticipantsByChatId(selectedChatId),
+  )?.[0];
 
   return (
     <header className="flex items-center justify-between border-b p-4 shadow-[0_2px_4px_-2px_rgb(0,0,0,0.1)]">
@@ -27,7 +27,7 @@ const ChatHeader = () => {
               src={firstUser.profile_image}
             />
             <div>
-              {chat && <ChatTitle title={chat.name} />}
+              {chat?.name && <ChatTitle title={chat.name} />}
               <p className="text-sm text-gray-500">
                 {firstUser.is_online ? 'Online' : 'Offline'}
               </p>

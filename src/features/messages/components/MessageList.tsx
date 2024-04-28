@@ -61,7 +61,7 @@ const MessageList = () => {
           )}
         </ul>
       ) : (
-        <ErrorMessage />
+        <ErrorMessage>Error: failed to fetch messages.</ErrorMessage>
       )}
     </div>
   );

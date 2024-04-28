@@ -1,14 +1,12 @@
 import userEvent from '@testing-library/user-event';
 import { setupServer } from 'msw/node';
-import { findByRole, screen, waitFor } from '@testing-library/dom';
+import { screen, waitFor } from '@testing-library/dom';
 import { HttpResponse, delay, http } from 'msw';
 
 import { renderWithProviders } from '@/utils/test-utils';
-import { serverHandlers, testData } from '@/mocks/serverMock';
+import { serverHandlers } from '@/mocks/serverMock';
 
 import SignInPanel from '../SignInPanel';
-
-const testServerData = testData;
 
 const handlers = [...serverHandlers];
 

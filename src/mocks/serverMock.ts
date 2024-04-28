@@ -3,9 +3,9 @@ import { HttpResponse, delay, http } from 'msw';
 
 import {
   createRandomUser,
-  createRandomUserMessage,
   getAuthDataFromUser,
   createChatRoom,
+  getMultipleRandomMessages,
 } from '@/utils/test-utils';
 
 import { AuthData } from '@/types/AuthData';
@@ -16,11 +16,14 @@ import { User } from '@/types/User';
 const testUser = createRandomUser();
 const testAuthData = getAuthDataFromUser(testUser);
 const testChatRoom = createChatRoom();
-const testMessages = createRandomUserMessage(testChatRoom._id, testUser._id);
-
+const testMessages = getMultipleRandomMessages(
+  5,
+  testChatRoom._id,
+  testUser._id,
+);
 const token = faker.string.uuid();
 
-export const testData = {
+export const mockDBData = {
   testUser,
   testAuthData,
   testChatRoom,
@@ -45,14 +48,14 @@ export const serverHandlers = [
     return HttpResponse.json([testChatRoom]);
   }),
   http.get<never, never, Message[]>(
-    '/api/chat-room/:chatroomid/messages',
+    '/api/chat-rooms/:chatroomid/messages',
     async () => {
       await delay(150);
-      return HttpResponse.json([testMessages]);
+      return HttpResponse.json(testMessages);
     },
   ),
   http.get<never, never, User[]>(
-    '/api/chat-room/:chatroomid/participants',
+    '/api/chat-rooms/:chatroomid/participants',
     async () => {
       await delay(150);
       return HttpResponse.json([testUser]);

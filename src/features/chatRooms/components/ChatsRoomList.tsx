@@ -22,7 +22,6 @@ const ChatRoomList = ({ className }: ChatRoomListProps) => {
 
   const dispatch = useAppDispatch();
 
-  // TODO: refactor
   useEffect(() => {
     if (chatList) dispatch(selectedChatIdSet(chatList[0]._id));
   }, [chatList]);
