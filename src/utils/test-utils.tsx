@@ -5,7 +5,7 @@ import type { PropsWithChildren, ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import type { AppStore, RootState } from '../app/store';
 import { makeStore } from '../app/store';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter, useNavigate } from 'react-router-dom';
 import { User } from '@/types/User';
 import { ar, faker, fakerEN } from '@faker-js/faker';
 import { Message } from '@/types/Message';
@@ -52,6 +52,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 export const renderWithProviders = (
   ui: ReactElement,
   extendedRenderOptions: ExtendedRenderOptions = {},
+  initialRoute: string = '/',
 ) => {
   const {
     preloadedState = {},
@@ -62,7 +63,7 @@ export const renderWithProviders = (
 
   const Wrapper = ({ children }: PropsWithChildren) => (
     <Provider store={store}>
-      <BrowserRouter>{children}</BrowserRouter>
+      <MemoryRouter initialEntries={[initialRoute]}>{children}</MemoryRouter>
     </Provider>
   );
 

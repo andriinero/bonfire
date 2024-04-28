@@ -16,6 +16,7 @@ const Router = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path={Paths.Base}>
+        <Route path="/" element={<Navigate to="/home/chats" />} />
         <Route path={Paths.Auth.SIGN_IN} element={<SignIn />} index />
         <Route
           path={Paths.Home.BASE}
