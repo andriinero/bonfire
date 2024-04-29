@@ -3,11 +3,11 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@/app/store';
 
 type ChatState = {
-  selectedChatId: string | null;
+  selectedChatId?: string;
 };
 
 const initialState: ChatState = {
-  selectedChatId: null,
+  selectedChatId: undefined,
 };
 
 const chatSlice = createSlice({
@@ -19,7 +19,7 @@ const chatSlice = createSlice({
         state.selectedChatId = action.payload;
     },
     selectedChatCleared: (state) => {
-      state.selectedChatId = null;
+      state.selectedChatId = undefined;
     },
   },
 });

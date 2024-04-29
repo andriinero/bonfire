@@ -16,24 +16,22 @@ import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
 import MessagePreview from './MessagePreview';
 import ChatTitle from '@/components/general/ChatTitle';
+import useInitChat from '@/hooks/useInitChat';
 
 type ChatRoomItemProps = {
   chatId: string;
 };
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
+  const { isLoading } = useInitChat(chatId);
+
   const chatById = useAppSelector(selectChatRoomById(chatId));
   const participants = useAppSelector(selectParticipantsByChatId(chatId));
   const nonAuthParticipants = useNonAuthUserIds(participants);
-  const participant = useAppSelector(
+  const firstParticipant = useAppSelector(
     selectParticipantById(chatId, nonAuthParticipants[0]),
   );
   const lastMessage = useChatLastMessage(chatId);
-
-  useEffect(() => {
-    dispatch(messagesApiSlice.endpoints.getMessages.initiate(chatId));
-    dispatch(participantsApiSlice.endpoints.getParticipants.initiate(chatId));
-  }, []);
 
   const dispatch = useAppDispatch();
 
@@ -41,17 +39,19 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
     dispatch(selectedChatIdSet(chatId));
   };
 
-  return (
+  return isLoading ? (
+    <></>
+  ) : (
     <li
       className="flex cursor-pointer gap-4 rounded-lg bg-gray-100 p-2"
       onClick={handleChatClick}
     >
       <div>
-        {participant && (
+        {firstParticipant && (
           <UserIcon
-            key={participant._id}
-            isOnline={participant.is_online}
-            src={participant.profile_image}
+            key={firstParticipant._id}
+            isOnline={firstParticipant.is_online}
+            src={firstParticipant.profile_image}
             style="lg"
           />
         )}

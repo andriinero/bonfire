@@ -1,26 +1,21 @@
-import useInitHome from '@/hooks/useInitHome';
+import { useAppSelector } from '@/app/hooks';
+
+import { selectSelectedChatId } from '@/features/chat/chatSlice';
 
 import Sidebar from '@/layout/Sidebar';
-import Spinner from '@/components/general/Spinner';
-import ChatMain from '@/features/chat/components/ChatMain';
-import ChatHeader from '@/features/chat/components/ChatHeader';
+import Chat from '@/features/chat/components/Chat';
 import ChatPlaceholder from '@/features/chat/components/ChatPlaceholder';
 
 const Home = () => {
-  const { isLoading } = useInitHome();
+  const selectedChatId = useAppSelector(selectSelectedChatId);
 
   return (
     <div className="grid max-h-dvh grid-cols-[minmax(auto,28rem),1fr] grid-rows-[minmax(5rem,auto),1fr]">
       <Sidebar />
-      {isLoading ? (
-        <ChatPlaceholder>
-          <Spinner />
-        </ChatPlaceholder>
+      {selectedChatId ? (
+        <Chat selectedChatId={selectedChatId} />
       ) : (
-        <>
-          <ChatHeader />
-          <ChatMain />
-        </>
+        <ChatPlaceholder />
       )}
     </div>
   );

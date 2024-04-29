@@ -1,12 +1,10 @@
-import { ReactNode } from 'react';
+import Spinner from '@/components/general/Spinner';
 
-import cn from '@/utils/cn';
-
-type ChatPlaceholderProps = { className?: string; children?: ReactNode };
-
-const ChatPlaceholder = ({ className, children }: ChatPlaceholderProps) => {
+const ChatPlaceholder = () => {
   return (
-    <div className={cn('row-start-1 row-end-3', className)}>{children}</div>
+    <div className="row-start-1 row-end-3 flex items-center justify-center bg-gray-50">
+      <Spinner />
+    </div>
   );
 };
 
