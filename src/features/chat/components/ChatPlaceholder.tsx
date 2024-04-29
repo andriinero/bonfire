@@ -1,8 +1,12 @@
-const ChatPlaceholder = () => {
+import { ReactNode } from 'react';
+
+import cn from '@/utils/cn';
+
+type ChatPlaceholderProps = { className?: string; children?: ReactNode };
+
+const ChatPlaceholder = ({ className, children }: ChatPlaceholderProps) => {
   return (
-    <div className="row-span-2 flex items-center justify-center bg-gray-50">
-      No chat selected!
-    </div>
+    <div className={cn('row-start-1 row-end-3', className)}>{children}</div>
   );
 };
 
