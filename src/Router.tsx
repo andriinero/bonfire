@@ -11,11 +11,15 @@ import Home from './pages/Home';
 import Protected from './pages/Protected';
 import Paths from './constants/Paths';
 import ChatRoomSidebar from './features/chatRooms/components/ChatRoomSidebar';
+import ContactsSidebar from './features/contacts/components/ContactsSidebar';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={Paths.Base}>
-      <Route path="/" element={<Navigate to="/home/chats" />} />
+      <Route
+        path="/"
+        element={<Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />}
+      />
       <Route path={Paths.Auth.SIGN_IN} element={<SignIn />} index />
       <Route
         path={Paths.Home.BASE}
@@ -25,7 +29,10 @@ export const router = createBrowserRouter(
           </Protected>
         }
       >
-        <Route index element={<Navigate to="/home/chats" />} />
+        <Route
+          index
+          element={<Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />}
+        />
         <Route
           path={Paths.Home.BASE + Paths.Home.CHATS}
           element={<ChatRoomSidebar />}
@@ -33,7 +40,7 @@ export const router = createBrowserRouter(
         <Route
           path={Paths.Home.BASE + Paths.Home.CONTACTS}
           element={
-            <p className="text-2xl font-bold text-neutral-800">Contacts</p>
+            <ContactsSidebar/>
           }
         />
       </Route>
