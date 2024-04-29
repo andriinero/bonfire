@@ -1,13 +1,10 @@
-import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import useNonAuthUserIds from '../../../hooks/useNonAuthUserParticipants';
 import useChatLastMessage from '@/features/messages/hooks/useChatLastMessage';
 
 import { selectChatRoomById } from '../chatRoomsSlice';
 import { selectedChatIdSet } from '@/features/chat/chatSlice';
-import { messagesApiSlice } from '@/features/messages/messagesSlice';
 import {
-  participantsApiSlice,
   selectParticipantById,
   selectParticipantsByChatId,
 } from '@/features/participants/participantsSlice';
@@ -23,7 +20,7 @@ type ChatRoomItemProps = {
 };
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
-  const { isLoading } = useInitChat(chatId);
+  useInitChat(chatId);
 
   const chatById = useAppSelector(selectChatRoomById(chatId));
   const participants = useAppSelector(selectParticipantsByChatId(chatId));
@@ -39,9 +36,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
     dispatch(selectedChatIdSet(chatId));
   };
 
-  return isLoading ? (
-    <></>
-  ) : (
+  return (
     <li
       className="flex cursor-pointer gap-4 rounded-lg bg-gray-100 p-2"
       onClick={handleChatClick}

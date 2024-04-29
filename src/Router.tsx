@@ -12,35 +12,36 @@ import Protected from './pages/Protected';
 import Paths from './constants/Paths';
 import ChatRoomSidebar from './features/chatRooms/components/ChatRoomSidebar';
 
-const Router = () => {
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path={Paths.Base}>
-        <Route path="/" element={<Navigate to="/home/chats" />} />
-        <Route path={Paths.Auth.SIGN_IN} element={<SignIn />} index />
+export const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path={Paths.Base}>
+      <Route path="/" element={<Navigate to="/home/chats" />} />
+      <Route path={Paths.Auth.SIGN_IN} element={<SignIn />} index />
+      <Route
+        path={Paths.Home.BASE}
+        element={
+          <Protected>
+            <Home />
+          </Protected>
+        }
+      >
+        <Route index element={<Navigate to="/home/chats" />} />
         <Route
-          path={Paths.Home.BASE}
+          path={Paths.Home.BASE + Paths.Home.CHATS}
+          element={<ChatRoomSidebar />}
+        />
+        <Route
+          path={Paths.Home.BASE + Paths.Home.CONTACTS}
           element={
-            <Protected>
-              <Home />
-            </Protected>
+            <p className="text-2xl font-bold text-neutral-800">Contacts</p>
           }
-        >
-          <Route index element={<Navigate to="/home/chats" />} />
-          <Route
-            path={Paths.Home.BASE + Paths.Home.CHATS}
-            element={<ChatRoomSidebar />}
-          />
-          <Route
-            path={Paths.Home.BASE + Paths.Home.CONTACTS}
-            element={
-              <p className="text-2xl font-bold text-neutral-800">Contacts</p>
-            }
-          />
-        </Route>
-      </Route>,
-    ),
-  );
+        />
+      </Route>
+    </Route>,
+  ),
+);
+
+const Router = () => {
   return <RouterProvider router={router} />;
 };
 

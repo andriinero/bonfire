@@ -7,6 +7,7 @@ import { renderWithProviders } from '@/utils/test-utils';
 import { serverHandlers } from '@/mocks/serverMock';
 
 import SignInPanel from '../SignInPanel';
+import { MemoryRouter } from 'react-router-dom';
 
 const handlers = [...serverHandlers];
 
@@ -35,7 +36,11 @@ it('renders email validation errors correctly', async () => {
 });
 
 it('redirects the user on successful authentication', async () => {
-  renderWithProviders(<SignInPanel />);
+  renderWithProviders(
+    <MemoryRouter>
+      <SignInPanel />
+    </MemoryRouter>,
+  );
   const user = userEvent.setup();
 
   const emailField = screen.getByRole('textbox', { name: 'Email address' });
@@ -58,7 +63,11 @@ it("doesn't redirect user on unsuccessful authentication", async () => {
       return HttpResponse.json('Unauthorized', { status: 401 });
     }),
   );
-  renderWithProviders(<SignInPanel />);
+  renderWithProviders(
+    <MemoryRouter>
+      <SignInPanel />
+    </MemoryRouter>,
+  );
   const user = userEvent.setup();
 
   const emailField = screen.getByRole('textbox', { name: 'Email address' });

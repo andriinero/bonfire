@@ -7,7 +7,7 @@ import type { AppStore, RootState } from '../app/store';
 import { makeStore } from '../app/store';
 import { BrowserRouter, MemoryRouter, useNavigate } from 'react-router-dom';
 import { User } from '@/types/User';
-import { ar, faker, fakerEN } from '@faker-js/faker';
+import { StringColorFormat, ar, faker, fakerEN } from '@faker-js/faker';
 import { Message } from '@/types/Message';
 import { ChatRoom } from '@/types/ChatRoom';
 import { z } from 'zod';
@@ -52,7 +52,6 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 export const renderWithProviders = (
   ui: ReactElement,
   extendedRenderOptions: ExtendedRenderOptions = {},
-  initialRoute: string = '/',
 ) => {
   const {
     preloadedState = {},
@@ -62,9 +61,7 @@ export const renderWithProviders = (
   } = extendedRenderOptions;
 
   const Wrapper = ({ children }: PropsWithChildren) => (
-    <Provider store={store}>
-      <MemoryRouter initialEntries={[initialRoute]}>{children}</MemoryRouter>
-    </Provider>
+    <Provider store={store}>{children}</Provider>
   );
 
   // Return an object with the store and all of RTL's query functions
