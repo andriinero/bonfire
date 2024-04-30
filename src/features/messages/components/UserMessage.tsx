@@ -23,7 +23,10 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
   const isAuthor = authUserId === participantData?._id;
 
   return (
-    <li className={cn('flex gap-2', { 'flex-row-reverse': isAuthor })}>
+    <li
+      aria-label="chat-message"
+      className={cn('flex gap-2', { 'flex-row-reverse': isAuthor })}
+    >
       <div>
         {participantData && (
           <UserIcon

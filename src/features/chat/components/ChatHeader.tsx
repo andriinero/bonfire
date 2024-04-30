@@ -33,7 +33,7 @@ const ChatHeader = () => {
               </p>
             </div>
           </div>
-          <IconButton className="text-sky-500">
+          <IconButton aria-label="chat-options" className="text-sky-500">
             <FaEllipsis />
           </IconButton>
         </>

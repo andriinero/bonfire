@@ -6,7 +6,7 @@ import {
   getAuthDataFromUser,
   createChatRoom,
   getMultipleRandomMessages,
-} from '@/utils/test-utils';
+} from '@/utils/testData';
 
 import { AuthData } from '@/types/AuthData';
 import { ChatRoom } from '@/types/ChatRoom';
