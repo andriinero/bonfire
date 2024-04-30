@@ -62,6 +62,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
             data: { token },
           } = await queryFulfilled;
           dispatch(tokenInitialized(token));
+          authApiSlice.endpoints.getAuthData.initiate();
         } catch (err) {}
       },
     }),

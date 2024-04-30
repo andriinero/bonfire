@@ -20,8 +20,6 @@ const SignInBodySchema = z.object({
 export type TSignInBody = z.infer<typeof SignInBodySchema>;
 
 const SignInPanel = () => {
-  const { refetch } = useGetAuthDataQuery();
-
   const {
     register,
     handleSubmit,
@@ -34,7 +32,6 @@ const SignInPanel = () => {
 
   const handleFormSubmit = async (data: TSignInBody): Promise<void> => {
     await postSignIn(data).unwrap();
-    refetch();
   };
 
   const isSubmitDisabled = isLoading;
