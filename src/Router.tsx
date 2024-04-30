@@ -6,10 +6,11 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
+import Paths from './constants/Paths';
+
 import SignIn from './pages/SignIn';
 import Home from './pages/Home';
 import Protected from './pages/Protected';
-import Paths from './constants/Paths';
 import ChatRoomSidebar from './features/chatRooms/components/ChatRoomSidebar';
 import ContactsSidebar from './features/contacts/components/ContactsSidebar';
 
@@ -39,9 +40,7 @@ export const router = createBrowserRouter(
         />
         <Route
           path={Paths.Home.BASE + Paths.Home.CONTACTS}
-          element={
-            <ContactsSidebar/>
-          }
+          element={<ContactsSidebar />}
         />
       </Route>
     </Route>,
