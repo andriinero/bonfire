@@ -1,7 +1,9 @@
 import { screen } from '@testing-library/dom';
-import NavControls from '../NavControls';
+
 import { renderWithProviders } from '@/utils/test-utils';
+
 import { MemoryRouter } from 'react-router-dom';
+import NavControls from '../NavControls';
 
 it('renders nav controls', () => {
   renderWithProviders(

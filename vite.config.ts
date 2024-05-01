@@ -14,5 +14,19 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: 'src/setupTests',
     mockReset: true,
+    coverage: {
+      provider: 'v8',
+      exclude: [
+        'src/types/*',
+        'src/MainTheme.ts',
+        'src/main.tsx',
+        'tailwind.config.cjs',
+        'postcss.config.cjs',
+        '.eslintrc.cjs',
+        'src/styled.d.ts',
+        'src/app',
+        'src/hooks',
+      ],
+    },
   },
 });

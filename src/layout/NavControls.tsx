@@ -48,7 +48,11 @@ const NavControls = () => {
           </AppLink>
         </li>
         <li>
-          <IconButton onClick={handleSignOutClick}>
+          <IconButton
+            tabIndex={0}
+            aria-label="Sign Out"
+            onClick={handleSignOutClick}
+          >
             <FaArrowRightFromBracket />
           </IconButton>
         </li>

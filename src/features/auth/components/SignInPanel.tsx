@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useGetAuthDataQuery, usePostSignInMutation } from '../authSlice';
+import { usePostSignInMutation } from '../authSlice';
 
 import { FaGithub, FaGoogle } from 'react-icons/fa6';
 import Form from '../../../components/form/Form';
