@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { ChatRoom } from '@/types/ChatRoom';
 
-export const extendedApiSlice = apiSlice.injectEndpoints({
+export const chatRoomsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getChatRooms: builder.query<ChatRoom[], void>({
       query: () => `/chat-rooms`,
@@ -12,10 +12,10 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetChatRoomsQuery } = extendedApiSlice;
+export const { useGetChatRoomsQuery } = chatRoomsApiSlice;
 
 export const selectChatRoomsListResult =
-  extendedApiSlice.endpoints.getChatRooms.select();
+  chatRoomsApiSlice.endpoints.getChatRooms.select();
 
 export const selectChatRoomsList = createSelector(
   selectChatRoomsListResult,

@@ -1,5 +1,5 @@
 const ContactsHeader = () => {
-  return <p className="text-2xl font-bold text-neutral-800">Contacts</p>;
+  return <h1 className="text-2xl font-bold text-gray-800">Contacts</h1>;
 };
 
 export default ContactsHeader;

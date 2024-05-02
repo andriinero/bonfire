@@ -8,9 +8,9 @@ import Home from '@/pages/Home';
 import ChatRoomSidebar from '@/features/chatRooms/components/ChatRoomSidebar';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
-const server = setupServer(...serverHandlers);
-
 const { testMessages } = mockDBData;
+
+const server = setupServer(...serverHandlers);
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

@@ -61,4 +61,8 @@ export const serverHandlers = [
       return HttpResponse.json([testUser]);
     },
   ),
+  http.get<never, never, User[]>('/api/profile/contacts', async () => {
+    await delay(150);
+    return HttpResponse.json([testUser]);
+  }),
 ];

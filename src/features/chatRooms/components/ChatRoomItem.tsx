@@ -42,14 +42,12 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
       onClick={handleChatClick}
     >
       <div>
-        {firstParticipant && (
-          <UserIcon
-            key={firstParticipant._id}
-            isOnline={firstParticipant.is_online}
-            src={firstParticipant.profile_image}
-            style="lg"
-          />
-        )}
+        <UserIcon
+          key={firstParticipant?._id}
+          isOnline={firstParticipant?.is_online}
+          src={firstParticipant?.profile_image}
+          style="lg"
+        />
       </div>
       <div className="flex grow justify-between gap-2">
         <div className="flex flex-col justify-between">
