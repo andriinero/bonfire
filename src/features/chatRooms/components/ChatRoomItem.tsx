@@ -1,9 +1,15 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import useNonAuthUserIds from '../../../hooks/useNonAuthUserParticipants';
 import useChatLastMessage from '@/features/messages/hooks/useChatLastMessage';
+import useInitChat from '@/hooks/useInitChat';
+
+import cn from '@/utils/cn';
 
 import { selectChatRoomById } from '../chatRoomsSlice';
-import { selectedChatIdSet } from '@/features/chat/chatSlice';
+import {
+  selectSelectedChatId,
+  selectedChatIdSet,
+} from '@/features/chat/chatSlice';
 import {
   selectParticipantById,
   selectParticipantsByChatId,
@@ -13,7 +19,6 @@ import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
 import MessagePreview from './MessagePreview';
 import ChatTitle from '@/components/general/ChatTitle';
-import useInitChat from '@/hooks/useInitChat';
 
 type ChatRoomItemProps = {
   chatId: string;
@@ -22,7 +27,8 @@ type ChatRoomItemProps = {
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
   useInitChat(chatId);
 
-  const chatById = useAppSelector(selectChatRoomById(chatId));
+  const selectedChatId = useAppSelector(selectSelectedChatId);
+  const chatRoom = useAppSelector(selectChatRoomById(chatId));
   const participants = useAppSelector(selectParticipantsByChatId(chatId));
   const nonAuthParticipants = useNonAuthUserIds(participants);
   const firstParticipant = useAppSelector(
@@ -36,9 +42,14 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
     dispatch(selectedChatIdSet(chatId));
   };
 
+  const isChatRoomSelected = selectedChatId === chatId;
+
   return (
     <li
-      className="flex cursor-pointer gap-4 rounded-lg bg-gray-100 p-2"
+      className={cn('flex cursor-pointer gap-4 rounded-lg p-2 transition', {
+        'hover:bg-gray-50': !isChatRoomSelected,
+        'bg-gray-100': isChatRoomSelected,
+      })}
       onClick={handleChatClick}
     >
       <div>
@@ -51,7 +62,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
       </div>
       <div className="flex grow justify-between gap-2">
         <div className="flex flex-col justify-between">
-          {chatById?.name && <ChatTitle title={chatById.name} />}
+          {chatRoom?.name && <ChatTitle title={chatRoom.name} />}
           {lastMessage && <MessagePreview {...lastMessage} />}
         </div>
         <div>{lastMessage && <TimeStamp date={lastMessage.created} />}</div>
