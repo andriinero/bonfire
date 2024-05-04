@@ -7,6 +7,7 @@ import { useGetChatRoomsQuery } from '../chatRoomsSlice';
 import ChatRoomItem from './ChatRoomItem';
 import Spinner from '@/components/general/Spinner';
 import ErrorMessage from '@/components/general/ErrorMessage';
+import ListPlaceholder from '@/components/general/ListPlaceholder';
 
 const ChatRoomList = () => {
   const {
@@ -29,11 +30,15 @@ const ChatRoomList = () => {
       {isDataLoading ? (
         <Spinner />
       ) : isSuccess ? (
-        <ul className="space-y-2">
-          {chatList!.map((c) => (
-            <ChatRoomItem key={c._id} chatId={c._id} />
-          ))}
-        </ul>
+        chatList.length > 0 ? (
+          <ul className="space-y-2">
+            {chatList!.map((c) => (
+              <ChatRoomItem key={c._id} chatId={c._id} />
+            ))}
+          </ul>
+        ) : (
+          <ListPlaceholder>Start a new chat!</ListPlaceholder>
+        )
       ) : (
         <ErrorMessage />
       )}
