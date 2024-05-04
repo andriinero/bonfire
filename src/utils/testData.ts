@@ -64,3 +64,10 @@ export const getMultipleRandomMessages = (
 
   return result;
 };
+
+export const getMultipleRandomUsers = (count: number) => {
+  const result: User[] = [];
+  for (let i = 0; i < count; i++) result.push(createRandomUser());
+
+  return result;
+};

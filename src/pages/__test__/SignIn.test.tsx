@@ -1,6 +1,10 @@
 import userEvent from '@testing-library/user-event';
 import { HttpResponse, delay, http } from 'msw';
-import { screen, waitFor } from '@testing-library/dom';
+import {
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/dom';
 
 import { createRandomUser, getAuthDataFromUser } from '@/utils/testData';
 import { serverHandlers } from '@/mocks/serverMock';
@@ -50,7 +54,11 @@ it('redirects you when signed in ', () => {
 
 it('renders email validation errors correctly', async () => {
   const user = userEvent.setup();
-  renderWithProviders(<MemoryRouter><SignIn /></MemoryRouter>);
+  renderWithProviders(
+    <MemoryRouter>
+      <SignIn />
+    </MemoryRouter>,
+  );
 
   const emailField = screen.getByRole('textbox', { name: 'Email address' });
   const submit = screen.getByRole('button', { name: 'Sign In' });
@@ -63,7 +71,10 @@ it('renders email validation errors correctly', async () => {
 
   await user.clear(emailField);
   await user.type(emailField, 'valid@email.com');
-  expect(emailErrorLabel).toHaveClass('invisible');
+
+  expect(
+    screen.queryByText('Invalid email', { exact: false }),
+  ).not.toBeInTheDocument();
 });
 
 it('redirects the user on successful authentication', async () => {
@@ -81,24 +92,31 @@ it('redirects the user on successful authentication', async () => {
   await user.type(emailField, 'valid@email.com');
   await user.type(passwordField, 'password');
   await user.click(submit);
+
   await waitFor(() => {
-    expect(submit).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('sign in to', { exact: false }),
+    ).not.toBeInTheDocument();
   });
 });
 
 it("doesn't redirect user on unsuccessful authentication", async () => {
   server.use(
+    http.get('/api/auth/data', async () => {
+      await delay(150);
+      return HttpResponse.json('Unauthorized', { status: 401 });
+    }),
     http.post('/api/auth/sign-in', async () => {
       await delay(150);
       return HttpResponse.json('Unauthorized', { status: 401 });
     }),
   );
+  const user = userEvent.setup();
   renderWithProviders(
     <MemoryRouter>
       <SignIn />
     </MemoryRouter>,
   );
-  const user = userEvent.setup();
 
   const emailField = screen.getByRole('textbox', { name: 'Email address' });
   const passwordField = screen.getByLabelText('Password');
@@ -107,5 +125,5 @@ it("doesn't redirect user on unsuccessful authentication", async () => {
   await user.type(passwordField, 'invalid pass');
   await user.click(submit);
 
-  expect(submit).toBeInTheDocument();
+  expect(screen.getByText('sign in to', { exact: false })).toBeInTheDocument();
 });

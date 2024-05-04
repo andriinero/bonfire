@@ -5,7 +5,7 @@ import { selectIsSignedIn } from '@/features/auth/authSlice';
 import { Navigate } from 'react-router-dom';
 import SignInPanel from '@/features/auth/components/SignInPanel';
 import Paths from '@/constants/Paths';
-
+  
 const SignIn = () => {
   const isSignedIn = useAppSelector(selectIsSignedIn);
 

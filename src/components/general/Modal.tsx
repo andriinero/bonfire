@@ -37,13 +37,20 @@ const Modal = ({ isOpen, onModalClick, className, children }: ModalProps) => {
           )}
         >
           <div
+            aria-label="Modal Backdrop"
             onClick={onModalClick}
             className={cn(
               'absolute -z-10 h-full w-full bg-gray-900 bg-opacity-20',
               className,
             )}
           ></div>
-          {children}
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="dialog-label"
+          >
+            {children}
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

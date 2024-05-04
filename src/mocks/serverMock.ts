@@ -6,6 +6,7 @@ import {
   getAuthDataFromUser,
   createChatRoom,
   getMultipleRandomMessages,
+  getMultipleRandomUsers,
 } from '@/utils/testData';
 
 import { AuthData } from '@/types/AuthData';
@@ -61,4 +62,10 @@ export const serverHandlers = [
     await delay(150);
     return HttpResponse.json([testUser]);
   }),
+  http.delete<never, never, string>(
+    '/api/profile/contacts/:userid',
+    async () => {
+      return HttpResponse.json('OK');
+    },
+  ),
 ];
