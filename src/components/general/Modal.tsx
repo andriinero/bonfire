@@ -11,11 +11,6 @@ type ModalProps = {
 };
 
 const Modal = ({ isOpen, onModalClick, className, children }: ModalProps) => {
-  const handleModalClick = (e: MouseEvent) => {
-    e.stopPropagation();
-    onModalClick();
-  };
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -30,9 +25,9 @@ const Modal = ({ isOpen, onModalClick, className, children }: ModalProps) => {
           )}
         >
           <div
-            onClick={handleModalClick}
+            onClick={onModalClick}
             className={cn(
-              'absolute -z-10 h-full w-full bg-gray-900 bg-opacity-35',
+              'absolute -z-10 h-full w-full bg-gray-900 bg-opacity-20',
               className,
             )}
           ></div>

@@ -29,7 +29,11 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getChatRooms: builder.query<ChatRoom[], void>({
       query: () => `/chat-rooms`,
-      providesTags: ['authData'],
+      providesTags: ['chatRooms'],
+    }),
+    postChatRoom: builder.mutation<void, { username: string }>({
+      query: (body) => ({ url: '/chat-rooms', method: 'POST', body }),
+      invalidatesTags: ['chatRooms'],
     }),
   }),
 });
@@ -37,7 +41,8 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
 export const { createChatRoomOpened, createChatRoomClosed } =
   chatRoomSlice.actions;
 
-export const { useGetChatRoomsQuery } = chatRoomsApiSlice;
+export const { useGetChatRoomsQuery, usePostChatRoomMutation } =
+  chatRoomsApiSlice;
 
 export default chatRoomSlice;
 
