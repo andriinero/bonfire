@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from '@/app/store';
 
 export const apiSlice = createApi({
-  tagTypes: ['authData', 'chatRooms'],
+  tagTypes: ['authData', 'chatRooms', 'contacts'],
   keepUnusedDataFor: 100000,
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3000/api/',

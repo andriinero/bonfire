@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 import cn from '@/utils/cn';
 
 type ButtonProps = {
-  style?: 'primary' | 'hollow' | 'icon';
+  style?: 'primary' | 'hollow';
   className?: string;
   children?: ReactNode;
 } & DetailedHTMLProps<
