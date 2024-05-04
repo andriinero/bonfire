@@ -50,7 +50,7 @@ it('redirects you when signed in ', () => {
 
 it('renders email validation errors correctly', async () => {
   const user = userEvent.setup();
-  renderWithProviders(<SignIn />);
+  renderWithProviders(<MemoryRouter><SignIn /></MemoryRouter>);
 
   const emailField = screen.getByRole('textbox', { name: 'Email address' });
   const submit = screen.getByRole('button', { name: 'Sign In' });

@@ -3,7 +3,11 @@ import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { usePostSignInMutation } from '../authSlice';
+import {
+  tokenInitialized,
+  useGetAuthDataQuery,
+  usePostSignInMutation,
+} from '../authSlice';
 
 import { FaGithub, FaGoogle } from 'react-icons/fa6';
 import Form from '../../../components/form/Form';
@@ -12,6 +16,7 @@ import TextInput from '../../../components/form/TextInput';
 import InputLabel from '../../../components/form/InputLabel';
 import InputGroup from '../../../components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
+import { useAppDispatch } from '@/app/hooks';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),
@@ -20,6 +25,8 @@ const SignInBodySchema = z.object({
 export type TSignInBody = z.infer<typeof SignInBodySchema>;
 
 const SignInPanel = () => {
+  const { refetch } = useGetAuthDataQuery();
+
   const {
     register,
     handleSubmit,
@@ -28,10 +35,16 @@ const SignInPanel = () => {
 
   const [postSignIn, { isLoading, isSuccess }] = usePostSignInMutation();
 
+  const dispatch = useAppDispatch();
+
   if (isSuccess) return <Navigate to="/home/chats" />;
 
   const handleFormSubmit = async (data: TSignInBody): Promise<void> => {
-    await postSignIn(data).unwrap();
+    try {
+      const result = await postSignIn(data).unwrap();
+      dispatch(tokenInitialized(result.token));
+      refetch();
+    } catch (err) {}
   };
 
   const isSubmitDisabled = isLoading;

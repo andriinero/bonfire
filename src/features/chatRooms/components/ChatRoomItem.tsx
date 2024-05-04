@@ -25,8 +25,6 @@ type ChatRoomItemProps = {
 };
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
-  useInitChat(chatId);
-
   const selectedChatId = useAppSelector(selectSelectedChatId);
   const chatRoom = useAppSelector(selectChatRoomById(chatId));
   const participants = useAppSelector(selectParticipantsByChatId(chatId));

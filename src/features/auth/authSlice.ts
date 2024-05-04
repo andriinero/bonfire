@@ -56,15 +56,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body,
       }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        try {
-          const {
-            data: { token },
-          } = await queryFulfilled;
-          dispatch(tokenInitialized(token));
-          authApiSlice.endpoints.getAuthData.initiate();
-        } catch (err) {}
-      },
     }),
   }),
 });
