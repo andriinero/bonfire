@@ -4,6 +4,7 @@ import { RootState } from '@/app/store';
 
 export const apiSlice = createApi({
   tagTypes: ['authData'],
+  keepUnusedDataFor: 100000,
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3000/api/',
     prepareHeaders: (headers, { getState }) => {

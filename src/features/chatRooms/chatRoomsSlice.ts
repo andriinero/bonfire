@@ -1,7 +1,29 @@
 import { apiSlice } from '../api/apiSlice';
-import { createSelector } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { ChatRoom } from '@/types/ChatRoom';
+import { RootState } from '@/app/store';
+
+type ChatRoomState = {
+  isCreateChatRoomOpen: boolean;
+};
+
+const initialState: ChatRoomState = {
+  isCreateChatRoomOpen: false,
+};
+
+const chatRoomSlice = createSlice({
+  name: 'chatRoom',
+  initialState,
+  reducers: {
+    createChatRoomOpened: (state) => {
+      state.isCreateChatRoomOpen = true;
+    },
+    createChatRoomClosed: (state) => {
+      state.isCreateChatRoomOpen = false;
+    },
+  },
+});
 
 export const chatRoomsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,7 +34,15 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
+export const { createChatRoomOpened, createChatRoomClosed } =
+  chatRoomSlice.actions;
+
 export const { useGetChatRoomsQuery } = chatRoomsApiSlice;
+
+export default chatRoomSlice;
+
+export const selectIsCreateChatRoomOpen = (state: RootState) =>
+  state.chatRoom.isCreateChatRoomOpen;
 
 export const selectChatRoomsListResult =
   chatRoomsApiSlice.endpoints.getChatRooms.select();

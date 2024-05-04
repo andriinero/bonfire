@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAppDispatch } from '@/app/hooks';
 
 import {
   tokenInitialized,
@@ -9,14 +10,13 @@ import {
   usePostSignInMutation,
 } from '../authSlice';
 
-import { FaGithub, FaGoogle } from 'react-icons/fa6';
+import { FaGoogle } from 'react-icons/fa6';
 import Form from '../../../components/form/Form';
 import Button from '../../../components/general/Button';
 import TextInput from '../../../components/form/TextInput';
 import InputLabel from '../../../components/form/InputLabel';
 import InputGroup from '../../../components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
-import { useAppDispatch } from '@/app/hooks';
 import UserIcon from '@/components/general/UserIcon';
 
 const SignInBodySchema = z.object({
