@@ -2,14 +2,15 @@ import cn from '@/utils/cn';
 import { ComponentProps } from 'react';
 
 type UserIconProps = {
-  isOnline?: boolean;
-  style?: 'md' | 'lg';
+  src: string;
+  isOnline: boolean;
+  style?: 'xs' | 'md' | 'lg';
 } & ComponentProps<'img'>;
 
 const UserIcon = ({
+  src = '/profile-placeholder.jpeg',
   isOnline = false,
   style = 'md',
-  src = '/profile-placeholder.jpeg',
   ...otherProps
 }: UserIconProps) => {
   return (
@@ -26,6 +27,7 @@ const UserIcon = ({
         className={cn(
           'size-10 select-none rounded-full object-cover text-gray-400',
           {
+            'size-6': style === 'xs',
             'size-10': style === 'md',
             'size-12': style === 'lg',
           },

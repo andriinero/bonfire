@@ -17,6 +17,7 @@ import InputLabel from '../../../components/form/InputLabel';
 import InputGroup from '../../../components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
 import { useAppDispatch } from '@/app/hooks';
+import UserIcon from '@/components/general/UserIcon';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),
@@ -47,10 +48,21 @@ const SignInPanel = () => {
     } catch (err) {}
   };
 
+  const handleGuestSignIn = async (): Promise<void> => {
+    try {
+      const result = await postSignIn({
+        email: 'max@gmail.com',
+        password: 'strongpass1',
+      }).unwrap();
+      dispatch(tokenInitialized(result.token));
+      refetch();
+    } catch (err) {}
+  };
+
   const isSubmitDisabled = isLoading;
 
   return (
-    <div className="container space-y-8 rounded-md bg-white p-10 font-medium text-slate-400 shadow">
+    <div className="container space-y-7 rounded-md bg-white p-10 font-medium text-slate-400 shadow">
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputGroup>
           <InputLabel htmlFor="sign-in-email">Email address</InputLabel>
@@ -86,10 +98,16 @@ const SignInPanel = () => {
       </div>
       <div className="grid grid-cols-2 gap-x-2">
         <Button type="button" style="hollow">
-          <FaGithub size="1.5rem" />
-        </Button>
-        <Button type="button" style="hollow">
           <FaGoogle size="1.5rem" />
+        </Button>
+        <Button
+          className="flex gap-2 p-0 font-semibold"
+          type="button"
+          style="hollow"
+          onClick={handleGuestSignIn}
+        >
+          <UserIcon isOnline={false} src="/guest.png" style="xs" />
+          <p>Max</p>
         </Button>
       </div>
       <div className="space-x-2 text-center">
