@@ -4,11 +4,12 @@ import { selectIsSignedIn } from '@/features/auth/authSlice';
 
 import { Navigate } from 'react-router-dom';
 import SignInPanel from '@/features/auth/components/SignInPanel';
+import Paths from '@/constants/Paths';
 
 const SignIn = () => {
   const isSignedIn = useAppSelector(selectIsSignedIn);
 
-  if (isSignedIn) return <Navigate to="/home" />;
+  if (isSignedIn) return <Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />;
 
   return (
     <div className="flex min-h-dvh items-center justify-center bg-neutral-100">

@@ -7,6 +7,7 @@ import { renderWithProviders } from '@/utils/test-utils';
 import Home from '@/pages/Home';
 import ChatRoomSidebar from '@/features/chatRooms/components/ChatRoomSidebar';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import Paths from '@/constants/Paths';
 
 const { testMessages } = mockDBData;
 
@@ -20,10 +21,13 @@ afterAll(() => server.close());
 it('fetches and displays chat room with messages', async () => {
   window.HTMLElement.prototype.scrollTo = () => {};
   renderWithProviders(
-    <MemoryRouter initialEntries={['/home/chats']}>
+    <MemoryRouter initialEntries={[Paths.Home.BASE + Paths.Home.CHATS]}>
       <Routes>
-        <Route path="home" element={<Home />}>
-          <Route path="chats" element={<ChatRoomSidebar />} />
+        <Route path={Paths.Home.BASE} element={<Home />}>
+          <Route
+            path={Paths.Home.BASE + Paths.Home.CHATS}
+            element={<ChatRoomSidebar />}
+          />
         </Route>
       </Routes>
     </MemoryRouter>,

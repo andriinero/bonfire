@@ -12,7 +12,9 @@ const Protected = ({ children }: ProtectedProps) => {
 
   if (isError) return <Navigate to={Paths.Auth.SIGN_IN} />;
 
-  return isLoading || isFetching || isError ? <></> : <>{children}</>;
+  const isAuthDataFetching = isLoading || isFetching;
+
+  return isAuthDataFetching || isError ? <></> : <>{children}</>;
 };
 
 export default Protected;

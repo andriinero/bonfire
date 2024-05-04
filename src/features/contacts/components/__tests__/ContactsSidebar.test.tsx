@@ -7,6 +7,7 @@ import { mockDBData, serverHandlers } from '@/mocks/serverMock';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import ContactsSidebar from '../ContactsSidebar';
 import Home from '@/pages/Home';
+import Paths from '@/constants/Paths';
 
 const { testUser } = mockDBData;
 
@@ -19,10 +20,13 @@ afterAll(() => server.close());
 it('fetches and displays user contacts', async () => {
   window.HTMLElement.prototype.scrollTo = () => {};
   renderWithProviders(
-    <MemoryRouter initialEntries={['/home/chats']}>
+    <MemoryRouter initialEntries={[Paths.Home.BASE + Paths.Home.CHATS]}>
       <Routes>
-        <Route path="home" element={<Home />}>
-          <Route path="chats" element={<ContactsSidebar />} />
+        <Route path={Paths.Home.BASE} element={<Home />}>
+          <Route
+            path={Paths.Home.BASE + Paths.Home.CHATS}
+            element={<ContactsSidebar />}
+          />
         </Route>
       </Routes>
     </MemoryRouter>,

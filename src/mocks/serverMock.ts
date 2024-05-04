@@ -13,15 +13,11 @@ import { ChatRoom } from '@/types/ChatRoom';
 import { Message } from '@/types/Message';
 import { User } from '@/types/User';
 
-const testUser = createRandomUser();
-const testAuthData = getAuthDataFromUser(testUser);
-const testChatRoom = createChatRoom();
-const testMessages = getMultipleRandomMessages(
-  5,
-  testChatRoom._id,
-  testUser._id,
-);
-const token = faker.string.uuid();
+const testUser = createRandomUser(),
+  testAuthData = getAuthDataFromUser(testUser),
+  testChatRoom = createChatRoom(),
+  testMessages = getMultipleRandomMessages(5, testChatRoom._id, testUser._id),
+  token = faker.string.uuid();
 
 export const mockDBData = {
   testUser,

@@ -1,3 +1,4 @@
+import Paths from '@/constants/Paths';
 import Home from '@/pages/Home';
 import Protected from '@/pages/Protected';
 import { renderWithProviders } from '@/utils/test-utils';
@@ -7,10 +8,10 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 it('redirects on authorization fail', async () => {
   renderWithProviders(
-    <MemoryRouter initialEntries={['/home']}>
+    <MemoryRouter initialEntries={[Paths.Home.BASE]}>
       <Routes>
         <Route
-          path="home"
+          path={Paths.Home.BASE}
           element={
             <Protected>
               <p>Authorized</p>
@@ -28,9 +29,9 @@ it('redirects on authorization fail', async () => {
 
 it('redirects on sign out', async () => {
   renderWithProviders(
-    <MemoryRouter initialEntries={['/home']}>
+    <MemoryRouter initialEntries={[Paths.Home.BASE]}>
       <Routes>
-        <Route path="home" element={<Home />} />
+        <Route path={Paths.Home.BASE} element={<Home />} />
       </Routes>
     </MemoryRouter>,
   );
