@@ -1,6 +1,7 @@
-import { EventHandler, MouseEvent, MouseEventHandler, ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 import cn from '@/utils/cn';
+
 import { AnimatePresence, motion } from 'framer-motion';
 
 type ModalProps = {
@@ -11,6 +12,17 @@ type ModalProps = {
 };
 
 const Modal = ({ isOpen, onModalClick, className, children }: ModalProps) => {
+  useEffect(() => {
+    const onEscapeDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onModalClick();
+    };
+    window.addEventListener('keydown', onEscapeDown);
+
+    return () => {
+      window.removeEventListener('keydown', onEscapeDown);
+    };
+  }, []);
+
   return (
     <AnimatePresence>
       {isOpen && (

@@ -9,11 +9,22 @@ import {
 import IconButton from '@/components/general/IconButton';
 import AppLink from '@/components/general/AppLink';
 import Paths from '@/constants/Paths';
+import { useNavigate } from 'react-router-dom';
+import { apiSlice } from '@/features/api/apiSlice';
+import { useAppDispatch } from '@/app/hooks';
 
 const NavControls = () => {
   const pathEnd = usePathnameEnd();
 
-  const handleSignOutClick = useHandleSignOut();
+  const signOut = useHandleSignOut();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleSignOutClick = (): void => {
+    signOut();
+    dispatch(apiSlice.util.resetApiState());
+    navigate(Paths.Auth.SIGN_IN);
+  };
 
   const isChatsSelected = pathEnd === 'chats';
   const isContactsSelected = pathEnd === 'contacts';
