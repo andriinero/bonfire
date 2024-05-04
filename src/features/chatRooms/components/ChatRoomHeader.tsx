@@ -9,6 +9,7 @@ import {
 import { FaUserPlus } from 'react-icons/fa6';
 import IconButton from '@/components/general/IconButton';
 import Modal from '@/components/general/Modal';
+import { AnimatePresence } from 'framer-motion';
 
 const ChatRoomHeader = () => {
   const isCreateChatRoomOpen = useAppSelector(selectIsCreateChatRoomOpen);

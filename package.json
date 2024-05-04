@@ -28,7 +28,7 @@
     "@types/uuid": "^9.0.8",
     "axios": "^1.6.8",
     "clsx": "^2.1.0",
-    "framer-motion": "^11.0.25",
+    "framer-motion": "^11.1.7",
     "luxon": "^3.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
