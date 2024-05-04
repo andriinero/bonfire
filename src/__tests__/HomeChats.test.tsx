@@ -17,7 +17,6 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-//TODO: move to chat room feature folder
 it('fetches and displays chat room with messages', async () => {
   window.HTMLElement.prototype.scrollTo = () => {};
   renderWithProviders(

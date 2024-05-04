@@ -1,21 +1,29 @@
 import { useAppSelector } from '@/app/hooks';
 
 import { selectSelectedChatId } from '../chatSlice';
-import { selectParticipantsByChatId } from '@/features/participants/participantsSlice';
+import {
+  selectParticipantById,
+  selectParticipantsByChatId,
+} from '@/features/participants/participantsSlice';
 import { selectChatRoomById } from '@/features/chatRooms/chatRoomsSlice';
 
 import { FaEllipsis } from 'react-icons/fa6';
 import UserIcon from '@/components/general/UserIcon';
 import IconButton from '@/components/general/IconButton';
 import ChatTitle from '@/components/general/ChatTitle';
+import useNonAuthUserIds from '@/hooks/useNonAuthUserParticipants';
 
 const ChatHeader = () => {
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
 
   const chat = useAppSelector(selectChatRoomById(selectedChatId));
-  const firstUser = useAppSelector(
+  const participants = useAppSelector(
     selectParticipantsByChatId(selectedChatId),
-  )?.[0];
+  );
+  const nonAuthParticipants = useNonAuthUserIds(participants);
+  const firstUser = useAppSelector(
+    selectParticipantById(selectedChatId, nonAuthParticipants[0]),
+  );
 
   return (
     <header className="flex items-center justify-between border-b p-4 shadow-[0_2px_4px_-2px_rgb(0,0,0,0.1)]">

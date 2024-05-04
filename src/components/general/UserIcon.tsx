@@ -2,8 +2,8 @@ import cn from '@/utils/cn';
 import { ComponentProps } from 'react';
 
 type UserIconProps = {
-  src: string;
-  isOnline: boolean;
+  src?: string;
+  isOnline?: boolean;
   style?: 'xs' | 'md' | 'lg';
 } & ComponentProps<'img'>;
 

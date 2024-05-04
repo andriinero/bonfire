@@ -97,7 +97,7 @@ const SignInPanel = () => {
         <div className="border"></div>
       </div>
       <div className="grid grid-cols-2 gap-x-2">
-        <Button type="button" style="hollow">
+        <Button disabled type="button" style="hollow">
           <FaGoogle size="1.5rem" />
         </Button>
         <Button
