@@ -18,11 +18,7 @@ const TimeStamp = ({ date, className }: DateStampProps) => {
   const absoluteNoYear = absolute.split(', ')[0];
   const dateResult = wholeDaysDiff < 1 ? simple : absoluteNoYear;
 
-  return (
-    <span className={cn('text-sm font-medium text-gray-500', className)}>
-      {dateResult}
-    </span>
-  );
+  return <span className={cn('', className)}>{dateResult}</span>;
 };
 
 export default TimeStamp;

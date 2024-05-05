@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import useNonAuthUserIds from '../../../hooks/useNonAuthUserParticipants';
 import useChatLastMessage from '@/features/messages/hooks/useChatLastMessage';
-import useInitChat from '@/hooks/useInitChat';
 
 import cn from '@/utils/cn';
 
@@ -19,6 +18,7 @@ import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
 import MessagePreview from './MessagePreview';
 import ChatTitle from '@/components/general/ChatTitle';
+import DotDivider from '@/components/general/DotDivider';
 
 type ChatRoomItemProps = {
   chatId: string;
@@ -50,7 +50,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
       })}
       onClick={handleChatClick}
     >
-      <div>
+      <div className="shrink-0">
         <UserIcon
           key={firstParticipant?._id}
           isOnline={firstParticipant?.is_online}
@@ -61,9 +61,19 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
       <div className="flex grow justify-between gap-2">
         <div className="flex flex-col justify-between">
           {chatRoom?.name && <ChatTitle title={chatRoom.name} />}
-          {lastMessage && <MessagePreview {...lastMessage} />}
+          <div className="flex items-center gap-1 text-sm text-gray-500">
+            {lastMessage && (
+              <MessagePreview className="line-clamp-1" {...lastMessage} />
+            )}
+            <DotDivider className="text-gray-500" />
+            {lastMessage && (
+              <TimeStamp
+                className="whitespace-nowrap"
+                date={lastMessage.created}
+              />
+            )}
+          </div>
         </div>
-        <div>{lastMessage && <TimeStamp date={lastMessage.created} />}</div>
       </div>
     </li>
   );
