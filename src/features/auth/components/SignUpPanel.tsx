@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { usePostSignInMutation } from '../authSlice';
+import { usePostSignInMutation, usePostSignUpMutation } from '../authSlice';
 
 import Form from '@/components/form/Form';
 import InputGroup from '@/components/form/InputGroup';
@@ -10,6 +10,8 @@ import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
+import { ErrorData, ErrorDataSchema } from '@/types/ErrorData';
+import ServerErrorMessage from '@/components/form/ServerErrorMessage';
 
 const SignUpBodySchema = z
   .object({
@@ -37,9 +39,17 @@ const SignUpPanel = () => {
     formState: { errors },
   } = useForm<TSignUpBody>({ resolver: zodResolver(SignUpBodySchema) });
 
-  const handleFormSubmit = (data: TSignUpBody) => {};
+  const [postSignUp, { isLoading, isError, error }] = usePostSignUpMutation();
 
-  const isSubmitDisabled = false;
+  const handleFormSubmit = async (data: TSignUpBody): Promise<void> => {
+    try {
+      await postSignUp(data).unwrap();
+    } catch (err) {
+      console.error(err as ErrorData);
+    }
+  };
+
+  const isSubmitDisabled = isLoading;
 
   return (
     <div className="container space-y-4 rounded-md bg-white p-10 font-medium text-slate-400 shadow">
@@ -105,6 +115,7 @@ const SignUpPanel = () => {
           Sign Up
         </Button>
       </Form>
+      {isError && <ServerErrorMessage error={error} />}
     </div>
   );
 };

@@ -6,7 +6,9 @@ import { apiSlice } from '../api/apiSlice';
 
 import { AuthData } from '@/types/AuthData';
 import { AppThunk, RootState } from '@/app/store';
+
 import { TSignInBody } from './components/SignInPanel';
+import { TSignUpBody } from './components/SignUpPanel';
 
 type AuthState = {
   authData: AuthData | null;
@@ -32,7 +34,7 @@ export const tokenInitialized =
 
 export const signedOut = (): AppThunk => (dispatch) => {
   storage.clearToken();
-  dispatch(dataCleared());
+  dispatch(authDataCleared());
   dispatch(tokenCleared());
 };
 
@@ -57,6 +59,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    postSignUp: builder.mutation<{ message: string }, TSignUpBody>({
+      query: (body) => ({
+        url: '/auth/sign-up',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -67,21 +76,26 @@ const authSlice = createSlice({
     authDataSet: (state, action: PayloadAction<AuthData>) => {
       state.authData = action.payload;
     },
+    authDataCleared: (state) => {
+      state.authData = null;
+    },
     tokenSet: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
     tokenCleared: (state) => {
       state.token = null;
     },
-    dataCleared: (state) => {
-      state.authData = null;
-    },
   },
 });
 
-const { authDataSet, tokenSet, tokenCleared, dataCleared } = authSlice.actions;
+const { authDataSet, tokenSet, tokenCleared, authDataCleared } =
+  authSlice.actions;
 
-export const { useGetAuthDataQuery, usePostSignInMutation } = authApiSlice;
+export const {
+  useGetAuthDataQuery,
+  usePostSignInMutation,
+  usePostSignUpMutation,
+} = authApiSlice;
 
 export default authSlice;
 
