@@ -3,9 +3,9 @@ import { useAppSelector } from '@/app/hooks';
 
 import cn from '@/utils/cn';
 
+import { selectAuthUserId } from '@/features/auth/authSlice';
 import { selectChatRoomById } from '@/features/chatRooms/chatRoomsSlice';
 import { selectParticipantsByChatId } from '@/features/participants/participantsSlice';
-import { selectAuthUserId } from '@/features/auth/authSlice';
 
 const MAX_NAMES_IN_TITLE = 2;
 
@@ -31,6 +31,8 @@ const ChatTitle = ({ chatId, className }: ChatTitleProps) => {
           restCount > 0 ? `${names} and ${restCount} others` : names;
         setTitle(result);
       }
+    } else {
+      setTitle(chat.name);
     }
   }, [chat, chatParticipants]);
 
