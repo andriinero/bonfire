@@ -18,6 +18,8 @@ import InputLabel from '../../../components/form/InputLabel';
 import InputGroup from '../../../components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
 import UserIcon from '@/components/general/UserIcon';
+import AppLink from '@/components/general/AppLink';
+import Paths from '@/constants/Paths';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),
@@ -112,12 +114,12 @@ const SignInPanel = () => {
       </div>
       <div className="space-x-2 text-center">
         <span>New to Bonfire?</span>
-        <a
+        <AppLink
           className="underline decoration-1 underline-offset-1"
-          href="/auth/sign-up"
+          to={Paths.Auth.SIGN_UP}
         >
           Create an account
-        </a>
+        </AppLink>
       </div>
     </div>
   );

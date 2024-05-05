@@ -13,6 +13,7 @@ import Home from './pages/Home';
 import Protected from './pages/Protected';
 import ChatRoomSidebar from './features/chatRooms/components/ChatRoomSidebar';
 import ContactsSidebar from './features/contacts/components/ContactsSidebar';
+import SignUp from './pages/SignUp';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ export const router = createBrowserRouter(
         element={<Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />}
       />
       <Route path={Paths.Auth.SIGN_IN} element={<SignIn />} index />
+      <Route path={Paths.Auth.SIGN_UP} element={<SignUp />} />
       <Route
         path={Paths.Home.BASE}
         element={

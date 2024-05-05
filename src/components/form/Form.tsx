@@ -15,7 +15,7 @@ const Form = ({ className, children, ...otherProps }: FormProps) => {
     <form
       aria-label="form"
       {...otherProps}
-      className={cn('flex flex-col gap-y-3', className)}
+      className={cn('flex flex-col gap-y-2', className)}
     >
       {children}
     </form>
