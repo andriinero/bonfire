@@ -20,6 +20,7 @@ import ValidationError from '@/components/form/ValidationError';
 import UserIcon from '@/components/general/UserIcon';
 import AppLink from '@/components/general/AppLink';
 import Paths from '@/constants/Paths';
+import ServerErrorMessage from '@/components/form/ServerErrorMessage';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),
@@ -36,7 +37,8 @@ const SignInPanel = () => {
     formState: { errors },
   } = useForm<TSignInBody>({ resolver: zodResolver(SignInBodySchema) });
 
-  const [postSignIn, { isLoading, isSuccess }] = usePostSignInMutation();
+  const [postSignIn, { isLoading, isSuccess, isError, error }] =
+    usePostSignInMutation();
 
   const dispatch = useAppDispatch();
 
@@ -93,6 +95,7 @@ const SignInPanel = () => {
           Sign In
         </Button>
       </Form>
+      {isError && <ServerErrorMessage error={error} />}
       <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-x-2">
         <div className="border"></div>
         <p>Or continue with</p>

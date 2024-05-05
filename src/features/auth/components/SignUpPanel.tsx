@@ -2,7 +2,9 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { usePostSignInMutation, usePostSignUpMutation } from '../authSlice';
+import { usePostSignUpMutation } from '../authSlice';
+
+import { ErrorData } from '@/types/ErrorData';
 
 import Form from '@/components/form/Form';
 import InputGroup from '@/components/form/InputGroup';
@@ -10,7 +12,6 @@ import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
-import { ErrorData, ErrorDataSchema } from '@/types/ErrorData';
 import ServerErrorMessage from '@/components/form/ServerErrorMessage';
 
 const SignUpBodySchema = z

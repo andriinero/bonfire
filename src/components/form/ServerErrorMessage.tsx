@@ -1,5 +1,3 @@
-import { SafeParseReturnType, SafeParseSuccess } from 'zod';
-
 import cn from '@/utils/cn';
 
 import { SerializedError } from '@reduxjs/toolkit';
@@ -8,9 +6,10 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { ErrorData, ErrorDataSchema } from '@/types/ErrorData';
 
 import { FaCircleXmark } from 'react-icons/fa6';
+import { BaseErrorSchema } from '@/types/BaseError';
 
 type ServerErrorMessageProps = {
-  error: FetchBaseQueryError | SerializedError | undefined;
+  error: FetchBaseQueryError | SerializedError;
   visible?: boolean;
   className?: string;
 };
@@ -20,12 +19,10 @@ const ServerErrorMessage = ({
   visible = true,
   className,
 }: ServerErrorMessageProps) => {
-  const hasData = 'data' in error!;
-  let errorData: ErrorData | null = null;
-  if (hasData) {
-    const parseResult = ErrorDataSchema.safeParse(error!.data);
-    if (parseResult.success) errorData = parseResult.data;
-  }
+  const baseErrorParse = BaseErrorSchema.safeParse(error);
+  const errorDataParse = baseErrorParse.success
+    ? ErrorDataSchema.safeParse(baseErrorParse.data.data)
+    : null;
 
   return (
     <div
@@ -40,24 +37,24 @@ const ServerErrorMessage = ({
       <span className="mt-0.5 text-red-400">
         <FaCircleXmark size="1rem" />
       </span>
-      <div>
-        {hasData ? (
-          errorData ? (
+      <div className="text-medium text-red-800">
+        {baseErrorParse.success ? (
+          errorDataParse?.success ? (
             <>
-              <p className="text-medium text-red-800">{errorData.message}</p>
+              <p>{errorDataParse.data.message}</p>
               <ul className="list-disc pl-6 font-normal text-red-700">
-                {errorData.errors.map((e) => (
-                  <li>{e.msg}</li>
+                {errorDataParse.data.errors.map((e) => (
+                  <li key={e.path}>{e.msg}</li>
                 ))}
               </ul>
             </>
+          ) : baseErrorParse.data.status === 401 ? (
+            <p>Incorrect credentials</p>
           ) : (
-            <p>oh my god....</p>
+            <p>An unexpected error has occurred</p>
           )
         ) : (
-          <p className="text-medium text-red-800">
-            An unexpected error has occurred
-          </p>
+          <p>Internal Server Error 500</p>
         )}
       </div>
     </div>
