@@ -12,7 +12,7 @@ import { usePostChatRoomMutation } from '../chatRoomsSlice';
 import { ErrorData } from '@/types/ErrorData';
 
 const CreateChatBodySchema = z.object({
-  username: z
+  participantUsername: z
     .string()
     .min(3, 'Username must contain at least 3 characters')
     .max(100, 'Username must contain at most 100 characters'),
@@ -46,12 +46,12 @@ const CreateChatRoomForm = () => {
         <InputLabel htmlFor="create-chat-username">Username</InputLabel>
         <TextInput
           className="min-w-72"
-          {...register('username')}
+          {...register('participantUsername')}
           id="create-chat-username"
           placeholder="e.g. user01"
         />
-        <ValidationError visible={!!errors.username}>
-          {errors.username?.message}
+        <ValidationError visible={!!errors.participantUsername}>
+          {errors.participantUsername?.message}
         </ValidationError>
       </InputGroup>
       <Button className="self-end" type="submit">

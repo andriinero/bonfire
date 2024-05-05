@@ -1,26 +1,29 @@
 import { useAppSelector } from '@/app/hooks';
 
+import getNonAuthUserIds from '@/utils/getNonAuthUserIds';
+
 import { selectSelectedChatId } from '../chatSlice';
 import {
   selectParticipantById,
   selectParticipantsByChatId,
 } from '@/features/participants/participantsSlice';
+import { selectAuthUserId } from '@/features/auth/authSlice';
 import { selectChatRoomById } from '@/features/chatRooms/chatRoomsSlice';
 
 import { FaEllipsis } from 'react-icons/fa6';
 import UserIcon from '@/components/general/UserIcon';
 import IconButton from '@/components/general/IconButton';
 import ChatTitle from '@/components/general/ChatTitle';
-import useNonAuthUserIds from '@/hooks/useNonAuthUserParticipants';
 
 const ChatHeader = () => {
+  const authUserId = useAppSelector(selectAuthUserId) as string;
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
 
   const chat = useAppSelector(selectChatRoomById(selectedChatId));
   const participants = useAppSelector(
     selectParticipantsByChatId(selectedChatId),
   );
-  const nonAuthParticipants = useNonAuthUserIds(participants);
+  const nonAuthParticipants = getNonAuthUserIds(authUserId, participants);
   const firstUser = useAppSelector(
     selectParticipantById(selectedChatId, nonAuthParticipants[0]),
   );
@@ -33,7 +36,7 @@ const ChatHeader = () => {
           src={firstUser?.profile_image}
         />
         <div>
-          {chat?.name && <ChatTitle title={chat.name} />}
+          {chat && <ChatTitle chatId={chat?._id} />}
           <p className="text-sm text-gray-500">
             {firstUser?.is_online ? 'Online' : 'Offline'}
           </p>

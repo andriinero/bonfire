@@ -20,7 +20,8 @@ const ChatRoomList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (chatList) dispatch(selectedChatIdSet(chatList[0]._id));
+    if (isSuccess && chatList.length > 0)
+      dispatch(selectedChatIdSet(chatList[0]._id));
   }, [chatList]);
 
   const isDataLoading = isFetching || isLoading;

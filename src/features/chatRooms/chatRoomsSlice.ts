@@ -31,7 +31,7 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
       query: () => `/chat-rooms`,
       providesTags: ['chatRooms'],
     }),
-    postChatRoom: builder.mutation<void, { username: string }>({
+    postChatRoom: builder.mutation<void, { participantUsername: string }>({
       query: (body) => ({ url: '/chat-rooms', method: 'POST', body }),
       invalidatesTags: ['chatRooms'],
     }),

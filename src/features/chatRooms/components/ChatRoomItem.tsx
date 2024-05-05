@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import useNonAuthUserIds from '../../../hooks/useNonAuthUserParticipants';
 import useChatLastMessage from '@/features/messages/hooks/useChatLastMessage';
 
 import cn from '@/utils/cn';
+import getNonAuthUserIds from '@/utils/getNonAuthUserIds';
 
 import { selectChatRoomById } from '../chatRoomsSlice';
 import {
@@ -19,16 +19,17 @@ import TimeStamp from '@/components/general/TimeStamp';
 import MessagePreview from './MessagePreview';
 import ChatTitle from '@/components/general/ChatTitle';
 import DotDivider from '@/components/general/DotDivider';
+import { selectAuthUserId } from '@/features/auth/authSlice';
 
 type ChatRoomItemProps = {
   chatId: string;
 };
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
-  const selectedChatId = useAppSelector(selectSelectedChatId);
-  const chatRoom = useAppSelector(selectChatRoomById(chatId));
+  const authUserId = useAppSelector(selectAuthUserId) as string;
+  const selectedChatId = useAppSelector(selectSelectedChatId) as string;
   const participants = useAppSelector(selectParticipantsByChatId(chatId));
-  const nonAuthParticipants = useNonAuthUserIds(participants);
+  const nonAuthParticipants = getNonAuthUserIds(authUserId, participants);
   const firstParticipant = useAppSelector(
     selectParticipantById(chatId, nonAuthParticipants[0]),
   );
@@ -60,7 +61,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
       </div>
       <div className="flex grow justify-between gap-2">
         <div className="flex flex-col justify-between">
-          {chatRoom?.name && <ChatTitle title={chatRoom.name} />}
+          <ChatTitle chatId={chatId} />
           <div className="flex items-center gap-1 text-sm text-gray-500">
             {lastMessage && (
               <MessagePreview className="line-clamp-1" {...lastMessage} />

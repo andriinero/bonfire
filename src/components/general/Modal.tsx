@@ -29,7 +29,7 @@ const Modal = ({ isOpen, onModalClick, className, children }: ModalProps) => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.15 }}
           exit={{ opacity: 0 }}
           className={cn(
             'fixed inset-0 z-10 flex h-dvh w-dvw flex-col items-center justify-center',
