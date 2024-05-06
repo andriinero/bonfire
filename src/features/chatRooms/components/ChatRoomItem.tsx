@@ -20,13 +20,15 @@ import ChatTitle from '@/components/general/ChatTitle';
 import DotDivider from '@/components/general/DotDivider';
 import { selectAuthUserId } from '@/features/auth/authSlice';
 import useInitChat from '@/hooks/useInitChat';
+import Spinner from '@/components/general/Spinner';
+import ChatRoomItemLoader from '@/components/loaders/ChatRoomItemLoader';
 
 type ChatRoomItemProps = {
   chatId: string;
 };
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
-  useInitChat(chatId);
+  const { isLoading } = useInitChat(chatId);
   const authUserId = useAppSelector(selectAuthUserId) as string;
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
   const participants = useAppSelector(selectParticipantsByChatId(chatId));
@@ -46,39 +48,48 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
 
   return (
     <li
-      className={cn('flex cursor-pointer gap-4 rounded-lg p-2 transition', {
-        'hover:bg-gray-50': !isChatRoomSelected,
-        'bg-gray-100': isChatRoomSelected,
-      })}
+      className={cn(
+        'flex min-h-16 cursor-pointer gap-4 rounded-lg p-2 transition',
+        {
+          'hover:bg-gray-50': !isChatRoomSelected,
+          'bg-gray-100': isChatRoomSelected,
+        },
+      )}
       onClick={handleChatClick}
     >
-      <div className="shrink-0">
-        <UserIcon
-          key={firstParticipant?._id}
-          isOnline={firstParticipant?.is_online}
-          src={firstParticipant?.profile_image}
-          style="lg"
-        />
-      </div>
-      <div className="flex grow justify-between gap-2">
-        <div className="flex flex-col justify-between">
-          <ChatTitle chatId={chatId} />
-          <div className="flex items-center gap-1 text-sm text-gray-500">
-            {lastMessage ? (
-              <>
-                <MessagePreview className="line-clamp-1" {...lastMessage} />
-                <DotDivider className="text-gray-500" />
-                <TimeStamp
-                  className="whitespace-nowrap"
-                  date={lastMessage.created}
-                />
-              </>
-            ) : (
-              <p>chat is empty</p>
-            )}
+      {isLoading ? (
+        <ChatRoomItemLoader />
+      ) : (
+        <>
+          <div className="shrink-0">
+            <UserIcon
+              key={firstParticipant?._id}
+              isOnline={firstParticipant?.is_online}
+              src={firstParticipant?.profile_image}
+              style="lg"
+            />
           </div>
-        </div>
-      </div>
+          <div className="flex grow justify-between gap-2">
+            <div className="flex flex-col justify-between">
+              <ChatTitle chatId={chatId} />
+              <div className="flex items-center gap-1 text-sm text-gray-500">
+                {lastMessage ? (
+                  <>
+                    <MessagePreview className="line-clamp-1" {...lastMessage} />
+                    <DotDivider className="text-gray-500" />
+                    <TimeStamp
+                      className="whitespace-nowrap"
+                      date={lastMessage.created}
+                    />
+                  </>
+                ) : (
+                  <p>chat is empty</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </li>
   );
 };

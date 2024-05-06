@@ -3,7 +3,7 @@ import ChatRoomList from './ChatsRoomList';
 
 const ChatRoomSidebar = () => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 h-full">
       <ChatRoomHeader />
       <ChatRoomList />
     </div>

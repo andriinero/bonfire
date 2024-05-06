@@ -15,24 +15,20 @@ const ContactsList = () => {
 
   const isDataLoading = isFetching || isLoading;
 
-  return (
-    <div>
-      {isDataLoading ? (
-        <Spinner />
-      ) : isSuccess ? (
-        contactsList.length > 0 ? (
-          <ul className="space-y-2">
-            {contactsList!.map((c) => (
-              <ContactsItem key={c._id} contactId={c._id} />
-            ))}
-          </ul>
-        ) : (
-          <ListPlaceholder>Contact list is empty</ListPlaceholder>
-        )
-      ) : (
-        <ErrorMessage />
-      )}
-    </div>
+  return isDataLoading ? (
+    <Spinner />
+  ) : isSuccess ? (
+    contactsList.length > 0 ? (
+      <ul className="space-y-2">
+        {contactsList!.map((c) => (
+          <ContactsItem key={c._id} contactId={c._id} />
+        ))}
+      </ul>
+    ) : (
+      <ListPlaceholder>Contact list is empty</ListPlaceholder>
+    )
+  ) : (
+    <ErrorMessage />
   );
 };
 

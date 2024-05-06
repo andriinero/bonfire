@@ -3,7 +3,7 @@ import ContactsList from './ContactsList';
 
 const ContactsSidebar = () => {
   return (
-    <div className="space-y-4">
+    <div className="h-full space-y-4">
       <ContactsHeader />
       <ContactsList />
     </div>
