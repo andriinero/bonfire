@@ -13,6 +13,7 @@ import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
 import ServerErrorMessage from '@/components/form/ServerErrorMessage';
+import AppLink from '@/components/general/AppLink';
 
 const SignUpBodySchema = z
   .object({
@@ -53,7 +54,7 @@ const SignUpPanel = () => {
   const isSubmitDisabled = isLoading;
 
   return (
-    <div className="container space-y-4 rounded-md bg-white p-10 font-medium text-slate-400 shadow">
+    <div className="container space-y-8 rounded-md bg-white p-10 text-sm font-medium text-slate-400 shadow">
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputGroup>
           <InputLabel htmlFor="sign-in-username">Username</InputLabel>
@@ -117,6 +118,11 @@ const SignUpPanel = () => {
         </Button>
       </Form>
       {isError && <ServerErrorMessage error={error} />}
+      <div className="space-x-2 text-center">
+        <span className="font-normal text-gray-500">
+          Join other users today!
+        </span>
+      </div>
     </div>
   );
 };
