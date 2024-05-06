@@ -1,9 +1,11 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import useChatLastMessage from '@/features/messages/hooks/useChatLastMessage';
+import useInitChat from '@/hooks/useInitChat';
 
 import cn from '@/utils/cn';
 import getNonAuthUserIds from '@/utils/getNonAuthUserIds';
 
+import { selectAuthUserId } from '@/features/auth/authSlice';
 import {
   selectSelectedChatId,
   selectedChatIdSet,
@@ -18,17 +20,21 @@ import TimeStamp from '@/components/general/TimeStamp';
 import MessagePreview from './MessagePreview';
 import ChatTitle from '@/components/general/ChatTitle';
 import DotDivider from '@/components/general/DotDivider';
-import { selectAuthUserId } from '@/features/auth/authSlice';
-import useInitChat from '@/hooks/useInitChat';
-import Spinner from '@/components/general/Spinner';
 import ChatRoomItemLoader from '@/components/loaders/ChatRoomItemLoader';
+import { useEffect } from 'react';
+import {
+  chatRoomLoadingFinished,
+  chatRoomLoadingStarted,
+  selectIsChatRoomsLoading,
+} from '../chatRoomsSlice';
 
 type ChatRoomItemProps = {
   chatId: string;
 };
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
-  const { isLoading } = useInitChat(chatId);
+  const { isError, isSuccess, isLoading, isFetching } = useInitChat(chatId);
+  const isChatRoomsLoading = useAppSelector(selectIsChatRoomsLoading);
   const authUserId = useAppSelector(selectAuthUserId) as string;
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
   const participants = useAppSelector(selectParticipantsByChatId(chatId));
@@ -44,6 +50,15 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
     dispatch(selectedChatIdSet(chatId));
   };
 
+  useEffect(() => {
+    if (isSuccess || isError) dispatch(chatRoomLoadingFinished());
+    if (isLoading) dispatch(chatRoomLoadingStarted());
+
+    return () => {
+      dispatch(chatRoomLoadingFinished());
+    };
+  }, [isSuccess, isError, isLoading]);
+
   const isChatRoomSelected = selectedChatId === chatId;
 
   return (
@@ -57,7 +72,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
       )}
       onClick={handleChatClick}
     >
-      {isLoading ? (
+      {isChatRoomsLoading ? (
         <ChatRoomItemLoader />
       ) : (
         <>

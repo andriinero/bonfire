@@ -12,13 +12,13 @@ if (container) {
   const root = createRoot(container);
 
   root.render(
-    <React.StrictMode>
+    <>
       <Provider store={store}>
         <IconContext.Provider value={{ size: '1.25rem' }}>
           <App />
         </IconContext.Provider>
       </Provider>
-    </React.StrictMode>,
+    </>,
   );
 } else {
   throw new Error(

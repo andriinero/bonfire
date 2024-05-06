@@ -6,10 +6,12 @@ import { RootState } from '@/app/store';
 
 type ChatRoomState = {
   isCreateChatRoomOpen: boolean;
+  chatRoomsInitCount: number;
 };
 
 const initialState: ChatRoomState = {
   isCreateChatRoomOpen: false,
+  chatRoomsInitCount: 0,
 };
 
 const chatRoomSlice = createSlice({
@@ -21,6 +23,12 @@ const chatRoomSlice = createSlice({
     },
     createChatRoomClosed: (state) => {
       state.isCreateChatRoomOpen = false;
+    },
+    chatRoomLoadingStarted: (state) => {
+      state.chatRoomsInitCount += 1;
+    },
+    chatRoomLoadingFinished: (state) => {
+      state.chatRoomsInitCount -= 1;
     },
   },
 });
@@ -38,8 +46,12 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { createChatRoomOpened, createChatRoomClosed } =
-  chatRoomSlice.actions;
+export const {
+  createChatRoomOpened,
+  createChatRoomClosed,
+  chatRoomLoadingStarted,
+  chatRoomLoadingFinished,
+} = chatRoomSlice.actions;
 
 export const { useGetChatRoomsQuery, usePostChatRoomMutation } =
   chatRoomsApiSlice;
@@ -61,3 +73,6 @@ export const selectChatRoomById = (chatId: string) =>
   createSelector(selectChatRoomsList, (chatList) =>
     chatList.find((c: ChatRoom) => c._id === chatId),
   );
+
+export const selectIsChatRoomsLoading = (state: RootState) =>
+  state.chatRoom.chatRoomsInitCount > 0;

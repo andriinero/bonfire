@@ -1,5 +1,3 @@
-import UserIcon from '../general/UserIcon';
-
 const ChatRoomItemLoader = () => {
   return (
     <div className="flex animate-pulse gap-4" aria-live="polite">

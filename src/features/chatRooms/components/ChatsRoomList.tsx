@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useAppDispatch } from '@/app/hooks';
 
 import { selectedChatIdSet } from '@/features/chat/chatSlice';
@@ -8,6 +8,7 @@ import ChatRoomItem from './ChatRoomItem';
 import Spinner from '@/components/general/Spinner';
 import ErrorMessage from '@/components/general/ErrorMessage';
 import ListPlaceholder from '@/components/general/ListPlaceholder';
+import ChatRoomItemLoader from '@/components/loaders/ChatRoomItemLoader';
 
 const ChatRoomList = () => {
   const {
