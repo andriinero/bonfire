@@ -33,7 +33,7 @@ type ChatRoomItemProps = {
 };
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
-  const { isError, isSuccess, isLoading, isFetching } = useInitChat(chatId);
+  const { isError, isSuccess, isLoading } = useInitChat(chatId);
   const isChatRoomsLoading = useAppSelector(selectIsChatRoomsLoading);
   const authUserId = useAppSelector(selectAuthUserId) as string;
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
@@ -51,12 +51,8 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
   };
 
   useEffect(() => {
-    if (isSuccess || isError) dispatch(chatRoomLoadingFinished());
-    if (isLoading) dispatch(chatRoomLoadingStarted());
-
-    return () => {
-      dispatch(chatRoomLoadingFinished());
-    };
+    if (isSuccess || isError) dispatch(chatRoomLoadingFinished(chatId));
+    if (isLoading) dispatch(chatRoomLoadingStarted(chatId));
   }, [isSuccess, isError, isLoading]);
 
   const isChatRoomSelected = selectedChatId === chatId;

@@ -1,17 +1,17 @@
 import { apiSlice } from '../api/apiSlice';
-import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { ChatRoom } from '@/types/ChatRoom';
 import { RootState } from '@/app/store';
 
 type ChatRoomState = {
   isCreateChatRoomOpen: boolean;
-  chatRoomsInitCount: number;
+  chatRoomsInitQueue: string[];
 };
 
 const initialState: ChatRoomState = {
   isCreateChatRoomOpen: false,
-  chatRoomsInitCount: 0,
+  chatRoomsInitQueue: [],
 };
 
 const chatRoomSlice = createSlice({
@@ -24,11 +24,19 @@ const chatRoomSlice = createSlice({
     createChatRoomClosed: (state) => {
       state.isCreateChatRoomOpen = false;
     },
-    chatRoomLoadingStarted: (state) => {
-      state.chatRoomsInitCount += 1;
+    chatRoomLoadingStarted: (
+      state,
+      { payload: chatRoomId }: PayloadAction<string>,
+    ) => {
+      state.chatRoomsInitQueue.push(chatRoomId);
     },
-    chatRoomLoadingFinished: (state) => {
-      state.chatRoomsInitCount -= 1;
+    chatRoomLoadingFinished: (
+      state,
+      { payload: chatRoomId }: PayloadAction<string>,
+    ) => {
+      state.chatRoomsInitQueue = state.chatRoomsInitQueue.filter(
+        (c) => c !== chatRoomId,
+      );
     },
   },
 });
@@ -75,4 +83,4 @@ export const selectChatRoomById = (chatId: string) =>
   );
 
 export const selectIsChatRoomsLoading = (state: RootState) =>
-  state.chatRoom.chatRoomsInitCount > 0;
+  state.chatRoom.chatRoomsInitQueue.length > 0;
