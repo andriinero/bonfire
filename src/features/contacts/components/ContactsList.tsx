@@ -3,7 +3,6 @@ import { useGetContactsQuery } from '../contactsSlice';
 import Spinner from '@/components/general/Spinner';
 import ErrorMessage from '@/components/general/ErrorMessage';
 import ContactsItem from './ContactsItem';
-import ListPlaceholder from '@/components/general/ListPlaceholder';
 
 const ContactsList = () => {
   const {
@@ -18,15 +17,14 @@ const ContactsList = () => {
   return isDataLoading ? (
     <Spinner />
   ) : isSuccess ? (
-    contactsList.length > 0 ? (
+    <div>
+      <h2 className='text-sm text-gray-600'>Active contacts ({contactsList.length})</h2>
       <ul className="space-y-2">
         {contactsList!.map((c) => (
           <ContactsItem key={c._id} contactId={c._id} />
         ))}
       </ul>
-    ) : (
-      <ListPlaceholder>Contact list is empty</ListPlaceholder>
-    )
+    </div>
   ) : (
     <ErrorMessage />
   );

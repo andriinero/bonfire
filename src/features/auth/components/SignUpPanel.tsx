@@ -14,6 +14,7 @@ import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
 import ServerErrorMessage from '@/components/form/ServerErrorMessage';
 import AppLink from '@/components/general/AppLink';
+import Paths from '@/constants/Paths';
 
 const SignUpBodySchema = z
   .object({
@@ -118,10 +119,13 @@ const SignUpPanel = () => {
         </Button>
       </Form>
       {isError && <ServerErrorMessage error={error} />}
-      <div className="space-x-2 text-center">
+      <div className="space-x-1 text-center">
         <span className="font-normal text-gray-500">
-          Join other users today!
+          Already have an account?
         </span>
+        <AppLink className="font-bold text-sky-600" to={Paths.Auth.SIGN_IN}>
+          Sign in
+        </AppLink>
       </div>
     </div>
   );

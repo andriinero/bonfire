@@ -10,6 +10,7 @@ import { Message } from '@/types/Message';
 
 import UserIcon from '@/components/general/UserIcon';
 import TimeStamp from '@/components/general/TimeStamp';
+import DotDivider from '@/components/general/DotDivider';
 
 type UserMessageProps = Pick<Message, 'user' | 'body' | 'created'>;
 
@@ -35,14 +36,15 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
       </div>
       <div className="flex flex-col gap-2">
         <div
-          className={cn('flex items-center gap-2 text-sm', {
+          className={cn('flex items-center gap-1 text-sm', {
             'justify-end': isAuthor,
           })}
         >
           <p className="font-medium text-gray-500">
             {participantData?.username}
           </p>
-          <TimeStamp date={created} className="text-gray-500" />
+          <DotDivider />
+          <TimeStamp date={created} className="text-gray-500 text-xs" />
         </div>
         <p
           className={cn(

@@ -1,8 +1,8 @@
-import ChatRoomItemLoader from "./ChatRoomItemLoader";
+import ChatRoomItemLoader from './ChatRoomItemLoader';
 
 const ChatRoomListLoader = () => {
   return (
-    <ul className="space-y-4">
+    <ul className="space-y-4" aria-live="polite">
       <ChatRoomItemLoader />
       <ChatRoomItemLoader />
       <ChatRoomItemLoader />

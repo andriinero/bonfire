@@ -1,6 +1,6 @@
 const ContactsHeader = () => {
   return (
-    <div className="flex items-center p-0.5">
+    <div className="flex items-center">
       <h1 className="text-2xl font-bold text-gray-800">Contacts</h1>
     </div>
   );

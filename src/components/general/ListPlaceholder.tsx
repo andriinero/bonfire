@@ -6,7 +6,7 @@ type ListPlaceholderProps = { className?: string; children?: ReactNode };
 
 const ListPlaceholder = ({ className, children }: ListPlaceholderProps) => {
   return (
-    <p className={cn('mt-8 text-center italic text-gray-600', className)}>
+    <p className={cn('pt-4 text-center italic text-gray-600', className)}>
       {children}
     </p>
   );
