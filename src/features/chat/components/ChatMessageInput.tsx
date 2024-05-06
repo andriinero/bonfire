@@ -12,6 +12,7 @@ import {
 
 import { FaPaperPlane } from 'react-icons/fa6';
 import Button from '@/components/general/Button';
+import TextInput from '@/components/form/TextInput';
 
 const MessageBarSchema = z.object({
   body: z.string(),
@@ -46,9 +47,9 @@ const ChatMessageInput = () => {
         className="flex items-center gap-4"
         onSubmit={handleSubmit(handleFormSubmit)}
       >
-        <input
+        <TextInput
           {...register('body')}
-          className="flex-1 rounded-full border border-solid border-transparent bg-gray-100 px-4 py-2 text-gray-800 outline-0 transition focus:border-solid focus:border-sky-500"
+          className="flex-1 rounded-full bg-gray-100 px-4 py-2 text-gray-800 outline-0 ring-0"
           type="text"
           placeholder="Write a message"
         />

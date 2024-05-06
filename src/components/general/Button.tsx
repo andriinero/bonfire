@@ -27,8 +27,9 @@ const Button = ({
         className,
         {
           'pointer-events-none opacity-60 ': disabled,
-          'bg-blue bg-sky-500 shadow-sm hover:bg-sky-400 ': style === 'primary',
-          'p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50':
+          'bg-blue bg-sky-500 shadow-sm hover:bg-sky-400 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-sky-500':
+            style === 'primary',
+          'p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:ring-2 focus:ring-sky-500':
             style === 'hollow',
         },
       )}
