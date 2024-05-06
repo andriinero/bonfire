@@ -102,7 +102,7 @@ const SignInPanel = () => {
         <div className="border-b"></div>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <Button className="space-x-3" type="button" style="hollow">
+        <Button disabled className="space-x-3" type="button" style="hollow">
           <img
             src="/google-logo.png"
             alt="Google Icon"

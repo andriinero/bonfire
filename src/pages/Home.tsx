@@ -4,7 +4,7 @@ import { selectSelectedChatId } from '@/features/chat/chatSlice';
 
 import Sidebar from '@/layout/Sidebar';
 import Chat from '@/features/chat/components/Chat';
-import ChatPlaceholder from '@/features/chat/components/ChatPlaceholder';
+import ChatLoader from '@/features/chat/components/ChatLoader';
 
 const Home = () => {
   const selectedChatId = useAppSelector(selectSelectedChatId);
@@ -15,7 +15,7 @@ const Home = () => {
       {selectedChatId ? (
         <Chat selectedChatId={selectedChatId} />
       ) : (
-        <ChatPlaceholder />
+        <ChatLoader />
       )}
     </div>
   );

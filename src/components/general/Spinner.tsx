@@ -1,5 +1,5 @@
 import cn from '@/utils/cn';
-import { FaSpinner } from 'react-icons/fa6';
+import { FaCircleNotch, FaSpinner } from 'react-icons/fa6';
 
 type SpinnerProps = { className?: string };
 
@@ -11,7 +11,7 @@ const Spinner = ({ className }: SpinnerProps) => {
         className,
       )}
     >
-      <FaSpinner
+      <FaCircleNotch
         className="animate-spin"
         size="1.5rem"
         aria-label="Spinner Icon"

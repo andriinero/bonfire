@@ -8,7 +8,6 @@ import ChatRoomItem from './ChatRoomItem';
 import Spinner from '@/components/general/Spinner';
 import ErrorMessage from '@/components/general/ErrorMessage';
 import ListPlaceholder from '@/components/general/ListPlaceholder';
-import ChatRoomItemLoader from '@/components/loaders/ChatRoomItemLoader';
 
 const ChatRoomList = () => {
   const {

@@ -19,7 +19,7 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-it('renders empty chat list with chat placeholder', async () => {
+it('renders empty chat list', async () => {
   window.HTMLElement.prototype.scrollTo = () => {};
   server.use(
     http.get<never, never, ChatRoom[]>('/api/chat-rooms', async () => {
@@ -43,7 +43,6 @@ it('renders empty chat list with chat placeholder', async () => {
   await waitFor(() => {
     expect(screen.queryAllByLabelText('chat-message')).toHaveLength(0);
   });
-  expect(screen.getByText('select chat', { exact: false })).toBeInTheDocument();
 });
 
 it('fetches and displays chat room with messages', async () => {

@@ -1,11 +1,7 @@
-import Spinner from "@/components/general/Spinner";
+import Spinner from '@/components/general/Spinner';
 
 const ChatLoader = () => {
-  return (
-    <div className="row-span-2 flex h-full items-center justify-center">
-      <Spinner />
-    </div>
-  );
+  return <div className="row-start-1 row-end-3 bg-gray-100"></div>;
 };
 
 export default ChatLoader;
