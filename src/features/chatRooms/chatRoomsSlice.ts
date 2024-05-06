@@ -5,12 +5,12 @@ import { ChatRoom } from '@/types/ChatRoom';
 import { RootState } from '@/app/store';
 
 type ChatRoomState = {
-  isCreateChatRoomOpen: boolean;
+  isCreateChatRoomModalOpen: boolean;
   chatRoomsInitQueue: string[];
 };
 
 const initialState: ChatRoomState = {
-  isCreateChatRoomOpen: false,
+  isCreateChatRoomModalOpen: false,
   chatRoomsInitQueue: [],
 };
 
@@ -19,10 +19,10 @@ const chatRoomSlice = createSlice({
   initialState,
   reducers: {
     createChatRoomOpened: (state) => {
-      state.isCreateChatRoomOpen = true;
+      state.isCreateChatRoomModalOpen = true;
     },
     createChatRoomClosed: (state) => {
-      state.isCreateChatRoomOpen = false;
+      state.isCreateChatRoomModalOpen = false;
     },
     chatRoomLoadingStarted: (
       state,
@@ -66,8 +66,8 @@ export const { useGetChatRoomsQuery, usePostChatRoomMutation } =
 
 export default chatRoomSlice;
 
-export const selectIsCreateChatRoomOpen = (state: RootState) =>
-  state.chatRoom.isCreateChatRoomOpen;
+export const selectIsCreateChatRoomModalOpen = (state: RootState) =>
+  state.chatRoom.isCreateChatRoomModalOpen;
 
 export const selectChatRoomsListResult =
   chatRoomsApiSlice.endpoints.getChatRooms.select();

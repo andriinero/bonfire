@@ -3,22 +3,16 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import {
   createChatRoomClosed,
   createChatRoomOpened,
-  selectIsCreateChatRoomOpen,
+  selectIsCreateChatRoomModalOpen,
 } from '../chatRoomsSlice';
 
-import {
-  FaFilePen,
-  FaHashtag,
-  FaPen,
-  FaPlus,
-  FaUserPlus,
-} from 'react-icons/fa6';
+import { FaPlus } from 'react-icons/fa6';
 import IconButton from '@/components/general/IconButton';
 import Modal from '@/components/general/Modal';
 import CreateChatRoomForm from './CreateChatRoomForm';
 
 const ChatRoomHeader = () => {
-  const isCreateChatRoomOpen = useAppSelector(selectIsCreateChatRoomOpen);
+  const isCreateChatRoomOpen = useAppSelector(selectIsCreateChatRoomModalOpen);
 
   const dispatch = useAppDispatch();
 

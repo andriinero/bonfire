@@ -1,7 +1,29 @@
 import { apiSlice } from '../api/apiSlice';
-import { createSelector } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { User } from '@/types/User';
+import { RootState } from '@/app/store';
+
+type ContactsState = {
+  isCreateContactModalOpen: boolean;
+};
+
+const initialState: ContactsState = {
+  isCreateContactModalOpen: false,
+};
+
+const contactsSlice = createSlice({
+  name: 'contacts',
+  initialState,
+  reducers: {
+    createContactsModalOpened: (state) => {
+      state.isCreateContactModalOpen = true;
+    },
+    createContactsModalClosed: (state) => {
+      state.isCreateContactModalOpen = false;
+    },
+  },
+});
 
 export const contactsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -19,8 +41,16 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
+export const { createContactsModalOpened, createContactsModalClosed } =
+  contactsSlice.actions;
+
 export const { useGetContactsQuery, useDeleteContactMutation } =
   contactsApiSlice;
+
+export default contactsSlice;
+
+export const selectIsCreateContactModalOpen = (state: RootState) =>
+  state.contacts.isCreateContactModalOpen;
 
 export const selectContactsListResult =
   contactsApiSlice.endpoints.getContacts.select();
