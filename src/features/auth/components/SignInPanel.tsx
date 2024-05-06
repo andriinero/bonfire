@@ -66,7 +66,7 @@ const SignInPanel = () => {
   const isSubmitDisabled = isLoading;
 
   return (
-    <div className="container space-y-7 rounded-md bg-white p-10 font-medium text-slate-400 shadow">
+    <div className="container space-y-8 rounded-md bg-white p-12 text-sm font-medium text-gray-900 shadow">
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputGroup>
           <InputLabel htmlFor="sign-in-email">Email address</InputLabel>
@@ -96,31 +96,33 @@ const SignInPanel = () => {
         </Button>
       </Form>
       {isError && <ServerErrorMessage error={error} />}
-      <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-x-2">
-        <div className="border"></div>
+      <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-x-8">
+        <div className="border-b"></div>
         <p>Or continue with</p>
-        <div className="border"></div>
+        <div className="border-b"></div>
       </div>
-      <div className="grid grid-cols-2 gap-x-2">
-        <Button disabled type="button" style="hollow">
-          <FaGoogle size="1.5rem" />
+      <div className="grid grid-cols-2 gap-4">
+        <Button className="space-x-3" type="button" style="hollow">
+          <img
+            src="/google-logo.png"
+            alt="Google Icon"
+            className="size-5 self-center"
+          />
+          <span>Google</span>
         </Button>
         <Button
-          className="flex gap-2 p-0 font-semibold"
+          className="flex gap-2 p-0 font-semibold "
           type="button"
           style="hollow"
           onClick={handleGuestSignIn}
         >
           <UserIcon isOnline={false} src="/guest.png" style="xs" />
-          <p>Max</p>
+          <p className="text-gray-900">Guest</p>
         </Button>
       </div>
       <div className="space-x-2 text-center">
-        <span>New to Bonfire?</span>
-        <AppLink
-          className="underline decoration-1 underline-offset-1"
-          to={Paths.Auth.SIGN_UP}
-        >
+        <span className="font-normal text-gray-500">New to Bonfire?</span>
+        <AppLink className="font-bold text-sky-600" to={Paths.Auth.SIGN_UP}>
           Create an account
         </AppLink>
       </div>

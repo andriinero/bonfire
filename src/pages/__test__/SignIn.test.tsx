@@ -1,10 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { HttpResponse, delay, http } from 'msw';
-import {
-  screen,
-  waitFor,
-  waitForElementToBeRemoved,
-} from '@testing-library/dom';
+import { screen, waitFor } from '@testing-library/dom';
 
 import { createRandomUser, getAuthDataFromUser } from '@/utils/testData';
 import { serverHandlers } from '@/mocks/serverMock';

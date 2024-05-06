@@ -23,12 +23,12 @@ const Button = ({
       {...otherProps}
       disabled={disabled}
       className={cn(
-        'cursor-pointer rounded-md px-4 py-2 font-bold text-white transition focus:border-sky-500 focus:outline-0',
+        'flex cursor-pointer justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white transition focus:border-sky-500 focus:outline-0',
         className,
         {
           'pointer-events-none opacity-60 ': disabled,
-          'bg-blue bg-sky-500 shadow-sm hover:bg-sky-600 ': style === 'primary',
-          'flex justify-center border border-solid p-2 text-gray-500 shadow-sm hover:bg-gray-50':
+          'bg-blue bg-sky-500 shadow-sm hover:bg-sky-400 ': style === 'primary',
+          'p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50':
             style === 'hollow',
         },
       )}
