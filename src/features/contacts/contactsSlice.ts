@@ -32,11 +32,29 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
       query: () => `/profile/contacts`,
     }),
     deleteContact: builder.mutation<void, string>({
-      invalidatesTags: ['contacts'],
       query: (userId: string) => ({
         url: `/profile/contacts/${userId}`,
         method: 'DELETE',
       }),
+      onQueryStarted: async (userId, { dispatch, queryFulfilled }) => {
+        const patchResult = dispatch(
+          contactsApiSlice.util.updateQueryData(
+            'getContacts',
+            undefined,
+            (draft) => {
+              const contactIndex = draft.findIndex((c) => c._id === userId);
+              if (contactIndex > -1) {
+                draft.splice(contactIndex, 1);
+              }
+            },
+          ),
+        );
+        try {
+          await queryFulfilled;
+        } catch (err) {
+          patchResult.undo();
+        }
+      },
     }),
   }),
 });
