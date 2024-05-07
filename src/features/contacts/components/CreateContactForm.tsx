@@ -8,6 +8,7 @@ import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
+import FormTitle from '@/components/form/FormTitle';
 
 const CreateContactBodySchema = z.object({
   contactUsername: z
@@ -33,7 +34,7 @@ const CreateContactForm = () => {
       onSubmit={handleSubmit(handleFormSubmit)}
       className="flex flex-col items-start gap-4 rounded-md bg-white px-12 py-8 shadow-md"
     >
-      <h2 className="text-xl font-bold">Create Contact</h2>
+      <FormTitle>Create Contact</FormTitle>
       <InputGroup>
         <InputLabel htmlFor="create-contact-username">Something</InputLabel>
         <TextInput

@@ -11,6 +11,7 @@ import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
+import FormTitle from '@/components/form/FormTitle';
 
 const CreateChatRoomBodySchema = z.object({
   participantUsername: z
@@ -44,7 +45,7 @@ const CreateChatRoomForm = () => {
       onSubmit={handleSubmit(handleFormSubmit)}
       className="flex flex-col items-start gap-4 rounded-md bg-white px-12 py-8 shadow-md"
     >
-      <h2 className="text-xl font-bold">Create Chat</h2>
+      <FormTitle>Create Chat</FormTitle>
       <InputGroup>
         <InputLabel htmlFor="create-chat-username">Username</InputLabel>
         <TextInput
