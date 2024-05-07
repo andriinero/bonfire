@@ -31,6 +31,13 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
       providesTags: ['contacts'],
       query: () => `/profile/contacts`,
     }),
+    postContact: builder.mutation<void, { contactUsername: string }>({
+      invalidatesTags: ['contacts'],
+      query: ({ contactUsername: contactUserame }) => ({
+        url: `/profile/contacts/${contactUserame}`,
+        method: 'POST',
+      }),
+    }),
     deleteContact: builder.mutation<void, string>({
       query: (userId: string) => ({
         url: `/profile/contacts/${userId}`,
@@ -62,8 +69,11 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
 export const { createContactsModalOpened, createContactsModalClosed } =
   contactsSlice.actions;
 
-export const { useGetContactsQuery, useDeleteContactMutation } =
-  contactsApiSlice;
+export const {
+  useGetContactsQuery,
+  useDeleteContactMutation,
+  usePostContactMutation,
+} = contactsApiSlice;
 
 export default contactsSlice;
 

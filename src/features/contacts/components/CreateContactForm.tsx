@@ -2,6 +2,10 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { usePostContactMutation } from '../contactsSlice';
+
+import { ErrorData } from '@/types/ErrorData';
+
 import Form from '@/components/form/Form';
 import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
@@ -27,7 +31,15 @@ const CreateContactForm = () => {
     resolver: zodResolver(CreateContactBodySchema),
   });
 
-  const handleFormSubmit = (): void => {};
+  const [postContact] = usePostContactMutation();
+
+  const handleFormSubmit = async (data: TCreateContactBody): Promise<void> => {
+    try {
+      await postContact(data).unwrap();
+    } catch (err) {
+      console.error((err as ErrorData).message);
+    }
+  };
 
   return (
     <Form
