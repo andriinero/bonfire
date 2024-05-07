@@ -1,9 +1,9 @@
-import cn from '@/utils/cn';
 
+import cn from '@/utils/cn';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-import { ErrorData, ErrorDataSchema } from '@/types/ErrorData';
+import { ErrorDataSchema } from '@/types/ErrorData';
 
 import { FaCircleXmark } from 'react-icons/fa6';
 import { BaseErrorSchema } from '@/types/BaseError';

@@ -10,7 +10,6 @@ import {
   usePostSignInMutation,
 } from '../authSlice';
 
-import { FaGoogle } from 'react-icons/fa6';
 import Form from '../../../components/form/Form';
 import Button from '../../../components/general/Button';
 import TextInput from '../../../components/form/TextInput';
@@ -49,7 +48,7 @@ const SignInPanel = () => {
       const result = await postSignIn(data).unwrap();
       dispatch(tokenInitialized(result.token));
       refetch();
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const handleGuestSignIn = async (): Promise<void> => {
@@ -60,7 +59,7 @@ const SignInPanel = () => {
       }).unwrap();
       dispatch(tokenInitialized(result.token));
       refetch();
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const isSubmitDisabled = isLoading;

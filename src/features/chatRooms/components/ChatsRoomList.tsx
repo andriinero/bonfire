@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch } from '@/app/hooks';
 
 import { selectedChatIdSet } from '@/features/chat/chatSlice';

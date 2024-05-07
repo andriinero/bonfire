@@ -9,6 +9,7 @@ import {
 import { FaUserPlus } from 'react-icons/fa6';
 import IconButton from '@/components/general/IconButton';
 import Modal from '@/components/general/Modal';
+import CreateContactForm from './CreateContactForm';
 
 const ContactsHeader = () => {
   const isCreateContactModalOpen = useAppSelector(
@@ -32,7 +33,7 @@ const ContactsHeader = () => {
         <FaUserPlus />
       </IconButton>
       <Modal isOpen={isCreateContactModalOpen} onModalClick={handleModalClose}>
-        <p className="rounded-lg bg-white p-4 shadow-sm">form</p>
+        <CreateContactForm />
       </Modal>
     </div>
   );
