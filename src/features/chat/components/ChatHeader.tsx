@@ -2,18 +2,18 @@ import { useAppSelector } from '@/app/hooks';
 
 import getNonAuthUserIds from '@/utils/getNonAuthUserIds';
 
-import { selectSelectedChatId } from '../chatSlice';
+import { selectAuthUserId } from '@/features/auth/authSlice';
+import { selectChatRoomById } from '@/features/chatRooms/chatRoomsSlice';
 import {
   selectParticipantById,
   selectParticipantsByChatId,
 } from '@/features/participants/participantsSlice';
-import { selectAuthUserId } from '@/features/auth/authSlice';
-import { selectChatRoomById } from '@/features/chatRooms/chatRoomsSlice';
+import { selectSelectedChatId } from '../chatSlice';
 
-import { FaEllipsis } from 'react-icons/fa6';
-import UserIcon from '@/components/general/UserIcon';
-import IconButton from '@/components/general/IconButton';
 import ChatTitle from '@/components/general/ChatTitle';
+import IconButton from '@/components/general/IconButton';
+import UserIcon from '@/components/general/UserIcon';
+import { FaEllipsis } from 'react-icons/fa6';
 
 const ChatHeader = () => {
   const authUserId = useAppSelector(selectAuthUserId) as string;

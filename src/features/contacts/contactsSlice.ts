@@ -1,8 +1,8 @@
-import { apiSlice } from '../api/apiSlice';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { apiSlice } from '../api/apiSlice';
 
-import { User } from '@/types/User';
 import { RootState } from '@/app/store';
+import { User } from '@/types/User';
 
 type ContactsState = {
   isCreateContactModalOpen: boolean;
@@ -33,9 +33,10 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
     }),
     postContact: builder.mutation<void, { contactUsername: string }>({
       invalidatesTags: ['contacts'],
-      query: ({ contactUsername: contactUserame }) => ({
-        url: `/profile/contacts/${contactUserame}`,
+      query: (body) => ({
+        url: `/profile/contacts`,
         method: 'POST',
+        body,
       }),
     }),
     deleteContact: builder.mutation<void, string>({

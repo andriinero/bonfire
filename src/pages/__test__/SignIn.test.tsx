@@ -1,11 +1,11 @@
+import { screen, waitFor } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { HttpResponse, delay, http } from 'msw';
-import { screen, waitFor } from '@testing-library/dom';
 
-import { createRandomUser, getAuthDataFromUser } from '@/utils/testData';
 import { serverHandlers } from '@/mocks/serverMock';
-import { setupServer } from 'msw/node';
 import { renderWithProviders } from '@/utils/test-utils';
+import { createRandomUser, getAuthDataFromUser } from '@/utils/testData';
+import { setupServer } from 'msw/node';
 
 import { MemoryRouter } from 'react-router-dom';
 import SignIn from '../SignIn';
@@ -21,7 +21,7 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-it('renders the sign in page', () => {
+it('renders sign in page', () => {
   renderWithProviders(
     <MemoryRouter>
       <SignIn />

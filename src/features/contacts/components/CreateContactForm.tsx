@@ -1,18 +1,18 @@
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { usePostContactMutation } from '../contactsSlice';
 
 import { ErrorData } from '@/types/ErrorData';
 
 import Form from '@/components/form/Form';
+import FormTitle from '@/components/form/FormTitle';
 import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
-import FormTitle from '@/components/form/FormTitle';
 
 const CreateContactBodySchema = z.object({
   contactUsername: z
@@ -48,7 +48,7 @@ const CreateContactForm = () => {
     >
       <FormTitle>Create Contact</FormTitle>
       <InputGroup>
-        <InputLabel htmlFor="create-contact-username">Something</InputLabel>
+        <InputLabel htmlFor="create-contact-username">Username</InputLabel>
         <TextInput
           className="min-w-72"
           {...register('contactUsername')}
