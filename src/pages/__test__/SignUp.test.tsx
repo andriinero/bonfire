@@ -1,7 +1,8 @@
 import { renderWithProviders } from '@/utils/test-utils';
+import { screen } from '@testing-library/dom';
+import { useEffect } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import SignUp from '../SignUp';
-import { screen } from '@testing-library/dom';
 
 it('renders sign up page', () => {
   renderWithProviders(
