@@ -13,7 +13,7 @@ const SignIn = () => {
   if (isSignedIn) return <Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />;
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-neutral-100">
+    <div className="flex min-h-dvh items-center justify-center bg-gray-100">
       <main className="w-full max-w-lg space-y-8">
         <img
           className="mx-auto size-10"

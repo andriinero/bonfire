@@ -1,13 +1,9 @@
-import { useEffect } from 'react';
-import { useAppDispatch } from '@/app/hooks';
-
-import { selectedChatIdSet } from '@/features/chat/chatSlice';
 import { useGetChatRoomsQuery } from '../chatRoomsSlice';
 
-import ChatRoomItem from './ChatRoomItem';
-import Spinner from '@/components/general/Spinner';
 import ErrorMessage from '@/components/general/ErrorMessage';
 import ListPlaceholder from '@/components/general/ListPlaceholder';
+import Spinner from '@/components/general/Spinner';
+import ChatRoomItem from './ChatRoomItem';
 
 const ChatRoomList = () => {
   const {
@@ -16,13 +12,6 @@ const ChatRoomList = () => {
     isFetching,
     isSuccess,
   } = useGetChatRoomsQuery();
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (isSuccess && chatList.length > 0)
-      dispatch(selectedChatIdSet(chatList[0]._id));
-  }, [chatList]);
 
   const isDataLoading = isFetching || isLoading;
 
