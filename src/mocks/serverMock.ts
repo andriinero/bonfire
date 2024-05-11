@@ -6,13 +6,12 @@ import {
   getAuthDataFromUser,
   createChatRoom,
   getMultipleRandomMessages,
-  getMultipleRandomUsers,
 } from '@/utils/testData';
 
-import { AuthData } from '@/types/AuthData';
-import { ChatRoom } from '@/types/ChatRoom';
-import { Message } from '@/types/Message';
-import { User } from '@/types/User';
+import type { AuthData } from '@/types/AuthData';
+import type { ChatRoom } from '@/types/ChatRoom';
+import type { Message } from '@/types/Message';
+import type { User } from '@/types/User';
 
 const testUser = createRandomUser(),
   testAuthData = getAuthDataFromUser(testUser),

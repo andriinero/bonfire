@@ -6,22 +6,30 @@ import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { ErrorDataSchema } from '@/types/ErrorData';
 import { FaCircleXmark } from 'react-icons/fa6';
 import { BaseErrorSchema } from '@/types/BaseError';
+import { useAppDispatch } from '@/app/hooks';
+import { pushNotificationRemoved } from '../pushNotificationsSlice';
 
-type ServerErrorMessageProps = {
+type ErrorNotificationProps = {
   error: FetchBaseQueryError | SerializedError;
   visible?: boolean;
   className?: string;
 };
 
-const ServerErrorMessage = ({
+const ErrorNotification = ({
   error,
   visible = true,
   className,
-}: ServerErrorMessageProps) => {
+}: ErrorNotificationProps) => {
   const baseErrorParse = BaseErrorSchema.safeParse(error);
   const errorDataParse = baseErrorParse.success
     ? ErrorDataSchema.safeParse(baseErrorParse.data.data)
     : null;
+
+  const dispatch = useAppDispatch();
+
+  const handleNotificationDismiss = (): void => {
+    dispatch(pushNotificationRemoved(id));
+  };
 
   return (
     <div
@@ -60,4 +68,4 @@ const ServerErrorMessage = ({
   );
 };
 
-export default ServerErrorMessage;
+export default ErrorNotification;

@@ -9,6 +9,7 @@ import {
 
 import Chat from '@/features/chat/components/Chat';
 import ChatLoader from '@/features/chat/components/ChatLoader';
+import PushNotificationList from '@/features/pushNotifications/components/PushNotificationList';
 import Sidebar from '@/layout/Sidebar';
 
 const Home = () => {
@@ -34,6 +35,7 @@ const Home = () => {
       ) : (
         <ChatLoader />
       )}
+      <PushNotificationList />
     </div>
   );
 };

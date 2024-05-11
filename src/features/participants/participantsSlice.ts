@@ -1,7 +1,7 @@
 import { apiSlice } from '../api/apiSlice';
 
-import { User } from '@/types/User';
-import { RootState } from '@/app/store';
+import type { User } from '@/types/User';
+import type { RootState } from '@/app/store';
 
 export const participantsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

@@ -1,5 +1,5 @@
 import cn from '@/utils/cn';
-import { FaCircleNotch, FaSpinner } from 'react-icons/fa6';
+import { FaCircleNotch } from 'react-icons/fa6';
 
 type SpinnerProps = { className?: string };
 

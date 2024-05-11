@@ -3,7 +3,7 @@ import ContactsList from './ContactsList';
 
 const ContactsSidebar = () => {
   return (
-    <div className="h-full space-y-4 grid grid-rows-[auto,1fr]">
+    <div className="grid h-full grid-rows-[auto,1fr] space-y-4">
       <ContactsHeader />
       <ContactsList />
     </div>

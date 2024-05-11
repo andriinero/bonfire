@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import useChatLastMessage from '@/features/messages/hooks/useChatLastMessage';
 import useInitChat from '@/hooks/useInitChat';
+import { useEffect } from 'react';
 
 import cn from '@/utils/cn';
 import getNonAuthUserIds from '@/utils/getNonAuthUserIds';
@@ -15,18 +16,17 @@ import {
   selectParticipantsByChatId,
 } from '@/features/participants/participantsSlice';
 
-import UserIcon from '@/components/general/UserIcon';
-import TimeStamp from '@/components/general/TimeStamp';
-import MessagePreview from './MessagePreview';
 import ChatTitle from '@/components/general/ChatTitle';
 import DotDivider from '@/components/general/DotDivider';
+import TimeStamp from '@/components/general/TimeStamp';
+import UserIcon from '@/components/general/UserIcon';
 import ChatRoomItemLoader from '@/components/loaders/ChatRoomItemLoader';
-import { useEffect } from 'react';
 import {
   chatRoomLoadingFinished,
   chatRoomLoadingStarted,
   selectIsChatRoomsLoading,
 } from '../chatRoomsSlice';
+import MessagePreview from './MessagePreview';
 
 type ChatRoomItemProps = {
   chatId: string;
@@ -53,7 +53,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
   useEffect(() => {
     if (isSuccess || isError) dispatch(chatRoomLoadingFinished(chatId));
     if (isLoading) dispatch(chatRoomLoadingStarted(chatId));
-  }, [isSuccess, isError, isLoading]);
+  }, [isSuccess, isError, isLoading, chatId, dispatch]);
 
   const isChatRoomSelected = selectedChatId === chatId;
 

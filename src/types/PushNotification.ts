@@ -1,15 +1,15 @@
 import { z } from 'zod';
 
-export enum PushNotificaitonType {
+export enum PushNotificationType {
   SUCCESS = 'success',
   WARNING = 'warning',
   ERROR = 'error',
 }
 
-export const pushNotificaitonScheme = z.object({
+export const pushNotificationScheme = z.object({
   _id: z.string(),
   body: z.string(),
-  type: z.nativeEnum(PushNotificaitonType),
+  type: z.nativeEnum(PushNotificationType),
 });
 
-export type TPushNotificaiton = z.infer<typeof pushNotificaitonScheme>;
+export type TPushNotification = z.infer<typeof pushNotificationScheme>;

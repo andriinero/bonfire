@@ -1,15 +1,24 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
+import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/app/store';
-import type { TPushNotificaiton } from '@/types/PushNotification';
+import {
+  PushNotificationType,
+  type TPushNotification,
+} from '@/types/PushNotification';
 
 type PushNotificationsState = {
-  queue: TPushNotificaiton[];
+  queue: TPushNotification[];
 };
 
 const initialState: PushNotificationsState = {
-  queue: [],
+  queue: [
+    {
+      _id: 'test01',
+      body: 'test notification',
+      type: PushNotificationType.ERROR,
+    },
+  ],
 };
 
 const pushNotificationsSlice = createSlice({
@@ -19,11 +28,11 @@ const pushNotificationsSlice = createSlice({
     pushNotificationAdded: {
       reducer: (
         state,
-        { payload: notification }: PayloadAction<TPushNotificaiton>,
+        { payload: notification }: PayloadAction<TPushNotification>,
       ) => {
         state.queue.push(notification);
       },
-      prepare: (notificationData: Omit<TPushNotificaiton, '_id'>) => {
+      prepare: (notificationData: Omit<TPushNotification, '_id'>) => {
         return {
           payload: {
             _id: 'id',
@@ -47,5 +56,8 @@ export const { pushNotificationAdded, pushNotificationRemoved } =
 
 export default pushNotificationsSlice;
 
-export const selectPushNotificationList = (state: RootState) =>
+export const selectPushNotificationsList = (state: RootState) =>
   state.pushNotifications.queue;
+
+export const selectPushNotificationById = (id: string) => (state: RootState) =>
+  state.pushNotifications.queue.find((n) => n._id === id);

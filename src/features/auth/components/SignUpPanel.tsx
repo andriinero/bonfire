@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { usePostSignUpMutation } from '../authSlice';
 
-import { ErrorData } from '@/types/ErrorData';
+import type { ErrorData } from '@/types/ErrorData';
 
 import Form from '@/components/form/Form';
 import InputGroup from '@/components/form/InputGroup';
@@ -12,9 +12,9 @@ import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
-import ServerErrorMessage from '@/components/form/ServerErrorMessage';
 import AppLink from '@/components/general/AppLink';
 import Paths from '@/constants/Paths';
+import ErrorNotification from '@/features/pushNotifications/components/ErrorNotification';
 
 const SignUpBodySchema = z
   .object({
@@ -118,7 +118,7 @@ const SignUpPanel = () => {
           Sign Up
         </Button>
       </Form>
-      {isError && <ServerErrorMessage error={error} />}
+      {isError && <ErrorNotification error={error} />}
       <div className="space-x-1 text-center">
         <span className="font-normal text-gray-500">
           Already have an account?

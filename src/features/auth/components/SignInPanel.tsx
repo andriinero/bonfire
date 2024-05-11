@@ -12,6 +12,8 @@ import {
   usePostSignInMutation,
 } from '../authSlice';
 
+import type { ErrorData } from '@/types/ErrorData';
+
 import Form from '../../../components/form/Form';
 import Button from '../../../components/general/Button';
 import TextInput from '../../../components/form/TextInput';
@@ -20,7 +22,7 @@ import InputGroup from '../../../components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
 import UserIcon from '@/components/general/UserIcon';
 import AppLink from '@/components/general/AppLink';
-import ServerErrorMessage from '@/components/form/ServerErrorMessage';
+import ErrorNotification from '@/features/pushNotifications/components/ErrorNotification';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),
@@ -49,7 +51,9 @@ const SignInPanel = () => {
       const result = await postSignIn(data).unwrap();
       dispatch(tokenInitialized(result.token));
       refetch();
-    } catch (err) {}
+    } catch (err) {
+      console.error((err as ErrorData).message);
+    }
   };
 
   const handleGuestSignIn = async (): Promise<void> => {
@@ -60,7 +64,9 @@ const SignInPanel = () => {
       }).unwrap();
       dispatch(tokenInitialized(result.token));
       refetch();
-    } catch (err) {}
+    } catch (err) {
+      console.log((err as ErrorData).message);
+    }
   };
 
   const isSubmitDisabled = isLoading;
@@ -95,7 +101,7 @@ const SignInPanel = () => {
           Sign In
         </Button>
       </Form>
-      {isError && <ServerErrorMessage error={error} />}
+      {isError && <ErrorNotification error={error} />}
       <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-x-8">
         <div className="border-b"></div>
         <p>Or continue with</p>
