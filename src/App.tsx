@@ -14,7 +14,7 @@ const App = () => {
 
   useMemo(() => {
     dispatch(tokenInitialized());
-  }, []);
+  }, [dispatch]);
 
   return <Router />;
 };

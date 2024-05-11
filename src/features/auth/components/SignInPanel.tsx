@@ -4,6 +4,8 @@ import { Navigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch } from '@/app/hooks';
 
+import Paths from '@/constants/Paths';
+
 import {
   tokenInitialized,
   useGetAuthDataQuery,
@@ -18,7 +20,6 @@ import InputGroup from '../../../components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
 import UserIcon from '@/components/general/UserIcon';
 import AppLink from '@/components/general/AppLink';
-import Paths from '@/constants/Paths';
 import ServerErrorMessage from '@/components/form/ServerErrorMessage';
 
 const SignInBodySchema = z.object({
@@ -41,14 +42,14 @@ const SignInPanel = () => {
 
   const dispatch = useAppDispatch();
 
-  if (isSuccess) return <Navigate to="/home/chats" />;
+  if (isSuccess) return <Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />;
 
   const handleFormSubmit = async (data: TSignInBody): Promise<void> => {
     try {
       const result = await postSignIn(data).unwrap();
       dispatch(tokenInitialized(result.token));
       refetch();
-    } catch (err) { }
+    } catch (err) {}
   };
 
   const handleGuestSignIn = async (): Promise<void> => {
@@ -59,7 +60,7 @@ const SignInPanel = () => {
       }).unwrap();
       dispatch(tokenInitialized(result.token));
       refetch();
-    } catch (err) { }
+    } catch (err) {}
   };
 
   const isSubmitDisabled = isLoading;

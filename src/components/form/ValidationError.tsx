@@ -1,5 +1,5 @@
 import cn from '@/utils/cn';
-import { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
 type ValidationErrorProps = {
   visible?: boolean;

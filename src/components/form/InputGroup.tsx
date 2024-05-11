@@ -1,6 +1,6 @@
 import cn from '@/utils/cn';
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 type InputGroupProps = { children?: ReactNode; className?: string };
 

@@ -1,4 +1,5 @@
-import { ComponentProps, LegacyRef, forwardRef } from 'react';
+import type { ComponentProps, LegacyRef } from 'react';
+import { forwardRef } from 'react';
 
 import cn from '@/utils/cn';
 

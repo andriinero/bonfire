@@ -7,7 +7,6 @@ const useInitChat = (chatId: string) => {
     isFetching: isMessagesFetching,
     isError: isMessagesFetchError,
     isSuccess: isMessagesFetchSuccess,
-    
   } = useGetMessagesQuery(chatId);
   const {
     isLoading: isParticipantsLoading,
@@ -19,7 +18,7 @@ const useInitChat = (chatId: string) => {
   const isLoading = isMessagesLoading || isParticipantsLoading;
   const isFetching = isMessagesFetching || isParticipantsFetching;
   const isError = isMessagesFetchError || isParticipantsFetchError;
-  const isSuccess = isMessagesFetchSuccess || isParticipantsFetchSuccess;
+  const isSuccess = isMessagesFetchSuccess && isParticipantsFetchSuccess;
 
   return { isLoading, isFetching, isError, isSuccess };
 };

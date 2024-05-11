@@ -1,14 +1,14 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import storage from '@/lib/storage';
 
 import { apiSlice } from '../api/apiSlice';
 
-import { AuthData } from '@/types/AuthData';
-import { AppThunk, RootState } from '@/app/store';
-
-import { TSignInBody } from './components/SignInPanel';
-import { TSignUpBody } from './components/SignUpPanel';
+import type { AuthData } from '@/types/AuthData';
+import type { AppThunk, RootState } from '@/app/store';
+import type { TSignInBody } from './components/SignInPanel';
+import type { TSignUpBody } from './components/SignUpPanel';
 
 type AuthState = {
   authData: AuthData | null;

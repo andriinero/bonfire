@@ -11,7 +11,7 @@ const ChatOnlineStatus = ({
   nonAuthParticipants,
   className,
 }: ChatOnlineStatusProps) => {
-  let onlineStatus = '';
+  let onlineStatus = 'default';
 
   const participantCount = nonAuthParticipants.length;
 

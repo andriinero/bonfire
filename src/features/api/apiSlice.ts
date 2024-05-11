@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { RootState } from '@/app/store';
+import type { RootState } from '@/app/store';
 
 export const apiSlice = createApi({
   tagTypes: ['authData', 'chatRooms', 'contacts'],
@@ -15,5 +15,5 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  endpoints: () => ({
-  }), });
+  endpoints: () => ({}),
+});

@@ -20,7 +20,7 @@ const ChatHeader = () => {
     selectParticipantsByChatId(selectedChatId),
   )!.filter((p) => p._id !== authUserId)!;
 
-  const firstParticipant = nonAuthParticipants?.[0];
+  const firstParticipant = nonAuthParticipants[0];
 
   return (
     <header className="flex items-center justify-between border-b p-4 shadow-[0_2px_4px_-2px_rgb(0,0,0,0.1)]">
