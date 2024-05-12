@@ -14,7 +14,7 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   const notification = useAppSelector(selectPushNotificationById(id));
 
   return notification?.type === PushNotificationType.ERROR ? (
-    <ErrorNotification />
+    <ErrorNotification id={id} error={{}} />
   ) : (
     <p>not implemented</p>
   );

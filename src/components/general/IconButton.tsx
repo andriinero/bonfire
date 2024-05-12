@@ -1,8 +1,9 @@
-import { ComponentProps, ReactNode } from 'react';
-
 import cn from '@/utils/cn';
 
+import type { ComponentProps, MouseEventHandler, ReactNode } from 'react';
+
 type ControlsIconProps = {
+  onClick: MouseEventHandler;
   isSelected?: boolean;
   style?: 'primary' | 'round';
   className?: string;
@@ -10,6 +11,7 @@ type ControlsIconProps = {
 } & ComponentProps<'button'>;
 
 const IconButton = ({
+  onClick,
   isSelected = false,
   style = 'primary',
   className,
@@ -18,6 +20,7 @@ const IconButton = ({
 }: ControlsIconProps) => {
   return (
     <button
+      onClick={onClick}
       className={cn(
         'rounded-lg p-3 text-gray-500 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500',
         className,

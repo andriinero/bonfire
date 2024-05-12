@@ -1,21 +1,26 @@
+import { useAppDispatch } from '@/app/hooks';
+
+import { pushNotificationRemoved } from '../pushNotificationsSlice';
+
 import cn from '@/utils/cn';
 
 import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { ErrorDataSchema } from '@/types/ErrorData';
-import { FaCircleXmark } from 'react-icons/fa6';
+import { FaCircleXmark, FaXmark } from 'react-icons/fa6';
 import { BaseErrorSchema } from '@/types/BaseError';
-import { useAppDispatch } from '@/app/hooks';
-import { pushNotificationRemoved } from '../pushNotificationsSlice';
+import IconButton from '@/components/general/IconButton';
 
 type ErrorNotificationProps = {
+  id: string;
   error: FetchBaseQueryError | SerializedError;
   visible?: boolean;
   className?: string;
 };
 
 const ErrorNotification = ({
+  id,
   error,
   visible = true,
   className,
@@ -34,7 +39,7 @@ const ErrorNotification = ({
   return (
     <div
       className={cn(
-        'invisible flex gap-3 rounded-md bg-red-50 p-4 text-sm',
+        'invisible flex items-center gap-3 rounded-md bg-red-50 p-4 text-sm shadow-sm',
         className,
         {
           visible: visible,
@@ -64,6 +69,12 @@ const ErrorNotification = ({
           <p>Internal Server Error 500</p>
         )}
       </div>
+      <IconButton
+        className="p-0 text-red-300 hover:bg-transparent"
+        onClick={handleNotificationDismiss}
+      >
+        <FaXmark />
+      </IconButton>
     </div>
   );
 };
