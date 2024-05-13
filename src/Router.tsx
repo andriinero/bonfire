@@ -11,10 +11,10 @@ import Paths from './constants/Paths';
 import ChatRoomSidebar from './features/chatRooms/components/ChatRoomSidebar';
 import ContactsSidebar from './features/contacts/components/ContactsSidebar';
 import Home from './pages/Home';
+import NotFound404 from './pages/NotFound404';
 import Protected from './pages/Protected';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import NotFound404 from './pages/NotFound404';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

@@ -4,9 +4,10 @@ import Paths from '@/constants/Paths';
 
 import { selectIsSignedIn } from '@/features/auth/authSlice';
 
-import { Navigate } from 'react-router-dom';
+import AppLogo from '@/components/general/AppLogo';
 import SignInPanel from '@/features/auth/components/SignInPanel';
-  
+import { Navigate } from 'react-router-dom';
+
 const SignIn = () => {
   const isSignedIn = useAppSelector(selectIsSignedIn);
 
@@ -15,12 +16,8 @@ const SignIn = () => {
   return (
     <div className="flex min-h-dvh items-center justify-center bg-gray-100">
       <main className="w-full max-w-lg space-y-8">
-        <img
-          className="mx-auto size-10"
-          src="/messenger.png"
-          alt="Messenger App Icon"
-        />
-        <h1 className="text-center text-2xl tracking-tight font-bold text-gray-900">
+        <AppLogo />
+        <h1 className="text-center text-2xl font-bold tracking-tight text-gray-900">
           Sign in to your account
         </h1>
         <SignInPanel />
