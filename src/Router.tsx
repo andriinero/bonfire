@@ -8,16 +8,18 @@ import {
 
 import Paths from './constants/Paths';
 
-import SignIn from './pages/SignIn';
-import Home from './pages/Home';
-import Protected from './pages/Protected';
 import ChatRoomSidebar from './features/chatRooms/components/ChatRoomSidebar';
 import ContactsSidebar from './features/contacts/components/ContactsSidebar';
+import Home from './pages/Home';
+import Protected from './pages/Protected';
+import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import NotFound404 from './pages/NotFound404';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path={Paths.Base}>
+    <Route path={Paths.Base} errorElement={<NotFound404 />}>
+      <Route path={Paths.Error.NOT_FOUND} element={<NotFound404 />} />
       <Route
         path={Paths.Base}
         element={<Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />}
