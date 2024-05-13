@@ -7,10 +7,10 @@ import cn from '@/utils/cn';
 import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
+import IconButton from '@/components/general/IconButton';
+import { BaseErrorSchema } from '@/types/BaseError';
 import { ErrorDataSchema } from '@/types/ErrorData';
 import { FaCircleXmark, FaXmark } from 'react-icons/fa6';
-import { BaseErrorSchema } from '@/types/BaseError';
-import IconButton from '@/components/general/IconButton';
 
 type ErrorNotificationProps = {
   id: string;
@@ -70,7 +70,7 @@ const ErrorNotification = ({
         )}
       </div>
       <IconButton
-        className="p-0 text-red-300 hover:bg-transparent"
+        className="ml-8 p-0 text-red-300 hover:bg-transparent"
         onClick={handleNotificationDismiss}
       >
         <FaXmark />

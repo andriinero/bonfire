@@ -1,12 +1,13 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 import storage from '@/lib/storage';
 
 import { apiSlice } from '../api/apiSlice';
 
-import type { AuthData } from '@/types/AuthData';
 import type { AppThunk, RootState } from '@/app/store';
+import type { AuthData } from '@/types/AuthData';
+import type { ErrorData } from '@/types/ErrorData';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TSignInBody } from './components/SignInPanel';
 import type { TSignUpBody } from './components/SignUpPanel';
 
@@ -46,7 +47,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           dispatch(authDataSet(data));
-        } catch (err) {}
+        } catch (err) {
+          console.log((err as ErrorData).message);
+        }
       },
     }),
     postSignIn: builder.mutation<

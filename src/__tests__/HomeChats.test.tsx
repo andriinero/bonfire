@@ -9,7 +9,7 @@ import ChatRoomSidebar from '@/features/chatRooms/components/ChatRoomSidebar';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Paths from '@/constants/Paths';
 import { HttpResponse, delay, http } from 'msw';
-import { ChatRoom } from '@/types/ChatRoom';
+import type { ChatRoom } from '@/types/ChatRoom';
 
 const { testMessages } = mockDBData;
 

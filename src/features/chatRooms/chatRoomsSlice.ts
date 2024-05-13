@@ -1,8 +1,9 @@
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from '../api/apiSlice';
-import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 
-import { ChatRoom } from '@/types/ChatRoom';
-import { RootState } from '@/app/store';
+import type { RootState } from '@/app/store';
+import type { ChatRoom } from '@/types/ChatRoom';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 type ChatRoomState = {
   isCreateChatRoomModalOpen: boolean;

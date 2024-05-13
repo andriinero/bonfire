@@ -1,4 +1,6 @@
-import { ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
+
+import type { ReactNode } from 'react';
 
 import cn from '@/utils/cn';
 
@@ -21,7 +23,7 @@ const Modal = ({ isOpen, onModalClick, className, children }: ModalProps) => {
     return () => {
       window.removeEventListener('keydown', onEscapeDown);
     };
-  }, []);
+  }, [onModalClick]);
 
   return (
     <AnimatePresence>
