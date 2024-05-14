@@ -1,33 +1,16 @@
 import cn from '@/utils/cn';
 
-import type { User } from '@/types/User';
+import useChatRoomOnlineStatus from '@/features/chatRooms/hooks/useChatRoomOnlineStatus';
 
 type ChatOnlineStatusProps = {
-  nonAuthParticipants: User[];
+  id: string;
   className?: string;
 };
 
-const ChatOnlineStatus = ({
-  nonAuthParticipants,
-  className,
-}: ChatOnlineStatusProps) => {
-  let onlineStatus = 'default';
+const ChatOnlineStatus = ({ id, className }: ChatOnlineStatusProps) => {
+  const status = useChatRoomOnlineStatus(id);
 
-  const participantCount = nonAuthParticipants.length;
-
-  if (participantCount > 1) {
-    const onlineCount = nonAuthParticipants.reduce((prev, cur) => {
-      if (cur.is_online) {
-        prev += 1;
-      }
-      return prev;
-    }, 0);
-    onlineStatus = `${onlineCount} online`;
-  } else if (participantCount === 1) {
-    onlineStatus = nonAuthParticipants[0].is_online ? 'Online' : 'Offline';
-  }
-
-  return <span className={cn('', className)}>{onlineStatus}</span>;
+  return <span className={cn('', className)}>{status}</span>;
 };
 
 export default ChatOnlineStatus;

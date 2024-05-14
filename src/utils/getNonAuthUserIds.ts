@@ -1,4 +1,4 @@
-import { User } from '@/types/User';
+import type { User } from '@/types/User';
 
 const getNonAuthUserIds = (authUserId: string, users?: User[]): string[] => {
   let result: string[] = [];

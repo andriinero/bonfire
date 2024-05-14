@@ -32,7 +32,7 @@ const ChatHeader = () => {
         <div>
           {currentChat && <ChatTitle chatId={currentChat?._id} />}
           <p className="text-sm text-gray-500">
-            <ChatOnlineStatus nonAuthParticipants={nonAuthParticipants} />
+            <ChatOnlineStatus id={selectedChatId} />
           </p>
         </div>
       </div>
