@@ -15,18 +15,18 @@ import {
   selectParticipantById,
   selectParticipantsByChatId,
 } from '@/features/participants/participantsSlice';
-
-import ChatTitle from '@/components/general/ChatTitle';
-import DotDivider from '@/components/general/DotDivider';
-import TimeStamp from '@/components/general/TimeStamp';
-import UserIcon from '@/components/general/UserIcon';
-import ChatRoomItemLoader from '@/components/loaders/ChatRoomItemLoader';
 import {
   chatRoomLoadingFinished,
   chatRoomLoadingStarted,
   selectIsChatRoomsLoading,
 } from '../chatRoomsSlice';
+
+import ChatTitle from '@/components/general/ChatTitle';
+import DotDivider from '@/components/general/DotDivider';
+import TimeStamp from '@/components/general/TimeStamp';
+import ChatRoomItemLoader from '@/components/loaders/ChatRoomItemLoader';
 import MessagePreview from './MessagePreview';
+import ChatRoomIcon from './ChatRoomIcon';
 
 type ChatRoomItemProps = {
   chatId: string;
@@ -72,13 +72,8 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
         <ChatRoomItemLoader />
       ) : (
         <>
-          <div className="shrink-0">
-            <UserIcon
-              key={firstParticipant?._id}
-              isOnline={firstParticipant?.is_online}
-              src={firstParticipant?.profile_image}
-              style="lg"
-            />
+          <div className="my-auto shrink-0">
+            <ChatRoomIcon chatRoomId={chatId} />
           </div>
           <div className="flex grow justify-between gap-2">
             <div className="flex flex-col justify-between">

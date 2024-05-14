@@ -19,9 +19,9 @@ const useChatRoomOnlineStatus = (id: string) => {
     : 0;
 
   if (isGroup) {
-    status = `${onlineCount} ${onlineCount > 1 ? 'users' : 'user'} online`;
+    status = onlineCount > 0 ? `${onlineCount} online` : 'no active users';
   } else {
-    status = nonAuthParticipants?.[0]?.is_online ? 'Online' : 'Offline';
+    status = nonAuthParticipants?.[0]?.is_online ? 'online' : 'offline';
   }
 
   return status;
