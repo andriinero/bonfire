@@ -39,38 +39,40 @@ const ErrorNotification = ({
   return (
     <div
       className={cn(
-        'invisible flex items-center gap-3 rounded-md bg-red-50 p-4 text-sm shadow-sm',
+        'invisible flex items-center justify-between gap-8 rounded-md bg-red-50 p-4 text-sm shadow-sm',
         className,
         {
           visible: visible,
         },
       )}
     >
-      <span className="mt-0.5 text-red-400">
-        <FaCircleXmark size="1rem" />
-      </span>
-      <div className="text-medium text-red-800">
-        {baseErrorParse.success ? (
-          errorDataParse?.success ? (
-            <>
-              <p>{errorDataParse.data.message}</p>
-              <ul className="list-disc pl-6 font-normal text-red-700">
-                {errorDataParse.data.errors.map((e) => (
-                  <li key={e.path}>{e.msg}</li>
-                ))}
-              </ul>
-            </>
-          ) : baseErrorParse.data.status === 401 ? (
-            <p>Incorrect credentials</p>
+      <div className="flex items-center gap-3">
+        <span className="mt-0.5 text-red-400">
+          <FaCircleXmark size="1rem" />
+        </span>
+        <div className="text-medium text-red-800">
+          {baseErrorParse.success ? (
+            errorDataParse?.success ? (
+              <>
+                <p>{errorDataParse.data.message}</p>
+                <ul className="list-disc pl-6 font-normal text-red-700">
+                  {errorDataParse.data.errors.map((e) => (
+                    <li key={e.path}>{e.msg}</li>
+                  ))}
+                </ul>
+              </>
+            ) : baseErrorParse.data.status === 401 ? (
+              <p>Incorrect credentials</p>
+            ) : (
+              <p>An unexpected error has occurred</p>
+            )
           ) : (
-            <p>An unexpected error has occurred</p>
-          )
-        ) : (
-          <p>Internal Server Error 500</p>
-        )}
+            <p>Internal Server Error 500</p>
+          )}
+        </div>
       </div>
       <IconButton
-        className="ml-8 p-0 text-red-300 hover:bg-transparent"
+        className="justify-self-end p-0.5 text-red-300 hover:bg-red-100"
         onClick={handleNotificationDismiss}
       >
         <FaXmark />

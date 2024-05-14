@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { usePostSignUpMutation } from '../authSlice';
 
@@ -11,10 +11,9 @@ import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
-import Button from '@/components/general/Button';
 import AppLink from '@/components/general/AppLink';
+import Button from '@/components/general/Button';
 import Paths from '@/constants/Paths';
-import ErrorNotification from '@/features/pushNotifications/components/ErrorNotification';
 
 const SignUpBodySchema = z
   .object({
@@ -42,7 +41,7 @@ const SignUpPanel = () => {
     formState: { errors },
   } = useForm<TSignUpBody>({ resolver: zodResolver(SignUpBodySchema) });
 
-  const [postSignUp, { isLoading, isError, error }] = usePostSignUpMutation();
+  const [postSignUp, { isLoading }] = usePostSignUpMutation();
 
   const handleFormSubmit = async (data: TSignUpBody): Promise<void> => {
     try {
@@ -118,7 +117,6 @@ const SignUpPanel = () => {
           Sign Up
         </Button>
       </Form>
-      {isError && <ErrorNotification error={error} />}
       <div className="space-x-1 text-center">
         <span className="font-normal text-gray-500">
           Already have an account?

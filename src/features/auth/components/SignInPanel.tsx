@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import { useAppDispatch } from '@/app/hooks';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch } from '@/app/hooks';
+import { z } from 'zod';
 
 import Paths from '@/constants/Paths';
 
@@ -14,15 +14,14 @@ import {
 
 import type { ErrorData } from '@/types/ErrorData';
 
-import Form from '../../../components/form/Form';
-import Button from '../../../components/general/Button';
-import TextInput from '../../../components/form/TextInput';
-import InputLabel from '../../../components/form/InputLabel';
-import InputGroup from '../../../components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
-import UserIcon from '@/components/general/UserIcon';
 import AppLink from '@/components/general/AppLink';
-import ErrorNotification from '@/features/pushNotifications/components/ErrorNotification';
+import UserIcon from '@/components/general/UserIcon';
+import Form from '../../../components/form/Form';
+import InputGroup from '../../../components/form/InputGroup';
+import InputLabel from '../../../components/form/InputLabel';
+import TextInput from '../../../components/form/TextInput';
+import Button from '../../../components/general/Button';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),
@@ -39,8 +38,7 @@ const SignInPanel = () => {
     formState: { errors },
   } = useForm<TSignInBody>({ resolver: zodResolver(SignInBodySchema) });
 
-  const [postSignIn, { isLoading, isSuccess, isError, error }] =
-    usePostSignInMutation();
+  const [postSignIn, { isLoading, isSuccess }] = usePostSignInMutation();
 
   const dispatch = useAppDispatch();
 
@@ -101,7 +99,6 @@ const SignInPanel = () => {
           Sign In
         </Button>
       </Form>
-      {isError && <ErrorNotification error={error} />}
       <div className="grid grid-cols-[1fr,auto,1fr] items-center gap-x-8">
         <div className="border-b"></div>
         <p>Or continue with</p>
