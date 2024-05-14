@@ -1,6 +1,6 @@
-import cn from '@/utils/cn';
-
 import useChatRoomOnlineStatus from '@/features/chatRooms/hooks/useChatRoomOnlineStatus';
+
+import cn from '@/utils/cn';
 
 type ChatOnlineStatusProps = {
   id: string;

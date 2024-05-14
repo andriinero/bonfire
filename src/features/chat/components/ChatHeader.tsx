@@ -1,8 +1,7 @@
 import { useAppSelector } from '@/app/hooks';
+import useNonAuthParticipants from '@/features/chatRooms/hooks/useNonAuthParticipants';
 
-import { selectAuthUserId } from '@/features/auth/authSlice';
 import { selectChatRoomById } from '@/features/chatRooms/chatRoomsSlice';
-import { selectParticipantsByChatId } from '@/features/participants/participantsSlice';
 import { selectSelectedChatId } from '../chatSlice';
 
 import ChatTitle from '@/components/general/ChatTitle';
@@ -12,15 +11,10 @@ import { FaEllipsis } from 'react-icons/fa6';
 import ChatOnlineStatus from './ChatOnlineStatus';
 
 const ChatHeader = () => {
-  const authUserId = useAppSelector(selectAuthUserId) as string;
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
-
-  const currentChat = useAppSelector(selectChatRoomById(selectedChatId));
-  const nonAuthParticipants = useAppSelector(
-    selectParticipantsByChatId(selectedChatId),
-  )!.filter((p) => p._id !== authUserId)!;
-
-  const firstParticipant = nonAuthParticipants[0];
+  const selectedChat = useAppSelector(selectChatRoomById(selectedChatId));
+  const nonAuthParticipants = useNonAuthParticipants(selectedChatId);
+  const firstParticipant = nonAuthParticipants?.[0];
 
   return (
     <header className="flex items-center justify-between border-b p-4 shadow-[0_2px_4px_-2px_rgb(0,0,0,0.1)]">
@@ -30,7 +24,7 @@ const ChatHeader = () => {
           src={firstParticipant?.profile_image}
         />
         <div>
-          {currentChat && <ChatTitle chatId={currentChat?._id} />}
+          {selectedChat && <ChatTitle chatId={selectedChat?._id} />}
           <p className="text-sm text-gray-500">
             <ChatOnlineStatus id={selectedChatId} />
           </p>
