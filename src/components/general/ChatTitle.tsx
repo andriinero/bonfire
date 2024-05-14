@@ -34,9 +34,11 @@ const ChatTitle = ({ chatId, className }: ChatTitleProps) => {
     } else {
       setTitle(chat.name);
     }
-  }, [chat, chatParticipants]);
+  }, [chat, chatParticipants, authUserId]);
 
-  return <p className={cn('font-medium text-gray-800', className)}>{title}</p>;
+  return (
+    <h3 className={cn('font-medium text-gray-800', className)}>{title}</h3>
+  );
 };
 
 export default ChatTitle;
