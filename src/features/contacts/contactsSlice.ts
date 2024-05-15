@@ -1,8 +1,8 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from '../api/apiSlice';
 
-import { RootState } from '@/app/store';
-import { User } from '@/types/User';
+import type { RootState } from '@/app/store';
+import type { User } from '@/types/User';
 
 type ContactsState = {
   isCreateContactModalOpen: boolean;

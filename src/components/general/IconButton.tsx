@@ -3,7 +3,7 @@ import cn from '@/utils/cn';
 import type { ComponentProps, MouseEventHandler, ReactNode } from 'react';
 
 type ControlsIconProps = {
-  onClick: MouseEventHandler;
+  onClick?: MouseEventHandler;
   isSelected?: boolean;
   style?: 'primary' | 'round';
   className?: string;

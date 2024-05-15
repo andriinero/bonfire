@@ -1,34 +1,27 @@
-import { useAppDispatch } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
-import { pushNotificationRemoved } from '../pushNotificationsSlice';
+import {
+  pushNotificationRemoved,
+  selectPushNotificationById,
+} from '../pushNotificationsSlice';
 
 import cn from '@/utils/cn';
 
-import type { SerializedError } from '@reduxjs/toolkit';
-import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-
 import IconButton from '@/components/general/IconButton';
-import { BaseErrorSchema } from '@/types/BaseError';
-import { ErrorDataSchema } from '@/types/ErrorData';
 import { FaCircleXmark, FaXmark } from 'react-icons/fa6';
 
 type ErrorNotificationProps = {
   id: string;
-  error: FetchBaseQueryError | SerializedError;
   visible?: boolean;
   className?: string;
 };
 
 const ErrorNotification = ({
   id,
-  error,
   visible = true,
   className,
 }: ErrorNotificationProps) => {
-  const baseErrorParse = BaseErrorSchema.safeParse(error);
-  const errorDataParse = baseErrorParse.success
-    ? ErrorDataSchema.safeParse(baseErrorParse.data.data)
-    : null;
+  const notification = useAppSelector(selectPushNotificationById(id));
 
   const dispatch = useAppDispatch();
 
@@ -51,23 +44,17 @@ const ErrorNotification = ({
           <FaCircleXmark size="1rem" />
         </span>
         <div className="text-medium text-red-800">
-          {baseErrorParse.success ? (
-            errorDataParse?.success ? (
-              <>
-                <p>{errorDataParse.data.message}</p>
-                <ul className="list-disc pl-6 font-normal text-red-700">
-                  {errorDataParse.data.errors.map((e) => (
-                    <li key={e.path}>{e.msg}</li>
-                  ))}
-                </ul>
-              </>
-            ) : baseErrorParse.data.status === 401 ? (
-              <p>Incorrect credentials</p>
-            ) : (
-              <p>An unexpected error has occurred</p>
-            )
+          {notification?.body ? (
+            <p>{notification?.body}</p>
           ) : (
             <p>Internal Server Error 500</p>
+          )}
+          {notification?.list ? (
+            notification.list.map(() => (
+              <ul className="list-disc pl-6 font-normal text-red-700">{}</ul>
+            ))
+          ) : (
+            <></>
           )}
         </div>
       </div>

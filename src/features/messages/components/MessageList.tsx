@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { useEffect, useRef } from 'react';
 
-import { selectSelectedChatId } from '../../chat/chatSlice';
 import {
   selectShouldScrollDown,
   shouldScrollDownSet,
   useGetMessagesQuery,
 } from '@/features/messages/messagesSlice';
+import { selectSelectedChatId } from '../../chat/chatSlice';
 
+import ErrorMessage from '@/components/general/ErrorMessage';
 import Spinner from '@/components/general/Spinner';
 import MessageItem from './MessageItem';
-import ErrorMessage from '@/components/general/ErrorMessage';
 
 const MessageList = () => {
   const listRef = useRef<HTMLUListElement>(null);
@@ -29,7 +29,7 @@ const MessageList = () => {
       handleScrollToBottom();
       dispatch(shouldScrollDownSet(false));
     }
-  }, [shouldScrollDown]);
+  }, [shouldScrollDown, dispatch]);
 
   const handleScrollToBottom = (): void => {
     if (listRef.current) {

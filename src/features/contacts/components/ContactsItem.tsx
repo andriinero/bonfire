@@ -2,12 +2,12 @@ import { useAppSelector } from '@/app/hooks';
 
 import { selectContactById, useDeleteContactMutation } from '../contactsSlice';
 
-import { User } from '@/types/User';
-import { ErrorData } from '@/types/ErrorData';
+import type { ErrorData } from '@/types/ErrorData';
+import type { User } from '@/types/User';
 
-import { FaUserMinus } from 'react-icons/fa6';
-import UserIcon from '@/components/general/UserIcon';
 import IconButton from '@/components/general/IconButton';
+import UserIcon from '@/components/general/UserIcon';
+import { FaUserMinus } from 'react-icons/fa6';
 
 type ContactsItemProps = { contactId: string };
 

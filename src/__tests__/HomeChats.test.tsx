@@ -1,16 +1,16 @@
-import { setupServer } from 'msw/node';
 import { screen, waitFor } from '@testing-library/dom';
+import { setupServer } from 'msw/node';
 
 import { mockDBData, serverHandlers } from '@/mocks/serverMock';
 import { renderWithProviders } from '@/utils/test-utils';
 
-import Home from '@/pages/Home';
-import ChatRoomSidebar from '@/features/chatRooms/components/ChatRoomSidebar';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Paths from '@/constants/Paths';
-import { HttpResponse, delay, http } from 'msw';
+import ChatRoomSidebar from '@/features/chatRooms/components/ChatRoomSidebar';
+import Home from '@/pages/Home';
 import type { ChatRoom } from '@/types/ChatRoom';
 import userEvent from '@testing-library/user-event';
+import { HttpResponse, delay, http } from 'msw';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 const { testMessages, testChatRoom } = mockDBData;
 

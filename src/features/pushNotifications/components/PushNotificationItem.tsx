@@ -1,7 +1,11 @@
-import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
-import { selectPushNotificationById } from '../pushNotificationsSlice';
+import {
+  pushNotificationRemoved,
+  selectPushNotificationById,
+} from '../pushNotificationsSlice';
 
 import { PushNotificationType } from '@/types/PushNotification';
 
@@ -11,8 +15,18 @@ type PushNotificationItemProps = {
   id: string;
 };
 
+const NOTIFICATION_UNMOUNT_TIMER = 5000;
+
 const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   const notification = useAppSelector(selectPushNotificationById(id));
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(pushNotificationRemoved(id));
+    }, NOTIFICATION_UNMOUNT_TIMER);
+  }, [id, dispatch]);
 
   return (
     <motion.div
@@ -21,7 +35,7 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
       transition={{ delay: 0, duration: 0.25 }}
     >
       {notification?.type === PushNotificationType.ERROR ? (
-        <ErrorNotification id={id} error={{}} />
+        <ErrorNotification id={id} />
       ) : (
         <p>not implemented</p>
       )}
