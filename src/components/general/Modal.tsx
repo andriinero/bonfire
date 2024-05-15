@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import cn from '@/utils/cn';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import { FadeIn } from '@/styles/animations/FadeIn';
 
 type ModalProps = {
   isOpen: boolean;
@@ -29,10 +30,10 @@ const Modal = ({ isOpen, onModalClick, className, children }: ModalProps) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.15 }}
-          exit={{ opacity: 0 }}
+          initial={FadeIn.initial}
+          animate={FadeIn.animate}
+          transition={FadeIn.transition}
+          exit={FadeIn.exit}
           className={cn(
             'fixed inset-0 z-10 flex h-dvh w-dvw flex-col items-center justify-center',
             className,

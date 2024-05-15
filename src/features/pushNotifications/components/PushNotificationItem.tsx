@@ -18,6 +18,7 @@ import {
   FaTriangleExclamation,
   FaXmark,
 } from 'react-icons/fa6';
+import { SlideIn } from '@/styles/animations/SlideIn';
 
 type PushNotificationItemProps = {
   id: string;
@@ -48,9 +49,9 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   return notification ? (
     <motion.div
       key={id}
-      initial={{ x: 100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ delay: 0, duration: 0.25 }}
+      initial={SlideIn.initial}
+      animate={SlideIn.animate}
+      transition={SlideIn.transition}
       className={cn(
         'flex items-center justify-between gap-8 rounded-md p-4 text-sm shadow-sm',
         {
