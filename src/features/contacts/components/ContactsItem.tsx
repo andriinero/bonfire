@@ -25,21 +25,22 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
   };
 
   return (
-    <li className="flex items-center justify-between gap-4 rounded-lg p-2 transition">
-      <div className="flex items-center gap-4">
+    <li className="flex items-center justify-between gap-4 rounded-lg p-2 transition hover:bg-gray-50">
+      <div className="flex items-center gap-2">
         <UserIcon
           isOnline={contact?.is_online}
           src={contact?.profile_image}
-          style="lg"
+          style="md"
         />
-        <p className="text-lg font-medium">{contact?.username}</p>
+        <p className="text-md font-medium">{contact?.username}</p>
       </div>
       <IconButton
         aria-label="Delete Contact"
         onClick={handleContactDelete}
+        className="bg-transparent"
         style="round"
       >
-        <FaUserMinus />
+        <FaUserMinus size="1rem" />
       </IconButton>
     </li>
   );
