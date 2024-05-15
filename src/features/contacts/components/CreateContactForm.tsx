@@ -1,10 +1,13 @@
+import { useAppDispatch } from '@/app/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import { usePostContactMutation } from '../contactsSlice';
 
-import { ErrorData } from '@/types/ErrorData';
+import type { ErrorData } from '@/types/ErrorData';
+import { PushNotificationType } from '@/types/PushNotification';
 
 import Form from '@/components/form/Form';
 import FormTitle from '@/components/form/FormTitle';
@@ -31,11 +34,18 @@ const CreateContactForm = () => {
     resolver: zodResolver(CreateContactBodySchema),
   });
 
+  const dispatch = useAppDispatch();
   const [postContact] = usePostContactMutation();
 
   const handleFormSubmit = async (data: TCreateContactBody): Promise<void> => {
     try {
       await postContact(data).unwrap();
+      dispatch(
+        pushNotificationAdded({
+          body: `Contact '${data.contactUsername}' created`,
+          type: PushNotificationType.SUCCESS,
+        }),
+      );
     } catch (err) {
       console.error((err as ErrorData).message);
     }

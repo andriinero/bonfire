@@ -47,7 +47,7 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
       key={id}
       initial={{ x: 100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ delay: 0, duration: 0.35 }}
+      transition={{ delay: 0, duration: 0.25 }}
       className={cn(
         'flex items-center justify-between gap-8 rounded-md p-4 text-sm shadow-sm',
         {

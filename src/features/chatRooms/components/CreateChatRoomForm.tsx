@@ -1,17 +1,21 @@
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { useAppDispatch } from '@/app/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import { usePostChatRoomMutation } from '../chatRoomsSlice';
 
-import { ErrorData } from '@/types/ErrorData';
+import type { ErrorData } from '@/types/ErrorData';
+import { PushNotificationType } from '@/types/PushNotification';
 
 import Form from '@/components/form/Form';
+import FormTitle from '@/components/form/FormTitle';
 import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
-import FormTitle from '@/components/form/FormTitle';
 
 const CreateChatRoomBodySchema = z.object({
   participantUsername: z
@@ -30,11 +34,18 @@ const CreateChatRoomForm = () => {
     resolver: zodResolver(CreateChatRoomBodySchema),
   });
 
+  const dispatch = useAppDispatch();
   const [postChatRoom] = usePostChatRoomMutation();
 
   const handleFormSubmit = async (data: TCreateChatBody): Promise<void> => {
     try {
       await postChatRoom(data).unwrap();
+      dispatch(
+        pushNotificationAdded({
+          body: 'Chat successfully created',
+          type: PushNotificationType.SUCCESS,
+        }),
+      );
     } catch (err) {
       console.error((err as ErrorData).message);
     }

@@ -1,10 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { RootState } from '@/app/store';
-import {
-  PushNotificationType,
-  type TPushNotification,
-} from '@/types/PushNotification';
+import type { TPushNotification } from '@/types/PushNotification';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 type PushNotificationsState = {
@@ -12,23 +9,7 @@ type PushNotificationsState = {
 };
 
 const initialState: PushNotificationsState = {
-  queue: [
-    {
-      _id: 'test01',
-      body: 'test notification',
-      type: PushNotificationType.ERROR,
-    },
-    {
-      _id: 'test02',
-      body: 'test notification',
-      type: PushNotificationType.SUCCESS,
-    },
-    {
-      _id: 'test03',
-      body: 'test notification',
-      type: PushNotificationType.WARNING,
-    },
-  ],
+  queue: [],
 };
 
 const pushNotificationsSlice = createSlice({
