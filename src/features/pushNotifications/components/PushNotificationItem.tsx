@@ -27,15 +27,18 @@ const NOTIFICATION_UNMOUNT_TIMER = 5000;
 
 const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   const notification = useAppSelector(selectPushNotificationById(id));
-
   const type = notification?.type;
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       dispatch(pushNotificationRemoved(id));
     }, NOTIFICATION_UNMOUNT_TIMER);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [id, dispatch]);
 
   const handleNotificationDismiss = (): void => {

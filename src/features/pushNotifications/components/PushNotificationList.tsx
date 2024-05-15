@@ -8,7 +8,7 @@ const PushNotificationList = () => {
   const list = useAppSelector(selectPushNotificationsList);
 
   return (
-    <div className="absolute right-8 top-8 max-w-sm space-y-4">
+    <div className="fixed right-8 top-8 w-full max-w-60 space-y-4">
       {list.map((n) => (
         <PushNotificationItem key={n._id} id={n._id} />
       ))}

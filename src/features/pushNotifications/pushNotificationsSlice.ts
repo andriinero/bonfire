@@ -2,14 +2,21 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { RootState } from '@/app/store';
 import type { TPushNotification } from '@/types/PushNotification';
+import { PushNotificationType } from '@/types/PushNotification';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 type PushNotificationsState = {
-  queue: TPushNotification[];
+  notificationsList: TPushNotification[];
 };
 
 const initialState: PushNotificationsState = {
-  queue: [],
+  notificationsList: [
+    {
+      _id: 'test01',
+      body: 'test notification',
+      type: PushNotificationType.ERROR,
+    },
+  ],
 };
 
 const pushNotificationsSlice = createSlice({
@@ -21,7 +28,7 @@ const pushNotificationsSlice = createSlice({
         state,
         { payload: notification }: PayloadAction<TPushNotification>,
       ) => {
-        state.queue.push(notification);
+        state.notificationsList.push(notification);
       },
       prepare: (notificationData: Omit<TPushNotification, '_id'>) => {
         return {
@@ -38,18 +45,26 @@ const pushNotificationsSlice = createSlice({
       state,
       { payload: id }: PayloadAction<string>,
     ) => {
-      state.queue = state.queue.filter((n) => n._id !== id);
+      state.notificationsList = state.notificationsList.filter(
+        (n) => n._id !== id,
+      );
+    },
+    pushNotificationsListCleared: (state) => {
+      state.notificationsList = [];
     },
   },
 });
 
-export const { pushNotificationAdded, pushNotificationRemoved } =
-  pushNotificationsSlice.actions;
+export const {
+  pushNotificationAdded,
+  pushNotificationRemoved,
+  pushNotificationsListCleared,
+} = pushNotificationsSlice.actions;
 
 export default pushNotificationsSlice;
 
 export const selectPushNotificationsList = (state: RootState) =>
-  state.pushNotifications.queue;
+  state.pushNotifications.notificationsList;
 
 export const selectPushNotificationById = (id: string) => (state: RootState) =>
-  state.pushNotifications.queue.find((n) => n._id === id);
+  state.pushNotifications.notificationsList.find((n) => n._id === id);

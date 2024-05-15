@@ -1,6 +1,7 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import { RootState } from '@/app/store';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { RootState } from '@/app/store';
 
 type ChatState = {
   selectedChatId?: string;
