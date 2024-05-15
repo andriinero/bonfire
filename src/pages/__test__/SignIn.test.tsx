@@ -58,7 +58,7 @@ it('renders email validation errors correctly', async () => {
 
   const emailField = screen.getByRole('textbox', { name: 'Email address' });
   const submit = screen.getByRole('button', { name: 'Sign In' });
-  await user.type(emailField, 'fo');
+  await user.type(emailField, 'foo');
   await user.click(submit);
   const emailErrorLabel = screen.getByText('Invalid email', {
     exact: false,

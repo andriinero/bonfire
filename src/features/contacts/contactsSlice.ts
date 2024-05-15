@@ -27,9 +27,9 @@ const contactsSlice = createSlice({
 
 export const contactsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getContacts: builder.query<User[], void>({
+    getContacts: builder.query<User[], { page: number }>({
       providesTags: ['contacts'],
-      query: () => `/profile/contacts`,
+      query: ({ page }) => `/profile/contacts?page=${page ?? 0}`,
     }),
     postContact: builder.mutation<void, { contactUsername: string }>({
       invalidatesTags: ['contacts'],
@@ -39,16 +39,19 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
-    deleteContact: builder.mutation<void, string>({
-      query: (userId: string) => ({
+    deleteContact: builder.mutation<void, { userId: string; page: number }>({
+      query: ({ userId }) => ({
         url: `/profile/contacts/${userId}`,
         method: 'DELETE',
       }),
-      onQueryStarted: async (userId, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (
+        { userId, page },
+        { dispatch, queryFulfilled },
+      ) => {
         const patchResult = dispatch(
           contactsApiSlice.util.updateQueryData(
             'getContacts',
-            undefined,
+            { page },
             (draft) => {
               const contactIndex = draft.findIndex((c) => c._id === userId);
               if (contactIndex > -1) {
@@ -81,15 +84,16 @@ export default contactsSlice;
 export const selectIsCreateContactModalOpen = (state: RootState) =>
   state.contacts.isCreateContactModalOpen;
 
-export const selectContactsListResult =
-  contactsApiSlice.endpoints.getContacts.select();
+export const selectContactsListResult = (page: number) =>
+  contactsApiSlice.endpoints.getContacts.select({ page });
 
-export const selectContactsList = createSelector(
-  selectContactsListResult,
-  (contactsList) => contactsList.data ?? [],
-);
+export const selectContactsList = (page: number) =>
+  createSelector(
+    selectContactsListResult(page),
+    (contactsList) => contactsList.data ?? [],
+  );
 
-export const selectContactById = (contactId: string) =>
-  createSelector(selectContactsList, (contactsList) =>
+export const selectContactById = (contactId: string, page: number) =>
+  createSelector(selectContactsList(page), (contactsList) =>
     contactsList.find((c) => c._id === contactId),
   );

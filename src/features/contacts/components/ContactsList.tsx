@@ -10,15 +10,17 @@ const ContactsList = () => {
     isFetching,
     isLoading,
     isSuccess,
-  } = useGetContactsQuery();
+  } = useGetContactsQuery({ page: 0 });
 
   const isDataLoading = isFetching || isLoading;
 
   return isDataLoading ? (
     <Spinner />
   ) : isSuccess ? (
-    <div className='space-y-4'>
-      <h2 className='text-sm text-gray-600'>Active contacts ({contactsList.length})</h2>
+    <div className="space-y-4">
+      <h2 className="text-sm text-gray-600">
+        Active contacts ({contactsList.length})
+      </h2>
       <ul className="space-y-2">
         {contactsList!.map((c) => (
           <ContactsItem key={c._id} contactId={c._id} />

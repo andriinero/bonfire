@@ -2,7 +2,7 @@ import cn from '@/utils/cn';
 
 import { MessageType } from '@/types/MessageType';
 
-import { Message } from '@/types/Message';
+import type { Message } from '@/types/Message';
 
 type MessagePreviewProps = { className?: string } & Pick<
   Message,

@@ -7,13 +7,13 @@ const useInitHome = () => {
     isFetching: isChatRoomsFetching,
     isSuccess: isChatRoomsSuccess,
     data: chatRoomsList,
-  } = useGetChatRoomsQuery();
+  } = useGetChatRoomsQuery({ page: 0 });
   const {
     isLoading: isContactsLoading,
     isFetching: isContactsFetching,
     isSuccess: isContactsSuccess,
     data: contactsList,
-  } = useGetContactsQuery();
+  } = useGetContactsQuery({ page: 0 });
 
   const isLoading = isChatRoomsLoading || isContactsLoading;
   const isFetching = isChatRoomsFetching || isContactsFetching;

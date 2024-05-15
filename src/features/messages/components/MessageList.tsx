@@ -20,7 +20,7 @@ const MessageList = () => {
     data: messagesList,
     isFetching,
     isSuccess,
-  } = useGetMessagesQuery(selectedChatId);
+  } = useGetMessagesQuery({ chatRoomId: selectedChatId, page: 0 });
 
   const dispatch = useAppDispatch();
 

@@ -2,8 +2,8 @@ import { useAppSelector } from '@/app/hooks';
 
 import { selectMessageById } from '../messagesSlice';
 
-import UserMessage from '@/features/messages/components/UserMessage';
 import ActionMessage from '@/features/messages/components/ActionMessage';
+import UserMessage from '@/features/messages/components/UserMessage';
 
 type MessageProps = {
   chatRoomId: string;
@@ -12,7 +12,7 @@ type MessageProps = {
 };
 
 const MessageItem = ({ chatRoomId, messageId }: MessageProps) => {
-  const message = useAppSelector(selectMessageById(chatRoomId, messageId));
+  const message = useAppSelector(selectMessageById(chatRoomId, messageId, 0));
 
   return message ? (
     message?.type === 'message' ? (

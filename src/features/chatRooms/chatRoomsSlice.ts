@@ -44,13 +44,13 @@ const chatRoomSlice = createSlice({
 
 export const chatRoomsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getChatRooms: builder.query<ChatRoom[], void>({
-      query: () => `/chat-rooms`,
+    getChatRooms: builder.query<ChatRoom[], { page: number }>({
       providesTags: ['chatRooms'],
+      query: ({ page }) => `/chat-rooms?page=${page ?? 0}`,
     }),
     postChatRoom: builder.mutation<void, { participantUsername: string }>({
-      query: (body) => ({ url: '/chat-rooms', method: 'POST', body }),
       invalidatesTags: ['chatRooms'],
+      query: (body) => ({ url: '/chat-rooms', method: 'POST', body }),
     }),
   }),
 });
@@ -70,16 +70,17 @@ export default chatRoomSlice;
 export const selectIsCreateChatRoomModalOpen = (state: RootState) =>
   state.chatRoom.isCreateChatRoomModalOpen;
 
-export const selectChatRoomsListResult =
-  chatRoomsApiSlice.endpoints.getChatRooms.select();
+export const selectChatRoomsListResult = (page: number) =>
+  chatRoomsApiSlice.endpoints.getChatRooms.select({ page });
 
-export const selectChatRoomsList = createSelector(
-  selectChatRoomsListResult,
-  (chatList) => chatList.data ?? [],
-);
+export const selectChatRoomsList = (page: number) =>
+  createSelector(
+    selectChatRoomsListResult(page),
+    (chatList) => chatList.data ?? [],
+  );
 
-export const selectChatRoomById = (chatId: string) =>
-  createSelector(selectChatRoomsList, (chatList) =>
+export const selectChatRoomById = (chatId: string, page: number) =>
+  createSelector(selectChatRoomsList(page), (chatList) =>
     chatList.find((c: ChatRoom) => c._id === chatId),
   );
 

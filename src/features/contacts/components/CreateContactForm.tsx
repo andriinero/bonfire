@@ -4,7 +4,10 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
-import { usePostContactMutation } from '../contactsSlice';
+import {
+  createContactsModalClosed,
+  usePostContactMutation,
+} from '../contactsSlice';
 
 import type { ErrorData } from '@/types/ErrorData';
 import { PushNotificationType } from '@/types/PushNotification';
@@ -46,6 +49,7 @@ const CreateContactForm = () => {
           type: PushNotificationType.SUCCESS,
         }),
       );
+      dispatch(createContactsModalClosed());
     } catch (err) {
       console.error((err as ErrorData).message);
     }

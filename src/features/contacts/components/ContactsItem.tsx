@@ -12,13 +12,13 @@ import { FaUserMinus } from 'react-icons/fa6';
 type ContactsItemProps = { contactId: string };
 
 const ContactsItem = ({ contactId }: ContactsItemProps) => {
-  const contact = useAppSelector(selectContactById(contactId)) as User;
+  const contact = useAppSelector(selectContactById(contactId, 0)) as User;
 
   const [deleteContact] = useDeleteContactMutation();
 
   const handleContactDelete = async (): Promise<void> => {
     try {
-      await deleteContact(contact._id).unwrap();
+      await deleteContact({ userId: contact._id, page: 0 }).unwrap();
     } catch (err) {
       console.error((err as ErrorData).message);
     }

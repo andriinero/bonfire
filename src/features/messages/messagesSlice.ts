@@ -1,8 +1,9 @@
+import { createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from '../api/apiSlice';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { RootState } from '@/app/store';
-import { Message } from '@/types/Message';
+import type { RootState } from '@/app/store';
+import type { Message } from '@/types/Message';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 export type TPostMessageBody = {
   user: string;
@@ -30,9 +31,12 @@ const messagesSlice = createSlice({
 
 export const messagesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getMessages: builder.query<Message[], string>({
-      query: (chatRoomId) => `/chat-rooms/${chatRoomId}/messages`,
-    }),
+    getMessages: builder.query<Message[], { chatRoomId: string; page: number }>(
+      {
+        query: ({ chatRoomId, page }) =>
+          `/chat-rooms/${chatRoomId}/messages?page=${page ?? 0}`,
+      },
+    ),
     postMessage: builder.mutation<
       Message,
       { chatRoomId: string; body: TPostMessageBody }
@@ -47,7 +51,7 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
         dispatch(
           messagesApiSlice.util.updateQueryData(
             'getMessages',
-            chatRoomId,
+            { chatRoomId, page: 1 },
             (draft) => {
               draft.unshift(result);
             },
@@ -69,11 +73,12 @@ export const selectShouldScrollDown = (state: RootState) =>
   state.messages.shouldScrollDown;
 
 export const selectMessagesByChatId =
-  (chatRoomId: string) => (state: RootState) =>
-    messagesApiSlice.endpoints.getMessages.select(chatRoomId)(state).data;
+  (chatRoomId: string, page: number) => (state: RootState) =>
+    messagesApiSlice.endpoints.getMessages.select({ chatRoomId, page })(state)
+      .data;
 
 export const selectMessageById =
-  (chatRoomId: string, messageId: string) => (state: RootState) =>
+  (chatRoomId: string, messageId: string, page: number) => (state: RootState) =>
     messagesApiSlice.endpoints.getMessages
-      .select(chatRoomId)(state)
+      .select({ chatRoomId, page })(state)
       .data?.find((m) => m._id === messageId);

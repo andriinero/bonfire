@@ -1,19 +1,19 @@
 import { useGetMessagesQuery } from '@/features/messages/messagesSlice';
 import { useGetParticipantsQuery } from '@/features/participants/participantsSlice';
 
-const useInitChat = (chatId: string) => {
+const useInitChat = (chatRoomId: string) => {
   const {
     isLoading: isMessagesLoading,
     isFetching: isMessagesFetching,
     isError: isMessagesFetchError,
     isSuccess: isMessagesFetchSuccess,
-  } = useGetMessagesQuery(chatId);
+  } = useGetMessagesQuery({ chatRoomId, page: 0 });
   const {
     isLoading: isParticipantsLoading,
     isFetching: isParticipantsFetching,
     isError: isParticipantsFetchError,
     isSuccess: isParticipantsFetchSuccess,
-  } = useGetParticipantsQuery(chatId);
+  } = useGetParticipantsQuery(chatRoomId);
 
   const isLoading = isMessagesLoading || isParticipantsLoading;
   const isFetching = isMessagesFetching || isParticipantsFetching;

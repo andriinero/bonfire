@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/app/hooks';
+import { useEffect, useState } from 'react';
 
 import cn from '@/utils/cn';
 
@@ -14,7 +14,7 @@ type ChatTitleProps = { chatId: string; className?: string };
 const ChatTitle = ({ chatId, className }: ChatTitleProps) => {
   const [title, setTitle] = useState<string>();
   const authUserId = useAppSelector(selectAuthUserId);
-  const chat = useAppSelector(selectChatRoomById(chatId));
+  const chat = useAppSelector(selectChatRoomById(chatId, 0));
   const chatParticipants = useAppSelector(selectParticipantsByChatId(chatId));
 
   useEffect(() => {

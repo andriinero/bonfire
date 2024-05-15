@@ -1,9 +1,10 @@
-import { User } from '@/types/User';
 import { faker } from '@faker-js/faker';
-import { Message } from '@/types/Message';
-import { ChatRoom } from '@/types/ChatRoom';
+
 import { MessageType } from '@/types/MessageType';
-import { AuthData } from '@/types/AuthData';
+import type { User } from '@/types/User';
+import type { Message } from '@/types/Message';
+import type { ChatRoom } from '@/types/ChatRoom';
+import type { AuthData } from '@/types/AuthData';
 
 export const createRandomUser = (): User => {
   const firstName = faker.person.firstName();

@@ -4,17 +4,11 @@ import useInitChat from '@/hooks/useInitChat';
 import { useEffect } from 'react';
 
 import cn from '@/utils/cn';
-import getNonAuthUserIds from '@/utils/getNonAuthUserIds';
 
-import { selectAuthUserId } from '@/features/auth/authSlice';
 import {
   selectSelectedChatId,
   selectedChatIdSet,
 } from '@/features/chat/chatSlice';
-import {
-  selectParticipantById,
-  selectParticipantsByChatId,
-} from '@/features/participants/participantsSlice';
 import {
   chatRoomLoadingFinished,
   chatRoomLoadingStarted,
@@ -25,8 +19,8 @@ import ChatTitle from '@/components/general/ChatTitle';
 import DotDivider from '@/components/general/DotDivider';
 import TimeStamp from '@/components/general/TimeStamp';
 import ChatRoomItemLoader from '@/components/loaders/ChatRoomItemLoader';
-import MessagePreview from './MessagePreview';
 import ChatRoomIcon from './ChatRoomIcon';
+import MessagePreview from './MessagePreview';
 
 type ChatRoomItemProps = {
   chatId: string;
@@ -34,14 +28,9 @@ type ChatRoomItemProps = {
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
   const { isError, isSuccess, isLoading } = useInitChat(chatId);
+
   const isChatRoomsLoading = useAppSelector(selectIsChatRoomsLoading);
-  const authUserId = useAppSelector(selectAuthUserId) as string;
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
-  const participants = useAppSelector(selectParticipantsByChatId(chatId));
-  const nonAuthParticipants = getNonAuthUserIds(authUserId, participants);
-  const firstParticipant = useAppSelector(
-    selectParticipantById(chatId, nonAuthParticipants[0]),
-  );
   const lastMessage = useChatLastMessage(chatId);
 
   const dispatch = useAppDispatch();
@@ -49,7 +38,6 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
   const handleChatClick = (): void => {
     dispatch(selectedChatIdSet(chatId));
   };
-
   useEffect(() => {
     if (isSuccess || isError) dispatch(chatRoomLoadingFinished(chatId));
     if (isLoading) dispatch(chatRoomLoadingStarted(chatId));
@@ -89,7 +77,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
                     />
                   </>
                 ) : (
-                  <p>chat is empty</p>
+                  <p>Start chatting!</p>
                 )}
               </div>
             </div>

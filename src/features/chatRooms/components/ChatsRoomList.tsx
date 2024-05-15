@@ -11,7 +11,7 @@ const ChatRoomList = () => {
     isLoading,
     isFetching,
     isSuccess,
-  } = useGetChatRoomsQuery();
+  } = useGetChatRoomsQuery({ page: 0 });
 
   const isDataLoading = isFetching || isLoading;
 
