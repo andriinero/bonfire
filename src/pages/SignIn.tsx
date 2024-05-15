@@ -6,6 +6,7 @@ import { selectIsSignedIn } from '@/features/auth/authSlice';
 
 import AppLogo from '@/components/general/AppLogo';
 import SignInPanel from '@/features/auth/components/SignInPanel';
+import PushNotificationList from '@/features/pushNotifications/components/PushNotificationList';
 import { Navigate } from 'react-router-dom';
 
 const SignIn = () => {
@@ -22,6 +23,7 @@ const SignIn = () => {
         </h1>
         <SignInPanel />
       </main>
+      <PushNotificationList />
     </div>
   );
 };

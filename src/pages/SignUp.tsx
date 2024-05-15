@@ -1,5 +1,6 @@
 import AppLogo from '@/components/general/AppLogo';
 import SignUpPanel from '@/features/auth/components/SignUpPanel';
+import PushNotificationList from '@/features/pushNotifications/components/PushNotificationList';
 
 const SignUp = () => {
   return (
@@ -11,6 +12,7 @@ const SignUp = () => {
         </h1>
         <SignUpPanel />
       </main>
+      <PushNotificationList />
     </div>
   );
 };

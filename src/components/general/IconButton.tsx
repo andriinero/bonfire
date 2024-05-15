@@ -23,7 +23,6 @@ const IconButton = ({
       onClick={onClick}
       className={cn(
         'rounded-lg p-3 text-gray-500 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500',
-        className,
         {
           'bg-gray-100 text-gray-800': isSelected,
         },
@@ -31,6 +30,7 @@ const IconButton = ({
           'rounded-full bg-gray-100 p-2 text-gray-800 hover:bg-gray-200':
             style === 'round',
         },
+        className,
       )}
       {...otherProps}
     >

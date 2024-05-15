@@ -3,6 +3,7 @@ import Paths from '@/constants/Paths';
 import AppLink from '@/components/general/AppLink';
 import AppLogo from '@/components/general/AppLogo';
 import { FaArrowLeft } from 'react-icons/fa6';
+import PushNotificationList from '@/features/pushNotifications/components/PushNotificationList';
 
 const NotFound404 = () => {
   return (
@@ -25,6 +26,7 @@ const NotFound404 = () => {
         </AppLink>
       </main>
       <footer />
+      <PushNotificationList />
     </div>
   );
 };
