@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 
 import cn from '@/utils/cn';
@@ -22,7 +23,7 @@ type PushNotificationItemProps = {
   id: string;
 };
 
-const NOTIFICATION_UNMOUNT_TIMER = 50000000;
+const NOTIFICATION_UNMOUNT_TIMER = 5000;
 
 const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   const notification = useAppSelector(selectPushNotificationById(id));
@@ -41,8 +42,12 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
     dispatch(pushNotificationRemoved(id));
   };
 
-  return (
-    <div
+  return notification ? (
+    <motion.div
+      key={id}
+      initial={{ x: 100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ delay: 0, duration: 0.35 }}
       className={cn(
         'flex items-center justify-between gap-8 rounded-md p-4 text-sm shadow-sm',
         {
@@ -109,7 +114,9 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
       >
         <FaXmark size="1rem" />
       </IconButton>
-    </div>
+    </motion.div>
+  ) : (
+    <></>
   );
 };
 
