@@ -18,6 +18,16 @@ const initialState: PushNotificationsState = {
       body: 'test notification',
       type: PushNotificationType.ERROR,
     },
+    {
+      _id: 'test02',
+      body: 'test notification',
+      type: PushNotificationType.SUCCESS,
+    },
+    {
+      _id: 'test03',
+      body: 'test notification',
+      type: PushNotificationType.WARNING,
+    },
   ],
 };
 
