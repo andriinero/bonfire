@@ -10,6 +10,7 @@ import {
 } from '../pushNotificationsSlice';
 
 import IconButton from '@/components/general/IconButton';
+import { SlideIn } from '@/styles/animations/SlideIn';
 import { PushNotificationType } from '@/types/PushNotification';
 import {
   FaCircleCheck,
@@ -18,7 +19,6 @@ import {
   FaTriangleExclamation,
   FaXmark,
 } from 'react-icons/fa6';
-import { SlideIn } from '@/styles/animations/SlideIn';
 
 type PushNotificationItemProps = {
   id: string;

@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/dom';
 
 import { setupServer } from 'msw/node';
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProviders } from '@/utils/testUtils';
 import { mockDBData, serverHandlers } from '@/mocks/serverMock';
 
 import { MemoryRouter, Route, Routes } from 'react-router-dom';

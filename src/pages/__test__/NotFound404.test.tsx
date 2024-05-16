@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Paths from '@/constants/Paths';
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProviders } from '@/utils/testUtils';
 
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import NotFound404 from '../NotFound404';

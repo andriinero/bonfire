@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { HttpResponse, delay, http } from 'msw';
 
 import { serverHandlers } from '@/mocks/serverMock';
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProviders } from '@/utils/testUtils';
 import { createRandomUser, getAuthDataFromUser } from '@/utils/testData';
 import { setupServer } from 'msw/node';
 

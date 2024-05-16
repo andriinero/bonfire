@@ -1,7 +1,7 @@
 import Paths from '@/constants/Paths';
 import Home from '@/pages/Home';
 import Protected from '@/pages/Protected';
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProviders } from '@/utils/testUtils';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';

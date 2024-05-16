@@ -19,10 +19,10 @@ const chatRoomSlice = createSlice({
   name: 'chatRoom',
   initialState,
   reducers: {
-    createChatRoomOpened: (state) => {
+    createChatRoomModalOpened: (state) => {
       state.isCreateChatRoomModalOpen = true;
     },
-    createChatRoomClosed: (state) => {
+    createChatRoomModalClosed: (state) => {
       state.isCreateChatRoomModalOpen = false;
     },
     chatRoomLoadingStarted: (
@@ -56,8 +56,8 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-  createChatRoomOpened,
-  createChatRoomClosed,
+  createChatRoomModalOpened,
+  createChatRoomModalClosed,
   chatRoomLoadingStarted,
   chatRoomLoadingFinished,
 } = chatRoomSlice.actions;

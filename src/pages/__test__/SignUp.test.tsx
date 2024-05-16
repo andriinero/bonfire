@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/dom';
 
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProviders } from '@/utils/testUtils';
 
 import { MemoryRouter } from 'react-router-dom';
 import SignUp from '../SignUp';

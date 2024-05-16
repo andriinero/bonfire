@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/dom';
 import { setupServer } from 'msw/node';
 
 import { mockDBData, serverHandlers } from '@/mocks/serverMock';
-import { renderWithProviders } from '@/utils/test-utils';
+import { renderWithProviders } from '@/utils/testUtils';
 
 import Paths from '@/constants/Paths';
 import ChatRoomSidebar from '@/features/chatRooms/components/ChatRoomSidebar';

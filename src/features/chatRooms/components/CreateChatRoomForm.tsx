@@ -4,7 +4,10 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
-import { usePostChatRoomMutation } from '../chatRoomsSlice';
+import {
+  createChatRoomModalClosed,
+  usePostChatRoomMutation,
+} from '../chatRoomsSlice';
 
 import type { ErrorData } from '@/types/ErrorData';
 import { PushNotificationType } from '@/types/PushNotification';
@@ -46,6 +49,7 @@ const CreateChatRoomForm = () => {
           type: PushNotificationType.SUCCESS,
         }),
       );
+      dispatch(createChatRoomModalClosed());
     } catch (err) {
       console.error((err as ErrorData).message);
     }

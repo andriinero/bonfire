@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import {
-  createChatRoomClosed,
-  createChatRoomOpened,
+  createChatRoomModalClosed,
+  createChatRoomModalOpened,
   selectIsCreateChatRoomModalOpen,
 } from '../chatRoomsSlice';
 
@@ -17,11 +17,11 @@ const ChatRoomHeader = () => {
   const dispatch = useAppDispatch();
 
   const handleModalOpen = (): void => {
-    dispatch(createChatRoomOpened());
+    dispatch(createChatRoomModalOpened());
   };
 
   const handleModalClose = (): void => {
-    dispatch(createChatRoomClosed());
+    dispatch(createChatRoomModalClosed());
   };
 
   return (

@@ -5,9 +5,9 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { apiSlice } from '@/features/api/apiSlice';
 import authSlice from '@/features/auth/authSlice';
 import chatSlice from '@/features/chat/chatSlice';
-import messagesSlice from '@/features/messages/messagesSlice';
 import chatRoomSlice from '@/features/chatRooms/chatRoomsSlice';
 import contactsSlice from '@/features/contacts/contactsSlice';
+import messagesSlice from '@/features/messages/messagesSlice';
 import pushNotificationsSlice from '@/features/pushNotifications/pushNotificationsSlice';
 
 const rootReducer = combineSlices(
