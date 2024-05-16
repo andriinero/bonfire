@@ -3,10 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import storage from '@/lib/storage';
 
 import { apiSlice } from '../api/apiSlice';
+import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
 
 import type { AppThunk, RootState } from '@/app/store';
 import type { AuthData } from '@/types/AuthData';
 import type { ErrorData } from '@/types/ErrorData';
+import { PushNotificationType } from '@/types/PushNotification';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TSignInBody } from './components/SignInPanel';
 import type { TSignUpBody } from './components/SignUpPanel';
@@ -61,6 +63,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body,
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        await queryFulfilled;
+        dispatch(
+          pushNotificationAdded({
+            body: 'Login success',
+            type: PushNotificationType.SUCCESS,
+          }),
+        );
+      },
     }),
     postSignUp: builder.mutation<{ message: string }, TSignUpBody>({
       query: (body) => ({

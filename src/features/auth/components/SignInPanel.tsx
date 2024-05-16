@@ -22,8 +22,6 @@ import InputGroup from '../../../components/form/InputGroup';
 import InputLabel from '../../../components/form/InputLabel';
 import TextInput from '../../../components/form/TextInput';
 import Button from '../../../components/general/Button';
-import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
-import { PushNotificationType } from '@/types/PushNotification';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),
@@ -49,12 +47,6 @@ const SignInPanel = () => {
   const handleFormSubmit = async (data: TSignInBody): Promise<void> => {
     try {
       const result = await postSignIn(data).unwrap();
-      dispatch(
-        pushNotificationAdded({
-          body: 'Login success',
-          type: PushNotificationType.SUCCESS,
-        }),
-      );
       dispatch(tokenInitialized(result.token));
       refetch();
     } catch (err) {
