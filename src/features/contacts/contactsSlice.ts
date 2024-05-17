@@ -27,9 +27,14 @@ const contactsSlice = createSlice({
 
 export const contactsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getContacts: builder.query<User[], { page: number }>({
+    getContacts: builder.query<User[], number>({
       providesTags: ['contacts'],
-      query: ({ page }) => `/profile/contacts?page=${page ?? 0}`,
+      query: (page) => `/profile/contacts?page=${page ?? 0}`,
+      serializeQueryArgs: ({ endpointName }) => endpointName,
+      merge: (cur, newItems) => {
+        cur.push(...newItems);
+      },
+      forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
     }),
     postContact: builder.mutation<void, { contactUsername: string }>({
       invalidatesTags: ['contacts'],
@@ -51,7 +56,7 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
         const patchResult = dispatch(
           contactsApiSlice.util.updateQueryData(
             'getContacts',
-            { page },
+            page,
             (draft) => {
               const contactIndex = draft.findIndex((c) => c._id === userId);
               if (contactIndex > -1) {
@@ -85,7 +90,7 @@ export const selectIsCreateContactModalOpen = (state: RootState) =>
   state.contacts.isCreateContactModalOpen;
 
 export const selectContactsListResult = (page: number) =>
-  contactsApiSlice.endpoints.getContacts.select({ page });
+  contactsApiSlice.endpoints.getContacts.select(page);
 
 export const selectContactsList = (page: number) =>
   createSelector(

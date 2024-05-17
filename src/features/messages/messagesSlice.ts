@@ -59,7 +59,7 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
         dispatch(
           messagesApiSlice.util.updateQueryData(
             'getMessages',
-            { chatRoomId, page: 1 },
+            { chatRoomId, page: 0 },
             (draft) => {
               draft.unshift(result);
             },

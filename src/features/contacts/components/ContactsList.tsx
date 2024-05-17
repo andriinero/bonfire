@@ -1,7 +1,7 @@
 import { useGetContactsQuery } from '../contactsSlice';
 
-import Spinner from '@/components/general/Spinner';
 import ErrorMessage from '@/components/general/ErrorMessage';
+import Spinner from '@/components/general/Spinner';
 import ContactsItem from './ContactsItem';
 
 const ContactsList = () => {
@@ -10,7 +10,7 @@ const ContactsList = () => {
     isFetching,
     isLoading,
     isSuccess,
-  } = useGetContactsQuery({ page: 0 });
+  } = useGetContactsQuery(0);
 
   const isDataLoading = isFetching || isLoading;
 
