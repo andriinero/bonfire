@@ -44,9 +44,14 @@ const chatRoomSlice = createSlice({
 
 export const chatRoomsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getChatRooms: builder.query<ChatRoom[], { page: number }>({
+    getChatRooms: builder.query<ChatRoom[], number>({
       providesTags: ['chatRooms'],
-      query: ({ page }) => `/chat-rooms?page=${page ?? 0}`,
+      query: (page) => `/chat-rooms?page=${page ?? 0}`,
+      serializeQueryArgs: ({ endpointName }) => endpointName,
+      merge: (curItems, newItems) => {
+        curItems.push(...newItems);
+      },
+      forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
     }),
     getChatRoomsCount: builder.query<number, void>({
       query: () => `/chat-rooms/count`,
@@ -77,7 +82,7 @@ export const selectIsCreateChatRoomModalOpen = (state: RootState) =>
   state.chatRoom.isCreateChatRoomModalOpen;
 
 export const selectChatRoomsListResult = (page: number) =>
-  chatRoomsApiSlice.endpoints.getChatRooms.select({ page });
+  chatRoomsApiSlice.endpoints.getChatRooms.select(page);
 
 export const selectChatRoomsList = (page: number) =>
   createSelector(
