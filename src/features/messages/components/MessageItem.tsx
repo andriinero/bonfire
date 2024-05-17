@@ -7,12 +7,13 @@ import UserMessage from '@/features/messages/components/UserMessage';
 
 type MessageProps = {
   chatRoomId: string;
-  messageId: string;
+  page: number;
+  id: string;
   className?: string;
 };
 
-const MessageItem = ({ chatRoomId, messageId }: MessageProps) => {
-  const message = useAppSelector(selectMessageById(chatRoomId, messageId, 0));
+const MessageItem = ({ chatRoomId, page, id }: MessageProps) => {
+  const message = useAppSelector(selectMessageById({ chatRoomId, page, id }));
 
   return message ? (
     message?.type === 'message' ? (

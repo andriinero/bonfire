@@ -13,10 +13,12 @@ export type TPostMessageBody = {
 
 type MessagesState = {
   shouldScrollDown: boolean;
+  listState: Record<string, { currentPage: number }>;
 };
 
 const initialState: MessagesState = {
   shouldScrollDown: true,
+  listState: {},
 };
 
 const messagesSlice = createSlice({
@@ -25,6 +27,9 @@ const messagesSlice = createSlice({
   reducers: {
     shouldScrollDownSet: (state, action: PayloadAction<boolean>) => {
       state.shouldScrollDown = action.payload;
+    },
+    pageCountIncreased: (state, { payload }: PayloadAction<string>) => {
+      state.listState[payload].currentPage += 1;
     },
   },
 });
@@ -37,6 +42,9 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
           `/chat-rooms/${chatRoomId}/messages?page=${page ?? 0}`,
       },
     ),
+    getMessagesCount: builder.query<number, { chatRoomId: string }>({
+      query: ({ chatRoomId }) => `/chat-rooms/${chatRoomId}/messages/count`,
+    }),
     postMessage: builder.mutation<
       Message,
       { chatRoomId: string; body: TPostMessageBody }
@@ -63,11 +71,20 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetMessagesQuery, usePostMessageMutation } = messagesApiSlice;
+export const {
+  useGetMessagesQuery,
+  useGetMessagesCountQuery,
+  usePostMessageMutation,
+} = messagesApiSlice;
 
-export const { shouldScrollDownSet } = messagesSlice.actions;
+export const { shouldScrollDownSet, pageCountIncreased } =
+  messagesSlice.actions;
 
 export default messagesSlice;
+
+export const selectMessageListCurrentPage =
+  (chatRoomId: string) => (state: RootState) =>
+    state.messages.listState[chatRoomId]?.currentPage ?? 0;
 
 export const selectShouldScrollDown = (state: RootState) =>
   state.messages.shouldScrollDown;
@@ -78,7 +95,16 @@ export const selectMessagesByChatId =
       .data;
 
 export const selectMessageById =
-  (chatRoomId: string, messageId: string, page: number) => (state: RootState) =>
+  ({
+    chatRoomId,
+    page,
+    id,
+  }: {
+    chatRoomId: string;
+    page: number;
+    id: string;
+  }) =>
+  (state: RootState) =>
     messagesApiSlice.endpoints.getMessages
       .select({ chatRoomId, page })(state)
-      .data?.find((m) => m._id === messageId);
+      .data?.find((m) => m._id === id);

@@ -1,7 +1,10 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { useEffect, useRef } from 'react';
 
+import { range } from '@/utils/range';
+
 import {
+  selectMessageListCurrentPage,
   selectShouldScrollDown,
   shouldScrollDownSet,
   useGetMessagesQuery,
@@ -10,17 +13,19 @@ import { selectSelectedChatId } from '../../chat/chatSlice';
 
 import ErrorMessage from '@/components/general/ErrorMessage';
 import Spinner from '@/components/general/Spinner';
-import MessageItem from './MessageItem';
+import MessagePage from './MessagePage';
 
 const MessageList = () => {
   const listRef = useRef<HTMLUListElement>(null);
   const shouldScrollDown = useAppSelector(selectShouldScrollDown);
-  const selectedChatId = useAppSelector(selectSelectedChatId) as string;
-  const {
-    data: messagesList,
-    isFetching,
-    isSuccess,
-  } = useGetMessagesQuery({ chatRoomId: selectedChatId, page: 0 });
+  const selectedChatId = useAppSelector(selectSelectedChatId)!;
+  const currentPage = useAppSelector(
+    selectMessageListCurrentPage(selectedChatId),
+  );
+  const { isFetching, isSuccess } = useGetMessagesQuery({
+    chatRoomId: selectedChatId,
+    page: 0,
+  });
 
   const dispatch = useAppDispatch();
 
@@ -39,6 +44,8 @@ const MessageList = () => {
     }
   };
 
+  const pagesArray = range(currentPage + 1);
+
   return (
     <div className="flex-1 overflow-y-auto">
       {isFetching ? (
@@ -48,17 +55,13 @@ const MessageList = () => {
           ref={listRef}
           className="flex h-full flex-col-reverse gap-6 overflow-y-auto p-4"
         >
-          {messagesList ? (
-            messagesList!.map((m) => (
-              <MessageItem
-                key={m._id}
-                chatRoomId={selectedChatId}
-                messageId={m._id}
-              />
-            ))
-          ) : (
-            <p>No messages</p>
-          )}
+          {pagesArray.map((i) => (
+            <MessagePage
+              key={selectedChatId + currentPage}
+              chatRoomId={selectedChatId}
+              page={i}
+            />
+          ))}
         </ul>
       ) : (
         <ErrorMessage>Error: failed to fetch messages.</ErrorMessage>
