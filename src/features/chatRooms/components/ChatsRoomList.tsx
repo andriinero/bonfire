@@ -15,20 +15,24 @@ const ChatRoomList = () => {
 
   const isDataLoading = isFetching || isLoading;
 
-  return isDataLoading ? (
-    <Spinner />
-  ) : isSuccess ? (
-    chatList.length > 0 ? (
-      <ul className="space-y-2">
-        {chatList!.map((c) => (
-          <ChatRoomItem key={c._id} chatId={c._id} />
-        ))}
-      </ul>
-    ) : (
-      <ListPlaceholder>Start a new chat!</ListPlaceholder>
-    )
-  ) : (
-    <ErrorMessage />
+  return (
+    <div className="overflow-y-auto p-4">
+      {isDataLoading ? (
+        <Spinner />
+      ) : isSuccess ? (
+        chatList.length > 0 ? (
+          <ul className="overflow-auto-y space-y-2">
+            {chatList!.map((c) => (
+              <ChatRoomItem key={c._id} chatId={c._id} />
+            ))}
+          </ul>
+        ) : (
+          <ListPlaceholder>Start a new chat!</ListPlaceholder>
+        )
+      ) : (
+        <ErrorMessage />
+      )}
+    </div>
   );
 };
 

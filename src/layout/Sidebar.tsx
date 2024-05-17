@@ -15,7 +15,7 @@ const Sidebar = () => {
         <NavControls />
         <UserIcon src={profileImage} isOnline />
       </div>
-      <section className="w-full p-4">
+      <section className="w-full">
         <Outlet />
       </section>
     </aside>
