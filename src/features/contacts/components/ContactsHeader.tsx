@@ -29,7 +29,11 @@ const ContactsHeader = () => {
   return (
     <div className="flex items-center justify-between gap-16 p-4">
       <h1 className="text-2xl font-bold text-gray-800">Contacts</h1>
-      <IconButton onClick={handleModalOpen} style="round">
+      <IconButton
+        aria-label="Create Contact"
+        onClick={handleModalOpen}
+        style="round"
+      >
         <FaUserPlus />
       </IconButton>
       <Modal isOpen={isCreateContactModalOpen} onModalClick={handleModalClose}>

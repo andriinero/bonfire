@@ -44,7 +44,7 @@ const MessageList = () => {
     }
   };
 
-  const pagesArray = range(currentPage + 1);
+  const pagesArray = range(currentPage + 1)!;
 
   return (
     <div className="flex-1 overflow-y-auto">

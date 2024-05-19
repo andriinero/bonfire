@@ -6,6 +6,7 @@ import {
   getAuthDataFromUser,
   createChatRoom,
   getMultipleRandomMessages,
+  getMultipleRandomUsers,
 } from '@/utils/testData';
 
 import type { AuthData } from '@/types/AuthData';
@@ -14,6 +15,7 @@ import type { Message } from '@/types/Message';
 import type { User } from '@/types/User';
 
 const testUser = createRandomUser(),
+  testContacts = getMultipleRandomUsers(2),
   testAuthData = getAuthDataFromUser(testUser),
   testChatRoom = createChatRoom(),
   testMessages = getMultipleRandomMessages(5, testChatRoom._id, testUser._id),
@@ -21,6 +23,7 @@ const testUser = createRandomUser(),
 
 export const mockDBData = {
   testUser,
+  testContacts,
   testAuthData,
   testChatRoom,
   testMessages,
@@ -59,7 +62,7 @@ export const serverHandlers = [
   ),
   http.get<never, never, User[]>('/api/profile/contacts', async () => {
     await delay(150);
-    return HttpResponse.json([testUser]);
+    return HttpResponse.json(testContacts);
   }),
   http.delete<never, never, string>(
     '/api/profile/contacts/:userid',

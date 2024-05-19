@@ -32,7 +32,7 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
           src={contact?.profile_image}
           style="md"
         />
-        <p className="text-md font-medium">{contact?.username}</p>
+        <h2 className="text-md font-medium">{contact?.username}</h2>
       </div>
       <IconButton
         aria-label="Delete Contact"
