@@ -44,8 +44,6 @@ const MessageList = () => {
     }
   };
 
-  const pagesArray = range(currentPage + 1)!;
-
   return (
     <div className="flex-1 overflow-y-auto">
       {isFetching ? (
@@ -55,7 +53,7 @@ const MessageList = () => {
           ref={listRef}
           className="flex h-full flex-col-reverse gap-6 overflow-y-auto p-4"
         >
-          {pagesArray.map((i) => (
+          {range(currentPage + 1).map((i) => (
             <MessagePage
               key={selectedChatId + currentPage}
               chatRoomId={selectedChatId}

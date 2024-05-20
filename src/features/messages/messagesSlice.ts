@@ -29,7 +29,11 @@ const messagesSlice = createSlice({
       state.shouldScrollDown = action.payload;
     },
     pageCountIncreased: (state, { payload }: PayloadAction<string>) => {
-      state.listState[payload].currentPage += 1;
+      if (!state.listState[payload].currentPage) {
+        state.listState[payload].currentPage = 1;
+      } else {
+        state.listState[payload].currentPage += 1;
+      }
     },
   },
 });

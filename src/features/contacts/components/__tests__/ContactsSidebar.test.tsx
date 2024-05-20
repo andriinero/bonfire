@@ -64,7 +64,6 @@ it('renders create new contact form and submits new contact', async () => {
   await user.type(usernameField, 'test');
   await user.click(screen.getByRole('button', { name: 'Create' }));
   await waitFor(() => {
-    screen.debug();
     expect(
       screen.getByRole('heading', { name: testUser.username }),
     ).toBeInTheDocument();
