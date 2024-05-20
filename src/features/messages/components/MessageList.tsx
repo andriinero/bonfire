@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { range } from '@/utils/range';
 
 import {
-  selectMessageListCurrentPage,
+  selectMessageListState,
   selectShouldScrollDown,
   shouldScrollDownSet,
   useGetMessagesQuery,
@@ -19,8 +19,8 @@ const MessageList = () => {
   const listRef = useRef<HTMLUListElement>(null);
   const shouldScrollDown = useAppSelector(selectShouldScrollDown);
   const selectedChatId = useAppSelector(selectSelectedChatId)!;
-  const currentPage = useAppSelector(
-    selectMessageListCurrentPage(selectedChatId),
+  const { currentPage } = useAppSelector(
+    selectMessageListState(selectedChatId),
   );
   const { isFetching, isSuccess } = useGetMessagesQuery({
     chatRoomId: selectedChatId,
@@ -53,7 +53,7 @@ const MessageList = () => {
           ref={listRef}
           className="flex h-full flex-col-reverse gap-6 overflow-y-auto p-4"
         >
-          {range(currentPage + 1).map((i) => (
+          {range(currentPage).map((i) => (
             <MessagePage
               key={selectedChatId + currentPage}
               chatRoomId={selectedChatId}

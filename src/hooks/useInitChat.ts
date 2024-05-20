@@ -1,5 +1,11 @@
-import { useGetMessagesQuery } from '@/features/messages/messagesSlice';
+import { useAppDispatch } from '@/app/hooks';
+import {
+  messageListStateInitialized,
+  useGetMessagesPageCountQuery,
+  useGetMessagesQuery,
+} from '@/features/messages/messagesSlice';
 import { useGetParticipantsQuery } from '@/features/participants/participantsSlice';
+import { useEffect } from 'react';
 
 const useInitChat = (chatRoomId: string) => {
   const {
@@ -14,11 +20,31 @@ const useInitChat = (chatRoomId: string) => {
     isError: isParticipantsFetchError,
     isSuccess: isParticipantsFetchSuccess,
   } = useGetParticipantsQuery(chatRoomId);
+  const {
+    isLoading: isMessagesPageCountLoading,
+    isFetching: isMessagesPageCountFetching,
+    isError: isMessagesPageCountFetchError,
+    isSuccess: isMessagesPageCountFetchSuccess,
+  } = useGetMessagesPageCountQuery({ chatRoomId });
 
-  const isLoading = isMessagesLoading || isParticipantsLoading;
-  const isFetching = isMessagesFetching || isParticipantsFetching;
-  const isError = isMessagesFetchError || isParticipantsFetchError;
-  const isSuccess = isMessagesFetchSuccess && isParticipantsFetchSuccess;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(messageListStateInitialized(chatRoomId));
+  }, [dispatch, chatRoomId]);
+
+  const isLoading =
+    isMessagesLoading || isParticipantsLoading || isMessagesPageCountLoading;
+  const isFetching =
+    isMessagesFetching || isParticipantsFetching || isMessagesPageCountFetching;
+  const isError =
+    isMessagesFetchError ||
+    isParticipantsFetchError ||
+    isMessagesPageCountFetchError;
+  const isSuccess =
+    isMessagesFetchSuccess &&
+    isParticipantsFetchSuccess &&
+    isMessagesPageCountFetchSuccess;
 
   return { isLoading, isFetching, isError, isSuccess };
 };

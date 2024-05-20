@@ -1,17 +1,22 @@
-import { useAppSelector } from '@/app/hooks';
-
-import { selectMessagesByChatId } from '../messagesSlice';
+import Spinner from '@/components/general/Spinner';
+import { useGetMessagesQuery } from '../messagesSlice';
 
 import MessageItem from './MessageItem';
 
 type MessagePageProps = { chatRoomId: string; page: number };
 
 const MessagePage = ({ chatRoomId, page }: MessagePageProps) => {
-  const messagesList = useAppSelector(selectMessagesByChatId(chatRoomId, page));
+  const { data: messagesList, isFetching } = useGetMessagesQuery({
+    chatRoomId,
+    page,
+  });
 
   return (
     <>
-      {messagesList &&
+      {isFetching ? (
+        <Spinner />
+      ) : (
+        messagesList &&
         messagesList.map((m) => (
           <MessageItem
             key={m._id}
@@ -19,7 +24,8 @@ const MessagePage = ({ chatRoomId, page }: MessagePageProps) => {
             page={page}
             id={m._id}
           />
-        ))}
+        ))
+      )}
     </>
   );
 };

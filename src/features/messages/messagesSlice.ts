@@ -13,7 +13,7 @@ export type TPostMessageBody = {
 
 type MessagesState = {
   shouldScrollDown: boolean;
-  listState: Record<string, { currentPage: number }>;
+  listState: Record<string, { currentPage: number; hasMore: boolean }>;
 };
 
 const initialState: MessagesState = {
@@ -35,6 +35,22 @@ const messagesSlice = createSlice({
         state.listState[payload].currentPage += 1;
       }
     },
+    hasMoreSet: (
+      state,
+      {
+        payload: { chatRoomId, hasMore },
+      }: PayloadAction<{ chatRoomId: string; hasMore: boolean }>,
+    ) => {
+      state.listState[chatRoomId].hasMore = hasMore;
+    },
+    messageListStateInitialized: (
+      state,
+      { payload }: PayloadAction<string>,
+    ) => {
+      if (!state.listState[payload]) {
+        state.listState[payload] = { hasMore: false, currentPage: 0 };
+      }
+    },
   },
 });
 
@@ -46,7 +62,7 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
           `/chat-rooms/${chatRoomId}/messages?page=${page ?? 0}`,
       },
     ),
-    getMessagesCount: builder.query<number, { chatRoomId: string }>({
+    getMessagesPageCount: builder.query<number, { chatRoomId: string }>({
       query: ({ chatRoomId }) => `/chat-rooms/${chatRoomId}/messages/count`,
     }),
     postMessage: builder.mutation<
@@ -77,18 +93,22 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetMessagesQuery,
-  useGetMessagesCountQuery,
+  useGetMessagesPageCountQuery,
   usePostMessageMutation,
 } = messagesApiSlice;
 
-export const { shouldScrollDownSet, pageCountIncreased } =
-  messagesSlice.actions;
+export const {
+  shouldScrollDownSet,
+  pageCountIncreased,
+  hasMoreSet,
+  messageListStateInitialized,
+} = messagesSlice.actions;
 
 export default messagesSlice;
 
-export const selectMessageListCurrentPage =
+export const selectMessageListState =
   (chatRoomId: string) => (state: RootState) =>
-    state.messages.listState[chatRoomId]?.currentPage ?? 0;
+    state.messages.listState[chatRoomId];
 
 export const selectShouldScrollDown = (state: RootState) =>
   state.messages.shouldScrollDown;
