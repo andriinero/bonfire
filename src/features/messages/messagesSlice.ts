@@ -48,7 +48,7 @@ const messagesSlice = createSlice({
       { payload }: PayloadAction<string>,
     ) => {
       if (!state.listState[payload]) {
-        state.listState[payload] = { hasMore: false, currentPage: 0 };
+        state.listState[payload] = { hasMore: true, currentPage: 0 };
       }
     },
   },

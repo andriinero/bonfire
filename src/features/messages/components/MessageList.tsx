@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { useEffect, useRef } from 'react';
+import useHandleFetchNextMessages from '../hooks/useFetchNextMessages';
 
 import { range } from '@/utils/range';
 
 import {
-  selectMessageListState,
   selectShouldScrollDown,
   shouldScrollDownSet,
   useGetMessagesQuery,
@@ -13,15 +13,16 @@ import { selectSelectedChatId } from '../../chat/chatSlice';
 
 import ErrorMessage from '@/components/general/ErrorMessage';
 import Spinner from '@/components/general/Spinner';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import MessagePage from './MessagePage';
 
 const MessageList = () => {
   const listRef = useRef<HTMLUListElement>(null);
   const shouldScrollDown = useAppSelector(selectShouldScrollDown);
+
   const selectedChatId = useAppSelector(selectSelectedChatId)!;
-  const { currentPage } = useAppSelector(
-    selectMessageListState(selectedChatId),
-  );
+  const { fetchNext, currentPage, hasMore } =
+    useHandleFetchNextMessages(selectedChatId);
   const { isFetching, isSuccess } = useGetMessagesQuery({
     chatRoomId: selectedChatId,
     page: 0,
@@ -29,6 +30,7 @@ const MessageList = () => {
 
   const dispatch = useAppDispatch();
 
+  //TODO: encapsulate
   useEffect(() => {
     if (shouldScrollDown && listRef.current) {
       handleScrollToBottom();
@@ -50,16 +52,29 @@ const MessageList = () => {
         <Spinner />
       ) : isSuccess ? (
         <ul
+          id="message-list"
           ref={listRef}
           className="flex h-full flex-col-reverse gap-6 overflow-y-auto p-4"
         >
-          {range(currentPage).map((i) => (
-            <MessagePage
-              key={selectedChatId + currentPage}
-              chatRoomId={selectedChatId}
-              page={i}
-            />
-          ))}
+          <InfiniteScroll
+            className="flex h-full flex-col-reverse gap-6 overflow-y-auto p-4"
+            dataLength={currentPage}
+            next={fetchNext}
+            hasMore={hasMore}
+            loader={<Spinner />}
+            inverse={true}
+            scrollableTarget="message-list"
+          >
+            {range(currentPage).map((i) => {
+              return (
+                <MessagePage
+                  key={selectedChatId + currentPage}
+                  chatRoomId={selectedChatId}
+                  page={i}
+                />
+              );
+            })}
+          </InfiniteScroll>
         </ul>
       ) : (
         <ErrorMessage>Error: failed to fetch messages.</ErrorMessage>
