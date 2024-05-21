@@ -1,3 +1,5 @@
+import useInitHome from '@/hooks/useInitHome';
+
 import { useGetContactsQuery } from '../contactsSlice';
 
 import ErrorMessage from '@/components/general/ErrorMessage';
@@ -5,12 +7,8 @@ import Spinner from '@/components/general/Spinner';
 import ContactsItem from './ContactsItem';
 
 const ContactsList = () => {
-  const {
-    data: contactsList,
-    isFetching,
-    isLoading,
-    isSuccess,
-  } = useGetContactsQuery(0);
+  const { isLoading, isFetching, isSuccess } = useInitHome();
+  const { data: contactsList } = useGetContactsQuery(0);
 
   const isDataLoading = isFetching || isLoading;
 
@@ -21,7 +19,7 @@ const ContactsList = () => {
       ) : isSuccess ? (
         <div className="space-y-4 overflow-y-auto">
           <h2 className="text-sm text-gray-600">
-            Active contacts ({contactsList.length})
+            Active contacts ({contactsList!.length})
           </h2>
           <ul className="space-y-2">
             {contactsList!.map((c) => (

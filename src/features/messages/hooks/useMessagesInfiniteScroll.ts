@@ -8,7 +8,7 @@ import {
   useGetMessagesPageCountQuery,
 } from '../messagesSlice';
 
-const useHandleFetchNextMessages = (chatRoomId: string) => {
+const useMessagesInfiniteScroll = (chatRoomId: string) => {
   const { data: totalPageCount } = useGetMessagesPageCountQuery({ chatRoomId });
   const { currentPage, hasMore } = useAppSelector(
     selectMessageListState(chatRoomId),
@@ -35,4 +35,4 @@ const useHandleFetchNextMessages = (chatRoomId: string) => {
   return { fetchNext, currentPage, hasMore };
 };
 
-export default useHandleFetchNextMessages;
+export default useMessagesInfiniteScroll;
