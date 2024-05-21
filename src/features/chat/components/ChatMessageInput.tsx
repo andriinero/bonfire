@@ -14,7 +14,7 @@ import Button from '@/components/general/Button';
 import { FaPaperPlane } from 'react-icons/fa6';
 
 const MessageBarSchema = z.object({
-  body: z.string(),
+  body: z.string().min(1, 'Message must contain at least one character'),
 });
 
 type TMessageBar = z.infer<typeof MessageBarSchema>;
@@ -26,7 +26,7 @@ const ChatMessageInput = () => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isValid },
     reset,
   } = useForm<TMessageBar>({ resolver: zodResolver(MessageBarSchema) });
 
@@ -38,7 +38,7 @@ const ChatMessageInput = () => {
     reset();
   };
 
-  const isSubmitDisabled = isSubmitting || isLoading;
+  const isSubmitDisabled = isSubmitting || isLoading || !isValid;
 
   return (
     <div className="border-t px-4 py-2">
@@ -50,7 +50,7 @@ const ChatMessageInput = () => {
           {...register('body')}
           className="flex-1 rounded-full bg-gray-100 px-4 py-2 text-gray-800 outline-0 ring-0"
           type="text"
-          placeholder="Write a message"
+          placeholder="Write a message..."
         />
         <Button
           disabled={isSubmitDisabled}

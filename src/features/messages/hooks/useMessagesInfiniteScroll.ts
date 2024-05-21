@@ -14,11 +14,10 @@ const useMessagesInfiniteScroll = (chatRoomId: string) => {
     selectMessageListState(chatRoomId),
   );
 
-  const nextPage = currentPage + 1;
-
   const dispatch = useAppDispatch();
 
   const fetchNext = async (): Promise<void> => {
+    const nextPage = currentPage + 1;
     if (nextPage >= totalPageCount!) {
       dispatch(hasMoreSet({ chatRoomId, hasMore: false }));
     }

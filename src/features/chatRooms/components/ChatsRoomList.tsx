@@ -1,11 +1,18 @@
+import useChatRoomInfiniteScroll from '../hooks/useChatRoomInfiniteScroll';
+
 import { useGetChatRoomsQuery } from '../chatRoomsSlice';
+
+import { range } from '@/utils/range';
 
 import ErrorMessage from '@/components/general/ErrorMessage';
 import ListPlaceholder from '@/components/general/ListPlaceholder';
 import Spinner from '@/components/general/Spinner';
-import ChatRoomItem from './ChatRoomItem';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import ChatRoomPage from './ChatRoomPage';
 
 const ChatRoomList = () => {
+  const { currentPage, hasMore, fetchNext } = useChatRoomInfiniteScroll();
+
   const {
     data: chatList,
     isLoading,
@@ -21,10 +28,20 @@ const ChatRoomList = () => {
         <Spinner />
       ) : isSuccess ? (
         chatList.length > 0 ? (
-          <ul className="overflow-auto-y space-y-2">
-            {chatList!.map((c) => (
-              <ChatRoomItem key={c._id} chatId={c._id} />
-            ))}
+          <ul id="chat-rooms-list" className="overflow-auto-y">
+            <InfiniteScroll
+              className="space-y-2"
+              dataLength={currentPage}
+              next={fetchNext}
+              hasMore={hasMore}
+              loader={<Spinner />}
+              scrollThreshold="600px"
+              scrollableTarget="chat-rooms-list"
+            >
+              {range(currentPage).map((i) => (
+                <ChatRoomPage page={i} />
+              ))}
+            </InfiniteScroll>
           </ul>
         ) : (
           <ListPlaceholder>Start a new chat!</ListPlaceholder>
