@@ -6,11 +6,11 @@ import { selectAuthUserId } from '@/features/auth/authSlice';
 import { selectSelectedChatId } from '@/features/chat/chatSlice';
 import { selectParticipantById } from '@/features/participants/participantsSlice';
 
-import { Message } from '@/types/Message';
+import type { Message } from '@/types/Message';
 
-import UserIcon from '@/components/general/UserIcon';
-import TimeStamp from '@/components/general/TimeStamp';
 import DotDivider from '@/components/general/DotDivider';
+import TimeStamp from '@/components/general/TimeStamp';
+import UserIcon from '@/components/general/UserIcon';
 
 type UserMessageProps = Pick<Message, 'user' | 'body' | 'created'>;
 
@@ -44,7 +44,7 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
             {participantData?.username}
           </p>
           <DotDivider />
-          <TimeStamp date={created} className="text-gray-500 text-xs" />
+          <TimeStamp date={created} className="text-xs text-gray-500" />
         </div>
         <p
           className={cn(

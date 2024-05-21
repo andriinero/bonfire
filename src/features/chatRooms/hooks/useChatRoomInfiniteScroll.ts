@@ -24,7 +24,7 @@ const useChatRoomInfiniteScroll = () => {
     }
   };
 
-  return { hasMore, currentPage, fetchNext };
+  return { hasMore, fetchNext };
 };
 
 export default useChatRoomInfiniteScroll;

@@ -7,7 +7,6 @@ import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSli
 
 import type { AppThunk, RootState } from '@/app/store';
 import type { AuthData } from '@/types/AuthData';
-import type { ErrorData } from '@/types/ErrorData';
 import { PushNotificationType } from '@/types/PushNotification';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TSignInBody } from './components/SignInPanel';
@@ -50,7 +49,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
           const { data } = await queryFulfilled;
           dispatch(authDataSet(data));
         } catch (err) {
-          console.log((err as ErrorData).message);
+          console.error(err);
         }
       },
     }),

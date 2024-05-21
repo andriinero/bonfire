@@ -9,7 +9,6 @@ import {
   usePostChatRoomMutation,
 } from '../chatRoomsSlice';
 
-import type { ErrorData } from '@/types/ErrorData';
 import { PushNotificationType } from '@/types/PushNotification';
 
 import Form from '@/components/form/Form';
@@ -51,7 +50,7 @@ const CreateChatRoomForm = () => {
       );
       dispatch(createChatRoomModalClosed());
     } catch (err) {
-      console.error((err as ErrorData).message);
+      console.error(err);
     }
   };
 

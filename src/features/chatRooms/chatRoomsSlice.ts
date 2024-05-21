@@ -48,8 +48,13 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
       providesTags: ['chatRooms'],
       query: (page) => `/chat-rooms?page=${page ?? 0}`,
       serializeQueryArgs: ({ endpointName }) => endpointName,
-      merge: (curItems, newItems) => {
-        curItems.push(...newItems);
+      merge: (curItems, newItems, { arg: page }) => {
+        if (page > 0) {
+          curItems.push(...newItems);
+        } else {
+          curItems.length = 0;
+          curItems.push(...newItems);
+        }
       },
       forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
     }),
