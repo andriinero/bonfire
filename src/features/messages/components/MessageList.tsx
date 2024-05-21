@@ -30,12 +30,13 @@ const MessageList = () => {
           hasMore={hasMore}
           loader={<Spinner />}
           inverse={true}
+          scrollThreshold="600px"
           scrollableTarget="message-list"
         >
           {range(currentPage).map((i) => {
             return (
               <MessagePage
-                key={selectedChatId + currentPage}
+                key={selectedChatId + `page${i}`}
                 chatRoomId={selectedChatId}
                 page={i}
               />

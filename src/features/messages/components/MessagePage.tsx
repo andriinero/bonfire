@@ -1,6 +1,6 @@
-import Spinner from '@/components/general/Spinner';
 import { useGetMessagesQuery } from '../messagesSlice';
 
+import Spinner from '@/components/general/Spinner';
 import MessageItem from './MessageItem';
 
 type MessagePageProps = { chatRoomId: string; page: number };

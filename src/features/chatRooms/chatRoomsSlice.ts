@@ -54,7 +54,7 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
       forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
     }),
     getChatRoomsCount: builder.query<number, void>({
-      query: () => `/chat-rooms/count`,
+      query: () => `/chat-rooms/page-count`,
     }),
     postChatRoom: builder.mutation<void, { participantUsername: string }>({
       invalidatesTags: ['chatRooms'],

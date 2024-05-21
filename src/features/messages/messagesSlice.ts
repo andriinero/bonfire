@@ -63,7 +63,8 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
       },
     ),
     getMessagesPageCount: builder.query<number, { chatRoomId: string }>({
-      query: ({ chatRoomId }) => `/chat-rooms/${chatRoomId}/messages/count`,
+      query: ({ chatRoomId }) =>
+        `/chat-rooms/${chatRoomId}/messages/page-count`,
     }),
     postMessage: builder.mutation<
       Message,

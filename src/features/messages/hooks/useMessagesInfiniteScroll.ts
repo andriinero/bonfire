@@ -19,6 +19,9 @@ const useMessagesInfiniteScroll = (chatRoomId: string) => {
   const dispatch = useAppDispatch();
 
   const fetchNext = async (): Promise<void> => {
+    if (nextPage >= totalPageCount!) {
+      dispatch(hasMoreSet({ chatRoomId, hasMore: false }));
+    }
     if (nextPage <= totalPageCount!) {
       await dispatch(
         messagesApiSlice.endpoints.getMessages.initiate({
@@ -27,8 +30,6 @@ const useMessagesInfiniteScroll = (chatRoomId: string) => {
         }),
       ).unwrap();
       dispatch(pageCountIncreased(chatRoomId));
-    } else {
-      dispatch(hasMoreSet({ chatRoomId, hasMore: false }));
     }
   };
 
