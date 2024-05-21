@@ -1,14 +1,10 @@
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { useEffect, useRef } from 'react';
+import { useAppSelector } from '@/app/hooks';
 import useHandleFetchNextMessages from '../hooks/useFetchNextMessages';
+import useScrollDownMessageList from '../hooks/useScrollDownMessageList';
 
 import { range } from '@/utils/range';
 
-import {
-  selectShouldScrollDown,
-  shouldScrollDownSet,
-  useGetMessagesQuery,
-} from '@/features/messages/messagesSlice';
+import { useGetMessagesQuery } from '@/features/messages/messagesSlice';
 import { selectSelectedChatId } from '../../chat/chatSlice';
 
 import ErrorMessage from '@/components/general/ErrorMessage';
@@ -17,9 +13,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import MessagePage from './MessagePage';
 
 const MessageList = () => {
-  const listRef = useRef<HTMLUListElement>(null);
-  const shouldScrollDown = useAppSelector(selectShouldScrollDown);
-
+  const { listRef } = useScrollDownMessageList();
   const selectedChatId = useAppSelector(selectSelectedChatId)!;
   const { fetchNext, currentPage, hasMore } =
     useHandleFetchNextMessages(selectedChatId);
@@ -27,24 +21,6 @@ const MessageList = () => {
     chatRoomId: selectedChatId,
     page: 0,
   });
-
-  const dispatch = useAppDispatch();
-
-  //TODO: encapsulate
-  useEffect(() => {
-    if (shouldScrollDown && listRef.current) {
-      handleScrollToBottom();
-      dispatch(shouldScrollDownSet(false));
-    }
-  }, [shouldScrollDown, dispatch]);
-
-  const handleScrollToBottom = (): void => {
-    if (listRef.current) {
-      const ul = listRef.current;
-      const scrollHeight = listRef.current.scrollHeight;
-      ul.scrollTo(0, scrollHeight);
-    }
-  };
 
   return (
     <div className="flex-1 overflow-y-auto">

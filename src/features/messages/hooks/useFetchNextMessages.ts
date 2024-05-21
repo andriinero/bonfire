@@ -18,10 +18,6 @@ const useHandleFetchNextMessages = (chatRoomId: string) => {
 
   const dispatch = useAppDispatch();
 
-  // FIXME: remove comment
-  console.log(`Total: ${totalPageCount}`);
-  console.log(`Current Page: ${currentPage}`);
-
   const fetchNext = async (): Promise<void> => {
     if (nextPage <= totalPageCount!) {
       await dispatch(
