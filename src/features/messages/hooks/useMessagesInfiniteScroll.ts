@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import {
-  hasMoreSet,
   messagesApiSlice,
   pageCountIncreased,
   selectMessageListState,
@@ -10,17 +9,14 @@ import {
 
 const useMessagesInfiniteScroll = (chatRoomId: string) => {
   const { data: totalPageCount } = useGetMessagesPageCountQuery({ chatRoomId });
-  const { currentPage, hasMore } = useAppSelector(
-    selectMessageListState(chatRoomId),
-  );
+  const { currentPage } = useAppSelector(selectMessageListState(chatRoomId));
+
+  const hasMore = currentPage < (totalPageCount || 0);
 
   const dispatch = useAppDispatch();
 
   const fetchNext = async (): Promise<void> => {
     const nextPage = currentPage + 1;
-    if (nextPage >= totalPageCount!) {
-      dispatch(hasMoreSet({ chatRoomId, hasMore: false }));
-    }
     if (nextPage <= totalPageCount!) {
       await dispatch(
         messagesApiSlice.endpoints.getMessages.initiate({

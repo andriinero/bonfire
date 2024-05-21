@@ -10,7 +10,7 @@ const ChatRoomPage = ({ page }: ChatRoomPageProps) => {
   return (
     <>
       {chatRoomsList &&
-        chatRoomsList.map((c) => <ChatRoomItem chatId={c._id} />)}
+        chatRoomsList.map((c) => <ChatRoomItem key={c._id} chatId={c._id} />)}
     </>
   );
 };

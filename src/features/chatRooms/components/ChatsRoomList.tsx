@@ -39,7 +39,7 @@ const ChatRoomList = () => {
               scrollableTarget="chat-rooms-list"
             >
               {range(currentPage).map((i) => (
-                <ChatRoomPage page={i} />
+                <ChatRoomPage key={i} page={i} />
               ))}
             </InfiniteScroll>
           </ul>

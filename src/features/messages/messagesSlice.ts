@@ -13,7 +13,7 @@ export type TPostMessageBody = {
 
 type MessagesState = {
   shouldScrollDown: boolean;
-  listState: Record<string, { currentPage: number; hasMore: boolean }>;
+  listState: Record<string, { currentPage: number }>;
 };
 
 const initialState: MessagesState = {
@@ -35,20 +35,12 @@ const messagesSlice = createSlice({
         state.listState[payload].currentPage += 1;
       }
     },
-    hasMoreSet: (
-      state,
-      {
-        payload: { chatRoomId, hasMore },
-      }: PayloadAction<{ chatRoomId: string; hasMore: boolean }>,
-    ) => {
-      state.listState[chatRoomId].hasMore = hasMore;
-    },
     messageListStateInitialized: (
       state,
       { payload }: PayloadAction<string>,
     ) => {
       if (!state.listState[payload]) {
-        state.listState[payload] = { hasMore: true, currentPage: 0 };
+        state.listState[payload] = { currentPage: 0 };
       }
     },
   },
@@ -101,7 +93,6 @@ export const {
 export const {
   shouldScrollDownSet,
   pageCountIncreased,
-  hasMoreSet,
   messageListStateInitialized,
 } = messagesSlice.actions;
 
