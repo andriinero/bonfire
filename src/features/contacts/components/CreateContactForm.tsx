@@ -9,7 +9,6 @@ import {
   usePostContactMutation,
 } from '../contactsSlice';
 
-import type { ErrorData } from '@/types/ErrorData';
 import { PushNotificationType } from '@/types/PushNotification';
 
 import Form from '@/components/form/Form';
@@ -51,7 +50,7 @@ const CreateContactForm = () => {
       );
       dispatch(createContactsModalClosed());
     } catch (err) {
-      console.error((err as ErrorData).message);
+      console.error(err);
     }
   };
 

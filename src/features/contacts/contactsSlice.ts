@@ -31,10 +31,18 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
       providesTags: ['contacts'],
       query: (page) => `/profile/contacts?page=${page ?? 0}`,
       serializeQueryArgs: ({ endpointName }) => endpointName,
-      merge: (cur, newItems) => {
-        cur.push(...newItems);
+      merge: (curItems, newItems, { arg: page }) => {
+        if (page > 0) {
+          curItems.push(...newItems);
+        } else {
+          curItems.length = 0;
+          curItems.push(...newItems);
+        }
       },
       forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
+    }),
+    getContactPageCount: builder.query<number, void>({
+      query: () => `/profile/contacts/page-count`,
     }),
     postContact: builder.mutation<void, { contactUsername: string }>({
       invalidatesTags: ['contacts'],
@@ -80,6 +88,7 @@ export const { createContactsModalOpened, createContactsModalClosed } =
 
 export const {
   useGetContactsQuery,
+  useGetContactPageCountQuery,
   useDeleteContactMutation,
   usePostContactMutation,
 } = contactsApiSlice;

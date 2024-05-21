@@ -7,18 +7,12 @@ import ListPlaceholder from '@/components/general/ListPlaceholder';
 import Spinner from '@/components/general/Spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ChatRoomItem from './ChatRoomItem';
+import useInitHome from '@/hooks/useInitHome';
 
 const ChatRoomList = () => {
+  const { isLoading, isFetching, isSuccess } = useInitHome();
+  const { data: chatList } = useGetChatRoomsQuery(0);
   const { hasMore, fetchNext } = useChatRoomInfiniteScroll();
-  const {
-    data: chatList,
-    isLoading,
-    isFetching,
-    isSuccess,
-  } = useGetChatRoomsQuery(0);
-
-  // FIXME: remove comment
-  console.log(chatList);
 
   const isDataLoading = isFetching || isLoading;
 
@@ -27,18 +21,18 @@ const ChatRoomList = () => {
       {isDataLoading ? (
         <Spinner />
       ) : isSuccess ? (
-        chatList.length > 0 ? (
+        chatList!.length > 0 ? (
           <ul id="chat-rooms-list" className="overflow-auto-y">
             <InfiniteScroll
               className="space-y-2"
-              dataLength={chatList.length}
+              dataLength={chatList!.length}
               next={fetchNext}
               hasMore={hasMore}
               loader={<Spinner />}
               scrollThreshold="600px"
               scrollableTarget="chat-rooms-list"
             >
-              {chatList.map((c) => (
+              {chatList!.map((c) => (
                 <ChatRoomItem key={c._id} chatId={c._id} />
               ))}
             </InfiniteScroll>
