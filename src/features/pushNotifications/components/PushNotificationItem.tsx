@@ -53,7 +53,7 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
       animate={SlideIn.animate}
       transition={SlideIn.transition}
       className={cn(
-        'flex items-center justify-between gap-8 rounded-md p-4 text-sm shadow-sm',
+        'flex items-center justify-between gap-8 rounded-md p-4 text-sm shadow',
         {
           'bg-red-50': type === PushNotificationType.ERROR,
           'bg-green-50': type === PushNotificationType.SUCCESS,

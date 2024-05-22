@@ -26,6 +26,7 @@ const pushNotificationsSlice = createSlice({
       prepare: (notificationData: Omit<TPushNotification, '_id'>) => {
         return {
           payload: {
+            // FIXME: replace with uuid
             _id: 'id',
             body: notificationData.body,
             type: notificationData.type,

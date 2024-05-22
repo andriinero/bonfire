@@ -1,12 +1,12 @@
 import useInitHome from '@/hooks/useInitHome';
+import useContactInfiniteScroll from '../hooks/useContactInfiniteScroll';
 
 import { useGetContactsQuery } from '../contactsSlice';
 
 import ErrorMessage from '@/components/general/ErrorMessage';
 import Spinner from '@/components/general/Spinner';
-import ContactsItem from './ContactsItem';
-import useContactInfiniteScroll from '../hooks/useContactInfiniteScroll';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import ContactsItem from './ContactsItem';
 
 const ContactsList = () => {
   const { isLoading, isFetching, isSuccess } = useInitHome();

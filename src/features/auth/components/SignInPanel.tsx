@@ -1,22 +1,24 @@
 import { useAppDispatch } from '@/app/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Navigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import Paths from '@/constants/Paths';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 
+import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import {
   tokenInitialized,
   useGetAuthDataQuery,
   usePostSignInMutation,
 } from '../authSlice';
 
-import type { ErrorData } from '@/types/ErrorData';
+import { PushNotificationType } from '@/types/PushNotification';
 
 import ValidationError from '@/components/form/ValidationError';
 import AppLink from '@/components/general/AppLink';
 import UserIcon from '@/components/general/UserIcon';
+import { Navigate } from 'react-router-dom';
 import Form from '../../../components/form/Form';
 import InputGroup from '../../../components/form/InputGroup';
 import InputLabel from '../../../components/form/InputLabel';
@@ -50,7 +52,12 @@ const SignInPanel = () => {
       dispatch(tokenInitialized(result.token));
       refetch();
     } catch (err) {
-      console.error((err as ErrorData).message);
+      dispatch(
+        pushNotificationAdded({
+          body: getErrorMessage(err),
+          type: PushNotificationType.ERROR,
+        }),
+      );
     }
   };
 
@@ -63,7 +70,7 @@ const SignInPanel = () => {
       dispatch(tokenInitialized(result.token));
       refetch();
     } catch (err) {
-      console.log((err as ErrorData).message);
+      console.log(err);
     }
   };
 
