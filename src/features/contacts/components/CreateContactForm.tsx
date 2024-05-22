@@ -13,7 +13,6 @@ import { PushNotificationType } from '@/types/PushNotification';
 
 import Form from '@/components/form/Form';
 import FormTitle from '@/components/form/FormTitle';
-import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
@@ -57,22 +56,24 @@ const CreateContactForm = () => {
   return (
     <Form
       onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex flex-col items-start gap-4 rounded-md bg-white px-12 py-8 shadow-md"
+      className="flex flex-col items-start gap-4 rounded-md bg-white p-8 shadow-md"
     >
-      <FormTitle>Create Contact</FormTitle>
-      <InputGroup>
-        <InputLabel htmlFor="create-contact-username">Username</InputLabel>
-        <TextInput
-          className="min-w-72"
-          {...register('contactUsername')}
-          id="create-contact-username"
-          placeholder="e.g. user01"
-        />
+      <FormTitle>Create contact</FormTitle>
+      <InputLabel htmlFor="create-contact-username">
+        Enter contact username
+      </InputLabel>
+      <TextInput
+        className="min-w-72"
+        {...register('contactUsername')}
+        id="create-contact-username"
+        placeholder="e.g. user01"
+      />
+      {errors.contactUsername && (
         <ValidationError visible={!!errors.contactUsername}>
           {errors.contactUsername?.message}
         </ValidationError>
-      </InputGroup>
-      <Button className="self-end" type="submit">
+      )}
+      <Button className="w-full" type="submit">
         Create
       </Button>
     </Form>

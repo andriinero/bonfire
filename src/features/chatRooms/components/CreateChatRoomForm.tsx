@@ -13,7 +13,6 @@ import { PushNotificationType } from '@/types/PushNotification';
 
 import Form from '@/components/form/Form';
 import FormTitle from '@/components/form/FormTitle';
-import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
@@ -57,22 +56,24 @@ const CreateChatRoomForm = () => {
   return (
     <Form
       onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex flex-col items-start gap-4 rounded-md bg-white px-12 py-8 shadow-md"
+      className="flex w-full max-w-4xl flex-col items-start gap-4 rounded-md bg-white p-7 shadow-md"
     >
-      <FormTitle>Create Chat</FormTitle>
-      <InputGroup>
-        <InputLabel htmlFor="create-chat-username">Username</InputLabel>
-        <TextInput
-          className="min-w-72"
-          {...register('participantUsername')}
-          id="create-chat-username"
-          placeholder="e.g. user01"
-        />
+      <FormTitle>Create chat</FormTitle>
+      <InputLabel htmlFor="create-chat-username">
+        Enter participant username
+      </InputLabel>
+      <TextInput
+        className="min-w-72"
+        {...register('participantUsername')}
+        id="create-chat-username"
+        placeholder="e.g. user01"
+      />
+      {errors.participantUsername && (
         <ValidationError visible={!!errors.participantUsername}>
           {errors.participantUsername?.message}
         </ValidationError>
-      </InputGroup>
-      <Button className="self-end" type="submit">
+      )}
+      <Button className="w-full" type="submit">
         Create
       </Button>
     </Form>

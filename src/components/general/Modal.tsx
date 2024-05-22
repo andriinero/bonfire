@@ -34,23 +34,18 @@ const Modal = ({ isOpen, onModalClick, className, children }: ModalProps) => {
           animate={FadeIn.animate}
           transition={FadeIn.transition}
           exit={FadeIn.exit}
-          className={cn(
-            'fixed inset-0 z-10 flex h-dvh w-dvw flex-col items-center justify-center',
-            className,
-          )}
+          className="fixed inset-0 z-10 flex h-dvh w-dvw flex-col items-center justify-center"
         >
           <div
             aria-label="Modal Backdrop"
             onClick={onModalClick}
-            className={cn(
-              'absolute -z-10 h-full w-full bg-gray-900 bg-opacity-20',
-              className,
-            )}
+            className="absolute -z-10 h-full w-full bg-gray-900 bg-opacity-20"
           ></div>
           <div
             role="alertdialog"
             aria-modal="true"
             aria-labelledby="dialog-label"
+            className={cn('w-full max-w-sm', className)}
           >
             {children}
           </div>
