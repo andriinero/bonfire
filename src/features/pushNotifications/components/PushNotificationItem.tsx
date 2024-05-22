@@ -1,16 +1,14 @@
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { useAppSelector } from '@/app/hooks';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import useNotificationDismiss from '../hooks/useNotificationDismiss';
 
 import cn from '@/utils/cn';
 
-import {
-  pushNotificationRemoved,
-  selectPushNotificationById,
-} from '../pushNotificationsSlice';
+import { selectPushNotificationById } from '../pushNotificationsSlice';
+
+import { SlideIn } from '@/styles/animations/SlideIn';
 
 import IconButton from '@/components/general/IconButton';
-import { SlideIn } from '@/styles/animations/SlideIn';
 import { PushNotificationType } from '@/types/PushNotification';
 import {
   FaCircleCheck,
@@ -24,27 +22,11 @@ type PushNotificationItemProps = {
   id: string;
 };
 
-const NOTIFICATION_UNMOUNT_TIMER = 5000;
-
 const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   const notification = useAppSelector(selectPushNotificationById(id));
+  const { handleNotificationDismiss } = useNotificationDismiss(id);
+
   const type = notification?.type;
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      dispatch(pushNotificationRemoved(id));
-    }, NOTIFICATION_UNMOUNT_TIMER);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [id, dispatch]);
-
-  const handleNotificationDismiss = (): void => {
-    dispatch(pushNotificationRemoved(id));
-  };
 
   return notification ? (
     <motion.div
