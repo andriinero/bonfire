@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { RootState } from '@/app/store';
@@ -26,8 +27,7 @@ const pushNotificationsSlice = createSlice({
       prepare: (notificationData: Omit<TPushNotification, '_id'>) => {
         return {
           payload: {
-            // FIXME: replace with uuid
-            _id: 'id',
+            _id: uuidv4(),
             body: notificationData.body,
             type: notificationData.type,
             list: notificationData.list,

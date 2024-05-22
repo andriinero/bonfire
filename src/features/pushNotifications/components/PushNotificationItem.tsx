@@ -24,7 +24,7 @@ type PushNotificationItemProps = {
   id: string;
 };
 
-const NOTIFICATION_UNMOUNT_TIMER = 500000;
+const NOTIFICATION_UNMOUNT_TIMER = 5000;
 
 const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   const notification = useAppSelector(selectPushNotificationById(id));
@@ -93,9 +93,10 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
           )}
           {notification?.list ? (
             <ul className="list-disc pl-6 font-normal">
-              {notification.list.map((errorMessage) => (
+              {notification.list.map((errorMessage, index) => (
                 <li
-                  className={cn('', {
+                  key={index}
+                  className={cn({
                     'text-red-700': type === PushNotificationType.ERROR,
                     'text-green-700': type === PushNotificationType.SUCCESS,
                     'text-yellow-700': type === PushNotificationType.WARNING,
