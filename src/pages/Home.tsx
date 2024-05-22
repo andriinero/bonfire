@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import usePageUnmountNotificationsClear from '@/features/pushNotifications/hooks/usePageNotificationsClear';
 import useInitHome from '@/hooks/useInitHome';
 import { useEffect } from 'react';
 
@@ -13,6 +14,8 @@ import PushNotificationList from '@/features/pushNotifications/components/PushNo
 import Sidebar from '@/layout/Sidebar';
 
 const Home = () => {
+  usePageUnmountNotificationsClear();
+
   const {
     isSuccess,
     data: { chatRoomsList },

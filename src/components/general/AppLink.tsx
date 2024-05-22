@@ -1,8 +1,11 @@
-import { ForwardedRef, ReactNode, forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 import cn from '@/utils/cn';
 
-import { NavLink, NavLinkProps } from 'react-router-dom';
+import type { ForwardedRef, ReactNode } from 'react';
+import type { NavLinkProps } from 'react-router-dom';
+
+import { NavLink } from 'react-router-dom';
 
 type AppLinkProps = { className?: string; children?: ReactNode } & NavLinkProps;
 
@@ -15,7 +18,7 @@ const AppLink = forwardRef(
       <NavLink
         ref={ref}
         className={cn(
-          'text-inherit no-underline focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-sky-500 rounded-sm',
+          'rounded-sm text-inherit no-underline focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-sky-500',
           className,
         )}
         {...otherProps}

@@ -44,7 +44,7 @@ const pushNotificationsSlice = createSlice({
       );
     },
     pushNotificationsListCleared: (state) => {
-      state.notificationsList = [];
+      state.notificationsList.length = 0;
     },
   },
 });
