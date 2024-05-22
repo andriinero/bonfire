@@ -17,6 +17,7 @@ import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
+import { getErrorData } from '@/utils/getErrorData';
 
 const CreateContactBodySchema = z.object({
   contactUsername: z
@@ -49,7 +50,13 @@ const CreateContactForm = () => {
       );
       dispatch(createContactsModalClosed());
     } catch (err) {
-      console.error(err);
+      const errorData = getErrorData(err);
+      dispatch(
+        pushNotificationAdded({
+          body: `Create contact: "${errorData.message}"`,
+          type: PushNotificationType.ERROR,
+        }),
+      );
     }
   };
 

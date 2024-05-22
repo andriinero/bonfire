@@ -17,6 +17,7 @@ import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
+import { getErrorData } from '@/utils/getErrorData';
 
 const CreateChatRoomBodySchema = z.object({
   participantUsername: z
@@ -49,14 +50,20 @@ const CreateChatRoomForm = () => {
       );
       dispatch(createChatRoomModalClosed());
     } catch (err) {
-      console.error(err);
+      const errorData = getErrorData(err);
+      dispatch(
+        pushNotificationAdded({
+          body: `Create chat: "${errorData.message}"`,
+          type: PushNotificationType.ERROR,
+        }),
+      );
     }
   };
 
   return (
     <Form
       onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex w-full max-w-4xl flex-col items-start gap-4 rounded-md bg-white p-7 shadow-md"
+      className="flex flex-col items-start gap-4 rounded-md bg-white p-7 shadow-md"
     >
       <FormTitle>Create chat</FormTitle>
       <InputLabel htmlFor="create-chat-username">
