@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import Paths from '@/constants/Paths';
-import { getErrorMessage } from '@/utils/getErrorMessage';
+import { getErrorData } from '@/utils/getErrorData';
 
 import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import {
@@ -52,9 +52,10 @@ const SignInPanel = () => {
       dispatch(tokenInitialized(result.token));
       refetch();
     } catch (err) {
+      const errorData = getErrorData(err);
       dispatch(
         pushNotificationAdded({
-          body: getErrorMessage(err),
+          body: errorData.message,
           type: PushNotificationType.ERROR,
         }),
       );

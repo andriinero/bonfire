@@ -2,7 +2,6 @@ import { useAppSelector } from '@/app/hooks';
 
 import { selectContactById, useDeleteContactMutation } from '../contactsSlice';
 
-import type { ErrorData } from '@/types/ErrorData';
 import type { User } from '@/types/User';
 
 import IconButton from '@/components/general/IconButton';
@@ -20,7 +19,7 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
     try {
       await deleteContact({ userId: contact._id, page: 0 }).unwrap();
     } catch (err) {
-      console.error((err as ErrorData).message);
+      console.error(err);
     }
   };
 

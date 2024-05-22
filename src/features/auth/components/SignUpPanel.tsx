@@ -5,7 +5,6 @@ import { z } from 'zod';
 import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import { usePostSignUpMutation } from '../authSlice';
 
-import type { ErrorData } from '@/types/ErrorData';
 import { PushNotificationType } from '@/types/PushNotification';
 
 import { useAppDispatch } from '@/app/hooks';
@@ -18,6 +17,7 @@ import AppLink from '@/components/general/AppLink';
 import Button from '@/components/general/Button';
 import Paths from '@/constants/Paths';
 import { useNavigate } from 'react-router-dom';
+import { getErrorData } from '@/utils/getErrorData';
 
 const SignUpBodySchema = z
   .object({
@@ -60,7 +60,14 @@ const SignUpPanel = () => {
       );
       navigate(Paths.Auth.SIGN_IN);
     } catch (err) {
-      console.error(err as ErrorData);
+      const errorData = getErrorData(err);
+      dispatch(
+        pushNotificationAdded({
+          body: errorData.message,
+          list: errorData.list,
+          type: PushNotificationType.ERROR,
+        }),
+      );
     }
   };
 

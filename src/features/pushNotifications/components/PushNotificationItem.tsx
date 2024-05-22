@@ -24,7 +24,7 @@ type PushNotificationItemProps = {
   id: string;
 };
 
-const NOTIFICATION_UNMOUNT_TIMER = 5000;
+const NOTIFICATION_UNMOUNT_TIMER = 500000;
 
 const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   const notification = useAppSelector(selectPushNotificationById(id));
@@ -63,7 +63,7 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
     >
       <div className="flex items-center gap-3">
         <span
-          className={cn('mt-0.5', {
+          className={cn('mt-0.5 self-start', {
             'text-red-400': type === PushNotificationType.ERROR,
             'text-green-400': type === PushNotificationType.SUCCESS,
             'text-yellow-400': type === PushNotificationType.WARNING,
@@ -80,7 +80,7 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
           )}
         </span>
         <div
-          className={cn('text-medium', {
+          className={cn('text-medium space-y-0.5', {
             'text-red-800': type === PushNotificationType.ERROR,
             'text-green-800': type === PushNotificationType.SUCCESS,
             'text-yellow-800': type === PushNotificationType.WARNING,
@@ -92,22 +92,26 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
             <p>Internal Server Error 500</p>
           )}
           {notification?.list ? (
-            notification.list.map(() => (
-              <ul
-                className={cn('list-disc pl-6 font-normal', {
-                  'text-red-700': type === PushNotificationType.ERROR,
-                  'text-green-700': type === PushNotificationType.SUCCESS,
-                  'text-yellow-700': type === PushNotificationType.WARNING,
-                })}
-              ></ul>
-            ))
+            <ul className="list-disc pl-6 font-normal">
+              {notification.list.map((errorMessage) => (
+                <li
+                  className={cn('', {
+                    'text-red-700': type === PushNotificationType.ERROR,
+                    'text-green-700': type === PushNotificationType.SUCCESS,
+                    'text-yellow-700': type === PushNotificationType.WARNING,
+                  })}
+                >
+                  {errorMessage}
+                </li>
+              ))}
+            </ul>
           ) : (
             <></>
           )}
         </div>
       </div>
       <IconButton
-        className={cn('justify-self-end p-0.5', {
+        className={cn('self-start justify-self-end p-0.5', {
           'text-red-400 hover:bg-red-100': type === PushNotificationType.ERROR,
           'text-green-400 hover:bg-green-100':
             type === PushNotificationType.SUCCESS,
