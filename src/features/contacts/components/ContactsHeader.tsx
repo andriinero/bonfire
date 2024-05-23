@@ -37,7 +37,7 @@ const ContactsHeader = () => {
         <FaUserPlus />
       </IconButton>
       <Modal isOpen={isCreateContactModalOpen} onModalClick={handleModalClose}>
-        <CreateContactForm />
+        <CreateContactForm onCloseClick={handleModalClose} />
       </Modal>
     </div>
   );

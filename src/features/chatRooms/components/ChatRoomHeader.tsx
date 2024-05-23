@@ -35,7 +35,7 @@ const ChatRoomHeader = () => {
         <FaPlus />
       </IconButton>
       <Modal isOpen={isCreateChatRoomOpen} onModalClick={handleModalClose}>
-        <CreateChatRoomForm />
+        <CreateChatRoomForm onCloseClick={handleModalClose} />
       </Modal>
     </div>
   );

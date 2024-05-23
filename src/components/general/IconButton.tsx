@@ -21,6 +21,7 @@ const IconButton = ({
   return (
     <button
       onClick={onClick}
+      type="button"
       className={cn(
         'rounded-lg p-3 text-gray-500 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500',
         {
