@@ -11,6 +11,7 @@ import { PushNotificationType } from '@/types/PushNotification';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TSignInBody } from './components/SignInPanel';
 import type { TSignUpBody } from './components/SignUpPanel';
+import { getErrorData } from '@/utils/getErrorData';
 
 type AuthState = {
   authData: AuthData | null;
@@ -49,7 +50,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
           const { data } = await queryFulfilled;
           dispatch(authDataSet(data));
         } catch (err) {
-          console.error(err);
+          const errorData = getErrorData(err);
+          console.error(errorData.message);
         }
       },
     }),

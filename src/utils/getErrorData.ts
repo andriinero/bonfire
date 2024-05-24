@@ -1,7 +1,7 @@
 import { ValidationErrorSchema } from '@/types/ErrorData';
 import { RouteErrorSchema } from '@/types/RouteError';
 
-const defaultErrorMessage = 'Internal Server Error';
+const defaultErrorMessage = 'Internal Server Error 500';
 
 export const getErrorData = (
   error: unknown,

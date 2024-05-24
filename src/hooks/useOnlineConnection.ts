@@ -1,9 +1,10 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { selectAuthToken } from '@/features/auth/authSlice';
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-const useSocketConnection = () => {
+import { selectAuthToken } from '@/features/auth/authSlice';
+
+const useOnlineConnection = () => {
   const token = useAppSelector(selectAuthToken);
 
   const dispatch = useAppDispatch();
@@ -24,4 +25,4 @@ const useSocketConnection = () => {
   }, [dispatch, token]);
 };
 
-export default useSocketConnection;
+export default useOnlineConnection;

@@ -3,6 +3,8 @@ import useNonAuthParticipants from '../hooks/useNonAuthParticipants';
 import cn from '@/utils/cn';
 
 import UserIcon from '@/components/general/UserIcon';
+import { useAppSelector } from '@/app/hooks';
+import { selectChatRoomById } from '../chatRoomsSlice';
 
 type ChatRoomIconProps = {
   chatRoomId: string;
@@ -15,6 +17,7 @@ const ChatRoomIcon = ({
   style = 'md',
   className,
 }: ChatRoomIconProps) => {
+  const chatRoom = useAppSelector(selectChatRoomById(chatRoomId, 0));
   const nonAuthParticipants = useNonAuthParticipants(chatRoomId);
   const totalParticipantsCount = (nonAuthParticipants?.length ?? 0) + 1;
 
@@ -34,7 +37,7 @@ const ChatRoomIcon = ({
           },
         )}
       >
-        {totalParticipantsCount}
+        {chatRoom?.name?.substring(0, 1).toUpperCase()}
       </div>
     ) : (
       <UserIcon
