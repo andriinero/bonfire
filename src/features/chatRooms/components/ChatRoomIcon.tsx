@@ -1,10 +1,11 @@
+import { useAppSelector } from '@/app/hooks';
 import useNonAuthParticipants from '../hooks/useNonAuthParticipants';
 
 import cn from '@/utils/cn';
 
-import UserIcon from '@/components/general/UserIcon';
-import { useAppSelector } from '@/app/hooks';
 import { selectChatRoomById } from '../chatRoomsSlice';
+
+import UserIcon from '@/components/general/UserIcon';
 
 type ChatRoomIconProps = {
   chatRoomId: string;
@@ -17,23 +18,19 @@ const ChatRoomIcon = ({
   style = 'md',
   className,
 }: ChatRoomIconProps) => {
-  const chatRoom = useAppSelector(selectChatRoomById(chatRoomId, 0));
+  const chatRoom = useAppSelector(selectChatRoomById(chatRoomId));
   const nonAuthParticipants = useNonAuthParticipants(chatRoomId);
-  const totalParticipantsCount = (nonAuthParticipants?.length ?? 0) + 1;
 
   return nonAuthParticipants ? (
     nonAuthParticipants.length > 1 ? (
       <div
         className={cn(
-          'flex size-10 items-center justify-center rounded-full bg-sky-500 text-xl font-extrabold text-sky-50',
+          'flex size-10 items-center justify-center rounded-full bg-sky-500 text-2xl font-semibold text-sky-50',
           className,
           {
             'size-6': style === 'xs',
             'size-10': style === 'md',
             'size-12': style === 'lg',
-          },
-          {
-            'text-sm': totalParticipantsCount >= 100,
           },
         )}
       >

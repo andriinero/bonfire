@@ -1,4 +1,5 @@
 import cn from '@/utils/cn';
+
 import type { ComponentProps } from 'react';
 
 type UserIconProps = {

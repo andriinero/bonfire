@@ -86,17 +86,16 @@ export default chatRoomSlice;
 export const selectIsCreateChatRoomModalOpen = (state: RootState) =>
   state.chatRoom.isCreateChatRoomModalOpen;
 
-export const selectChatRoomsListResult = (page: number) =>
-  chatRoomsApiSlice.endpoints.getChatRooms.select(page);
+export const selectChatRoomsListResult =
+  chatRoomsApiSlice.endpoints.getChatRooms.select(0);
 
-export const selectChatRoomsList = (page: number) =>
-  createSelector(
-    selectChatRoomsListResult(page),
-    (chatList) => chatList.data ?? [],
-  );
+export const selectChatRoomsList = createSelector(
+  selectChatRoomsListResult,
+  (chatList) => chatList.data ?? [],
+);
 
-export const selectChatRoomById = (chatId: string, page: number) =>
-  createSelector(selectChatRoomsList(page), (chatList) =>
+export const selectChatRoomById = (chatId: string) =>
+  createSelector(selectChatRoomsList, (chatList) =>
     chatList.find((c: ChatRoom) => c._id === chatId),
   );
 

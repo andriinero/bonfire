@@ -98,16 +98,15 @@ export default contactsSlice;
 export const selectIsCreateContactModalOpen = (state: RootState) =>
   state.contacts.isCreateContactModalOpen;
 
-export const selectContactsListResult = (page: number) =>
-  contactsApiSlice.endpoints.getContacts.select(page);
+export const selectContactsListResult =
+  contactsApiSlice.endpoints.getContacts.select(0);
 
-export const selectContactsList = (page: number) =>
-  createSelector(
-    selectContactsListResult(page),
-    (contactsList) => contactsList.data ?? [],
-  );
+export const selectContactsList = createSelector(
+  selectContactsListResult,
+  (contactsList) => contactsList.data ?? [],
+);
 
-export const selectContactById = (contactId: string, page: number) =>
-  createSelector(selectContactsList(page), (contactsList) =>
+export const selectContactById = (contactId: string) =>
+  createSelector(selectContactsList, (contactsList) =>
     contactsList.find((c) => c._id === contactId),
   );

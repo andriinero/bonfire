@@ -1,11 +1,12 @@
+import { motion } from 'framer-motion';
 import { useEffect } from 'react';
-
-import type { ReactNode } from 'react';
 
 import cn from '@/utils/cn';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { FadeIn } from '@/styles/animations/FadeIn';
+import type { ReactNode } from 'react';
+
+import { AnimatePresence } from 'framer-motion';
 
 type ModalProps = {
   isOpen: boolean;

@@ -1,6 +1,6 @@
-import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
-
 import cn from '@/utils/cn';
+
+import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 
 type ButtonProps = {
   style?: 'primary' | 'hollow';
