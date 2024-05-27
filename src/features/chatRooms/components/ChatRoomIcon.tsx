@@ -25,7 +25,8 @@ const ChatRoomIcon = ({
     nonAuthParticipants.length > 1 ? (
       <div
         className={cn(
-          'flex size-10 items-center justify-center rounded-full bg-sky-500 text-2xl font-semibold text-sky-50',
+          'flex size-10 items-center justify-center rounded-full text-2xl font-semibold text-sky-50',
+          chatRoom?.colorClass,
           className,
           {
             'size-6': style === 'xs',

@@ -1,6 +1,11 @@
-import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
+import { getErrorData } from '@/utils/getErrorData';
+
+import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import { selectContactById, useDeleteContactMutation } from '../contactsSlice';
+
+import { PushNotificationType } from '@/types/PushNotification';
 
 import IconButton from '@/components/general/IconButton';
 import UserIcon from '@/components/general/UserIcon';
@@ -11,13 +16,20 @@ type ContactsItemProps = { contactId: string };
 const ContactsItem = ({ contactId }: ContactsItemProps) => {
   const contact = useAppSelector(selectContactById(contactId))!;
 
+  const dispatch = useAppDispatch();
   const [deleteContact] = useDeleteContactMutation();
 
   const handleContactDelete = async (): Promise<void> => {
     try {
       await deleteContact({ userId: contact._id, page: 0 }).unwrap();
     } catch (err) {
-      console.error(err);
+      const errorData = getErrorData(err);
+      dispatch(
+        pushNotificationAdded({
+          body: errorData.message,
+          type: PushNotificationType.ERROR,
+        }),
+      );
     }
   };
 

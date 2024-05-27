@@ -7,3 +7,5 @@ export const ChatRoomSchema = z.object({
 });
 
 export type ChatRoom = z.infer<typeof ChatRoomSchema>;
+
+export type ChatRoomColored = ChatRoom & { colorClass: string };

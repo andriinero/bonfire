@@ -1,8 +1,10 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from '../api/apiSlice';
 
+import { getRandomBackgroundColorClass } from '@/utils/getRandomBackgroundColorClass';
+
 import type { RootState } from '@/app/store';
-import type { ChatRoom } from '@/types/ChatRoom';
+import type { ChatRoom, ChatRoomColored } from '@/types/ChatRoom';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 type ChatRoomState = {
@@ -44,9 +46,19 @@ const chatRoomSlice = createSlice({
 
 export const chatRoomsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getChatRooms: builder.query<ChatRoom[], number>({
+    getChatRooms: builder.query<ChatRoomColored[], number>({
       providesTags: ['chatRooms'],
       query: (page) => `/chat-rooms?page=${page ?? 0}`,
+      transformResponse: (data: ChatRoom[]) => {
+        const coloredData = data.map((c) => {
+          return {
+            ...c,
+            colorClass: getRandomBackgroundColorClass(),
+          };
+        });
+
+        return coloredData;
+      },
       serializeQueryArgs: ({ endpointName }) => endpointName,
       merge: (curItems, newItems, { arg: page }) => {
         if (page > 0) {
