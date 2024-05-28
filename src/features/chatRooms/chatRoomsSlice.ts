@@ -1,7 +1,8 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { apiSlice } from '../api/apiSlice';
 
 import { getRandomBackgroundColorClass } from '@/utils/getRandomBackgroundColorClass';
+
+import { apiSlice } from '../api/apiSlice';
 
 import type { RootState } from '@/app/store';
 import type { ChatRoom, ChatRoomColored } from '@/types/ChatRoom';

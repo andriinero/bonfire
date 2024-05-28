@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useAppDispatch } from './app/hooks';
-import useOnlineConnection from './hooks/useOnlineConnection';
 
 import {
   tokenInitialized,
@@ -10,7 +9,6 @@ import {
 import Router from './Router';
 
 const App = () => {
-  useOnlineConnection();
   useGetAuthDataQuery();
   const dispatch = useAppDispatch();
 

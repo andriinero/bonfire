@@ -9,6 +9,7 @@ import chatRoomSlice from '@/features/chatRooms/chatRoomsSlice';
 import contactsSlice from '@/features/contacts/contactsSlice';
 import messagesSlice from '@/features/messages/messagesSlice';
 import pushNotificationsSlice from '@/features/pushNotifications/pushNotificationsSlice';
+import { createSocketMiddleware } from '@/middlewares/socketMiddleware';
 
 const rootReducer = combineSlices(
   authSlice,
@@ -25,7 +26,9 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(apiSlice.middleware);
+      return getDefaultMiddleware()
+        .concat(apiSlice.middleware)
+        .concat(createSocketMiddleware('http://localhost:8080'));
     },
     preloadedState,
   });
