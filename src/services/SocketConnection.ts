@@ -15,7 +15,7 @@ class SocketConnection {
     });
   }
 
-  createConnection(token: string) {
+  createNewConnection(token: string) {
     if (this._socket.connected) return;
 
     this._socket = io(this._url, {

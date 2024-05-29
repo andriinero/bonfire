@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import storage from '@/lib/storage';
+import { getErrorData } from '@/utils/getErrorData';
 
 import { apiSlice } from '../api/apiSlice';
 import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
@@ -11,7 +12,6 @@ import { PushNotificationType } from '@/types/PushNotification';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TSignInBody } from './components/SignInPanel';
 import type { TSignUpBody } from './components/SignUpPanel';
-import { getErrorData } from '@/utils/getErrorData';
 
 type AuthState = {
   authData: AuthData | null;

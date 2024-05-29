@@ -19,7 +19,7 @@ export const createSocketMiddleware = (): Middleware<unknown, RootState> => {
 
     switch (action.type) {
       case 'socket/connectionCreated':
-        if (hasToken(action)) socket.createConnection(action.payload.token);
+        if (hasToken(action)) socket.createNewConnection(action.payload.token);
         break;
       case 'socket/connected':
         socket.connect();

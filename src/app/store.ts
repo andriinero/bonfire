@@ -30,7 +30,7 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware()
         .concat(apiSlice.middleware)
-        .concat(createSocketMiddleware('http://localhost:8080'));
+        .concat(createSocketMiddleware());
     },
     preloadedState,
   });
