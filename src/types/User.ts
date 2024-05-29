@@ -8,6 +8,7 @@ export const UserSchema = z.object({
   created: z.string(),
   is_online: z.boolean(),
   profile_image: z.string(),
+  color_class: z.string(),
 });
 
 export type User = z.infer<typeof UserSchema>;

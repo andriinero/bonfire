@@ -24,7 +24,7 @@ const ChatRoomIcon = ({
     nonAuthParticipants.length > 1 ? (
       <FallbackIcon
         title={chatRoom?.name}
-        colorClass={chatRoom?.fallback_color_class}
+        colorClass={chatRoom?.color_class}
         className={className}
       />
     ) : nonAuthParticipants[0].profile_image ? (
@@ -36,7 +36,7 @@ const ChatRoomIcon = ({
     ) : (
       <FallbackIcon
         title={nonAuthParticipants[0].username}
-        colorClass={chatRoom?.fallback_color_class}
+        colorClass={chatRoom?.color_class}
       />
     )
   ) : (

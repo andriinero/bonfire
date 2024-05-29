@@ -1,4 +1,4 @@
-import { User } from '@/types/User';
+import type { User } from '@/types/User';
 import { render, screen } from '@testing-library/react';
 import UserMessage from '../UserMessage';
 
@@ -16,6 +16,7 @@ const testUser: User = {
   is_online: true,
   profile_image:
     'https://img.freepik.com/premium-photo/profile-picture-happy-young-caucasian-man-spectacles-show-confidence-leadership-headshot-portrait-smiling-millennial-male-glasses-posing-indoors-home-employment-success-concept_774935-1446.jpg',
+  color_class: 'sky-400',
 };
 
 it('renders user message', () => {

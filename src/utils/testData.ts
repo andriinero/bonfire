@@ -20,6 +20,7 @@ export const createRandomUser = (): User => {
     created: faker.date.recent().toISOString(),
     is_online: faker.helpers.arrayElement<boolean>([true, false]),
     profile_image: faker.image.avatar(),
+    color_class: 'sky-400',
   };
 };
 
@@ -36,7 +37,7 @@ export const createChatRoom = (): ChatRoom => {
   return {
     _id: faker.string.uuid(),
     created: faker.date.recent().toISOString(),
-    fallback_color_class: 'amber-400',
+    color_class: 'amber-400',
   };
 };
 
