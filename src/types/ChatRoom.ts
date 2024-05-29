@@ -4,8 +4,7 @@ export const ChatRoomSchema = z.object({
   _id: z.string(),
   name: z.string().optional(),
   created: z.string(),
+  fallback_color_class: z.string(),
 });
 
 export type ChatRoom = z.infer<typeof ChatRoomSchema>;
-
-export type ChatRoomColored = ChatRoom & { colorClass: string };

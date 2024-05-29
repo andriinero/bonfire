@@ -1,6 +1,9 @@
-import type { Action, ThunkAction } from '@reduxjs/toolkit';
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
+
+import { createSocketMiddleware } from '@/middlewares/socketMiddleware';
+
+import type { Action, ThunkAction } from '@reduxjs/toolkit';
 
 import { apiSlice } from '@/features/api/apiSlice';
 import authSlice from '@/features/auth/authSlice';
@@ -9,7 +12,6 @@ import chatRoomSlice from '@/features/chatRooms/chatRoomsSlice';
 import contactsSlice from '@/features/contacts/contactsSlice';
 import messagesSlice from '@/features/messages/messagesSlice';
 import pushNotificationsSlice from '@/features/pushNotifications/pushNotificationsSlice';
-import { createSocketMiddleware } from '@/middlewares/socketMiddleware';
 
 const rootReducer = combineSlices(
   authSlice,

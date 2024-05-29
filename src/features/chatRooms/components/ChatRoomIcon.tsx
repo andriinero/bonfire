@@ -26,7 +26,7 @@ const ChatRoomIcon = ({
       <div
         className={cn(
           'flex size-10 items-center justify-center rounded-full text-2xl font-semibold text-sky-50',
-          chatRoom?.colorClass,
+          'bg-' + chatRoom?.fallback_color_class,
           className,
           {
             'size-6': style === 'xs',

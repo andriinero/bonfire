@@ -36,6 +36,7 @@ export const createChatRoom = (): ChatRoom => {
   return {
     _id: faker.string.uuid(),
     created: faker.date.recent().toISOString(),
+    fallback_color_class: 'amber-400',
   };
 };
 
