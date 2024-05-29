@@ -30,6 +30,7 @@ export const getAuthDataFromUser = (user: User): AuthData => {
     username: user.username,
     email: user.email,
     role: 'user',
+    color_class: 'sky-400',
   };
 };
 

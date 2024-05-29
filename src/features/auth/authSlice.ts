@@ -114,6 +114,8 @@ export const {
 
 export default authSlice;
 
+export const selectAuthData = (state: RootState) => state.auth.authData;
+
 export const selectIsSignedIn = (state: RootState) => !!state.auth.authData;
 
 export const selectAuthToken = (state: RootState) => state.auth.token;

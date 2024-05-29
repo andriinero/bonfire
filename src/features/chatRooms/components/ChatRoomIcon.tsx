@@ -19,6 +19,7 @@ const ChatRoomIcon = ({
 }: ChatRoomIconProps) => {
   const chatRoom = useAppSelector(selectChatRoomById(chatRoomId));
   const nonAuthParticipants = useNonAuthParticipants(chatRoomId);
+  const firstParticipant = nonAuthParticipants?.[0];
 
   return nonAuthParticipants ? (
     nonAuthParticipants.length > 1 ? (
@@ -27,16 +28,13 @@ const ChatRoomIcon = ({
         colorClass={chatRoom?.color_class}
         className={className}
       />
-    ) : nonAuthParticipants[0].profile_image ? (
-      <UserIcon
-        src={nonAuthParticipants[0].profile_image}
-        isOnline={nonAuthParticipants[0].is_online}
-        style={style}
-      />
     ) : (
-      <FallbackIcon
-        title={nonAuthParticipants[0].username}
-        colorClass={chatRoom?.color_class}
+      <UserIcon
+        title={firstParticipant?.username}
+        colorClass={firstParticipant?.color_class}
+        src={firstParticipant?.profile_image}
+        isOnline={firstParticipant?.is_online}
+        style={style}
       />
     )
   ) : (

@@ -30,6 +30,8 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
     >
       <div>
         <UserIcon
+          title={participantData?.username}
+          colorClass={participantData?.color_class}
           src={participantData?.profile_image}
           isOnline={participantData?.is_online}
         />
