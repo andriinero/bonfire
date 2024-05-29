@@ -15,12 +15,16 @@ export const createSocketMiddleware = (
     extraHeaders: {
       authorization: `Bearer ${token}`,
     },
+    autoConnect: false,
   });
 
   return () => (next) => (action) => {
     if (!isAction(action)) return next(action);
 
     switch (action.type) {
+      case 'socket/connected':
+        socket.connect();
+        break;
       case 'socket/disconnected':
         socket.close();
         break;

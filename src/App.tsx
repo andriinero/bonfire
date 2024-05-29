@@ -7,8 +7,10 @@ import {
 } from './features/auth/authSlice';
 
 import Router from './Router';
+import useSocketConnection from './hooks/useSocketConnection';
 
 const App = () => {
+  useSocketConnection();
   useGetAuthDataQuery();
   const dispatch = useAppDispatch();
 
