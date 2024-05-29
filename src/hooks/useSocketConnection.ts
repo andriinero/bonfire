@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { useEffect } from 'react';
 
 import { selectAuthToken } from '@/features/auth/authSlice';
-import { connected, disconnected } from '@/features/socket/socketSlice';
+import { connectionCreated, disconnected } from '@/features/socket/socketSlice';
 
 const useSocketConnection = () => {
   const token = useAppSelector(selectAuthToken);
@@ -10,7 +10,7 @@ const useSocketConnection = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (token) dispatch(connected());
+    if (token) dispatch(connectionCreated({ token }));
 
     return () => {
       dispatch(disconnected());
