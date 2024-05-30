@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
 
+import type { AuthData } from '@/types/AuthData';
+import type { ChatRoom } from '@/types/ChatRoom';
+import type { Message } from '@/types/Message';
 import { MessageType } from '@/types/MessageType';
 import type { User } from '@/types/User';
-import type { Message } from '@/types/Message';
-import type { ChatRoom } from '@/types/ChatRoom';
-import type { AuthData } from '@/types/AuthData';
 
-export const createRandomUser = (): User => {
+const createRandomUser = (): User => {
   const firstName = faker.person.firstName();
   const lastName = faker.person.lastName();
   const username = faker.internet.userName({ firstName, lastName });
@@ -24,7 +24,7 @@ export const createRandomUser = (): User => {
   };
 };
 
-export const getAuthDataFromUser = (user: User): AuthData => {
+const getAuthDataFromUser = (user: User): AuthData => {
   return {
     sub: user._id,
     username: user.username,
@@ -34,7 +34,7 @@ export const getAuthDataFromUser = (user: User): AuthData => {
   };
 };
 
-export const createChatRoom = (): ChatRoom => {
+const createChatRoom = (): ChatRoom => {
   return {
     _id: faker.string.uuid(),
     created: faker.date.recent().toISOString(),
@@ -42,7 +42,7 @@ export const createChatRoom = (): ChatRoom => {
   };
 };
 
-export const createRandomUserMessage = (
+const createRandomUserMessage = (
   chatRoomId: string,
   userId: string,
 ): Message => {
@@ -57,7 +57,7 @@ export const createRandomUserMessage = (
   };
 };
 
-export const getMultipleRandomMessages = (
+const getMultipleRandomMessages = (
   count: number,
   chatRoomId: string,
   userId: string,
@@ -69,9 +69,18 @@ export const getMultipleRandomMessages = (
   return result;
 };
 
-export const getMultipleRandomUsers = (count: number) => {
+const getMultipleRandomUsers = (count: number) => {
   const result: User[] = [];
   for (let i = 0; i < count; i++) result.push(createRandomUser());
 
   return result;
 };
+
+export default {
+  createRandomUser,
+  getAuthDataFromUser,
+  createChatRoom,
+  createRandomUserMessage,
+  getMultipleRandomMessages,
+  getMultipleRandomUsers,
+} as const;

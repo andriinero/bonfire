@@ -1,6 +1,6 @@
 import cn from '@/utils/cn';
 
-import AppDate from '@/lib/appDate';
+import AppDate from '@/lib/AppDate';
 
 type DateStampProps = {
   date: string;

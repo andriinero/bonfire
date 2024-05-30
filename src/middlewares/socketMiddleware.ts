@@ -1,6 +1,6 @@
 import { isAction, isAnyOf } from '@reduxjs/toolkit';
 
-import storage from '@/lib/storage';
+import storage from '@/lib/Storage';
 import SocketConnection from '@/services/SocketConnection';
 
 import { connectionCreated } from '@/features/socket/socketSlice';

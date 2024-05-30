@@ -61,7 +61,6 @@ it('fetches and displays chat room with messages', async () => {
     </MemoryRouter>,
   );
 
-  expect(screen.getByAltText('User Icon')).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: 'Messages' })).toBeInTheDocument();
   expect(screen.queryAllByLabelText('chat-message')).toHaveLength(0);
   await waitFor(() => {

@@ -3,15 +3,15 @@ import userEvent from '@testing-library/user-event';
 import { HttpResponse, delay, http } from 'msw';
 
 import { serverHandlers } from '@/mocks/serverMock';
+import TestData from '@/utils/TestData';
 import { renderWithProviders } from '@/utils/testUtils';
-import { createRandomUser, getAuthDataFromUser } from '@/utils/testData';
 import { setupServer } from 'msw/node';
 
 import { MemoryRouter } from 'react-router-dom';
 import SignIn from '../SignIn';
 
-const testUser = createRandomUser();
-const testAuthData = getAuthDataFromUser(testUser);
+const testUser = TestData.createRandomUser();
+const testAuthData = TestData.getAuthDataFromUser(testUser);
 
 const handlers = [...serverHandlers];
 

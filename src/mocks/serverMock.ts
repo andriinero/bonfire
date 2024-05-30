@@ -1,24 +1,21 @@
 import { faker } from '@faker-js/faker';
 import { HttpResponse, delay, http } from 'msw';
 
-import {
-  createRandomUser,
-  getAuthDataFromUser,
-  createChatRoom,
-  getMultipleRandomMessages,
-  getMultipleRandomUsers,
-} from '@/utils/testData';
-
 import type { AuthData } from '@/types/AuthData';
 import type { ChatRoom } from '@/types/ChatRoom';
 import type { Message } from '@/types/Message';
 import type { User } from '@/types/User';
+import testData from '@/utils/TestData';
 
-const testUser = createRandomUser(),
-  testContacts = getMultipleRandomUsers(2),
-  testAuthData = getAuthDataFromUser(testUser),
-  testChatRoom = createChatRoom(),
-  testMessages = getMultipleRandomMessages(5, testChatRoom._id, testUser._id),
+const testUser = testData.createRandomUser(),
+  testContacts = testData.getMultipleRandomUsers(2),
+  testAuthData = testData.getAuthDataFromUser(testUser),
+  testChatRoom = testData.createChatRoom(),
+  testMessages = testData.getMultipleRandomMessages(
+    5,
+    testChatRoom._id,
+    testUser._id,
+  ),
   token = faker.string.uuid();
 
 export const mockDBData = {

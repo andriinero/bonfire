@@ -1,4 +1,6 @@
-import { DateTime, DurationLikeObject } from 'luxon';
+import { DateTime } from 'luxon';
+
+import type { DurationLikeObject } from 'luxon';
 
 const getRelative = (date: string) => {
   return DateTime.fromISO(date).toRelative() as string;

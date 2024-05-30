@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import storage from '@/lib/storage';
+import storage from '@/lib/Storage';
 import { getErrorData } from '@/utils/getErrorData';
 
 import { apiSlice } from '../api/apiSlice';

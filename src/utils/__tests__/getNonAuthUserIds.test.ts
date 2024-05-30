@@ -1,8 +1,8 @@
 import getNonAuthUserIds from '../getNonAuthUserIds';
-import { getMultipleRandomUsers } from '../testData';
+import TestData from '../TestData';
 
 it('filters out the auth user id', () => {
-  const testUsers = getMultipleRandomUsers(3);
+  const testUsers = TestData.getMultipleRandomUsers(3);
   const authUserId = testUsers[0]._id;
   const expectedUserIds = testUsers.slice(1, 3).map((u) => u._id);
 
