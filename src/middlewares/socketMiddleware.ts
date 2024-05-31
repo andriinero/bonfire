@@ -10,7 +10,7 @@ import type { Middleware } from '@reduxjs/toolkit';
 
 export const createSocketMiddleware = (): Middleware<unknown, RootState> => {
   const token = storage.getToken();
-  const socket = new SocketConnection(token);
+  const socketConnection = new SocketConnection(token);
 
   return () => (next) => (action) => {
     if (!isAction(action)) return next(action);
@@ -19,13 +19,16 @@ export const createSocketMiddleware = (): Middleware<unknown, RootState> => {
 
     switch (action.type) {
       case 'socket/connectionCreated':
-        if (hasToken(action)) socket.createNewConnection(action.payload.token);
+        if (hasToken(action))
+          socketConnection.createNewConnection(action.payload.token);
+
+        socketConnection.socket.on('message:receive', () => {});
         break;
       case 'socket/connected':
-        socket.connect();
+        socketConnection.connect();
         break;
       case 'socket/disconnected':
-        socket.disconnect();
+        socketConnection.disconnect();
         break;
     }
 
