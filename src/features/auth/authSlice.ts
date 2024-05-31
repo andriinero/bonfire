@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import storage from '@/lib/Storage';
+import Storage from '@/lib/Storage';
 import { getErrorData } from '@/utils/getErrorData';
 
 import { apiSlice } from '../api/apiSlice';
@@ -27,16 +27,16 @@ export const tokenInitialized =
   (token?: string): AppThunk =>
   (dispatch) => {
     if (token) {
-      storage.setToken(token);
+      Storage.setToken(token);
       dispatch(tokenSet(token));
     } else {
-      const storageToken = storage.getToken();
+      const storageToken = Storage.getToken();
       dispatch(tokenSet(storageToken));
     }
   };
 
 export const signedOut = (): AppThunk => (dispatch) => {
-  storage.clearToken();
+  Storage.clearToken();
   dispatch(authDataCleared());
   dispatch(tokenCleared());
 };
