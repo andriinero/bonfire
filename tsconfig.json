@@ -2,24 +2,39 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "allowJs": false,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "module": "ESNext",
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["vitest/globals"],
+    "types": [
+      "vitest/globals"
+    ],
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"],
-      "@assets/*": ["assets/*"]
+      "@/*": [
+        "*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ]
     }
   },
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
