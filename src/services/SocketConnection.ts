@@ -6,7 +6,7 @@ import type { Socket } from 'socket.io-client';
 
 class SocketConnection {
   private _socket: Socket;
-  private _url = EnvVars.RESTAPI_SERVER_URL;
+  private _url = EnvVars.API_SERVER_URL;
 
   constructor(token: string) {
     this._socket = io(this._url, {

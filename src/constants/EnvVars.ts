@@ -1,5 +1,5 @@
 const env = import.meta.env;
 
 export default {
-  RESTAPI_SERVER_URL: env.RESTAPI_SERVER_URL ?? 'http://localhost:3000',
+  API_SERVER_URL: env.VITE_API_SERVER_URL ?? 'http://localhost:3000',
 } as const;

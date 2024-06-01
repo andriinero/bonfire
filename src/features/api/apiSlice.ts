@@ -7,7 +7,7 @@ export const apiSlice = createApi({
   tagTypes: ['authData', 'chatRooms', 'contacts'],
   keepUnusedDataFor: 100000,
   baseQuery: fetchBaseQuery({
-    baseUrl: EnvVars.RESTAPI_SERVER_URL + '/api/',
+    baseUrl: EnvVars.API_SERVER_URL + '/api/',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) headers.set('authorization', `Bearer ${token}`);
