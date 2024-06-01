@@ -1,10 +1,12 @@
 import { io } from 'socket.io-client';
 
+import EnvVars from '@/constants/EnvVars';
+
 import type { Socket } from 'socket.io-client';
 
 class SocketConnection {
   private _socket: Socket;
-  private _url = 'http://localhost:8080';
+  private _url = EnvVars.RESTAPI_SERVER_URL;
 
   constructor(token: string) {
     this._socket = io(this._url, {
