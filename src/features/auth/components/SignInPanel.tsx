@@ -133,7 +133,7 @@ const SignInPanel = () => {
       </div>
       <div className="space-x-1 text-center">
         <span className="font-normal text-gray-500">New to Bonfire?</span>
-        <AppLink className="font-bold text-sky-600" to={Paths.Auth.SIGN_UP}>
+        <AppLink className="font-bold text-amber-500" to={Paths.Auth.SIGN_UP}>
           Create an account
         </AppLink>
       </div>

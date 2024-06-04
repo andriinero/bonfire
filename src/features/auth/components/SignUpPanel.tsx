@@ -141,7 +141,7 @@ const SignUpPanel = () => {
         <span className="font-normal text-gray-500">
           Already have an account?
         </span>
-        <AppLink className="font-bold text-sky-600" to={Paths.Auth.SIGN_IN}>
+        <AppLink className="font-bold text-amber-500" to={Paths.Auth.SIGN_IN}>
           Sign in
         </AppLink>
       </div>
