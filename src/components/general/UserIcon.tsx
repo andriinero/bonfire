@@ -13,7 +13,7 @@ type UserIconProps = {
 
 const UserIcon = ({
   title = '?',
-  colorClass = 'sky-400',
+  colorClass = 'amber-400',
   src,
   isOnline = false,
   style = 'md',

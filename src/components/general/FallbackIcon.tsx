@@ -10,7 +10,7 @@ type FallbackIconProps = {
 const FallbackIcon = ({
   title = 'N',
   style = 'md',
-  colorClass = 'bg-amber-400',
+  colorClass = 'amber-400',
   className,
 }: FallbackIconProps) => {
   const capitalizedTitle = title.substring(0, 1).toUpperCase();
@@ -18,7 +18,7 @@ const FallbackIcon = ({
   return (
     <div
       className={cn(
-        'flex size-10 items-center justify-center rounded-full text-2xl font-semibold text-sky-50',
+        'flex size-10 items-center justify-center rounded-full text-2xl font-semibold text-amber-50',
         'bg-' + colorClass,
         className,
         {

@@ -18,7 +18,7 @@ const AppLink = forwardRef(
       <NavLink
         ref={ref}
         className={cn(
-          'rounded-sm text-inherit no-underline focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-sky-500',
+          'rounded-sm text-inherit no-underline focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-amber-500',
           className,
         )}
         {...otherProps}

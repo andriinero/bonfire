@@ -23,7 +23,7 @@ const IconButton = ({
       onClick={onClick}
       type="button"
       className={cn(
-        'rounded-lg p-3 text-gray-500 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500',
+        'rounded-lg p-3 text-gray-500 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-amber-500',
         {
           'bg-gray-100 text-gray-800': isSelected,
         },

@@ -52,7 +52,7 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
           className={cn(
             'max-w-[30ch] self-start rounded-2xl bg-gray-100 px-3 py-2 text-start text-sm font-medium text-gray-800',
             {
-              'self-end bg-sky-500 text-white': isAuthor,
+              'self-end bg-amber-500 text-white': isAuthor,
             },
           )}
         >
