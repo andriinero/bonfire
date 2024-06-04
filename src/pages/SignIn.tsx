@@ -4,10 +4,10 @@ import Paths from '@/constants/Paths';
 
 import { selectIsSignedIn } from '@/features/auth/authSlice';
 
-import { Analytics } from '@vercel/analytics/react';
 import AppLogo from '@/components/general/AppLogo';
 import SignInPanel from '@/features/auth/components/SignInPanel';
 import PushNotificationList from '@/features/pushNotifications/components/PushNotificationList';
+import { Analytics } from '@vercel/analytics/react';
 import { Navigate } from 'react-router-dom';
 
 const SignIn = () => {

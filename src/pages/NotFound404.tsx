@@ -13,7 +13,7 @@ const NotFound404 = () => {
   return (
     <div className="grid h-dvh grid-rows-3">
       <header className="p-8">
-        <AppLogo className="mx-0 size-8 self-start" />
+        <AppLogo className="mx-0 size-10 self-start" />
       </header>
       <main className="flex flex-col items-start justify-center gap-6 p-8">
         <p className="font-semibold text-sky-500">404</p>

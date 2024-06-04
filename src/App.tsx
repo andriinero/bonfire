@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useAppDispatch } from './app/hooks';
+import useSocketConnection from './hooks/useSocketConnection';
 
 import {
   tokenInitialized,
@@ -7,7 +8,6 @@ import {
 } from './features/auth/authSlice';
 
 import Router from './Router';
-import useSocketConnection from './hooks/useSocketConnection';
 
 const App = () => {
   useSocketConnection();

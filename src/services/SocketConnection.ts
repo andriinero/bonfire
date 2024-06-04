@@ -14,6 +14,7 @@ class SocketConnection {
       extraHeaders: {
         authorization: `Bearer ${token}`,
       },
+      autoConnect: false,
     });
   }
 
