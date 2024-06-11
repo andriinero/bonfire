@@ -7,6 +7,7 @@ import {
   useGetAuthDataQuery,
 } from './features/auth/authSlice';
 
+import { Analytics } from '@vercel/analytics/react';
 import Router from './Router';
 import PushNotificationList from './features/pushNotifications/components/PushNotificationList';
 
@@ -21,6 +22,7 @@ const App = () => {
 
   return (
     <>
+      <Analytics />
       <Router />
       <PushNotificationList />
     </>

@@ -15,7 +15,7 @@ const SignIn = () => {
   if (isSignedIn) return <Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />;
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-gray-100">
+    <div className="flex min-h-dvh items-center justify-center sm:bg-gray-100">
       <Analytics />
       <main className="w-full max-w-lg space-y-8">
         <AppLogo />

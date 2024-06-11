@@ -78,7 +78,7 @@ const SignInPanel = () => {
   const isSubmitDisabled = isLoading;
 
   return (
-    <div className="container space-y-8 rounded-md bg-white p-12 text-sm font-medium text-gray-900 shadow">
+    <div className="container space-y-8 rounded-md bg-white p-12 text-sm font-medium text-gray-900 sm:shadow">
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputGroup>
           <InputLabel htmlFor="sign-in-email">Email address</InputLabel>
