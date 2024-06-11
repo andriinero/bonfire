@@ -3,8 +3,8 @@ import useNonAuthParticipants from '../hooks/useNonAuthParticipants';
 
 import { selectChatRoomById } from '../chatRoomsSlice';
 
-import UserIcon from '@/components/general/UserIcon';
 import FallbackIcon from '@/components/general/FallbackIcon';
+import UserIcon from '@/components/general/UserIcon';
 
 type ChatRoomIconProps = {
   chatRoomId: string;
@@ -30,6 +30,7 @@ const ChatRoomIcon = ({
       />
     ) : (
       <UserIcon
+        className={className}
         title={firstParticipant?.username}
         colorClass={firstParticipant?.color_class}
         src={firstParticipant?.profile_image}

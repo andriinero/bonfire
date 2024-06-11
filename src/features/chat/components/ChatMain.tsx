@@ -1,9 +1,9 @@
-import ChatMessageInput from './ChatMessageInput';
 import MessageList from '../../messages/components/MessageList';
+import ChatMessageInput from './ChatMessageInput';
 
 const ChatMain = () => {
   return (
-    <main className="row-span-2 flex h-full flex-col">
+    <main className="flex flex-1 flex-col overflow-y-auto">
       <MessageList />
       <ChatMessageInput />
     </main>

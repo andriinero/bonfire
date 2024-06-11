@@ -18,7 +18,7 @@ const FallbackIcon = ({
   return (
     <div
       className={cn(
-        'flex size-10 items-center justify-center rounded-full text-2xl font-semibold text-amber-50',
+        'flex size-10 shrink-0 items-center justify-center rounded-full text-2xl font-semibold text-amber-50',
         'bg-' + colorClass,
         className,
         {

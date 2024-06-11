@@ -1,17 +1,18 @@
 import cn from '@/utils/cn';
 
 import type { ComponentProps } from 'react';
+
 import FallbackIcon from './FallbackIcon';
 
 type UserIconProps = {
   title?: string;
   colorClass?: string;
-  src?: string;
   isOnline?: boolean;
   style?: 'xs' | 'md' | 'lg';
 } & ComponentProps<'img'>;
 
 const UserIcon = ({
+  className,
   title = '?',
   colorClass = 'amber-400',
   src,
@@ -23,7 +24,8 @@ const UserIcon = ({
     <div className="relative">
       <div
         className={cn(
-          'invisible absolute ml-6 size-4 select-none rounded-full border-2 border-white bg-green-400',
+          'invisible absolute ml-6 size-4 shrink-0 select-none rounded-full border-2 border-white bg-green-400',
+          className,
           { visible: isOnline },
           { 'ml-8': style === 'lg' },
         )}
@@ -32,7 +34,8 @@ const UserIcon = ({
         <img
           src={src}
           className={cn(
-            'size-10 select-none rounded-full object-cover text-gray-400',
+            'select-none rounded-full object-cover text-gray-400',
+            className,
             {
               'size-6': style === 'xs',
               'size-10': style === 'md',

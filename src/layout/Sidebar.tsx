@@ -10,7 +10,7 @@ const Sidebar = () => {
   const authData = useAppSelector(selectAuthData);
 
   return (
-    <aside className="text row-start-1 row-end-3 flex h-dvh border-r">
+    <aside className="text hidden w-full max-w-md flex-col border-r sm:flex sm:flex-row">
       <div className="flex flex-col items-center justify-between border-r px-2 py-4">
         <NavControls />
         <UserIcon

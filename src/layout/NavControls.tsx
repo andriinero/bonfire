@@ -24,8 +24,8 @@ const NavControls = () => {
   const isContactsSelected = pathEnd === 'contacts';
 
   return (
-    <nav className="">
-      <ul role="tablist" className="space-y-1">
+    <nav className="w-full px-4 sm:px-0">
+      <ul role="tablist" className="flex justify-around sm:flex-col sm:gap-2">
         <li>
           <AppLink
             to={Paths.Home.BASE + Paths.Home.CHATS}

@@ -27,7 +27,7 @@ const Home = () => {
   }, [isSuccess, chatRoomsList, dispatch]);
 
   return (
-    <div className="grid max-h-dvh grid-cols-[minmax(auto,28rem),1fr] grid-rows-[minmax(5rem,auto),1fr]">
+    <div className="flex h-dvh flex-col-reverse sm:flex-row">
       <Sidebar />
       {selectedChatId ? (
         <Chat selectedChatId={selectedChatId} />
