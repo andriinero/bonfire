@@ -46,7 +46,11 @@ const UserIcon = ({
           {...otherProps}
         />
       ) : (
-        <FallbackIcon title={title} colorClass={colorClass} />
+        <FallbackIcon
+          className={className}
+          title={title}
+          colorClass={colorClass}
+        />
       )}
     </div>
   );

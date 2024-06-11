@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 
 import { pushNotificationRemoved } from '../pushNotificationsSlice';
 
-const NOTIFICATION_UNMOUNT_TIMER = 500000;
+const NOTIFICATION_UNMOUNT_TIMER = 5000;
 
 const useNotificationDismiss = (id: string) => {
   const dispatch = useAppDispatch();

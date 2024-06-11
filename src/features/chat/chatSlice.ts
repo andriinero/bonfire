@@ -5,10 +5,12 @@ import type { RootState } from '@/app/store';
 
 type ChatState = {
   selectedChatId?: string;
+  isSidebarOpen: boolean;
 };
 
 const initialState: ChatState = {
   selectedChatId: undefined,
+  isSidebarOpen: true,
 };
 
 const chatSlice = createSlice({
@@ -22,12 +24,26 @@ const chatSlice = createSlice({
     selectedChatCleared: (state) => {
       state.selectedChatId = undefined;
     },
+    sidebarOpened: (state) => {
+      state.isSidebarOpen = true;
+    },
+    sidebarClosed: (state) => {
+      state.isSidebarOpen = false;
+    },
   },
 });
 
-export const { selectedChatIdSet, selectedChatCleared } = chatSlice.actions;
+export const {
+  selectedChatIdSet,
+  selectedChatCleared,
+  sidebarOpened,
+  sidebarClosed,
+} = chatSlice.actions;
 
 export default chatSlice;
 
 export const selectSelectedChatId = (state: RootState) =>
   state.chat.selectedChatId;
+
+export const selectIsSidebarOpen = (state: RootState) =>
+  state.chat.isSidebarOpen;

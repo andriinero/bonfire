@@ -29,6 +29,7 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
       initial={SlideIn.initial}
       animate={SlideIn.animate}
       transition={SlideIn.transition}
+      exit={SlideIn.exit}
       className={cn(
         'flex items-center justify-between rounded-md p-4 text-sm shadow-md',
         {
