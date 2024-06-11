@@ -24,13 +24,13 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   const type = notification?.type;
 
   return notification ? (
-    <motion.div
+    <motion.li
       key={id}
       initial={SlideIn.initial}
       animate={SlideIn.animate}
       transition={SlideIn.transition}
       className={cn(
-        'flex items-center justify-between gap-8 rounded-md p-4 text-sm shadow',
+        'flex items-center justify-between rounded-md p-4 text-sm shadow-md',
         {
           'bg-red-50': type === PushNotificationType.ERROR,
           'bg-green-50': type === PushNotificationType.SUCCESS,
@@ -38,19 +38,21 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
         },
       )}
     >
-      <div className="flex items-center gap-3">
-        <NotificationStatusIcon type={notification.type} />
-        <NotificationBody
-          type={notification.type}
-          body={notification.body}
-          list={notification.list}
-        />
+      <div className="flex w-full items-center justify-between gap-8">
+        <div className="flex items-center gap-2">
+          <NotificationStatusIcon type={notification.type} />
+          <NotificationBody
+            type={notification.type}
+            body={notification.body}
+            list={notification.list}
+          />
+        </div>
         <NotificationCrossIcon
           type={notification.type}
           onCrossClick={handleNotificationDismiss}
         />
       </div>
-    </motion.div>
+    </motion.li>
   ) : (
     <></>
   );

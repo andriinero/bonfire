@@ -6,7 +6,6 @@ import { selectIsSignedIn } from '@/features/auth/authSlice';
 
 import AppLogo from '@/components/general/AppLogo';
 import SignInPanel from '@/features/auth/components/SignInPanel';
-import { Analytics } from '@vercel/analytics/react';
 import { Navigate } from 'react-router-dom';
 
 const SignIn = () => {
@@ -16,7 +15,6 @@ const SignIn = () => {
 
   return (
     <div className="flex min-h-dvh items-center justify-center sm:bg-gray-100">
-      <Analytics />
       <main className="w-full max-w-lg space-y-8">
         <AppLogo />
         <h1 className="text-center text-2xl font-bold tracking-tight text-gray-900">

@@ -1,26 +1,27 @@
 import { useAppDispatch } from '@/app/hooks';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { pushNotificationRemoved } from '../pushNotificationsSlice';
 
-const NOTIFICATION_UNMOUNT_TIMER = 5000;
+const NOTIFICATION_UNMOUNT_TIMER = 500000;
 
 const useNotificationDismiss = (id: string) => {
   const dispatch = useAppDispatch();
 
+  const handleNotificationDismiss = useCallback((): void => {
+    dispatch(pushNotificationRemoved(id));
+  }, [id, dispatch]);
+
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      dispatch(pushNotificationRemoved(id));
-    }, NOTIFICATION_UNMOUNT_TIMER);
+    const timeout = setTimeout(
+      handleNotificationDismiss,
+      NOTIFICATION_UNMOUNT_TIMER,
+    );
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [id, dispatch]);
-
-  const handleNotificationDismiss = (): void => {
-    dispatch(pushNotificationRemoved(id));
-  };
+  }, [id, handleNotificationDismiss, dispatch]);
 
   return { handleNotificationDismiss };
 };
