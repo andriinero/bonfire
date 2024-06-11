@@ -8,6 +8,7 @@ import ChatLoader from './ChatLoader';
 import ChatMain from './ChatMain';
 import cn from '@/utils/cn';
 import ChatDrawer from './ChatDrawer';
+import { AnimatePresence } from 'framer-motion';
 
 type ChatProps = { selectedChatId: string };
 
@@ -28,7 +29,9 @@ const Chat = ({ selectedChatId }: ChatProps) => {
         <>
           <ChatHeader />
           <ChatMain />
-          {isChatDrawerOpen && <ChatDrawer />}
+          <AnimatePresence>
+            {isChatDrawerOpen && <ChatDrawer />}
+          </AnimatePresence>
         </>
       )}
     </div>

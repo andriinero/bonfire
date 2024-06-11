@@ -8,7 +8,7 @@ import UserIcon from '@/components/general/UserIcon';
 
 type ChatRoomIconProps = {
   chatRoomId: string;
-  style?: 'xs' | 'md' | 'lg';
+  style?: 'xs' | 'md' | 'lg' | 'xl';
   className?: string;
 };
 
@@ -27,6 +27,7 @@ const ChatRoomIcon = ({
         title={chatRoom?.name}
         colorClass={chatRoom?.color_class}
         className={className}
+        style={style}
       />
     ) : (
       <UserIcon

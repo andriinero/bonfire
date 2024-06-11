@@ -8,7 +8,7 @@ type UserIconProps = {
   title?: string;
   colorClass?: string;
   isOnline?: boolean;
-  style?: 'xs' | 'md' | 'lg';
+  style?: 'xs' | 'md' | 'lg' | 'xl';
 } & ComponentProps<'img'>;
 
 const UserIcon = ({
@@ -28,6 +28,7 @@ const UserIcon = ({
           className,
           { visible: isOnline },
           { 'ml-8': style === 'lg' },
+          { 'ml-14 size-5': style === 'xl' },
         )}
       />
       {src ? (
@@ -40,6 +41,7 @@ const UserIcon = ({
               'size-6': style === 'xs',
               'size-10': style === 'md',
               'size-12': style === 'lg',
+              'size-20': style === 'xl',
             },
           )}
           alt="User Icon"

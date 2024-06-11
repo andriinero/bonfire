@@ -5,6 +5,7 @@ import useInitAndUpdateChatLoadingState from '../hooks/useInitAndUpdateChatLoadi
 import cn from '@/utils/cn';
 
 import {
+  chatDrawerClosed,
   selectSelectedChatId,
   selectedChatIdSet,
   sidebarClosed,
@@ -34,6 +35,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
   const handleChatClick = (): void => {
     dispatch(selectedChatIdSet(chatId));
     dispatch(sidebarClosed());
+    dispatch(chatDrawerClosed());
   };
 
   const isChatRoomSelected = selectedChatId === chatId;
@@ -58,7 +60,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
           </div>
           <div className="flex grow justify-between gap-2">
             <div className="flex flex-col justify-between">
-              <ChatTitle chatId={chatId} />
+              <ChatTitle chatRoomId={chatId} />
               <div className="flex items-center gap-1 text-sm text-gray-500">
                 {lastMessage ? (
                   <>

@@ -37,9 +37,9 @@ const ChatHeader = () => {
         </IconButton>
         <ChatRoomIcon className="shrink-0" chatRoomId={selectedChatId} />
         <div>
-          <ChatTitle chatId={selectedChatId} />
+          <ChatTitle chatRoomId={selectedChatId} />
           <p className="text-sm text-gray-500">
-            <ChatOnlineStatus id={selectedChatId} />
+            <ChatOnlineStatus chatRoomId={selectedChatId} />
           </p>
         </div>
       </div>

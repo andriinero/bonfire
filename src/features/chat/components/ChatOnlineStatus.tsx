@@ -3,12 +3,12 @@ import useChatRoomOnlineStatus from '@/features/chatRooms/hooks/useChatRoomOnlin
 import cn from '@/utils/cn';
 
 type ChatOnlineStatusProps = {
-  id: string;
+  chatRoomId: string;
   className?: string;
 };
 
-const ChatOnlineStatus = ({ id, className }: ChatOnlineStatusProps) => {
-  const status = useChatRoomOnlineStatus(id);
+const ChatOnlineStatus = ({ chatRoomId, className }: ChatOnlineStatusProps) => {
+  const status = useChatRoomOnlineStatus(chatRoomId);
 
   return <span className={cn('', className)}>{status}</span>;
 };

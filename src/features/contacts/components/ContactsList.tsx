@@ -16,7 +16,7 @@ const ContactsList = () => {
   const isDataLoading = isFetching || isLoading;
 
   return (
-    <div className="overflow-y-auto p-4">
+    <div className="overflow-y-auto p-4 py-0 sm:p-4">
       {isDataLoading ? (
         <Spinner />
       ) : isSuccess ? (

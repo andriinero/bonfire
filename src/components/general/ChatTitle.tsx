@@ -7,15 +7,23 @@ import { selectAuthUserId } from '@/features/auth/authSlice';
 import { selectChatRoomById } from '@/features/chatRooms/chatRoomsSlice';
 import { selectParticipantsByChatId } from '@/features/participants/participantsSlice';
 
+import type { ComponentPropsWithoutRef } from 'react';
+
 const MAX_NAMES_IN_TITLE = 2;
 
-type ChatTitleProps = { chatId: string; className?: string };
+type ChatTitleProps = { chatRoomId: string } & ComponentPropsWithoutRef<'h3'>;
 
-const ChatTitle = ({ chatId, className }: ChatTitleProps) => {
+const ChatTitle = ({
+  chatRoomId,
+  className,
+  ...otherProps
+}: ChatTitleProps) => {
   const [title, setTitle] = useState<string>();
   const authUserId = useAppSelector(selectAuthUserId);
-  const chat = useAppSelector(selectChatRoomById(chatId));
-  const chatParticipants = useAppSelector(selectParticipantsByChatId(chatId));
+  const chat = useAppSelector(selectChatRoomById(chatRoomId));
+  const chatParticipants = useAppSelector(
+    selectParticipantsByChatId(chatRoomId),
+  );
 
   useEffect(() => {
     if (!chat?.name) {
@@ -37,7 +45,9 @@ const ChatTitle = ({ chatId, className }: ChatTitleProps) => {
   }, [chat, chatParticipants, authUserId]);
 
   return (
-    <h3 className={cn('font-medium text-gray-800', className)}>{title}</h3>
+    <h3 className={cn('font-medium text-gray-800', className)} {...otherProps}>
+      {title}
+    </h3>
   );
 };
 

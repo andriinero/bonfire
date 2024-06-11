@@ -1,3 +1,4 @@
+import useInitHome from '@/hooks/useInitHome';
 import useChatRoomInfiniteScroll from '../hooks/useChatRoomInfiniteScroll';
 
 import { useGetChatRoomsQuery } from '../chatRoomsSlice';
@@ -7,7 +8,6 @@ import ListPlaceholder from '@/components/general/ListPlaceholder';
 import Spinner from '@/components/general/Spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ChatRoomItem from './ChatRoomItem';
-import useInitHome from '@/hooks/useInitHome';
 
 const ChatRoomList = () => {
   const { isLoading, isFetching, isSuccess } = useInitHome();
@@ -17,7 +17,7 @@ const ChatRoomList = () => {
   const isDataLoading = isFetching || isLoading;
 
   return (
-    <div className="overflow-y-auto p-4">
+    <div className="overflow-y-auto p-4 py-0 sm:p-4">
       {isDataLoading ? (
         <Spinner />
       ) : isSuccess ? (

@@ -6,7 +6,7 @@ import cn from '@/utils/cn';
 
 import { selectPushNotificationById } from '../pushNotificationsSlice';
 
-import { SlideIn } from '@/styles/animations/SlideIn';
+import { NotificationSlideIn } from '@/styles/animations/SlideIn';
 import { PushNotificationType } from '@/types/PushNotification';
 
 import NotificationBody from './NotificationBody';
@@ -26,10 +26,10 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   return notification ? (
     <motion.li
       key={id}
-      initial={SlideIn.initial}
-      animate={SlideIn.animate}
-      transition={SlideIn.transition}
-      exit={SlideIn.exit}
+      initial={NotificationSlideIn.initial}
+      animate={NotificationSlideIn.animate}
+      transition={NotificationSlideIn.transition}
+      exit={NotificationSlideIn.exit}
       className={cn(
         'flex items-center justify-between rounded-md p-4 text-sm shadow-md',
         {
