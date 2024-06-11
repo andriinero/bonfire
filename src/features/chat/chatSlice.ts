@@ -1,14 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { apiSlice } from '../api/apiSlice';
+
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/app/store';
-import { apiSlice } from '../api/apiSlice';
 
 type ChatState = {
   selectedChatId?: string;
   isSidebarOpen: boolean;
   isChatDrawerOpen: boolean;
   isAddParticipantFormOpen: boolean;
+  isDeleteChatRoomFormOpen: boolean;
 };
 
 const initialState: ChatState = {
@@ -16,6 +18,7 @@ const initialState: ChatState = {
   isSidebarOpen: true,
   isChatDrawerOpen: false,
   isAddParticipantFormOpen: false,
+  isDeleteChatRoomFormOpen: false,
 };
 
 const chatSlice = createSlice({
@@ -47,6 +50,12 @@ const chatSlice = createSlice({
     addParticipantFormClosed: (state) => {
       state.isAddParticipantFormOpen = false;
     },
+    deleteChatRoomFormOpened: (state) => {
+      state.isDeleteChatRoomFormOpen = true;
+    },
+    deleteChatRoomFormClosed: (state) => {
+      state.isDeleteChatRoomFormOpen = false;
+    },
   },
 });
 
@@ -62,6 +71,13 @@ export const chatApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    deleteChatRoom: builder.mutation<void, { chatRoomId: string }>({
+      query: ({ chatRoomId }) => ({
+        url: `/chat-rooms/${chatRoomId}/participants`,
+        method: 'DELETE',
+        body: { chatRoomId },
+      }),
+    }),
   }),
 });
 
@@ -74,9 +90,12 @@ export const {
   chatDrawerClosed,
   addParticipantFormOpened,
   addParticipantFormClosed,
+  deleteChatRoomFormOpened,
+  deleteChatRoomFormClosed,
 } = chatSlice.actions;
 
-export const { usePostParticipantMutation } = chatApiSlice;
+export const { usePostParticipantMutation, useDeleteChatRoomMutation } =
+  chatApiSlice;
 
 export default chatSlice;
 
@@ -91,3 +110,6 @@ export const selectIsChatDrawerOpen = (state: RootState) =>
 
 export const selectIsAddParticiapntFormOpen = (state: RootState) =>
   state.chat.isAddParticipantFormOpen;
+
+export const selectIsDeleteChatRoomFormOpen = (state: RootState) =>
+  state.chat.isDeleteChatRoomFormOpen;

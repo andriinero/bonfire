@@ -4,7 +4,10 @@ import {
   addParticipantFormClosed,
   addParticipantFormOpened,
   chatDrawerClosed,
+  deleteChatRoomFormClosed,
+  deleteChatRoomFormOpened,
   selectIsAddParticiapntFormOpen,
+  selectIsDeleteChatRoomFormOpen,
   selectSelectedChatId,
 } from '../chatSlice';
 
@@ -17,8 +20,12 @@ import ChatRoomIcon from '@/features/chatRooms/components/ChatRoomIcon';
 import { FaTrash, FaUserPlus, FaXmark } from 'react-icons/fa6';
 import ChatOnlineStatus from './ChatOnlineStatus';
 import ChatAddParticipantForm from './ChatAddParticipantForm';
+import ChatDeleteChatRoomForm from './ChatDeleteChatRoomForm';
 
 const ChatDrawer = () => {
+  const isDeleteChatRoomFormOpen = useAppSelector(
+    selectIsDeleteChatRoomFormOpen,
+  );
   const isAddParticipantFormOpen = useAppSelector(
     selectIsAddParticiapntFormOpen,
   );
@@ -26,12 +33,20 @@ const ChatDrawer = () => {
 
   const dispatch = useAppDispatch();
 
+  const handleCloseDeleteChatRoomForm = (): void => {
+    dispatch(deleteChatRoomFormClosed());
+  };
+
   const handleCloseChatDrawerClick = (): void => {
     dispatch(chatDrawerClosed());
   };
 
   const handleAddParticipantFormClick = (): void => {
     dispatch(addParticipantFormOpened());
+  };
+
+  const handleDeleteChatRoomClick = (): void => {
+    dispatch(deleteChatRoomFormOpened());
   };
 
   return (
@@ -72,6 +87,7 @@ const ChatDrawer = () => {
         <IconButton
           aria-label="Delete Chat"
           className="bg-gray-100 text-red-700"
+          onClick={handleDeleteChatRoomClick}
         >
           <FaTrash size="1rem" />
         </IconButton>
@@ -83,6 +99,12 @@ const ChatDrawer = () => {
         }}
       >
         <ChatAddParticipantForm />
+      </Modal>
+      <Modal
+        isOpen={isDeleteChatRoomFormOpen}
+        onModalClick={handleCloseDeleteChatRoomForm}
+      >
+        <ChatDeleteChatRoomForm onCloseClick={handleCloseDeleteChatRoomForm} />
       </Modal>
     </motion.div>
   );
