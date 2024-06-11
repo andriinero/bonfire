@@ -19,7 +19,7 @@ const Sidebar = () => {
         { flex: isSidebarOpen },
       )}
     >
-      <div className="flex flex-col items-center justify-between px-2 py-4 sm:border-r">
+      <div className="flex flex-col items-center justify-between border-t px-2 py-2 sm:border-r sm:py-4">
         <NavControls />
         <UserIcon
           className="hidden sm:flex"

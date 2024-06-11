@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useAppDispatch } from './app/hooks';
+import { useAppDispatch, useAppSelector } from './app/hooks';
 import useSocketConnection from './hooks/useSocketConnection';
 
 import {
@@ -10,10 +10,14 @@ import {
 import { Analytics } from '@vercel/analytics/react';
 import Router from './Router';
 import PushNotificationList from './features/pushNotifications/components/PushNotificationList';
+import { selectHasPushNotifications } from './features/pushNotifications/pushNotificationsSlice';
 
 const App = () => {
   useSocketConnection();
   useGetAuthDataQuery();
+
+  const hasPushNotifications = useAppSelector(selectHasPushNotifications);
+
   const dispatch = useAppDispatch();
 
   useMemo(() => {
@@ -24,7 +28,7 @@ const App = () => {
     <>
       <Analytics />
       <Router />
-      <PushNotificationList />
+      {hasPushNotifications && <PushNotificationList />}
     </>
   );
 };

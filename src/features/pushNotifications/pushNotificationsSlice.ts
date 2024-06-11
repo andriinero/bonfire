@@ -57,6 +57,9 @@ export const {
 
 export default pushNotificationsSlice;
 
+export const selectHasPushNotifications = (state: RootState) =>
+  state.pushNotifications.notificationsList.length > 0;
+
 export const selectPushNotificationsList = (state: RootState) =>
   state.pushNotifications.notificationsList;
 

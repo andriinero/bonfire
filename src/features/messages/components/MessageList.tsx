@@ -21,7 +21,7 @@ const MessageList = () => {
       <ul
         id="message-list"
         ref={listRef}
-        className="flex h-full flex-col-reverse gap-6 overflow-y-auto p-4"
+        className="flex h-full flex-col-reverse gap-6 overflow-y-auto p-2 sm:p-4"
       >
         <InfiniteScroll
           className="flex h-full flex-col-reverse gap-6 p-4"

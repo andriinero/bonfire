@@ -1,6 +1,10 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
-import { selectSelectedChatId, sidebarOpened } from '../chatSlice';
+import {
+  chatDrawerOpened,
+  selectSelectedChatId,
+  sidebarOpened,
+} from '../chatSlice';
 
 import ChatTitle from '@/components/general/ChatTitle';
 import IconButton from '@/components/general/IconButton';
@@ -17,8 +21,12 @@ const ChatHeader = () => {
     dispatch(sidebarOpened());
   };
 
+  const handleOpenChatDrawerClick = (): void => {
+    dispatch(chatDrawerOpened());
+  };
+
   return (
-    <header className="flex items-center justify-between gap-16 border-b p-4 shadow-[0_2px_4px_-2px_rgb(0,0,0,0.1)]">
+    <header className="flex items-center justify-between gap-16 border-b p-3 shadow-[0_2px_4px_-2px_rgb(0,0,0,0.1)] sm:p-4">
       <div className="flex items-center gap-2">
         <IconButton
           onClick={handleOpenSidebarClick}
@@ -35,7 +43,11 @@ const ChatHeader = () => {
           </p>
         </div>
       </div>
-      <IconButton aria-label="chat-options" className="text-amber-500">
+      <IconButton
+        onClick={handleOpenChatDrawerClick}
+        aria-label="chat-options"
+        className="text-amber-500"
+      >
         <FaEllipsis />
       </IconButton>
     </header>
