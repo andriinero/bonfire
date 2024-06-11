@@ -2,17 +2,20 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/app/store';
+import { apiSlice } from '../api/apiSlice';
 
 type ChatState = {
   selectedChatId?: string;
   isSidebarOpen: boolean;
   isChatDrawerOpen: boolean;
+  isAddParticipantFormOpen: boolean;
 };
 
 const initialState: ChatState = {
   selectedChatId: undefined,
   isSidebarOpen: true,
   isChatDrawerOpen: false,
+  isAddParticipantFormOpen: false,
 };
 
 const chatSlice = createSlice({
@@ -38,7 +41,28 @@ const chatSlice = createSlice({
     chatDrawerClosed: (state) => {
       state.isChatDrawerOpen = false;
     },
+    addParticipantFormOpened: (state) => {
+      state.isAddParticipantFormOpen = true;
+    },
+    addParticipantFormClosed: (state) => {
+      state.isAddParticipantFormOpen = false;
+    },
   },
+});
+
+export const chatApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    postParticipant: builder.mutation<
+      void,
+      { chatRoomId: string; body: { participantUsername: string } }
+    >({
+      query: ({ chatRoomId, body }) => ({
+        url: `/chat-rooms/${chatRoomId}/participants`,
+        method: 'POST',
+        body,
+      }),
+    }),
+  }),
 });
 
 export const {
@@ -48,7 +72,11 @@ export const {
   sidebarClosed,
   chatDrawerOpened,
   chatDrawerClosed,
+  addParticipantFormOpened,
+  addParticipantFormClosed,
 } = chatSlice.actions;
+
+export const { usePostParticipantMutation } = chatApiSlice;
 
 export default chatSlice;
 
@@ -60,3 +88,6 @@ export const selectIsSidebarOpen = (state: RootState) =>
 
 export const selectIsChatDrawerOpen = (state: RootState) =>
   state.chat.isChatDrawerOpen;
+
+export const selectIsAddParticiapntFormOpen = (state: RootState) =>
+  state.chat.isAddParticipantFormOpen;

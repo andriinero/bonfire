@@ -1,21 +1,37 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { motion } from 'framer-motion';
-import { chatDrawerClosed, selectSelectedChatId } from '../chatSlice';
+import {
+  addParticipantFormClosed,
+  addParticipantFormOpened,
+  chatDrawerClosed,
+  selectIsAddParticiapntFormOpen,
+  selectSelectedChatId,
+} from '../chatSlice';
+
+import { DrawerSlideIn } from '@/styles/animations/SlideIn';
 
 import ChatTitle from '@/components/general/ChatTitle';
 import IconButton from '@/components/general/IconButton';
+import Modal from '@/components/general/Modal';
 import ChatRoomIcon from '@/features/chatRooms/components/ChatRoomIcon';
 import { FaTrash, FaUserPlus, FaXmark } from 'react-icons/fa6';
-import { DrawerSlideIn } from '@/styles/animations/SlideIn';
 import ChatOnlineStatus from './ChatOnlineStatus';
+import ChatAddParticipantForm from './ChatAddParticipantForm';
 
 const ChatDrawer = () => {
+  const isAddParticipantFormOpen = useAppSelector(
+    selectIsAddParticiapntFormOpen,
+  );
   const selectedChatId = useAppSelector(selectSelectedChatId)!;
 
   const dispatch = useAppDispatch();
 
   const handleCloseChatDrawerClick = (): void => {
     dispatch(chatDrawerClosed());
+  };
+
+  const handleAddParticipantFormClick = (): void => {
+    dispatch(addParticipantFormOpened());
   };
 
   return (
@@ -46,7 +62,11 @@ const ChatDrawer = () => {
         </div>
       </div>
       <div className="flex justify-center gap-6">
-        <IconButton aria-label="Add Chat Participant" className="bg-gray-100">
+        <IconButton
+          aria-label="Add Chat Participant"
+          className="bg-gray-100"
+          onClick={handleAddParticipantFormClick}
+        >
           <FaUserPlus size="1rem" />
         </IconButton>
         <IconButton
@@ -56,6 +76,14 @@ const ChatDrawer = () => {
           <FaTrash size="1rem" />
         </IconButton>
       </div>
+      <Modal
+        isOpen={isAddParticipantFormOpen}
+        onModalClick={() => {
+          dispatch(addParticipantFormClosed());
+        }}
+      >
+        <ChatAddParticipantForm />
+      </Modal>
     </motion.div>
   );
 };
