@@ -8,6 +8,7 @@ import {
 } from './features/auth/authSlice';
 
 import Router from './Router';
+import PushNotificationList from './features/pushNotifications/components/PushNotificationList';
 
 const App = () => {
   useSocketConnection();
@@ -18,7 +19,12 @@ const App = () => {
     dispatch(tokenInitialized());
   }, [dispatch]);
 
-  return <Router />;
+  return (
+    <>
+      <Router />
+      <PushNotificationList />
+    </>
+  );
 };
 
 export default App;

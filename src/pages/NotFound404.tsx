@@ -1,15 +1,11 @@
-import usePageUnmountNotificationsClear from '@/features/pushNotifications/hooks/usePageNotificationsClear';
-
 import Paths from '@/constants/Paths';
 
 import AppLink from '@/components/general/AppLink';
 import AppLogo from '@/components/general/AppLogo';
-import { FaArrowLeft } from 'react-icons/fa6';
 import PushNotificationList from '@/features/pushNotifications/components/PushNotificationList';
+import { FaArrowLeft } from 'react-icons/fa6';
 
 const NotFound404 = () => {
-  usePageUnmountNotificationsClear();
-
   return (
     <div className="grid h-dvh grid-rows-3">
       <header className="p-8">
