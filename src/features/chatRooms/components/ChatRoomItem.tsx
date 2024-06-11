@@ -1,19 +1,15 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import useChatLastMessage from '@/features/messages/hooks/useChatLastMessage';
-import useInitChat from '@/hooks/useInitChat';
-import { useEffect } from 'react';
+import useInitAndUpdateChatLoadingState from '../hooks/useInitAndUpdateChatLoadingState';
 
 import cn from '@/utils/cn';
 
 import {
   selectSelectedChatId,
   selectedChatIdSet,
+  sidebarClosed,
 } from '@/features/chat/chatSlice';
-import {
-  chatRoomLoadingFinished,
-  chatRoomLoadingStarted,
-  selectIsChatRoomsLoading,
-} from '../chatRoomsSlice';
+import { selectIsChatRoomsLoading } from '../chatRoomsSlice';
 
 import ChatTitle from '@/components/general/ChatTitle';
 import DotDivider from '@/components/general/DotDivider';
@@ -27,7 +23,7 @@ type ChatRoomItemProps = {
 };
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
-  const { isError, isSuccess, isLoading } = useInitChat(chatId);
+  useInitAndUpdateChatLoadingState(chatId);
 
   const isChatRoomsLoading = useAppSelector(selectIsChatRoomsLoading);
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
@@ -37,11 +33,8 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
 
   const handleChatClick = (): void => {
     dispatch(selectedChatIdSet(chatId));
+    dispatch(sidebarClosed());
   };
-  useEffect(() => {
-    if (isSuccess || isError) dispatch(chatRoomLoadingFinished(chatId));
-    if (isLoading) dispatch(chatRoomLoadingStarted(chatId));
-  }, [isSuccess, isError, isLoading, chatId, dispatch]);
 
   const isChatRoomSelected = selectedChatId === chatId;
 
@@ -51,7 +44,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
         'flex min-h-16 cursor-pointer gap-4 rounded-lg p-2 transition',
         {
           'hover:bg-gray-50': !isChatRoomSelected,
-          'bg-gray-100': isChatRoomSelected,
+          'sm:bg-gray-100': isChatRoomSelected,
         },
       )}
       onClick={handleChatClick}

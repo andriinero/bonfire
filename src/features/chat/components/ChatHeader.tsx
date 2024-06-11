@@ -1,6 +1,6 @@
-import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
-import { selectSelectedChatId } from '../chatSlice';
+import { selectSelectedChatId, sidebarOpened } from '../chatSlice';
 
 import ChatTitle from '@/components/general/ChatTitle';
 import IconButton from '@/components/general/IconButton';
@@ -11,10 +11,17 @@ import ChatOnlineStatus from './ChatOnlineStatus';
 const ChatHeader = () => {
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
 
+  const dispatch = useAppDispatch();
+
+  const handleOpenSidebarClick = (): void => {
+    dispatch(sidebarOpened());
+  };
+
   return (
     <header className="flex items-center justify-between gap-16 border-b p-4 shadow-[0_2px_4px_-2px_rgb(0,0,0,0.1)]">
       <div className="flex items-center gap-2">
         <IconButton
+          onClick={handleOpenSidebarClick}
           aria-label="chat-options"
           className="p-0 text-amber-500 sm:hidden"
         >
