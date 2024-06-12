@@ -122,7 +122,7 @@ const SignInPanel = () => {
           <span>Google</span>
         </Button>
         <Button
-          className="flex gap-2 p-0 font-semibold "
+          className="gap-2 font-semibold "
           type="button"
           style="hollow"
           onClick={handleGuestSignIn}

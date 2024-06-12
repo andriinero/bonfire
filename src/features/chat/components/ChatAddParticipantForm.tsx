@@ -12,6 +12,8 @@ import {
   usePostParticipantMutation,
 } from '../chatSlice';
 
+import type { MouseEventHandler } from 'react';
+
 import Form from '@/components/form/Form';
 import FormTitle from '@/components/form/FormTitle';
 import InputLabel from '@/components/form/InputLabel';
@@ -30,7 +32,11 @@ const AddParticipantSchema = z.object({
 });
 type TAddParticipantBody = z.infer<typeof AddParticipantSchema>;
 
-const ChatAddParticipantForm = () => {
+type ChatAddParticipantFormProps = { onCloseClick: MouseEventHandler };
+
+const ChatAddParticipantForm = ({
+  onCloseClick,
+}: ChatAddParticipantFormProps) => {
   const {
     handleSubmit,
     register,
@@ -42,10 +48,6 @@ const ChatAddParticipantForm = () => {
   const selectedChatId = useAppSelector(selectSelectedChatId)!;
   const [postParticipant] = usePostParticipantMutation();
   const dispatch = useAppDispatch();
-
-  const onCloseClick = (): void => {
-    dispatch(addParticipantFormClosed());
-  };
 
   const handleFormSubmit = async (data: TAddParticipantBody): Promise<void> => {
     try {
