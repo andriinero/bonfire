@@ -1,11 +1,12 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
-import { chatDrawerOpened } from '@/features/drawer/drawerSlice';
+import { drawerOpened } from '@/features/drawer/drawerSlice';
 import { selectSelectedChatId, sidebarOpened } from '../chatSlice';
 
 import ChatTitle from '@/components/general/ChatTitle';
 import IconButton from '@/components/general/IconButton';
 import ChatRoomIcon from '@/features/chatRooms/components/ChatRoomIcon';
+import { DrawerPanelType } from '@/features/drawer/types/DrawerPanel';
 import { FaChevronLeft, FaEllipsis } from 'react-icons/fa6';
 import ChatOnlineStatus from './ChatOnlineStatus';
 
@@ -19,7 +20,7 @@ const ChatHeader = () => {
   };
 
   const handleOpenChatDrawerClick = (): void => {
-    dispatch(chatDrawerOpened());
+    dispatch(drawerOpened(DrawerPanelType.CHAT));
   };
 
   return (

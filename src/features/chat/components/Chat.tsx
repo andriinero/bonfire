@@ -6,8 +6,8 @@ import cn from '@/utils/cn';
 import { selectIsChatDrawerOpen } from '@/features/drawer/drawerSlice';
 import { selectIsSidebarOpen } from '../chatSlice';
 
+import Drawer from '@/features/drawer/components/Drawer';
 import { AnimatePresence } from 'framer-motion';
-import ChatDrawer from './ChatDrawer';
 import ChatHeader from './ChatHeader';
 import ChatLoader from './ChatLoader';
 import ChatMain from './ChatMain';
@@ -31,9 +31,7 @@ const Chat = ({ selectedChatId }: ChatProps) => {
         <>
           <ChatHeader />
           <ChatMain />
-          <AnimatePresence>
-            {isChatDrawerOpen && <ChatDrawer />}
-          </AnimatePresence>
+          <AnimatePresence>{isChatDrawerOpen && <Drawer />}</AnimatePresence>
         </>
       )}
     </div>

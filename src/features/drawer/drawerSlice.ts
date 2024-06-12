@@ -1,15 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { RootState } from '@/app/store';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { DrawerPanelType } from './types/DrawerPanel';
 
 type DrawerState = {
-  isChatDrawerOpen: boolean;
+  currentDrawerPanelType: DrawerPanelType | null;
   isAddParticipantFormOpen: boolean;
   isDeleteChatRoomFormOpen: boolean;
 };
 
 const initialState: DrawerState = {
-  isChatDrawerOpen: false,
+  currentDrawerPanelType: null,
   isAddParticipantFormOpen: false,
   isDeleteChatRoomFormOpen: false,
 };
@@ -18,11 +20,14 @@ const drawerSlice = createSlice({
   name: 'drawer',
   initialState,
   reducers: {
-    chatDrawerOpened: (state) => {
-      state.isChatDrawerOpen = true;
+    drawerOpened: (
+      state,
+      { payload: newPanelType }: PayloadAction<DrawerPanelType>,
+    ) => {
+      state.currentDrawerPanelType = newPanelType;
     },
-    chatDrawerClosed: (state) => {
-      state.isChatDrawerOpen = false;
+    drawerClosed: (state) => {
+      state.currentDrawerPanelType = null;
     },
     addParticipantFormOpened: (state) => {
       state.isAddParticipantFormOpen = true;
@@ -40,8 +45,8 @@ const drawerSlice = createSlice({
 });
 
 export const {
-  chatDrawerOpened,
-  chatDrawerClosed,
+  drawerOpened,
+  drawerClosed,
   addParticipantFormOpened,
   addParticipantFormClosed,
   deleteChatRoomFormOpened,
@@ -50,8 +55,11 @@ export const {
 
 export default drawerSlice;
 
+export const selectCurrentDrawerPanelType = (state: RootState) =>
+  state.drawer.currentDrawerPanelType;
+
 export const selectIsChatDrawerOpen = (state: RootState) =>
-  state.drawer.isChatDrawerOpen;
+  state.drawer.currentDrawerPanelType !== null;
 
 export const selectIsAddParticiapntFormOpen = (state: RootState) =>
   state.drawer.isAddParticipantFormOpen;

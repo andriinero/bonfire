@@ -1,10 +1,8 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { motion } from 'framer-motion';
 
 import {
   addParticipantFormClosed,
   addParticipantFormOpened,
-  chatDrawerClosed,
   deleteChatRoomFormClosed,
   deleteChatRoomFormOpened,
   selectIsAddParticiapntFormOpen,
@@ -12,18 +10,16 @@ import {
 } from '@/features/drawer/drawerSlice';
 import { selectSelectedChatId } from '../chatSlice';
 
-import { DrawerSlideIn } from '@/styles/animations/SlideIn';
-
 import ChatTitle from '@/components/general/ChatTitle';
 import IconButton from '@/components/general/IconButton';
 import Modal from '@/components/general/Modal';
 import ChatRoomIcon from '@/features/chatRooms/components/ChatRoomIcon';
-import { FaTrash, FaUserPlus, FaXmark } from 'react-icons/fa6';
+import { FaTrash, FaUserPlus } from 'react-icons/fa6';
 import ChatAddParticipantForm from './ChatAddParticipantForm';
 import ChatDeleteChatRoomForm from './ChatDeleteChatRoomForm';
 import ChatOnlineStatus from './ChatOnlineStatus';
 
-const ChatDrawer = () => {
+const ChatDrawerPanel = () => {
   const isDeleteChatRoomFormOpen = useAppSelector(
     selectIsDeleteChatRoomFormOpen,
   );
@@ -50,27 +46,8 @@ const ChatDrawer = () => {
     dispatch(deleteChatRoomFormClosed());
   };
 
-  const handleCloseChatDrawerClick = (): void => {
-    dispatch(chatDrawerClosed());
-  };
-
   return (
-    <motion.div
-      key="chat-drawer"
-      className="absolute right-0 flex h-full w-full max-w-md flex-col gap-4 bg-white p-4 shadow sm:border-l sm:border-gray-200"
-      initial={DrawerSlideIn.initial}
-      animate={DrawerSlideIn.animate}
-      transition={DrawerSlideIn.transition}
-    >
-      <div className="flex justify-end">
-        <IconButton
-          onClick={handleCloseChatDrawerClick}
-          aria-label="Close Drawer"
-          className="p-2"
-        >
-          <FaXmark />
-        </IconButton>
-      </div>
+    <div>
       <div className="flex flex-col items-center gap-4 p-4">
         <ChatRoomIcon chatRoomId={selectedChatId} style="xl" />
         <div className="text-center">
@@ -109,8 +86,8 @@ const ChatDrawer = () => {
       >
         <ChatDeleteChatRoomForm onCloseClick={handleCloseDeleteChatRoomForm} />
       </Modal>
-    </motion.div>
+    </div>
   );
 };
 
-export default ChatDrawer;
+export default ChatDrawerPanel;

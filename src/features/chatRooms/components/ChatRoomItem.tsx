@@ -9,7 +9,7 @@ import {
   selectedChatIdSet,
   sidebarClosed,
 } from '@/features/chat/chatSlice';
-import { chatDrawerClosed } from '@/features/drawer/drawerSlice';
+import { drawerClosed } from '@/features/drawer/drawerSlice';
 import { selectIsChatRoomsLoading } from '../chatRoomsSlice';
 
 import ChatTitle from '@/components/general/ChatTitle';
@@ -35,7 +35,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
   const handleChatClick = (): void => {
     dispatch(selectedChatIdSet(chatId));
     dispatch(sidebarClosed());
-    dispatch(chatDrawerClosed());
+    dispatch(drawerClosed());
   };
 
   const isChatRoomSelected = selectedChatId === chatId;
