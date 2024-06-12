@@ -5,11 +5,11 @@ import useInitAndUpdateChatLoadingState from '../hooks/useInitAndUpdateChatLoadi
 import cn from '@/utils/cn';
 
 import {
-  chatDrawerClosed,
   selectSelectedChatId,
   selectedChatIdSet,
   sidebarClosed,
 } from '@/features/chat/chatSlice';
+import { chatDrawerClosed } from '@/features/drawer/drawerSlice';
 import { selectIsChatRoomsLoading } from '../chatRoomsSlice';
 
 import ChatTitle from '@/components/general/ChatTitle';

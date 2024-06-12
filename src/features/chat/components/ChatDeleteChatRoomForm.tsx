@@ -3,12 +3,9 @@ import { useForm } from 'react-hook-form';
 
 import { getErrorData } from '@/utils/getErrorData';
 
+import { deleteChatRoomFormClosed } from '@/features/drawer/drawerSlice';
 import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
-import {
-  deleteChatRoomFormClosed,
-  selectSelectedChatId,
-  useDeleteChatRoomMutation,
-} from '../chatSlice';
+import { selectSelectedChatId, useDeleteChatRoomMutation } from '../chatSlice';
 
 import { PushNotificationType } from '@/types/PushNotification';
 import type { MouseEventHandler } from 'react';

@@ -12,6 +12,7 @@ import chatRoomSlice from '@/features/chatRooms/chatRoomsSlice';
 import contactsSlice from '@/features/contacts/contactsSlice';
 import messagesSlice from '@/features/messages/messagesSlice';
 import pushNotificationsSlice from '@/features/pushNotifications/pushNotificationsSlice';
+import drawerSlice from '@/features/drawer/drawerSlice';
 
 const rootReducer = combineSlices(
   authSlice,
@@ -21,6 +22,7 @@ const rootReducer = combineSlices(
   chatRoomSlice,
   contactsSlice,
   pushNotificationsSlice,
+  drawerSlice,
 );
 export type RootState = ReturnType<typeof rootReducer>;
 

@@ -8,17 +8,11 @@ import type { RootState } from '@/app/store';
 type ChatState = {
   selectedChatId?: string;
   isSidebarOpen: boolean;
-  isChatDrawerOpen: boolean;
-  isAddParticipantFormOpen: boolean;
-  isDeleteChatRoomFormOpen: boolean;
 };
 
 const initialState: ChatState = {
   selectedChatId: undefined,
   isSidebarOpen: true,
-  isChatDrawerOpen: false,
-  isAddParticipantFormOpen: false,
-  isDeleteChatRoomFormOpen: false,
 };
 
 const chatSlice = createSlice({
@@ -37,24 +31,6 @@ const chatSlice = createSlice({
     },
     sidebarClosed: (state) => {
       state.isSidebarOpen = false;
-    },
-    chatDrawerOpened: (state) => {
-      state.isChatDrawerOpen = true;
-    },
-    chatDrawerClosed: (state) => {
-      state.isChatDrawerOpen = false;
-    },
-    addParticipantFormOpened: (state) => {
-      state.isAddParticipantFormOpen = true;
-    },
-    addParticipantFormClosed: (state) => {
-      state.isAddParticipantFormOpen = false;
-    },
-    deleteChatRoomFormOpened: (state) => {
-      state.isDeleteChatRoomFormOpen = true;
-    },
-    deleteChatRoomFormClosed: (state) => {
-      state.isDeleteChatRoomFormOpen = false;
     },
   },
 });
@@ -86,12 +62,6 @@ export const {
   selectedChatCleared,
   sidebarOpened,
   sidebarClosed,
-  chatDrawerOpened,
-  chatDrawerClosed,
-  addParticipantFormOpened,
-  addParticipantFormClosed,
-  deleteChatRoomFormOpened,
-  deleteChatRoomFormClosed,
 } = chatSlice.actions;
 
 export const { usePostParticipantMutation, useDeleteChatRoomMutation } =
@@ -104,12 +74,3 @@ export const selectSelectedChatId = (state: RootState) =>
 
 export const selectIsSidebarOpen = (state: RootState) =>
   state.chat.isSidebarOpen;
-
-export const selectIsChatDrawerOpen = (state: RootState) =>
-  state.chat.isChatDrawerOpen;
-
-export const selectIsAddParticiapntFormOpen = (state: RootState) =>
-  state.chat.isAddParticipantFormOpen;
-
-export const selectIsDeleteChatRoomFormOpen = (state: RootState) =>
-  state.chat.isDeleteChatRoomFormOpen;

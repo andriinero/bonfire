@@ -1,10 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
-import {
-  chatDrawerOpened,
-  selectSelectedChatId,
-  sidebarOpened,
-} from '../chatSlice';
+import { chatDrawerOpened } from '@/features/drawer/drawerSlice';
+import { selectSelectedChatId, sidebarOpened } from '../chatSlice';
 
 import ChatTitle from '@/components/general/ChatTitle';
 import IconButton from '@/components/general/IconButton';

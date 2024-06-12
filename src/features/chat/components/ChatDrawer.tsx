@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { motion } from 'framer-motion';
+
 import {
   addParticipantFormClosed,
   addParticipantFormOpened,
@@ -8,8 +9,8 @@ import {
   deleteChatRoomFormOpened,
   selectIsAddParticiapntFormOpen,
   selectIsDeleteChatRoomFormOpen,
-  selectSelectedChatId,
-} from '../chatSlice';
+} from '@/features/drawer/drawerSlice';
+import { selectSelectedChatId } from '../chatSlice';
 
 import { DrawerSlideIn } from '@/styles/animations/SlideIn';
 
@@ -33,6 +34,14 @@ const ChatDrawer = () => {
 
   const dispatch = useAppDispatch();
 
+  const handleAddParticipantFormClick = (): void => {
+    dispatch(addParticipantFormOpened());
+  };
+
+  const handleDeleteChatRoomClick = (): void => {
+    dispatch(deleteChatRoomFormOpened());
+  };
+
   const handleCloseAddParticipantForm = (): void => {
     dispatch(addParticipantFormClosed());
   };
@@ -43,14 +52,6 @@ const ChatDrawer = () => {
 
   const handleCloseChatDrawerClick = (): void => {
     dispatch(chatDrawerClosed());
-  };
-
-  const handleAddParticipantFormClick = (): void => {
-    dispatch(addParticipantFormOpened());
-  };
-
-  const handleDeleteChatRoomClick = (): void => {
-    dispatch(deleteChatRoomFormOpened());
   };
 
   return (

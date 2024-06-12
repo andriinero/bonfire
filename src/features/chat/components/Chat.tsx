@@ -1,14 +1,16 @@
 import { useAppSelector } from '@/app/hooks';
 import useInitChat from '@/hooks/useInitChat';
 
-import { selectIsChatDrawerOpen, selectIsSidebarOpen } from '../chatSlice';
+import cn from '@/utils/cn';
 
+import { selectIsChatDrawerOpen } from '@/features/drawer/drawerSlice';
+import { selectIsSidebarOpen } from '../chatSlice';
+
+import { AnimatePresence } from 'framer-motion';
+import ChatDrawer from './ChatDrawer';
 import ChatHeader from './ChatHeader';
 import ChatLoader from './ChatLoader';
 import ChatMain from './ChatMain';
-import cn from '@/utils/cn';
-import ChatDrawer from './ChatDrawer';
-import { AnimatePresence } from 'framer-motion';
 
 type ChatProps = { selectedChatId: string };
 
