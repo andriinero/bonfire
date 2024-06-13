@@ -6,8 +6,9 @@ import { z } from 'zod';
 import { getErrorData } from '@/utils/getErrorData';
 
 import { addParticipantFormClosed } from '@/features/drawer/drawerSlice';
+import { usePostParticipantMutation } from '@/features/participants/participantsSlice';
 import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
-import { selectSelectedChatId, usePostParticipantMutation } from '../chatSlice';
+import { selectSelectedChatId } from '../chatSlice';
 
 import type { MouseEventHandler } from 'react';
 

@@ -66,6 +66,12 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['chatRooms'],
       query: (body) => ({ url: '/chat-rooms', method: 'POST', body }),
     }),
+    deleteChatRoom: builder.mutation<void, { chatRoomId: string }>({
+      query: ({ chatRoomId }) => ({
+        url: `/chat-rooms/${chatRoomId}/participants`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
@@ -80,6 +86,7 @@ export const {
   useGetChatRoomsQuery,
   useGetChatRoomsCountQuery,
   usePostChatRoomMutation,
+  useDeleteChatRoomMutation,
 } = chatRoomsApiSlice;
 
 export default chatRoomSlice;

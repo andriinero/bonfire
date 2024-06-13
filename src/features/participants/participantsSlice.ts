@@ -8,10 +8,21 @@ export const participantsApiSlice = apiSlice.injectEndpoints({
     getParticipants: builder.query<User[], string>({
       query: (chatRoomId) => `/chat-rooms/${chatRoomId}/participants`,
     }),
+    postParticipant: builder.mutation<
+      void,
+      { chatRoomId: string; body: { participantUsername: string } }
+    >({
+      query: ({ chatRoomId, body }) => ({
+        url: `/chat-rooms/${chatRoomId}/participants`,
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetParticipantsQuery } = participantsApiSlice;
+export const { useGetParticipantsQuery, usePostParticipantMutation } =
+  participantsApiSlice;
 
 export const selectParticipantsByChatId =
   (chatRoomId: string) => (state: RootState) =>

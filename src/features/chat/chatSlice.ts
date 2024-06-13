@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { apiSlice } from '../api/apiSlice';
-
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/app/store';
 
@@ -35,37 +33,12 @@ const chatSlice = createSlice({
   },
 });
 
-export const chatApiSlice = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
-    postParticipant: builder.mutation<
-      void,
-      { chatRoomId: string; body: { participantUsername: string } }
-    >({
-      query: ({ chatRoomId, body }) => ({
-        url: `/chat-rooms/${chatRoomId}/participants`,
-        method: 'POST',
-        body,
-      }),
-    }),
-    deleteChatRoom: builder.mutation<void, { chatRoomId: string }>({
-      query: ({ chatRoomId }) => ({
-        url: `/chat-rooms/${chatRoomId}/participants`,
-        method: 'DELETE',
-        body: { chatRoomId },
-      }),
-    }),
-  }),
-});
-
 export const {
   selectedChatIdSet,
   selectedChatCleared,
   sidebarOpened,
   sidebarClosed,
 } = chatSlice.actions;
-
-export const { usePostParticipantMutation, useDeleteChatRoomMutation } =
-  chatApiSlice;
 
 export default chatSlice;
 
