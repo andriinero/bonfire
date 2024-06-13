@@ -22,7 +22,7 @@ const Drawer = () => {
   return (
     <motion.div
       key="chat-drawer"
-      className="absolute right-0 flex h-full w-full max-w-md flex-col gap-4 bg-white p-4 shadow sm:border-l sm:border-gray-200"
+      className="fixed right-0 top-0 flex h-dvh w-full max-w-md flex-col gap-4 bg-white p-4 shadow sm:border-l sm:border-gray-200"
       initial={DrawerSlideIn.initial}
       animate={DrawerSlideIn.animate}
       transition={DrawerSlideIn.transition}

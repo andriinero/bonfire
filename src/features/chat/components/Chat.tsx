@@ -3,11 +3,8 @@ import useInitChat from '@/hooks/useInitChat';
 
 import cn from '@/utils/cn';
 
-import { selectIsChatDrawerOpen } from '@/features/drawer/drawerSlice';
 import { selectIsSidebarOpen } from '../chatSlice';
 
-import Drawer from '@/features/drawer/components/Drawer';
-import { AnimatePresence } from 'framer-motion';
 import ChatHeader from './ChatHeader';
 import ChatLoader from './ChatLoader';
 import ChatMain from './ChatMain';
@@ -15,7 +12,6 @@ import ChatMain from './ChatMain';
 type ChatProps = { selectedChatId: string };
 
 const Chat = ({ selectedChatId }: ChatProps) => {
-  const isChatDrawerOpen = useAppSelector(selectIsChatDrawerOpen);
   const isSidebarOpen = useAppSelector(selectIsSidebarOpen);
   const { isLoading } = useInitChat(selectedChatId);
 
@@ -31,7 +27,6 @@ const Chat = ({ selectedChatId }: ChatProps) => {
         <>
           <ChatHeader />
           <ChatMain />
-          <AnimatePresence>{isChatDrawerOpen && <Drawer />}</AnimatePresence>
         </>
       )}
     </div>
