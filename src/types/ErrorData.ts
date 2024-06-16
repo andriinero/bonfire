@@ -6,11 +6,8 @@ export const ValidationErrorSchema = z.object({
     errors: z
       .array(
         z.object({
-          location: z.string(),
-          msg: z.string(),
+          message: z.string(),
           path: z.string(),
-          type: z.string(),
-          value: z.string(),
         }),
       )
       .optional(),

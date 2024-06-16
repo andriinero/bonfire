@@ -16,7 +16,7 @@ import FormTitle from '@/components/form/FormTitle';
 import InputLabel from '@/components/form/InputLabel';
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
-import { FaXmark } from 'react-icons/fa6';
+import { X } from 'lucide-react';
 
 type ChatDeleteChatRoomFormProps = { onCloseClick: MouseEventHandler };
 
@@ -70,7 +70,7 @@ const ChatDeleteChatRoomForm = ({
           onClick={onCloseClick}
           className="p-0"
         >
-          <FaXmark size="1rem" />
+          <X />
         </IconButton>
       </FormTitle>
       <InputLabel>Are you sure you want to delete this chat?</InputLabel>

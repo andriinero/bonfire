@@ -7,7 +7,7 @@ import ChatTitle from '@/components/general/ChatTitle';
 import IconButton from '@/components/general/IconButton';
 import ChatRoomIcon from '@/features/chatRooms/components/ChatRoomIcon';
 import { DrawerPanelType } from '@/features/drawer/types/DrawerPanel';
-import { FaChevronLeft, FaEllipsis } from 'react-icons/fa6';
+import { ChevronLeft, Ellipsis } from 'lucide-react';
 import ChatOnlineStatus from './ChatOnlineStatus';
 
 const ChatHeader = () => {
@@ -31,7 +31,7 @@ const ChatHeader = () => {
           aria-label="chat-options"
           className="p-0 text-amber-500 sm:hidden"
         >
-          <FaChevronLeft />
+          <ChevronLeft />
         </IconButton>
         <ChatRoomIcon className="shrink-0" chatRoomId={selectedChatId} />
         <div>
@@ -46,7 +46,7 @@ const ChatHeader = () => {
         aria-label="chat-options"
         className="text-amber-500"
       >
-        <FaEllipsis />
+        <Ellipsis />
       </IconButton>
     </header>
   );

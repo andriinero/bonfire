@@ -8,7 +8,7 @@ import {
 
 import IconButton from '@/components/general/IconButton';
 import Modal from '@/components/general/Modal';
-import { FaUserPlus } from 'react-icons/fa6';
+import { UserPlus } from 'lucide-react';
 import CreateContactForm from './CreateContactForm';
 
 const ContactsHeader = () => {
@@ -34,7 +34,7 @@ const ContactsHeader = () => {
         onClick={handleModalOpen}
         style="round"
       >
-        <FaUserPlus />
+        <UserPlus />
       </IconButton>
       <Modal isOpen={isCreateContactModalOpen} onModalClick={handleModalClose}>
         <CreateContactForm onCloseClick={handleModalClose} />

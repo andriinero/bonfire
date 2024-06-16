@@ -7,7 +7,7 @@ import { DrawerSlideIn } from '@/styles/animations/SlideIn';
 
 import IconButton from '@/components/general/IconButton';
 import ChatDrawerPanel from '@/features/chat/components/ChatDrawer';
-import { FaXmark } from 'react-icons/fa6';
+import { X } from 'lucide-react';
 import { DrawerPanelType } from '../types/DrawerPanel';
 
 const Drawer = () => {
@@ -33,7 +33,7 @@ const Drawer = () => {
           aria-label="Close Drawer"
           className="p-2"
         >
-          <FaXmark />
+          <X />
         </IconButton>
       </div>
       {currentDrawerPanelType === DrawerPanelType.CHAT && <ChatDrawerPanel />}

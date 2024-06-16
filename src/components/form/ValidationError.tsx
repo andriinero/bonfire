@@ -1,11 +1,9 @@
 import cn from '@/utils/cn';
 
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps } from 'react';
 
 type ValidationErrorProps = {
   visible?: boolean;
-  className?: string;
-  children?: ReactNode;
 } & ComponentProps<'span'>;
 
 const ValidationError = ({

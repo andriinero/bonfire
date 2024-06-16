@@ -2,12 +2,7 @@ import cn from '@/utils/cn';
 
 import { PushNotificationType } from '@/types/PushNotification';
 
-import {
-  FaCircleCheck,
-  FaCircleExclamation,
-  FaCircleXmark,
-  FaTriangleExclamation,
-} from 'react-icons/fa6';
+import { CircleAlert, CircleCheck, CircleX, TriangleAlert } from 'lucide-react';
 
 type NotificationStatusIconProps = {
   type: PushNotificationType;
@@ -27,13 +22,13 @@ const NotificationStatusIcon = ({
       })}
     >
       {type === PushNotificationType.ERROR ? (
-        <FaCircleXmark size="1rem" />
+        <CircleX />
       ) : type === PushNotificationType.SUCCESS ? (
-        <FaCircleCheck size="1rem" />
+        <CircleCheck />
       ) : type === PushNotificationType.WARNING ? (
-        <FaTriangleExclamation size="1rem" />
+        <TriangleAlert />
       ) : (
-        <FaCircleExclamation size="1rem" />
+        <CircleAlert />
       )}
     </span>
   );

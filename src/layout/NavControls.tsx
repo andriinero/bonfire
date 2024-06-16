@@ -1,15 +1,11 @@
-import usePathnameEnd from '@/hooks/usePathnameEnd';
 import useHandleSignOut from '@/features/auth/hooks/useHandleSignOut';
+import usePathnameEnd from '@/hooks/usePathnameEnd';
 
 import Paths from '@/constants/Paths';
 
-import {
-  FaArrowRightFromBracket,
-  FaMessage,
-  FaUserGroup,
-} from 'react-icons/fa6';
-import IconButton from '@/components/general/IconButton';
 import AppLink from '@/components/general/AppLink';
+import IconButton from '@/components/general/IconButton';
+import { LogOut, MessageSquare, Users } from 'lucide-react';
 
 const NavControls = () => {
   const pathEnd = usePathnameEnd();
@@ -35,7 +31,7 @@ const NavControls = () => {
             aria-selected={isChatsSelected}
           >
             <IconButton tabIndex={-1} isSelected={isChatsSelected}>
-              <FaMessage />
+              <MessageSquare />
             </IconButton>
           </AppLink>
         </li>
@@ -48,7 +44,7 @@ const NavControls = () => {
             aria-selected={isContactsSelected}
           >
             <IconButton tabIndex={-1} isSelected={isContactsSelected}>
-              <FaUserGroup />
+              <Users />
             </IconButton>
           </AppLink>
         </li>
@@ -58,7 +54,7 @@ const NavControls = () => {
             aria-label="Sign Out"
             onClick={handleSignOutClick}
           >
-            <FaArrowRightFromBracket />
+            <LogOut />
           </IconButton>
         </li>
       </ul>

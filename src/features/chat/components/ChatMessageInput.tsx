@@ -11,7 +11,7 @@ import type { TPostMessageBody } from '@/features/messages/messagesSlice';
 
 import TextInput from '@/components/form/TextInput';
 import Button from '@/components/general/Button';
-import { FaPaperPlane } from 'react-icons/fa6';
+import { SendHorizontal } from 'lucide-react';
 
 const MessageBarSchema = z.object({
   body: z.string().min(1, 'Message must contain at least one character'),
@@ -58,7 +58,7 @@ const ChatMessageInput = () => {
           type="submit"
           className="cursor-pointer rounded-full p-2 text-white transition"
         >
-          <FaPaperPlane />
+          <SendHorizontal />
         </Button>
       </form>
     </div>

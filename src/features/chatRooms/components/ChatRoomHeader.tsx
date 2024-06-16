@@ -8,7 +8,7 @@ import {
 
 import IconButton from '@/components/general/IconButton';
 import Modal from '@/components/general/Modal';
-import { FaPlus } from 'react-icons/fa6';
+import { UserPlus } from 'lucide-react';
 import CreateChatRoomForm from './CreateChatRoomForm';
 
 const ChatRoomHeader = () => {
@@ -32,7 +32,7 @@ const ChatRoomHeader = () => {
         onClick={handleModalOpen}
         style="round"
       >
-        <FaPlus />
+        <UserPlus />
       </IconButton>
       <Modal isOpen={isCreateChatRoomOpen} onModalClick={handleModalClose}>
         <CreateChatRoomForm onCloseClick={handleModalClose} />

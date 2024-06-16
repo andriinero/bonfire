@@ -20,7 +20,7 @@ import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
 import { PushNotificationType } from '@/types/PushNotification';
-import { FaXmark } from 'react-icons/fa6';
+import { X } from 'lucide-react';
 
 const AddParticipantSchema = z.object({
   participantUsername: z
@@ -85,7 +85,7 @@ const ChatAddParticipantForm = ({
           onClick={onCloseClick}
           className="p-0"
         >
-          <FaXmark size="1rem" />
+          <X />
         </IconButton>
       </FormTitle>
       <InputLabel htmlFor="create-participant-username">

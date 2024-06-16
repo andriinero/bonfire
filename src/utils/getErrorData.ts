@@ -17,7 +17,7 @@ export const getErrorData = (
     const errorData = validationErrorParse.data;
     return {
       message: errorData.data.message,
-      list: errorData.data.errors?.map((e) => e.msg),
+      list: errorData.data.errors?.map((e) => e.message),
     };
   }
 

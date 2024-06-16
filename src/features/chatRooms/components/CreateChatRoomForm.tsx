@@ -21,7 +21,7 @@ import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
-import { FaXmark } from 'react-icons/fa6';
+import { X } from 'lucide-react';
 
 const CreateChatRoomBodySchema = z.object({
   participantUsername: z
@@ -78,7 +78,7 @@ const CreateChatRoomForm = ({ onCloseClick }: CreateChatRoomFormProps) => {
           onClick={onCloseClick}
           className="p-0"
         >
-          <FaXmark size="1rem" />
+          <X />
         </IconButton>
       </FormTitle>
       <InputLabel htmlFor="create-chat-username">

@@ -4,7 +4,7 @@ import { PushNotificationType } from '@/types/PushNotification';
 import type { MouseEventHandler } from 'react';
 
 import IconButton from '@/components/general/IconButton';
-import { FaXmark } from 'react-icons/fa6';
+import { X } from 'lucide-react';
 
 type NotificationCrossIconProps = {
   type: PushNotificationType;
@@ -28,7 +28,7 @@ const NotificationCrossIcon = ({
       })}
       onClick={onCrossClick}
     >
-      <FaXmark size="1rem" />
+      <X />
     </IconButton>
   );
 };

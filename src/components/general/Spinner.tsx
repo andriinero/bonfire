@@ -1,6 +1,6 @@
 import cn from '@/utils/cn';
 
-import { FaCircleNotch } from 'react-icons/fa6';
+import { LoaderCircle } from 'lucide-react';
 
 type SpinnerProps = { className?: string };
 
@@ -12,10 +12,9 @@ const Spinner = ({ className }: SpinnerProps) => {
         className,
       )}
     >
-      <FaCircleNotch
-        className="animate-spin"
-        size="1.5rem"
+      <LoaderCircle
         aria-label="Spinner Icon"
+        className="animate-spin text-3xl"
       />
     </div>
   );

@@ -14,10 +14,10 @@ import ChatTitle from '@/components/general/ChatTitle';
 import IconButton from '@/components/general/IconButton';
 import Modal from '@/components/general/Modal';
 import ChatRoomIcon from '@/features/chatRooms/components/ChatRoomIcon';
-import { FaTrash, FaUserPlus } from 'react-icons/fa6';
 import ChatAddParticipantForm from './ChatAddParticipantForm';
 import ChatDeleteChatRoomForm from './ChatDeleteChatRoomForm';
 import ChatOnlineStatus from './ChatOnlineStatus';
+import { Trash2, UserPlus } from 'lucide-react';
 
 const ChatDrawerPanel = () => {
   const isDeleteChatRoomFormOpen = useAppSelector(
@@ -64,14 +64,14 @@ const ChatDrawerPanel = () => {
           className="bg-gray-100"
           onClick={handleAddParticipantFormClick}
         >
-          <FaUserPlus size="1rem" />
+          <UserPlus />
         </IconButton>
         <IconButton
           aria-label="Delete Chat"
           className="bg-gray-100 text-red-700"
           onClick={handleDeleteChatRoomClick}
         >
-          <FaTrash size="1rem" />
+          <Trash2 />
         </IconButton>
       </div>
       <Modal

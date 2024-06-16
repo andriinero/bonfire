@@ -3,7 +3,7 @@ import Paths from '@/constants/Paths';
 import AppLink from '@/components/general/AppLink';
 import AppLogo from '@/components/general/AppLogo';
 import PushNotificationList from '@/features/pushNotifications/components/PushNotificationList';
-import { FaArrowLeft } from 'react-icons/fa6';
+import { ArrowLeft } from 'lucide-react';
 
 const NotFound404 = () => {
   return (
@@ -21,7 +21,7 @@ const NotFound404 = () => {
           to={Paths.Auth.SIGN_IN}
           className="mt-8 flex items-center gap-2 text-amber-500"
         >
-          <FaArrowLeft size="1rem" />
+          <ArrowLeft size={20} />
           <p className="font-semibold">Back to home</p>
         </AppLink>
       </main>
