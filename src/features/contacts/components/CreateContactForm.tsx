@@ -21,7 +21,7 @@ import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
-import { X } from 'lucide-react';
+import XIcon from '@/components/general/XIcon';
 
 const CreateContactBodySchema = z.object({
   contactUsername: z
@@ -78,7 +78,7 @@ const CreateContactForm = ({ onCloseClick }: CreateContactFormProps) => {
           onClick={onCloseClick}
           className="p-0"
         >
-          <X />
+          <XIcon />
         </IconButton>
       </FormTitle>
       <InputLabel htmlFor="create-contact-username">

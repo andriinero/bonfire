@@ -58,7 +58,7 @@ const ChatMessageInput = () => {
           type="submit"
           className="cursor-pointer rounded-full p-2 text-white transition"
         >
-          <SendHorizontal />
+          <SendHorizontal className="text-lg" />
         </Button>
       </form>
     </div>

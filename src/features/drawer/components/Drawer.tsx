@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import { drawerClosed, selectCurrentDrawerPanelType } from '../drawerSlice';
 
 import { DrawerSlideIn } from '@/styles/animations/SlideIn';
+import { DrawerPanelType } from '../types/DrawerPanel';
 
 import IconButton from '@/components/general/IconButton';
+import XIcon from '@/components/general/XIcon';
 import ChatDrawerPanel from '@/features/chat/components/ChatDrawer';
-import { X } from 'lucide-react';
-import { DrawerPanelType } from '../types/DrawerPanel';
 
 const Drawer = () => {
   const currentDrawerPanelType = useAppSelector(selectCurrentDrawerPanelType);
@@ -33,7 +33,7 @@ const Drawer = () => {
           aria-label="Close Drawer"
           className="p-2"
         >
-          <X />
+          <XIcon />
         </IconButton>
       </div>
       {currentDrawerPanelType === DrawerPanelType.CHAT && <ChatDrawerPanel />}
