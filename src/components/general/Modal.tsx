@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import cn from '@/utils/cn';
 
-import { FadeIn } from '@/styles/animations/FadeIn';
+import { FadeIn, FadeInWithScale } from '@/styles/animations/FadeIn';
 import type { ReactNode } from 'react';
 
 import { AnimatePresence } from 'framer-motion';
@@ -42,14 +42,18 @@ const Modal = ({ isOpen, onModalClick, className, children }: ModalProps) => {
             onClick={onModalClick}
             className="absolute -z-10 h-full w-full bg-gray-900 bg-opacity-20"
           ></div>
-          <div
+          <motion.div
+            initial={FadeInWithScale.initial}
+            animate={FadeInWithScale.animate}
+            transition={FadeInWithScale.transition}
+            exit={FadeInWithScale.exit}
             role="alertdialog"
             aria-modal="true"
             aria-labelledby="dialog-label"
             className={cn('w-full max-w-sm', className)}
           >
             {children}
-          </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

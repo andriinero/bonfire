@@ -18,17 +18,17 @@ const NotificationCrossIcon = ({
   className,
 }: NotificationCrossIconProps) => {
   return (
-    <IconButton
-      className={cn('self-start justify-self-end p-0.5', className, {
-        'text-red-400 hover:bg-red-100': type === PushNotificationType.ERROR,
-        'text-green-400 hover:bg-green-100':
-          type === PushNotificationType.SUCCESS,
-        'text-yellow-400 hover:bg-yellow-100':
-          type === PushNotificationType.WARNING,
-      })}
-      onClick={onCrossClick}
-    >
-      <XIcon />
+    <IconButton className="self-start justify-self-end p-0.5">
+      <XIcon
+        className={cn('text-sm', className, {
+          'text-red-400 hover:bg-red-100': type === PushNotificationType.ERROR,
+          'text-green-400 hover:bg-green-100':
+            type === PushNotificationType.SUCCESS,
+          'text-yellow-400 hover:bg-yellow-100':
+            type === PushNotificationType.WARNING,
+        })}
+        onClick={onCrossClick}
+      />
     </IconButton>
   );
 };
