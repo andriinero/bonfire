@@ -76,13 +76,13 @@ const ChatDrawerPanel = () => {
       </div>
       <Modal
         isOpen={isAddParticipantFormOpen}
-        onModalClick={handleCloseAddParticipantForm}
+        onBackdropClick={handleCloseAddParticipantForm}
       >
         <ChatAddParticipantForm onCloseClick={handleCloseAddParticipantForm} />
       </Modal>
       <Modal
         isOpen={isDeleteChatRoomFormOpen}
-        onModalClick={handleCloseDeleteChatRoomForm}
+        onBackdropClick={handleCloseDeleteChatRoomForm}
       >
         <ChatDeleteChatRoomForm onCloseClick={handleCloseDeleteChatRoomForm} />
       </Modal>

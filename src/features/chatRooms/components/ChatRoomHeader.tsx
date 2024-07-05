@@ -34,7 +34,7 @@ const ChatRoomHeader = () => {
       >
         <UserPlus />
       </IconButton>
-      <Modal isOpen={isCreateChatRoomOpen} onModalClick={handleModalClose}>
+      <Modal isOpen={isCreateChatRoomOpen} onBackdropClick={handleModalClose}>
         <CreateChatRoomForm onCloseClick={handleModalClose} />
       </Modal>
     </div>
