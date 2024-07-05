@@ -1,5 +1,5 @@
+import useCloseModalListener from '@/hooks/useCloseModalListener';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
 
 import cn from '@/utils/cn';
 
@@ -22,16 +22,7 @@ const Modal = ({
   className,
   children,
 }: ModalProps) => {
-  useEffect(() => {
-    const onEscapeDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onBackdropClick();
-    };
-    window.addEventListener('keydown', onEscapeDown);
-
-    return () => {
-      window.removeEventListener('keydown', onEscapeDown);
-    };
-  }, [onBackdropClick]);
+  useCloseModalListener(onBackdropClick);
 
   return (
     <AnimatePresence>
