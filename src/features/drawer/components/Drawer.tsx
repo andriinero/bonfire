@@ -15,21 +15,21 @@ const Drawer = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleCloseChatDrawerClick = (): void => {
+  const handleCloseChatDrawer = (): void => {
     dispatch(drawerClosed());
   };
 
   return (
     <motion.div
       key="chat-drawer"
-      className="fixed right-0 top-0 flex h-dvh w-full max-w-md flex-col gap-4 bg-white p-4 shadow sm:border-l sm:border-gray-200"
+      className="fixed right-0 top-0 z-10 flex h-dvh w-full max-w-md flex-col gap-4 bg-white p-4 shadow sm:border-l sm:border-gray-200"
       initial={DrawerSlideIn.initial}
       animate={DrawerSlideIn.animate}
       transition={DrawerSlideIn.transition}
     >
       <div className="flex justify-end">
         <IconButton
-          onClick={handleCloseChatDrawerClick}
+          onClick={handleCloseChatDrawer}
           aria-label="Close Drawer"
           className="p-2"
         >
