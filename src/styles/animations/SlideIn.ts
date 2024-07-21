@@ -10,5 +10,5 @@ export const DrawerSlideIn: AnimationProps = {
   initial: { x: 350 },
   animate: { x: 0 },
   exit: { x: 350 },
-  transition: { duration: 0.4, type: 'spring', bounce: 0 },
+  transition: { duration: 0.35, type: 'spring', bounce: 0 },
 };
