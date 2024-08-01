@@ -4,10 +4,10 @@ import TimeStamp from '../TimeStamp';
 import AppDate from '@/lib/AppDate';
 
 it('renders absolute time', () => {
-  const absolute = new Date('1999').toISOString();
-  const formattedAbsoluteDate = AppDate.getAbsolute(absolute);
-  render(<TimeStamp date={absolute} />);
+  const absoluteDate = new Date('1999').toISOString();
+  render(<TimeStamp date={absoluteDate} />);
 
+  const formattedAbsoluteDate = AppDate.getAbsolute(absoluteDate).split(',')[0];
   const timeStamp = screen.getByText(formattedAbsoluteDate);
 
   expect(timeStamp).toBeInTheDocument();
