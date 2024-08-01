@@ -70,7 +70,13 @@ const SignInPanel = () => {
       dispatch(tokenInitialized(result.token));
       refetch();
     } catch (err) {
-      console.log(err);
+      const errorData = getErrorData(err);
+      dispatch(
+        pushNotificationAdded({
+          body: errorData.message,
+          type: PushNotificationType.ERROR,
+        }),
+      );
     }
   };
 
