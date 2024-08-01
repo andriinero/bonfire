@@ -20,7 +20,7 @@ it('handles backdrop click', async () => {
   const handleModalClick = vi.fn();
   render(<Modal isOpen={true} onBackdropClick={handleModalClick} />);
 
-  await user.click(screen.getByLabelText('Modal Backdrop'));
+  await user.click(screen.getByLabelText('Backdrop'));
 
   expect(handleModalClick).toHaveBeenCalledOnce();
 });
