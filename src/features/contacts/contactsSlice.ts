@@ -67,9 +67,7 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
             page,
             (draft) => {
               const contactIndex = draft.findIndex((c) => c._id === userId);
-              if (contactIndex > -1) {
-                draft.splice(contactIndex, 1);
-              }
+              if (contactIndex > -1) draft.splice(contactIndex, 1);
             },
           ),
         );

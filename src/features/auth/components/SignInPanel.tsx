@@ -33,14 +33,13 @@ export type TSignInBody = z.infer<typeof SignInBodySchema>;
 
 const SignInPanel = () => {
   const { refetch } = useGetAuthDataQuery();
+  const [postSignIn, { isLoading, isSuccess }] = usePostSignInMutation();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TSignInBody>({ resolver: zodResolver(SignInBodySchema) });
-
-  const [postSignIn, { isLoading, isSuccess }] = usePostSignInMutation();
 
   const dispatch = useAppDispatch();
 

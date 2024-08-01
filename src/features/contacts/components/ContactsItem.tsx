@@ -22,6 +22,12 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
   const handleContactDelete = async (): Promise<void> => {
     try {
       await deleteContact({ userId: contact._id, page: 0 }).unwrap();
+      dispatch(
+        pushNotificationAdded({
+          body: `Contact '${contact.username}' deleted`,
+          type: PushNotificationType.SUCCESS,
+        }),
+      );
     } catch (err) {
       const errorData = getErrorData(err);
       dispatch(
