@@ -27,7 +27,7 @@ import Button from '../../../components/general/Button';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),
-  password: z.string(),
+  password: z.string().min(1, 'Password field must not be blank'),
 });
 export type TSignInBody = z.infer<typeof SignInBodySchema>;
 
