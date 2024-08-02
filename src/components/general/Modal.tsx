@@ -37,7 +37,7 @@ const Modal = ({
             role="alertdialog"
             aria-modal="true"
             aria-labelledby="dialog-label"
-            className={cn('w-full max-w-sm', className)}
+            className={cn('z-10 w-full max-w-sm', className)}
           >
             {children}
           </motion.div>
