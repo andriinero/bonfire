@@ -33,10 +33,14 @@ const ChatTitle = ({
           .slice(0, MAX_NAMES_IN_TITLE)
           .map((p) => p.username)
           .join(', ');
-        const restCount = chatParticipants.length - MAX_NAMES_IN_TITLE;
-
+        const restParticipantsCount =
+          chatParticipants.length - MAX_NAMES_IN_TITLE;
+        const ending = restParticipantsCount > 1 ? 'others' : 'other';
         const result =
-          restCount > 0 ? `${names} and ${restCount} others` : names;
+          restParticipantsCount > 0
+            ? `${names} and ${restParticipantsCount} ${ending}`
+            : names;
+
         setTitle(result);
       }
     } else {
