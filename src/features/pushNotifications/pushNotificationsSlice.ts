@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 
 import type { RootState } from '@/app/store';
 import type { TPushNotification } from '@/types/PushNotification';
