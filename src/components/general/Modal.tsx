@@ -30,10 +30,10 @@ const Modal = ({
         <div className="fixed inset-0 z-10 flex h-dvh w-dvw flex-col items-center justify-center">
           <Backdrop onBackdropClick={onBackdropClick} />
           <motion.div
-            initial={FadeInWithScale.initial}
-            animate={FadeInWithScale.animate}
-            transition={FadeInWithScale.transition}
-            exit={FadeInWithScale.exit}
+            variants={FadeInWithScale}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             role="alertdialog"
             aria-modal="true"
             aria-labelledby="dialog-label"

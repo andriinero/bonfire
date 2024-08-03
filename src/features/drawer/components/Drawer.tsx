@@ -25,9 +25,9 @@ const Drawer = () => {
       <motion.div
         key="chat-drawer"
         className="fixed right-0 top-0 z-40 flex h-dvh w-full max-w-md flex-col gap-4 bg-white p-4 shadow sm:border-l sm:border-gray-200"
-        initial={DrawerSlideIn.initial}
-        animate={DrawerSlideIn.animate}
-        transition={DrawerSlideIn.transition}
+        variants={DrawerSlideIn}
+        initial="initial"
+        animate="animate"
       >
         <div className="flex justify-end">
           <IconButton

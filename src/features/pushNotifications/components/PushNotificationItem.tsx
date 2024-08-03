@@ -26,10 +26,9 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   return notification ? (
     <motion.li
       key={id}
-      initial={NotificationSlideIn.initial}
-      animate={NotificationSlideIn.animate}
-      transition={NotificationSlideIn.transition}
-      exit={NotificationSlideIn.exit}
+      variants={NotificationSlideIn}
+      initial="initial"
+      animate="animate"
       className={cn(
         'flex items-center justify-between rounded-md p-4 text-sm shadow-md',
         {

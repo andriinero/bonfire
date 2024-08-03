@@ -12,10 +12,10 @@ type BackdropProps = {
 const Backdrop = ({ onBackdropClick, className }: BackdropProps) => {
   return (
     <motion.div
-      initial={FadeIn.initial}
-      animate={FadeIn.animate}
-      transition={FadeIn.transition}
-      exit={FadeIn.exit}
+      variants={FadeIn}
+      initial="initial"
+      animate="animate"
+      exit="exit"
       aria-label="Backdrop"
       onClick={onBackdropClick}
       className={cn(
