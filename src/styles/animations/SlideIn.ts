@@ -6,7 +6,7 @@ export const NotificationSlideIn: Variants = {
 };
 
 export const DrawerSlideIn: Variants = {
-  initial: { x: 350 },
-  animate: { x: 0, transition: { duration: 0.35, type: 'spring', bounce: 0 } },
-  exit: { x: 350, transition: { duration: 0.35, type: 'spring', bounce: 0 } },
+  initial: { x: 450 },
+  animate: { x: 0, transition: { duration: 0.25 } },
+  exit: { x: 450, transition: { duration: 0.25 } },
 };

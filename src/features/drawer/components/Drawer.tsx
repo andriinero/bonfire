@@ -28,6 +28,7 @@ const Drawer = () => {
         variants={DrawerSlideIn}
         initial="initial"
         animate="animate"
+        exit="exit"
       >
         <div className="flex justify-end">
           <IconButton
