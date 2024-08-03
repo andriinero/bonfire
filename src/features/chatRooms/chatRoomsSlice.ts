@@ -71,6 +71,19 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
         url: `/chat-rooms/${chatRoomId}/participants`,
         method: 'DELETE',
       }),
+      onQueryStarted: async ({ chatRoomId }, { dispatch, queryFulfilled }) => {
+        const patchResult = dispatch(
+          chatRoomsApiSlice.util.updateQueryData('getChatRooms', 0, (draft) => {
+            const chatRoomIndex = draft.findIndex((c) => c._id === chatRoomId);
+            if (chatRoomIndex > -1) draft.splice(chatRoomIndex, 1);
+          }),
+        );
+        try {
+          await queryFulfilled;
+        } catch (err) {
+          patchResult.undo();
+        }
+      },
     }),
   }),
 });

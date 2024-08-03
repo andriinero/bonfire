@@ -6,7 +6,7 @@ import { getErrorData } from '@/utils/getErrorData';
 import { useDeleteChatRoomMutation } from '@/features/chatRooms/chatRoomsSlice';
 import { deleteChatRoomFormClosed } from '@/features/drawer/drawerSlice';
 import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
-import { selectSelectedChatId } from '../chatSlice';
+import { selectedChatIdSet, selectSelectedChatId } from '../chatSlice';
 
 import { PushNotificationType } from '@/types/PushNotification';
 import type { MouseEventHandler } from 'react';
@@ -45,6 +45,7 @@ const ChatDeleteChatRoomForm = ({
         }),
       );
       dispatch(deleteChatRoomFormClosed());
+      dispatch(selectedChatIdSet(null));
     } catch (err) {
       const errorData = getErrorData(err);
       dispatch(

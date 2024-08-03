@@ -4,12 +4,12 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/app/store';
 
 type ChatState = {
-  selectedChatId?: string;
+  selectedChatId: string | null;
   isSidebarOpen: boolean;
 };
 
 const initialState: ChatState = {
-  selectedChatId: undefined,
+  selectedChatId: null,
   isSidebarOpen: true,
 };
 
@@ -17,12 +17,12 @@ const chatSlice = createSlice({
   name: 'chat',
   initialState,
   reducers: {
-    selectedChatIdSet: (state, action: PayloadAction<string>) => {
+    selectedChatIdSet: (state, action: PayloadAction<string | null>) => {
       if (state.selectedChatId !== action.payload)
         state.selectedChatId = action.payload;
     },
     selectedChatCleared: (state) => {
-      state.selectedChatId = undefined;
+      state.selectedChatId = null;
     },
     sidebarOpened: (state) => {
       state.isSidebarOpen = true;
