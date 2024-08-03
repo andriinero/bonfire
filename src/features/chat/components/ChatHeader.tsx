@@ -1,6 +1,9 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
-import { drawerOpened } from '@/features/drawer/drawerSlice';
+import {
+  drawerOpened,
+  drawerPanelTypeSet,
+} from '@/features/drawer/drawerSlice';
 import { selectSelectedChatId, sidebarOpened } from '../chatSlice';
 
 import ChatTitle from '@/components/general/ChatTitle';
@@ -20,7 +23,8 @@ const ChatHeader = () => {
   };
 
   const handleOpenChatDrawerClick = (): void => {
-    dispatch(drawerOpened(DrawerPanelType.CHAT));
+    dispatch(drawerPanelTypeSet(DrawerPanelType.CHAT));
+    dispatch(drawerOpened());
   };
 
   return (
