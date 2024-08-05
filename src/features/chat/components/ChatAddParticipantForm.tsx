@@ -3,11 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { getErrorData } from '@/utils/getErrorData';
-
 import { addParticipantFormClosed } from '@/features/drawer/drawerSlice';
 import { usePostParticipantMutation } from '@/features/participants/participantsSlice';
-import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import { selectSelectedChatId } from '../chatSlice';
 
 import type { MouseEventHandler } from 'react';
@@ -19,7 +16,6 @@ import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
-import { PushNotificationType } from '@/types/PushNotification';
 import XIcon from '@/components/general/XIcon';
 
 const AddParticipantSchema = z.object({
@@ -48,27 +44,11 @@ const ChatAddParticipantForm = ({
   const dispatch = useAppDispatch();
 
   const handleFormSubmit = async (data: TAddParticipantBody): Promise<void> => {
-    try {
-      await postParticipant({
-        chatRoomId: selectedChatId,
-        body: data,
-      }).unwrap();
-      dispatch(
-        pushNotificationAdded({
-          body: `Participant '${data.participantUsername}' added`,
-          type: PushNotificationType.SUCCESS,
-        }),
-      );
-      dispatch(addParticipantFormClosed());
-    } catch (err) {
-      const errorData = getErrorData(err);
-      dispatch(
-        pushNotificationAdded({
-          body: `Add participant: "${errorData.message}"`,
-          type: PushNotificationType.ERROR,
-        }),
-      );
-    }
+    await postParticipant({
+      chatRoomId: selectedChatId,
+      body: data,
+    }).unwrap();
+    dispatch(addParticipantFormClosed());
   };
 
   const isSubmitDisabled = isLoading || !isDirty;

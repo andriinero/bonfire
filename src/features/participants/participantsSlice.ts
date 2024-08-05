@@ -1,7 +1,12 @@
 import { apiSlice } from '../api/apiSlice';
 
-import type { User } from '@/types/User';
+import { getErrorData } from '@/utils/getErrorData';
+
+import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
+
 import type { RootState } from '@/app/store';
+import { PushNotificationType } from '@/types/PushNotification';
+import type { User } from '@/types/User';
 
 export const participantsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,6 +22,28 @@ export const participantsApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body,
       }),
+      onQueryStarted: async (
+        { body: { participantUsername } },
+        { dispatch, queryFulfilled },
+      ) => {
+        try {
+          await queryFulfilled;
+          dispatch(
+            pushNotificationAdded({
+              body: `Participant '${participantUsername}' added`,
+              type: PushNotificationType.SUCCESS,
+            }),
+          );
+        } catch (err) {
+          const errorData = getErrorData(err);
+          dispatch(
+            pushNotificationAdded({
+              body: `Add participant: "${errorData.message}"`,
+              type: PushNotificationType.ERROR,
+            }),
+          );
+        }
+      },
     }),
   }),
 });
