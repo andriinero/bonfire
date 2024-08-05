@@ -111,7 +111,7 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
           );
         } catch (err) {
           patchResult.undo();
-          const errorData = getErrorData(err);
+          const errorData = getErrorData((err as { error: unknown }).error);
           dispatch(
             pushNotificationAdded({
               body: `Delete chat: "${errorData.message}"`,

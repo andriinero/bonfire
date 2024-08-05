@@ -35,7 +35,7 @@ export const participantsApiSlice = apiSlice.injectEndpoints({
             }),
           );
         } catch (err) {
-          const errorData = getErrorData(err);
+          const errorData = getErrorData((err as { error: unknown }).error);
           dispatch(
             pushNotificationAdded({
               body: `Add participant: "${errorData.message}"`,
