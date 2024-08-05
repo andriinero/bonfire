@@ -14,10 +14,10 @@ import ChatTitle from '@/components/general/ChatTitle';
 import IconButton from '@/components/general/IconButton';
 import Modal from '@/components/general/Modal';
 import ChatRoomIcon from '@/features/chatRooms/components/ChatRoomIcon';
+import { Trash2, UserPlus } from 'lucide-react';
 import ChatAddParticipantForm from './ChatAddParticipantForm';
 import ChatDeleteChatRoomForm from './ChatDeleteChatRoomForm';
 import ChatOnlineStatus from './ChatOnlineStatus';
-import { Trash2, UserPlus } from 'lucide-react';
 
 const ChatDrawerPanel = () => {
   const isDeleteChatRoomFormOpen = useAppSelector(

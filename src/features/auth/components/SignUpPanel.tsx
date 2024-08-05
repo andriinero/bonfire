@@ -1,13 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
-import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import { usePostSignUpMutation } from '../authSlice';
 
-import { PushNotificationType } from '@/types/PushNotification';
-
-import { useAppDispatch } from '@/app/hooks';
 import Form from '@/components/form/Form';
 import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
@@ -16,8 +13,6 @@ import ValidationError from '@/components/form/ValidationError';
 import AppLink from '@/components/general/AppLink';
 import Button from '@/components/general/Button';
 import Paths from '@/constants/Paths';
-import { useNavigate } from 'react-router-dom';
-import { getErrorData } from '@/utils/getErrorData';
 
 const SignUpBodySchema = z
   .object({
@@ -46,29 +41,11 @@ const SignUpPanel = () => {
   } = useForm<TSignUpBody>({ resolver: zodResolver(SignUpBodySchema) });
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [postSignUp, { isLoading }] = usePostSignUpMutation();
 
   const handleFormSubmit = async (data: TSignUpBody): Promise<void> => {
-    try {
-      await postSignUp(data).unwrap();
-      dispatch(
-        pushNotificationAdded({
-          body: 'Account created',
-          type: PushNotificationType.SUCCESS,
-        }),
-      );
-      navigate(Paths.Auth.SIGN_IN);
-    } catch (err) {
-      const errorData = getErrorData(err);
-      dispatch(
-        pushNotificationAdded({
-          body: errorData.message,
-          list: errorData.list,
-          type: PushNotificationType.ERROR,
-        }),
-      );
-    }
+    await postSignUp(data).unwrap();
+    navigate(Paths.Auth.SIGN_IN);
   };
 
   const isSubmitDisabled = isLoading;

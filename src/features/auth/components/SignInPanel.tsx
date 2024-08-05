@@ -4,16 +4,12 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import Paths from '@/constants/Paths';
-import { getErrorData } from '@/utils/getErrorData';
 
-import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import {
   tokenInitialized,
   useGetAuthDataQuery,
   usePostSignInMutation,
 } from '../authSlice';
-
-import { PushNotificationType } from '@/types/PushNotification';
 
 import ValidationError from '@/components/form/ValidationError';
 import AppLink from '@/components/general/AppLink';
@@ -32,8 +28,11 @@ const SignInBodySchema = z.object({
 export type TSignInBody = z.infer<typeof SignInBodySchema>;
 
 const SignInPanel = () => {
-  const { refetch } = useGetAuthDataQuery();
-  const [postSignIn, { isLoading, isSuccess }] = usePostSignInMutation();
+  const { refetch: refetchAuthData } = useGetAuthDataQuery();
+  const [
+    postSignIn,
+    { isLoading: isPostSignInLoading, isSuccess: isPostSignInSuccess },
+  ] = usePostSignInMutation();
 
   const {
     register,
@@ -43,44 +42,25 @@ const SignInPanel = () => {
 
   const dispatch = useAppDispatch();
 
-  if (isSuccess) return <Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />;
+  if (isPostSignInSuccess)
+    return <Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />;
 
   const handleFormSubmit = async (data: TSignInBody): Promise<void> => {
-    try {
-      const result = await postSignIn(data).unwrap();
-      dispatch(tokenInitialized(result.token));
-      refetch();
-    } catch (err) {
-      const errorData = getErrorData(err);
-      dispatch(
-        pushNotificationAdded({
-          body: errorData.message,
-          type: PushNotificationType.ERROR,
-        }),
-      );
-    }
+    const result = await postSignIn(data).unwrap();
+    dispatch(tokenInitialized(result.token));
+    refetchAuthData();
   };
 
   const handleGuestSignIn = async (): Promise<void> => {
-    try {
-      const result = await postSignIn({
-        email: 'max@gmail.com',
-        password: 'strongpass1',
-      }).unwrap();
-      dispatch(tokenInitialized(result.token));
-      refetch();
-    } catch (err) {
-      const errorData = getErrorData(err);
-      dispatch(
-        pushNotificationAdded({
-          body: errorData.message,
-          type: PushNotificationType.ERROR,
-        }),
-      );
-    }
+    const response = await postSignIn({
+      email: 'max@gmail.com',
+      password: 'strongpass1',
+    }).unwrap();
+    dispatch(tokenInitialized(response.token));
+    refetchAuthData();
   };
 
-  const isSubmitDisabled = isLoading;
+  const isSubmitDisabled = isPostSignInLoading;
 
   return (
     <div className="container space-y-8 rounded-md bg-white p-12 text-sm font-medium text-gray-900 sm:shadow">

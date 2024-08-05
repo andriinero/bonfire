@@ -65,13 +65,23 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body,
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        await queryFulfilled;
-        dispatch(
-          pushNotificationAdded({
-            body: 'Login success',
-            type: PushNotificationType.SUCCESS,
-          }),
-        );
+        try {
+          await queryFulfilled;
+          dispatch(
+            pushNotificationAdded({
+              body: 'Login success',
+              type: PushNotificationType.SUCCESS,
+            }),
+          );
+        } catch (err) {
+          const errorData = getErrorData((err as { error: unknown }).error);
+          dispatch(
+            pushNotificationAdded({
+              body: errorData.message,
+              type: PushNotificationType.ERROR,
+            }),
+          );
+        }
       },
     }),
     postSignUp: builder.mutation<{ message: string }, TSignUpBody>({
@@ -80,6 +90,27 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body,
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+          dispatch(
+            pushNotificationAdded({
+              body: 'Account created',
+              type: PushNotificationType.SUCCESS,
+            }),
+          );
+        } catch (err) {
+          console.error(err);
+          const errorData = getErrorData((err as { error: unknown }).error);
+          dispatch(
+            pushNotificationAdded({
+              body: errorData.message,
+              list: errorData.list,
+              type: PushNotificationType.ERROR,
+            }),
+          );
+        }
+      },
     }),
   }),
 });
