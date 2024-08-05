@@ -1,14 +1,10 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { useForm } from 'react-hook-form';
 
-import { getErrorData } from '@/utils/getErrorData';
-
 import { useDeleteChatRoomMutation } from '@/features/chatRooms/chatRoomsSlice';
 import { deleteChatRoomFormClosed } from '@/features/drawer/drawerSlice';
-import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import { selectedChatIdSet, selectSelectedChatId } from '../chatSlice';
 
-import { PushNotificationType } from '@/types/PushNotification';
 import type { MouseEventHandler } from 'react';
 
 import Form from '@/components/form/Form';
@@ -34,27 +30,11 @@ const ChatDeleteChatRoomForm = ({
   const dispatch = useAppDispatch();
 
   const handleFormSubmit = async (): Promise<void> => {
-    try {
-      await deleteChatRoom({
-        chatRoomId: selectedChatId,
-      }).unwrap();
-      dispatch(
-        pushNotificationAdded({
-          body: `Chat room deleted`,
-          type: PushNotificationType.SUCCESS,
-        }),
-      );
-      dispatch(deleteChatRoomFormClosed());
-      dispatch(selectedChatIdSet(null));
-    } catch (err) {
-      const errorData = getErrorData(err);
-      dispatch(
-        pushNotificationAdded({
-          body: `Delete chat: "${errorData.message}"`,
-          type: PushNotificationType.ERROR,
-        }),
-      );
-    }
+    await deleteChatRoom({
+      chatRoomId: selectedChatId,
+    }).unwrap();
+    dispatch(deleteChatRoomFormClosed());
+    dispatch(selectedChatIdSet(null));
   };
 
   const isSubmitDisabled = isLoading;

@@ -103,8 +103,21 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
         );
         try {
           await queryFulfilled;
+          dispatch(
+            pushNotificationAdded({
+              body: `Chat room deleted`,
+              type: PushNotificationType.SUCCESS,
+            }),
+          );
         } catch (err) {
           patchResult.undo();
+          const errorData = getErrorData(err);
+          dispatch(
+            pushNotificationAdded({
+              body: `Delete chat: "${errorData.message}"`,
+              type: PushNotificationType.ERROR,
+            }),
+          );
         }
       },
     }),
