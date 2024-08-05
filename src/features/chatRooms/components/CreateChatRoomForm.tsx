@@ -3,15 +3,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { getErrorData } from '@/utils/getErrorData';
-
-import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
 import {
   createChatRoomModalClosed,
   usePostChatRoomMutation,
 } from '../chatRoomsSlice';
 
-import { PushNotificationType } from '@/types/PushNotification';
 import type { MouseEventHandler } from 'react';
 
 import Form from '@/components/form/Form';
@@ -46,24 +42,8 @@ const CreateChatRoomForm = ({ onCloseClick }: CreateChatRoomFormProps) => {
   const [postChatRoom] = usePostChatRoomMutation();
 
   const handleFormSubmit = async (data: TCreateChatBody): Promise<void> => {
-    try {
-      await postChatRoom(data).unwrap();
-      dispatch(
-        pushNotificationAdded({
-          body: 'Chat successfully created',
-          type: PushNotificationType.SUCCESS,
-        }),
-      );
-      dispatch(createChatRoomModalClosed());
-    } catch (err) {
-      const errorData = getErrorData(err);
-      dispatch(
-        pushNotificationAdded({
-          body: `Create chat: "${errorData.message}"`,
-          type: PushNotificationType.ERROR,
-        }),
-      );
-    }
+    await postChatRoom(data).unwrap();
+    dispatch(createChatRoomModalClosed());
   };
 
   return (

@@ -1,17 +1,9 @@
-import { useAppDispatch } from '@/app/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { getErrorData } from '@/utils/getErrorData';
+import { usePostContactMutation } from '../contactsSlice';
 
-import { pushNotificationAdded } from '@/features/pushNotifications/pushNotificationsSlice';
-import {
-  createContactsModalClosed,
-  usePostContactMutation,
-} from '../contactsSlice';
-
-import { PushNotificationType } from '@/types/PushNotification';
 import type { MouseEventHandler } from 'react';
 
 import Form from '@/components/form/Form';
@@ -42,28 +34,10 @@ const CreateContactForm = ({ onCloseClick }: CreateContactFormProps) => {
     resolver: zodResolver(CreateContactBodySchema),
   });
 
-  const dispatch = useAppDispatch();
   const [postContact] = usePostContactMutation();
 
-  const handleFormSubmit = async (data: TCreateContactBody): Promise<void> => {
-    try {
-      await postContact(data).unwrap();
-      dispatch(
-        pushNotificationAdded({
-          body: `Contact '${data.contactUsername}' created`,
-          type: PushNotificationType.SUCCESS,
-        }),
-      );
-      dispatch(createContactsModalClosed());
-    } catch (err) {
-      const errorData = getErrorData(err);
-      dispatch(
-        pushNotificationAdded({
-          body: `Create contact: "${errorData.message}"`,
-          type: PushNotificationType.ERROR,
-        }),
-      );
-    }
+  const handleFormSubmit = (data: TCreateContactBody) => {
+    postContact(data);
   };
 
   return (

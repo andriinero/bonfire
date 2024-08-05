@@ -3,6 +3,9 @@ import { apiSlice } from '../api/apiSlice';
 
 import type { RootState } from '@/app/store';
 import type { User } from '@/types/User';
+import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
+import { PushNotificationType } from '@/types/PushNotification';
+import { getErrorData } from '@/utils/getErrorData';
 
 type ContactsState = {
   isCreateContactModalOpen: boolean;
@@ -51,33 +54,67 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body,
       }),
-    }),
-    deleteContact: builder.mutation<void, { userId: string; page: number }>({
-      query: ({ userId }) => ({
-        url: `/profile/contacts/${userId}`,
-        method: 'DELETE',
-      }),
       onQueryStarted: async (
-        { userId, page },
+        { contactUsername },
         { dispatch, queryFulfilled },
       ) => {
-        const patchResult = dispatch(
-          contactsApiSlice.util.updateQueryData(
-            'getContacts',
-            page,
-            (draft) => {
-              const contactIndex = draft.findIndex((c) => c._id === userId);
-              if (contactIndex > -1) draft.splice(contactIndex, 1);
-            },
-          ),
-        );
         try {
           await queryFulfilled;
+          dispatch(
+            pushNotificationAdded({
+              body: `Contact '${contactUsername}' created`,
+              type: PushNotificationType.SUCCESS,
+            }),
+          );
+          dispatch(createContactsModalClosed());
         } catch (err) {
-          patchResult.undo();
+          const errorData = getErrorData((err as { error: unknown }).error);
+          dispatch(
+            pushNotificationAdded({
+              body: `Create contact: "${errorData.message}"`,
+              type: PushNotificationType.ERROR,
+            }),
+          );
         }
       },
     }),
+    deleteContact: builder.mutation<void, { userId: string; username: string }>(
+      {
+        query: ({ userId }) => ({
+          url: `/profile/contacts/${userId}`,
+          method: 'DELETE',
+        }),
+        onQueryStarted: async (
+          { userId, username },
+          { dispatch, queryFulfilled },
+        ) => {
+          const patchResult = dispatch(
+            contactsApiSlice.util.updateQueryData('getContacts', 0, (draft) => {
+              const contactIndex = draft.findIndex((c) => c._id === userId);
+              if (contactIndex > -1) draft.splice(contactIndex, 1);
+            }),
+          );
+          try {
+            await queryFulfilled;
+            dispatch(
+              pushNotificationAdded({
+                body: `Contact '${username}' deleted`,
+                type: PushNotificationType.SUCCESS,
+              }),
+            );
+          } catch (err) {
+            patchResult.undo();
+            const errorData = getErrorData((err as { error: unknown }).error);
+            dispatch(
+              pushNotificationAdded({
+                body: errorData.message,
+                type: PushNotificationType.ERROR,
+              }),
+            );
+          }
+        },
+      },
+    ),
   }),
 });
 

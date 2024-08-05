@@ -1,9 +1,13 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { apiSlice } from '../api/apiSlice';
+import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
+
+import { getErrorData } from '@/utils/getErrorData';
 
 import type { RootState } from '@/app/store';
 import type { ChatRoom } from '@/types/ChatRoom';
+import { PushNotificationType } from '@/types/PushNotification';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 type ChatRoomState = {
@@ -65,6 +69,25 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
     postChatRoom: builder.mutation<void, { participantUsername: string }>({
       invalidatesTags: ['chatRooms'],
       query: (body) => ({ url: '/chat-rooms', method: 'POST', body }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+          dispatch(
+            pushNotificationAdded({
+              body: 'Chat successfully created',
+              type: PushNotificationType.SUCCESS,
+            }),
+          );
+        } catch (err) {
+          const errorData = getErrorData((err as { error: unknown }).error);
+          dispatch(
+            pushNotificationAdded({
+              body: `Create chat: "${errorData.message}"`,
+              type: PushNotificationType.ERROR,
+            }),
+          );
+        }
+      },
     }),
     deleteChatRoom: builder.mutation<void, { chatRoomId: string }>({
       query: ({ chatRoomId }) => ({
