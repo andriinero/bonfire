@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { drawerClosed, selectCurrentDrawerPanelType } from '../drawerSlice';
 
 import { DrawerSlideIn } from '@/styles/animations/SlideIn';
+import type { ReactNode } from 'react';
 import { DrawerPanelType } from '../types/DrawerPanel';
 
 import Backdrop from '@/components/general/Backdrop';
@@ -11,12 +12,17 @@ import IconButton from '@/components/general/IconButton';
 import XIcon from '@/components/general/XIcon';
 import ChatDrawerPanel from '@/features/chat/components/ChatDrawer';
 
+const drawerPanelMap: Record<DrawerPanelType, ReactNode> = {
+  [DrawerPanelType.CHAT]: <ChatDrawerPanel />,
+  [DrawerPanelType.CONTACT]: <p>TODO: Contact Drawer Panel</p>,
+} as const;
+
 const Drawer = () => {
   const currentDrawerPanelType = useAppSelector(selectCurrentDrawerPanelType);
 
   const dispatch = useAppDispatch();
 
-  const handleCloseChatDrawer = (): void => {
+  const handleCloseDrawerClick = (): void => {
     dispatch(drawerClosed());
   };
 
@@ -32,17 +38,17 @@ const Drawer = () => {
       >
         <div className="flex justify-end">
           <IconButton
-            onClick={handleCloseChatDrawer}
+            onClick={handleCloseDrawerClick}
             aria-label="Close Drawer"
             className="p-2"
           >
             <XIcon />
           </IconButton>
         </div>
-        {currentDrawerPanelType === DrawerPanelType.CHAT && <ChatDrawerPanel />}
+        {currentDrawerPanelType && drawerPanelMap[currentDrawerPanelType]}
       </motion.div>
       {currentDrawerPanelType && (
-        <Backdrop onBackdropClick={handleCloseChatDrawer} />
+        <Backdrop onBackdropClick={handleCloseDrawerClick} />
       )}
     </>
   );
