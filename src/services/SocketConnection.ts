@@ -2,20 +2,20 @@ import { io } from 'socket.io-client';
 
 import EnvVars from '@/constants/EnvVars';
 
-import type { Socket } from 'socket.io-client';
+import type { ManagerOptions, Socket, SocketOptions } from 'socket.io-client';
 
 class SocketConnection {
   private _socket: Socket;
   private _url = EnvVars.API_SERVER_URL;
 
   constructor(token: string) {
-    this._socket = io(this._url, {
+    const opts: Partial<ManagerOptions & SocketOptions> = {
       transports: ['polling'],
-      extraHeaders: {
-        authorization: `Bearer ${token}`,
-      },
+      extraHeaders: { authorization: `Bearer ${token}` },
       autoConnect: false,
-    });
+    };
+
+    this._socket = io(this._url, opts);
   }
 
   createNewConnection(token: string) {
@@ -23,9 +23,7 @@ class SocketConnection {
 
     this._socket = io(this._url, {
       transports: ['polling'],
-      extraHeaders: {
-        authorization: `Bearer ${token}`,
-      },
+      extraHeaders: { authorization: `Bearer ${token}` },
     });
   }
 
@@ -39,6 +37,18 @@ class SocketConnection {
     if (this._socket.disconnected) return;
 
     this._socket.disconnect();
+  }
+
+  on(eventName: string, listener: () => void) {
+    if (this._socket.connected) return;
+
+    this._socket.on(eventName, listener);
+  }
+
+  off(eventName: string, listener: () => void) {
+    if (this._socket.connected) return;
+
+    this._socket.off(eventName, listener);
   }
 
   get socket() {
