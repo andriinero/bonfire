@@ -24,10 +24,10 @@ type PushNotificationItemProps = {
 };
 
 const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
-  const notification = useAppSelector(selectPushNotificationById(id));
+  const notification = useAppSelector(selectPushNotificationById(id))!;
   const { handleNotificationDismiss } = useNotificationDismiss(id);
 
-  const type = notification?.type;
+  const type = notification.type;
 
   return notification ? (
     <motion.li
@@ -37,7 +37,7 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
       animate="animate"
       className={cn(
         'text-md flex items-center justify-between rounded-md p-4 text-sm shadow',
-        styleMap[type!].bgColor,
+        styleMap[type].bgColor,
       )}
     >
       <div className="flex w-full items-center justify-between gap-8">
