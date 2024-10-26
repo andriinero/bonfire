@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from '../api/apiSlice';
 
+import SocketClient from '@/services/SocketClient';
+
 import type { RootState } from '@/app/store';
 import type { Message } from '@/types/Message';
 import type { PayloadAction } from '@reduxjs/toolkit';
@@ -52,6 +54,29 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
       {
         query: ({ chatRoomId, page }) =>
           `/chat-rooms/${chatRoomId}/messages?page=${page ?? 0}`,
+        onCacheEntryAdded: async (
+          _,
+          { dispatch, cacheDataLoaded, cacheEntryRemoved },
+        ) => {
+          const socketClient = SocketClient.instance;
+          const updateCacheHandler = (message: Message) => {
+            dispatch(
+              messagesApiSlice.util.updateQueryData(
+                'getMessages',
+                _,
+                (draft) => {
+                  draft.push(message);
+                },
+              ),
+            );
+          };
+
+          await cacheDataLoaded;
+          socketClient.on('message:receive', updateCacheHandler);
+
+          await cacheEntryRemoved;
+          socketClient.off('message:receive', updateCacheHandler);
+        },
       },
     ),
     getMessagesPageCount: builder.query<number, { chatRoomId: string }>({

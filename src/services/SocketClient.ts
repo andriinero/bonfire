@@ -2,7 +2,6 @@ import { io } from 'socket.io-client';
 
 import EnvVars from '@/constants/EnvVars';
 
-import type { SocketHandler } from '@/features/socket/socketSlice';
 import type { ManagerOptions, Socket, SocketOptions } from 'socket.io-client';
 
 class SocketClient {
@@ -46,15 +45,17 @@ class SocketClient {
     SocketClient._socket.disconnect();
   }
 
-  public on(eventName: string, listener: SocketHandler) {
+  public on(eventName: string, listener: unknown) {
     if (SocketClient._socket.connected) return;
 
+    //@ts-expect-error SocketIO unable to infer type correctly
     SocketClient._socket.on(eventName, listener);
   }
 
-  public off(eventName: string, listener: SocketHandler) {
+  public off(eventName: string, listener: unknown) {
     if (SocketClient._socket.connected) return;
 
+    //@ts-expect-error SocketIO unable to infer type correctly
     SocketClient._socket.off(eventName, listener);
   }
 }
