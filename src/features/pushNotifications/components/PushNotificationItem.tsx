@@ -13,6 +13,12 @@ import NotificationBody from './NotificationBody';
 import NotificationCrossIcon from './NotificationCrossIcon';
 import NotificationStatusIcon from './NotificationStatusIcon';
 
+const styleMap: Record<PushNotificationType, { bgColor: string }> = {
+  [PushNotificationType.ERROR]: { bgColor: 'bg-red-50' },
+  [PushNotificationType.SUCCESS]: { bgColor: 'bg-green-50' },
+  [PushNotificationType.WARNING]: { bgColor: 'bg-yellow-50' },
+};
+
 type PushNotificationItemProps = {
   id: string;
 };
@@ -30,12 +36,8 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
       initial="initial"
       animate="animate"
       className={cn(
-        'flex items-center justify-between rounded-md p-4 text-sm shadow-md',
-        {
-          'bg-red-50': type === PushNotificationType.ERROR,
-          'bg-green-50': type === PushNotificationType.SUCCESS,
-          'bg-yellow-50': type === PushNotificationType.WARNING,
-        },
+        'text-md flex items-center justify-between rounded-md p-4 text-sm shadow',
+        styleMap[type!].bgColor,
       )}
     >
       <div className="flex w-full items-center justify-between gap-8">
