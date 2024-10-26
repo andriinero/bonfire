@@ -8,8 +8,12 @@ import XIcon from '@/components/general/XIcon';
 
 const styleMap: Record<PushNotificationType, { color: string }> = {
   [PushNotificationType.ERROR]: { color: 'text-red-400 hover:bg-red-100' },
-  [PushNotificationType.SUCCESS]: { color: 'text-red-400 hover:bg-green-100' },
-  [PushNotificationType.WARNING]: { color: 'text-red-400 hover:bg-yellow-100' },
+  [PushNotificationType.SUCCESS]: {
+    color: 'text-green-400 hover:bg-green-100',
+  },
+  [PushNotificationType.WARNING]: {
+    color: 'text-yellow-400 hover:bg-yellow-100',
+  },
 };
 
 type NotificationCrossIconProps = {
