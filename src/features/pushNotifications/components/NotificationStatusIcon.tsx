@@ -1,8 +1,24 @@
 import cn from '@/utils/cn';
 
 import { PushNotificationType } from '@/types/PushNotification';
+import type { ReactNode } from 'react';
 
-import { CircleAlert, CircleCheck, CircleX, TriangleAlert } from 'lucide-react';
+import { CircleAlert, CircleCheck, CircleX } from 'lucide-react';
+
+const styleMap: Record<
+  PushNotificationType,
+  { color: string; icon: ReactNode }
+> = {
+  [PushNotificationType.ERROR]: { color: 'text-red-400', icon: <CircleX /> },
+  [PushNotificationType.SUCCESS]: {
+    color: 'text-green-400',
+    icon: <CircleCheck />,
+  },
+  [PushNotificationType.WARNING]: {
+    color: 'text-yellow-400',
+    icon: <CircleAlert />,
+  },
+};
 
 type NotificationStatusIconProps = {
   type: PushNotificationType;
@@ -14,22 +30,8 @@ const NotificationStatusIcon = ({
   className,
 }: NotificationStatusIconProps) => {
   return (
-    <span
-      className={cn('mt-0.5 self-start', className, {
-        'text-red-400': type === PushNotificationType.ERROR,
-        'text-green-400': type === PushNotificationType.SUCCESS,
-        'text-yellow-400': type === PushNotificationType.WARNING,
-      })}
-    >
-      {type === PushNotificationType.ERROR ? (
-        <CircleX />
-      ) : type === PushNotificationType.SUCCESS ? (
-        <CircleCheck />
-      ) : type === PushNotificationType.WARNING ? (
-        <TriangleAlert />
-      ) : (
-        <CircleAlert />
-      )}
+    <span className={cn('mt-0.5 self-start', styleMap[type].color, className)}>
+      {styleMap[type].icon}
     </span>
   );
 };
