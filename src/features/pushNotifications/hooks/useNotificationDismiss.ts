@@ -1,15 +1,19 @@
 import { useAppDispatch } from '@/app/hooks';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { pushNotificationRemoved } from '../pushNotificationsSlice';
 
 const NOTIFICATION_UNMOUNT_TIMER = 5000;
 
 const useNotificationDismiss = (id: string) => {
+  const [isBeingDismissed, setIsBeingDismissed] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleNotificationDismiss = useCallback((): void => {
-    dispatch(pushNotificationRemoved(id));
+    setIsBeingDismissed(true);
+    setTimeout(() => {
+      dispatch(pushNotificationRemoved(id));
+    }, 1000);
   }, [id, dispatch]);
 
   useEffect(() => {
@@ -23,7 +27,7 @@ const useNotificationDismiss = (id: string) => {
     };
   }, [id, handleNotificationDismiss, dispatch]);
 
-  return { handleNotificationDismiss };
+  return { isBeingDismissed, handleNotificationDismiss };
 };
 
 export default useNotificationDismiss;

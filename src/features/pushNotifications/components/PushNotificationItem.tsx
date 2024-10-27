@@ -25,7 +25,8 @@ type PushNotificationItemProps = {
 
 const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
   const notification = useAppSelector(selectPushNotificationById(id))!;
-  const { handleNotificationDismiss } = useNotificationDismiss(id);
+  const { isBeingDismissed, handleNotificationDismiss } =
+    useNotificationDismiss(id);
 
   const type = notification.type;
 
@@ -34,9 +35,9 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
       key={id}
       variants={NotificationSlideIn}
       initial="initial"
-      animate="animate"
+      animate={isBeingDismissed ? 'exit' : 'animate'}
       className={cn(
-        'text-md flex items-center justify-between rounded-md p-4 text-sm shadow',
+        'text-md flex items-center justify-between rounded-md p-4 text-sm shadow-md',
         styleMap[type].bgColor,
       )}
     >
