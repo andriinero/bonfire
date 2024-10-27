@@ -44,20 +44,6 @@ class SocketClient {
 
     SocketClient._socket.disconnect();
   }
-
-  public on(eventName: string, listener: unknown) {
-    if (SocketClient._socket.connected) return;
-
-    //@ts-expect-error SocketIO unable to infer type correctly
-    SocketClient._socket.on(eventName, listener);
-  }
-
-  public off(eventName: string, listener: unknown) {
-    if (SocketClient._socket.connected) return;
-
-    //@ts-expect-error SocketIO unable to infer type correctly
-    SocketClient._socket.off(eventName, listener);
-  }
 }
 
 export default SocketClient;

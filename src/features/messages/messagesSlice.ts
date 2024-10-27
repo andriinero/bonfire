@@ -8,7 +8,7 @@ import type { Message } from '@/types/Message';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 export type TPostMessageBody = {
-  user: string;
+  chatRoomId: string;
   body: string;
   reply?: string;
 };
@@ -58,24 +58,25 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
           _,
           { dispatch, cacheDataLoaded, cacheEntryRemoved },
         ) => {
-          const socketClient = SocketClient.instance;
+          const socket = SocketClient.instance.socket;
           const updateCacheHandler = (message: Message) => {
             dispatch(
               messagesApiSlice.util.updateQueryData(
                 'getMessages',
-                _,
+                { chatRoomId: message.chat_room, page: 0 },
                 (draft) => {
-                  draft.push(message);
+                  draft.unshift(message);
                 },
               ),
             );
           };
 
           await cacheDataLoaded;
-          socketClient.on('message:receive', updateCacheHandler);
+          socket.removeAllListeners('message:receive');
+          socket.on('message:receive', updateCacheHandler);
 
           await cacheEntryRemoved;
-          socketClient.off('message:receive', updateCacheHandler);
+          socket.removeAllListeners('message:receive');
         },
       },
     ),
@@ -83,37 +84,11 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
       query: ({ chatRoomId }) =>
         `/chat-rooms/${chatRoomId}/messages/page-count`,
     }),
-    postMessage: builder.mutation<
-      Message,
-      { chatRoomId: string; body: TPostMessageBody }
-    >({
-      query: ({ chatRoomId, body }) => ({
-        url: `/chat-rooms/${chatRoomId}/messages`,
-        method: 'POST',
-        body,
-      }),
-      onQueryStarted: async ({ chatRoomId }, { dispatch, queryFulfilled }) => {
-        const result = (await queryFulfilled).data;
-        dispatch(
-          messagesApiSlice.util.updateQueryData(
-            'getMessages',
-            { chatRoomId, page: 0 },
-            (draft) => {
-              draft.unshift(result);
-            },
-          ),
-        );
-        dispatch(shouldScrollDownSet(true));
-      },
-    }),
   }),
 });
 
-export const {
-  useGetMessagesQuery,
-  useGetMessagesPageCountQuery,
-  usePostMessageMutation,
-} = messagesApiSlice;
+export const { useGetMessagesQuery, useGetMessagesPageCountQuery } =
+  messagesApiSlice;
 
 export const {
   shouldScrollDownSet,

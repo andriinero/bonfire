@@ -1,5 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 
+import type { TPostMessageBody } from '../messages/messagesSlice';
+
 const name = 'socket';
 
 export const connectionCreated = createAction<{ token: string }>(
@@ -8,9 +10,6 @@ export const connectionCreated = createAction<{ token: string }>(
 
 export const disconnected = createAction(`${name}/disconnected`);
 
-export const messageSent = createAction<{
-  chatRoomId: string;
-  user: string;
-  body: string;
-  reply?: string;
-}>(`${name}/connectionCreated`);
+export const messageSent = createAction<TPostMessageBody>(
+  `${name}/messageSent`,
+);

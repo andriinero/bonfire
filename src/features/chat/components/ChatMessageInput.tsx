@@ -1,17 +1,16 @@
-import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { selectAuthUserId } from '@/features/auth/authSlice';
-import { usePostMessageMutation } from '@/features/messages/messagesSlice';
+import { messageSent } from '@/features/socket/socketSlice';
 import { selectSelectedChatId } from '../chatSlice';
 
 import type { TPostMessageBody } from '@/features/messages/messagesSlice';
 
 import TextInput from '@/components/form/TextInput';
 import Button from '@/components/general/Button';
-import { SendHorizontal } from 'lucide-react';
+import { Send } from 'lucide-react';
 
 const MessageBarSchema = z.object({
   body: z.string().min(1, 'Message must contain at least one character'),
@@ -20,9 +19,6 @@ const MessageBarSchema = z.object({
 type TMessageBar = z.infer<typeof MessageBarSchema>;
 
 const ChatMessageInput = () => {
-  const selectedChatId = useAppSelector(selectSelectedChatId);
-  const authUserId = useAppSelector(selectAuthUserId) as string;
-
   const {
     register,
     handleSubmit,
@@ -30,15 +26,22 @@ const ChatMessageInput = () => {
     reset,
   } = useForm<TMessageBar>({ resolver: zodResolver(MessageBarSchema) });
 
-  const [postMessage, { isLoading }] = usePostMessageMutation();
+  const selectedChatId = useAppSelector(selectSelectedChatId);
+
+  const dispatch = useAppDispatch();
 
   const handleFormSubmit = async (data: TMessageBar): Promise<void> => {
-    const postBody: TPostMessageBody = { body: data.body, user: authUserId };
-    await postMessage({ chatRoomId: selectedChatId!, body: postBody });
+    if (!selectedChatId) return;
+
+    const postBody: TPostMessageBody = {
+      chatRoomId: selectedChatId,
+      body: data.body,
+    };
+    dispatch(messageSent(postBody));
     reset();
   };
 
-  const isSubmitDisabled = isSubmitting || isLoading || !isValid;
+  const isSubmitDisabled = isSubmitting || !isValid;
 
   return (
     <div className="border-t px-4 py-2">
@@ -58,7 +61,7 @@ const ChatMessageInput = () => {
           type="submit"
           className="cursor-pointer rounded-full p-2 text-white transition"
         >
-          <SendHorizontal className="text-lg" />
+          <Send className="text-lg" />
         </Button>
       </form>
     </div>
