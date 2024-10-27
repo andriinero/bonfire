@@ -13,7 +13,7 @@ const useNotificationDismiss = (id: string) => {
     setIsBeingDismissed(true);
     setTimeout(() => {
       dispatch(pushNotificationRemoved(id));
-    }, 1000);
+    }, 300);
   }, [id, dispatch]);
 
   useEffect(() => {
