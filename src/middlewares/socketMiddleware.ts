@@ -1,6 +1,6 @@
 import { isAction, isAnyOf } from '@reduxjs/toolkit';
 
-import { connectionCreated } from '@/features/socket/socketSlice';
+import { connectionCreated, messageSent } from '@/features/socket/socketSlice';
 
 import Storage from '@/lib/Storage';
 import SocketClient from '@/services/SocketClient';
@@ -25,7 +25,8 @@ export const createSocketMiddleware = (): Middleware<unknown, RootState> => {
         socketClient.disconnect();
         break;
       case 'socket/messageSent':
-        socketClient.socket.emit('message:send');
+        if (isAnyOf(messageSent)(action))
+          socketClient.socket.emit('message:send', action.payload);
         break;
     }
 
