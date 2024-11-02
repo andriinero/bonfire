@@ -70,7 +70,7 @@ const NavControls = () => {
                 isOnline
               />
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="w-40">
               <DropdownMenuLabel>{authData?.username}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Profile</DropdownMenuItem>
