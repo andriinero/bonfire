@@ -1,3 +1,5 @@
+import { useAppSelector } from '@/app/hooks';
+import { selectAuthData } from '@/features/auth/authSlice';
 import useHandleSignOut from '@/features/auth/hooks/useHandleSignOut';
 import usePathnameEnd from '@/hooks/usePathnameEnd';
 
@@ -5,23 +7,33 @@ import Paths from '@/constants/Paths';
 
 import AppLink from '@/components/general/AppLink';
 import IconButton from '@/components/general/IconButton';
+import UserIcon from '@/components/general/UserIcon';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { LogOut, MessageSquare, Users } from 'lucide-react';
 
 const NavControls = () => {
   const pathEnd = usePathnameEnd();
 
-  const signOut = useHandleSignOut();
-
-  const handleSignOutClick = (): void => {
-    signOut();
-  };
-
   const isChatsSelected = pathEnd === 'chats';
   const isContactsSelected = pathEnd === 'contacts';
 
+  const authData = useAppSelector(selectAuthData);
+
+  const handleSignOut = useHandleSignOut();
+
   return (
-    <nav className="w-full px-4 sm:px-0">
-      <ul role="tablist" className="flex justify-around sm:flex-col sm:gap-2">
+    <nav className="h-full w-full px-4 sm:px-0">
+      <ul
+        role="tablist"
+        className="flex h-full justify-around sm:flex-col sm:gap-4"
+      >
         <li>
           <AppLink
             to={Paths.Home.BASE + Paths.Home.CHATS}
@@ -48,14 +60,26 @@ const NavControls = () => {
             </IconButton>
           </AppLink>
         </li>
-        <li>
-          <IconButton
-            tabIndex={0}
-            aria-label="Sign Out"
-            onClick={handleSignOutClick}
-          >
-            <LogOut />
-          </IconButton>
+        <li className="mt-auto">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <UserIcon
+                title={authData?.username}
+                src={authData?.profile_image}
+                colorClass={authData?.color_class}
+                isOnline
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>{authData?.username}</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleSignOut}>
+                Exit
+                <LogOut className="ml-auto" />
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </li>
       </ul>
     </nav>

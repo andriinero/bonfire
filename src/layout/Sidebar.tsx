@@ -1,16 +1,14 @@
 import { useAppSelector } from '@/app/hooks';
 
-import { selectAuthData } from '@/features/auth/authSlice';
+import { selectIsSidebarOpen } from '@/features/chat/chatSlice';
 
-import UserIcon from '@/components/general/UserIcon';
+import cn from '@/utils/cn';
+
 import NavControls from '@/layout/NavControls';
 import { Outlet } from 'react-router-dom';
-import { selectIsSidebarOpen } from '@/features/chat/chatSlice';
-import cn from '@/utils/cn';
 
 const Sidebar = () => {
   const isSidebarOpen = useAppSelector(selectIsSidebarOpen);
-  const authData = useAppSelector(selectAuthData);
 
   return (
     <aside
@@ -21,13 +19,6 @@ const Sidebar = () => {
     >
       <div className="flex flex-col items-center justify-between border-t px-2 py-2 sm:border-r sm:py-4">
         <NavControls />
-        <UserIcon
-          className="hidden sm:flex"
-          title={authData?.username}
-          src={authData?.profile_image}
-          colorClass={authData?.color_class}
-          isOnline
-        />
       </div>
       <section className="sm:flex-0 w-full flex-1">
         <Outlet />
