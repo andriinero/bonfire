@@ -62,12 +62,12 @@ const NavControls = () => {
         </li>
         <li className="mt-auto">
           <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger className="">
               <UserIcon
                 title={authData?.username}
                 src={authData?.profile_image}
                 colorClass={authData?.color_class}
-                isOnline
+                className="ring-2 ring-amber-500 ring-offset-1"
               />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-40 ">
@@ -76,7 +76,7 @@ const NavControls = () => {
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem
                 onClick={handleSignOut}
-                className="text-red-500"
+                className="text-red-700"
               >
                 Exit
                 <LogOut className="ml-auto" />
