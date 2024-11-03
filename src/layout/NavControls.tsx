@@ -70,11 +70,14 @@ const NavControls = () => {
                 isOnline
               />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-40">
+            <DropdownMenuContent className="w-40 ">
               <DropdownMenuLabel>{authData?.username}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem onClick={handleSignOut}>
+              <DropdownMenuItem
+                onClick={handleSignOut}
+                className="text-red-500"
+              >
                 Exit
                 <LogOut className="ml-auto" />
               </DropdownMenuItem>
