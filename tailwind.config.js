@@ -10,8 +10,5 @@ module.exports = {
     {
       pattern: /bg-+/,
     },
-    {
-      pattern: /text-+/,
-    },
   ],
 };
