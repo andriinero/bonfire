@@ -72,6 +72,9 @@ const NavControls = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-40">
               <DropdownMenuLabel>{authData?.username}</DropdownMenuLabel>
+              <DropdownMenuLabel className="pt-0 text-xs font-normal">
+                {authData?.email}
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem
