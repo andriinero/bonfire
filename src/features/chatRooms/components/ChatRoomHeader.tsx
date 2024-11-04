@@ -7,9 +7,8 @@ import {
 } from '../chatRoomsSlice';
 
 import IconButton from '@/components/general/IconButton';
-import { SearchX, UserPlus } from 'lucide-react';
-import TextInput from '@/components/form/TextInput';
 import MultiSelect from '@/components/general/MultiSelect';
+import { UserPlus } from 'lucide-react';
 
 const ChatRoomHeader = () => {
   const isCreateChatRoomOpen = useAppSelector(selectIsCreateChatRoomModalOpen);
@@ -28,7 +27,7 @@ const ChatRoomHeader = () => {
     <div className="flex items-center justify-between gap-16 p-4">
       {isCreateChatRoomOpen ? (
         <>
-          <MultiSelect />
+          <MultiSelect onCloseClick={handleModalClose} />
         </>
       ) : (
         <>
