@@ -13,11 +13,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 type ChatRoomState = {
   isCreateChatRoomModalOpen: boolean;
   chatRoomsInitQueue: string[];
+  selectedContacts: string[];
 };
 
 const initialState: ChatRoomState = {
   isCreateChatRoomModalOpen: false,
   chatRoomsInitQueue: [],
+  selectedContacts: [],
 };
 
 const chatRoomSlice = createSlice({
@@ -43,6 +45,17 @@ const chatRoomSlice = createSlice({
       state.chatRoomsInitQueue = state.chatRoomsInitQueue.filter(
         (c) => c !== chatRoomId,
       );
+    },
+    selectedContactAdded: (state, action: PayloadAction<string>) => {
+      state.selectedContacts.push(action.payload);
+    },
+    selectedContactRemoved: (state, action: PayloadAction<string>) => {
+      state.selectedContacts = state.selectedContacts.filter(
+        (contactId) => contactId !== action.payload,
+      );
+    },
+    selectedContactReset: (state) => {
+      state.selectedContacts.length = 0;
     },
   },
 });
@@ -142,6 +155,9 @@ export default chatRoomSlice;
 
 export const selectIsCreateChatRoomModalOpen = (state: RootState) =>
   state.chatRoom.isCreateChatRoomModalOpen;
+
+export const selectSelectedContacts = (state: RootState) =>
+  state.chatRoom.selectedContacts;
 
 export const selectChatRoomsListResult =
   chatRoomsApiSlice.endpoints.getChatRooms.select(0);

@@ -1,11 +1,13 @@
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { cn } from '@/lib/utils';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
+import { selectSelectedContacts } from '@/features/chatRooms/chatRoomsSlice';
 import { contactsApiSlice } from '@/features/contacts/contactsSlice';
 
-import type { User } from '@/types/User';
 import type { ChangeEvent } from 'react';
 
+import { selectedChatCleared } from '@/features/chat/chatSlice';
 import ContactSearchItem from '@/features/contacts/components/ContactSearchItem';
 import { X } from 'lucide-react';
 import TextInput from '../form/TextInput';
@@ -20,17 +22,20 @@ type MultiSelectProps = {
 const REQUEST_DELAY_MS = 500;
 
 const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
-  const [selectedItems, setSelectedItems] = useState<User[]>([]);
   const timeoutRef = useRef<NodeJS.Timeout>();
-  const [
-    queryContactsByUsername,
-    { data, isSuccess, isFetching },
-    lastPromiseInfo,
-  ] = contactsApiSlice.useLazyGetContactsByUsernameQuery();
+  const selectedContacts = useAppSelector(selectSelectedContacts);
+  const [queryContactsByUsername, { data, isFetching }] =
+    contactsApiSlice.useLazyGetContactsByUsernameQuery();
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     queryContactsByUsername('');
-  }, [queryContactsByUsername]);
+
+    return () => {
+      dispatch(selectedChatCleared());
+    };
+  }, [dispatch, queryContactsByUsername]);
 
   const handleCloseForm = () => {
     onCloseClick();
@@ -39,6 +44,7 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
 
   const handleTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
     timeoutRef.current = setTimeout(() => {
       const input = e.target.value;
       if (input) queryContactsByUsername(input);
@@ -64,18 +70,7 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
             {data?.length !== 0 ? (
               <ul className="mb-auto p-2">
                 {data?.map((contact) => {
-                  const handleContactAdd = () => {
-                    setSelectedItems([...selectedItems, contact]);
-                    // FIXME: remove comment
-                    console.log(selectedItems);
-                  };
-                  return (
-                    <ContactSearchItem
-                      key={contact._id}
-                      handleContactAdd={handleContactAdd}
-                      {...contact}
-                    />
-                  );
+                  return <ContactSearchItem key={contact._id} {...contact} />;
                 })}
               </ul>
             ) : (
@@ -86,14 +81,14 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
           </div>
           <div className="flex justify-between border-t border-gray-200 p-4">
             <ul className="flex">
-              {selectedItems.map((item, index) => (
+              {selectedContacts.map((id, index) => (
                 <div
-                  key={item._id}
+                  key={id}
                   className={cn('relative', `right-[${index * 10}px]`)}
                 >
                   <UserIcon
-                    colorClass={item.color_class}
-                    src={item.profile_image}
+                    colorClass={id.color_class}
+                    src={id.profile_image}
                     style="sm"
                     className="ring ring-white"
                   />

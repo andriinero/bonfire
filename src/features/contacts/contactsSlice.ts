@@ -149,3 +149,16 @@ export const selectContactById = (contactId: string) =>
   createSelector(selectContactsList, (contactsList) =>
     contactsList.find((c) => c._id === contactId),
   );
+
+export const selectContactsListByUsernameResult =
+  contactsApiSlice.endpoints.getContactsByUsername.select('');
+
+export const selectContactsListByUsername = createSelector(
+  selectContactsListResult,
+  (contactsList) => contactsList.data ?? [],
+);
+
+export const selectContactByUsernameById = (contactId: string) =>
+  createSelector(selectContactsList, (contactsList) =>
+    contactsList.find((c) => c._id === contactId),
+  );
