@@ -59,8 +59,8 @@ const CreateContactForm = ({ onCloseClick }: CreateContactFormProps) => {
         Enter contact username
       </InputLabel>
       <TextInput
-        className="min-w-72"
         {...register('contactUsername')}
+        className="min-w-72"
         id="create-contact-username"
         placeholder="e.g. user01"
       />
