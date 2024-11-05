@@ -4,9 +4,12 @@ import type { User } from '@/types/User';
 import type { ChangeEvent } from 'react';
 
 import ContactSearchItem from '@/features/contacts/components/ContactSearchItem';
-import { X } from 'lucide-react';
+import { Check, Icon, X } from 'lucide-react';
 import TextInput from '../form/TextInput';
 import IconButton from './IconButton';
+import UserIcon from './UserIcon';
+import Button from './Button';
+import { cn } from '@/lib/utils';
 
 type MultiSelectProps = {
   onCloseClick: () => void;
@@ -52,10 +55,16 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
           placeholder="Enter the contact name"
           className="rounded-xl"
         />
-        <div className="animate-in fade-in slide-in-from-top-2 zoom-in-95 absolute z-10 mt-2 flex w-full flex-col gap-2 rounded-xl bg-white p-3 shadow-md ring-1 ring-gray-300">
-          <div className="flex basis-40 flex-col justify-center">
+        <div className="animate-in fade-in slide-in-from-top-2 zoom-in-95 absolute z-10 mt-2 flex w-full flex-col gap-2 rounded-xl bg-white shadow-md ring-1 ring-gray-300">
+          <div className="border-b border-gray-200 p-3">
+            <h2 className="font-bold">New chat room</h2>
+            <p className="text-sm text-gray-700">
+              Invite several contacts to your new chat.
+            </p>
+          </div>
+          <div className="flex basis-64 flex-col justify-center">
             {contacts.length !== 0 ? (
-              <ul className="mb-auto">
+              <ul className="mb-auto p-2">
                 {contacts.map((contact) => {
                   const handleContactAdd = () => {
                     setSelectedItems([...selectedItems, contact]);
@@ -76,6 +85,23 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
                 The search has returned no results
               </h1>
             )}
+          </div>
+          <div className="flex justify-between border-t border-gray-200 p-4">
+            <ul className="flex">
+              {selectedItems.map((item, index) => (
+                <div
+                  key={item._id}
+                  className={cn('relative', `right-[${index * 10}px]`)}
+                >
+                  <UserIcon
+                    colorClass={item.color_class}
+                    src={item.profile_image}
+                    style="sm"
+                  />
+                </div>
+              ))}
+            </ul>
+            <Button className="rounded-md">Create</Button>
           </div>
         </div>
       </div>
