@@ -2,7 +2,7 @@ import cn from '@/utils/cn';
 
 type FallbackIconProps = {
   title?: string;
-  style?: 'xs' | 'md' | 'lg' | 'xl';
+  style?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   colorClass?: string;
   className?: string;
 };
@@ -23,6 +23,7 @@ const FallbackIcon = ({
         className,
         {
           'size-6': style === 'xs',
+          'size-8': style === 'sm',
           'size-10': style === 'md',
           'size-12 text-3xl': style === 'lg',
           'size-20 text-4xl': style === 'xl',
