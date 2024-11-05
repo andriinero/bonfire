@@ -97,6 +97,7 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
                     colorClass={item.color_class}
                     src={item.profile_image}
                     style="sm"
+                    className="ring ring-white"
                   />
                 </div>
               ))}
