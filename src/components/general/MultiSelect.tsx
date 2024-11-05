@@ -1,15 +1,17 @@
-import { useRef, useState } from 'react';
+import { cn } from '@/lib/utils';
+import { useEffect, useRef, useState } from 'react';
+
+import { contactsApiSlice } from '@/features/contacts/contactsSlice';
 
 import type { User } from '@/types/User';
 import type { ChangeEvent } from 'react';
 
 import ContactSearchItem from '@/features/contacts/components/ContactSearchItem';
-import { Check, Icon, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import TextInput from '../form/TextInput';
+import Button from './Button';
 import IconButton from './IconButton';
 import UserIcon from './UserIcon';
-import Button from './Button';
-import { cn } from '@/lib/utils';
 
 type MultiSelectProps = {
   onCloseClick: () => void;
@@ -17,21 +19,18 @@ type MultiSelectProps = {
 
 const REQUEST_DELAY_MS = 500;
 
-const joe = {
-  _id: '1',
-  username: 'TheAverageJoe',
-  email: 'joe',
-  role: 'user' as const,
-  created: '',
-  is_online: true,
-  profile_image: '',
-  color_class: 'amber-400',
-};
-
 const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
-  const [contacts] = useState<User[]>([joe]);
   const [selectedItems, setSelectedItems] = useState<User[]>([]);
   const timeoutRef = useRef<NodeJS.Timeout>();
+  const [
+    queryContactsByUsername,
+    { data, isSuccess, isFetching },
+    lastPromiseInfo,
+  ] = contactsApiSlice.useLazyGetContactsByUsernameQuery();
+
+  useEffect(() => {
+    queryContactsByUsername('');
+  }, [queryContactsByUsername]);
 
   const handleCloseForm = () => {
     onCloseClick();
@@ -41,9 +40,8 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
   const handleTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
-      if (e.target.value)
-        // FIXME: remove comment
-        console.log(e.target.value);
+      const input = e.target.value;
+      if (input) queryContactsByUsername(input);
     }, REQUEST_DELAY_MS);
   };
 
@@ -63,9 +61,9 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
             </p>
           </div>
           <div className="flex basis-64 flex-col justify-center">
-            {contacts.length !== 0 ? (
+            {data?.length !== 0 ? (
               <ul className="mb-auto p-2">
-                {contacts.map((contact) => {
+                {data?.map((contact) => {
                   const handleContactAdd = () => {
                     setSelectedItems([...selectedItems, contact]);
                     // FIXME: remove comment
@@ -102,7 +100,9 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
                 </div>
               ))}
             </ul>
-            <Button className="rounded-md">Create</Button>
+            <Button disabled={isFetching} className="rounded-md">
+              Create
+            </Button>
           </div>
         </div>
       </div>

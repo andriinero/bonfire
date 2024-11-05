@@ -2,15 +2,13 @@ import IconButton from '@/components/general/IconButton';
 import UserIcon from '@/components/general/UserIcon';
 import { Plus } from 'lucide-react';
 
-import type { ComponentPropsWithoutRef } from 'react';
-
 type ContactSearchProps = {
   username: string;
   color_class: string;
   is_online: boolean;
   profile_image: string;
   handleContactAdd: () => void;
-} & ComponentPropsWithoutRef<'li'>;
+};
 
 const ContactSearchItem = ({
   username,
@@ -18,13 +16,9 @@ const ContactSearchItem = ({
   is_online,
   profile_image,
   handleContactAdd,
-  ...props
 }: ContactSearchProps) => {
   return (
-    <li
-      {...props}
-      className="flex items-center justify-between gap-4 rounded-lg p-2 transition hover:bg-gray-50"
-    >
+    <li className="flex items-center justify-between gap-4 rounded-lg p-2 transition hover:bg-gray-50">
       <div className="flex items-center gap-2">
         <UserIcon
           title={username}
