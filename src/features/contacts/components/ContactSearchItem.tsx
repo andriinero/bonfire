@@ -31,9 +31,8 @@ const ContactSearchItem = ({
           colorClass={color_class}
           isOnline={is_online}
           src={profile_image}
-          style="md"
         />
-        <h2 className="text-md font-medium">{username}</h2>
+        <h2 className="font-medium">{username}</h2>
       </div>
       <IconButton
         aria-label="Add Contact"
