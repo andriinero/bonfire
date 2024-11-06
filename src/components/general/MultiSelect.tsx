@@ -65,9 +65,9 @@ const MultiSelect = () => {
         <TextInput
           onChange={handleTextInputChange}
           placeholder="Enter the contact name"
-          className="rounded-xl"
+          className="rounded-lg"
         />
-        <div className="animate-in fade-in slide-in-from-top-2 zoom-in-95 absolute z-10 mt-2 flex w-full flex-col gap-2 rounded-xl bg-white shadow-md ring-1 ring-gray-300">
+        <div className="animate-in fade-in slide-in-from-top-2 zoom-in-95 absolute z-10 mt-2 flex w-full flex-col gap-2 rounded-lg bg-white shadow-md ring-1 ring-gray-300">
           <div className="border-b border-gray-200 p-3">
             <h2 className="font-bold">New chat room</h2>
             <p className="text-sm text-gray-700">
