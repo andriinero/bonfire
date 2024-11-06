@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import {
-  createChatRoomModalClosed,
+  createChatRoomClosed,
   usePostChatRoomMutation,
 } from '../chatRoomsSlice';
 
@@ -43,7 +43,7 @@ const CreateChatRoomForm = ({ onCloseClick }: CreateChatRoomFormProps) => {
 
   const handleFormSubmit = async (data: TCreateChatBody): Promise<void> => {
     await postChatRoom(data).unwrap();
-    dispatch(createChatRoomModalClosed());
+    dispatch(createChatRoomClosed());
   };
 
   return (

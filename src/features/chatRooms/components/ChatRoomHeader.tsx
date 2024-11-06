@@ -1,8 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import {
-  createChatRoomModalClosed,
-  createChatRoomModalOpened,
+  createChatRoomOpened,
   selectIsCreateChatRoomModalOpen,
 } from '../chatRoomsSlice';
 
@@ -16,18 +15,14 @@ const ChatRoomHeader = () => {
   const dispatch = useAppDispatch();
 
   const handleModalOpen = (): void => {
-    dispatch(createChatRoomModalOpened());
-  };
-
-  const handleModalClose = (): void => {
-    dispatch(createChatRoomModalClosed());
+    dispatch(createChatRoomOpened());
   };
 
   return (
     <div className="flex items-center justify-between gap-16 p-4">
       {isCreateChatRoomOpen ? (
         <>
-          <MultiSelect onCloseClick={handleModalClose} />
+          <MultiSelect />
         </>
       ) : (
         <>

@@ -2,8 +2,12 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { cn } from '@/lib/utils';
 import { useEffect, useRef } from 'react';
 
-import { selectedChatCleared } from '@/features/chat/chatSlice';
-import { selectSelectedContacts } from '@/features/chatRooms/chatRoomsSlice';
+import {
+  createChatRoomClosed,
+  selectedContactsReset,
+  selectSelectedContacts,
+  usePostChatRoomMutation,
+} from '@/features/chatRooms/chatRoomsSlice';
 import { contactsApiSlice } from '@/features/contacts/contactsSlice';
 
 import type { ChangeEvent } from 'react';
@@ -15,31 +19,33 @@ import Button from './Button';
 import IconButton from './IconButton';
 import UserIcon from './UserIcon';
 
-type MultiSelectProps = {
-  onCloseClick: () => void;
-};
-
 const REQUEST_DELAY_MS = 500;
 
-const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
+const MultiSelect = () => {
   const timeoutRef = useRef<NodeJS.Timeout>();
   const selectedContacts = useAppSelector(selectSelectedContacts);
-  const [queryContactsByUsername, { data, isFetching }] =
-    contactsApiSlice.useLazyGetContactsByUsernameQuery();
+  const [
+    queryContactsByUsername,
+    { data: contacts, isFetching: isContactsFetching },
+  ] = contactsApiSlice.useLazyGetContactsByUsernameQuery();
+  const [postChatRoom, { isLoading: isPostChatRoomLoading }] =
+    usePostChatRoomMutation();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     queryContactsByUsername('');
-
-    return () => {
-      dispatch(selectedChatCleared());
-    };
   }, [dispatch, queryContactsByUsername]);
 
   const handleCloseForm = () => {
-    onCloseClick();
+    dispatch(createChatRoomClosed());
+    dispatch(selectedContactsReset());
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  };
+
+  const handleFormSubmit = () => {
+    const selectedContactIds = selectedContacts.map((contact) => contact._id);
+    postChatRoom({ userIds: selectedContactIds });
   };
 
   const handleTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +56,8 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
       if (input) queryContactsByUsername(input);
     }, REQUEST_DELAY_MS);
   };
+
+  const isSubmitDisabled = isContactsFetching || isPostChatRoomLoading;
 
   return (
     <div className="flex w-full gap-1">
@@ -67,9 +75,9 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
             </p>
           </div>
           <div className="flex basis-64 flex-col justify-center">
-            {data?.length !== 0 ? (
+            {contacts?.length !== 0 ? (
               <ul className="mb-auto p-2">
-                {data?.map((contact) => {
+                {contacts?.map((contact) => {
                   const isSelected = selectedContacts.some(
                     (selectedContact) => selectedContact._id === contact._id,
                   );
@@ -93,7 +101,7 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
               {selectedContacts.map((contact, index) => (
                 <div
                   key={contact._id}
-                  className={cn('relative', `right-[${index * 10}px]`)}
+                  className={cn('relative', `right-[${index * 20}px]`)}
                 >
                   <UserIcon
                     title={contact.username}
@@ -105,7 +113,11 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
                 </div>
               ))}
             </ul>
-            <Button disabled={isFetching} className="rounded-md">
+            <Button
+              onClick={handleFormSubmit}
+              disabled={isSubmitDisabled}
+              className="rounded-md"
+            >
               Create
             </Button>
           </div>
