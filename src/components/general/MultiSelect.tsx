@@ -96,6 +96,7 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
                   className={cn('relative', `right-[${index * 10}px]`)}
                 >
                   <UserIcon
+                    title={contact.username}
                     colorClass={contact.color_class}
                     src={contact.profile_image}
                     style="sm"
