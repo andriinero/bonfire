@@ -8,27 +8,30 @@ import { getErrorData } from '@/utils/getErrorData';
 import type { RootState } from '@/app/store';
 import type { ChatRoom } from '@/types/ChatRoom';
 import { PushNotificationType } from '@/types/PushNotification';
+import type { User } from '@/types/User';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 type ChatRoomState = {
-  isCreateChatRoomModalOpen: boolean;
+  isCreateChatRoomOpen: boolean;
   chatRoomsInitQueue: string[];
+  selectedContacts: User[];
 };
 
 const initialState: ChatRoomState = {
-  isCreateChatRoomModalOpen: false,
+  isCreateChatRoomOpen: false,
   chatRoomsInitQueue: [],
+  selectedContacts: [],
 };
 
 const chatRoomSlice = createSlice({
   name: 'chatRoom',
   initialState,
   reducers: {
-    createChatRoomModalOpened: (state) => {
-      state.isCreateChatRoomModalOpen = true;
+    createChatRoomOpened: (state) => {
+      state.isCreateChatRoomOpen = true;
     },
-    createChatRoomModalClosed: (state) => {
-      state.isCreateChatRoomModalOpen = false;
+    createChatRoomClosed: (state) => {
+      state.isCreateChatRoomOpen = false;
     },
     chatRoomLoadingStarted: (
       state,
@@ -43,6 +46,17 @@ const chatRoomSlice = createSlice({
       state.chatRoomsInitQueue = state.chatRoomsInitQueue.filter(
         (c) => c !== chatRoomId,
       );
+    },
+    selectedContactAdded: (state, action: PayloadAction<User>) => {
+      state.selectedContacts.push(action.payload);
+    },
+    selectedContactRemoved: (state, action: PayloadAction<string>) => {
+      state.selectedContacts = state.selectedContacts.filter(
+        (user) => user._id !== action.payload,
+      );
+    },
+    selectedContactsReset: (state) => {
+      state.selectedContacts.length = 0;
     },
   },
 });
@@ -66,7 +80,7 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
     getChatRoomsCount: builder.query<number, void>({
       query: () => `/chat-rooms/page-count`,
     }),
-    postChatRoom: builder.mutation<void, { participantUsername: string }>({
+    postChatRoom: builder.mutation<void, { userIds: string[] }>({
       invalidatesTags: ['chatRooms'],
       query: (body) => ({ url: '/chat-rooms', method: 'POST', body }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
@@ -125,10 +139,13 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-  createChatRoomModalOpened,
-  createChatRoomModalClosed,
+  createChatRoomOpened,
+  createChatRoomClosed,
   chatRoomLoadingStarted,
   chatRoomLoadingFinished,
+  selectedContactAdded,
+  selectedContactRemoved,
+  selectedContactsReset,
 } = chatRoomSlice.actions;
 
 export const {
@@ -141,7 +158,10 @@ export const {
 export default chatRoomSlice;
 
 export const selectIsCreateChatRoomModalOpen = (state: RootState) =>
-  state.chatRoom.isCreateChatRoomModalOpen;
+  state.chatRoom.isCreateChatRoomOpen;
+
+export const selectSelectedContacts = (state: RootState) =>
+  state.chatRoom.selectedContacts;
 
 export const selectChatRoomsListResult =
   chatRoomsApiSlice.endpoints.getChatRooms.select(0);

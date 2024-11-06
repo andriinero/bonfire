@@ -8,7 +8,7 @@ type UserIconProps = {
   title?: string;
   colorClass?: string;
   isOnline?: boolean;
-  style?: 'xs' | 'md' | 'lg' | 'xl';
+  style?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 } & ComponentProps<'img'>;
 
 const UserIcon = ({
@@ -39,6 +39,7 @@ const UserIcon = ({
             className,
             {
               'size-6': style === 'xs',
+              'size-8': style === 'sm',
               'size-10': style === 'md',
               'size-12': style === 'lg',
               'size-20': style === 'xl',
@@ -52,6 +53,7 @@ const UserIcon = ({
           className={className}
           title={title}
           colorClass={colorClass}
+          style={style}
         />
       )}
     </div>

@@ -2,10 +2,10 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from '../api/apiSlice';
 
 import type { RootState } from '@/app/store';
-import type { User } from '@/types/User';
-import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
 import { PushNotificationType } from '@/types/PushNotification';
+import type { User } from '@/types/User';
 import { getErrorData } from '@/utils/getErrorData';
+import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
 
 type ContactsState = {
   isCreateContactModalOpen: boolean;
@@ -43,6 +43,9 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
         }
       },
       forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
+    }),
+    getContactsByUsername: builder.query<User[], string>({
+      query: (username) => `/profile/contacts?page=0&username=${username}`,
     }),
     getContactPageCount: builder.query<number, void>({
       query: () => `/profile/contacts/page-count`,
@@ -123,6 +126,7 @@ export const { createContactsModalOpened, createContactsModalClosed } =
 
 export const {
   useGetContactsQuery,
+  useGetContactsByUsernameQuery,
   useGetContactPageCountQuery,
   useDeleteContactMutation,
   usePostContactMutation,
@@ -142,6 +146,19 @@ export const selectContactsList = createSelector(
 );
 
 export const selectContactById = (contactId: string) =>
+  createSelector(selectContactsList, (contactsList) =>
+    contactsList.find((c) => c._id === contactId),
+  );
+
+export const selectContactsListByUsernameResult =
+  contactsApiSlice.endpoints.getContactsByUsername.select('');
+
+export const selectContactsListByUsername = createSelector(
+  selectContactsListResult,
+  (contactsList) => contactsList.data ?? [],
+);
+
+export const selectContactByUsernameById = (contactId: string) =>
   createSelector(selectContactsList, (contactsList) =>
     contactsList.find((c) => c._id === contactId),
   );
