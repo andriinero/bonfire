@@ -2,12 +2,12 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { cn } from '@/lib/utils';
 import { useEffect, useRef } from 'react';
 
+import { selectedChatCleared } from '@/features/chat/chatSlice';
 import { selectSelectedContacts } from '@/features/chatRooms/chatRoomsSlice';
 import { contactsApiSlice } from '@/features/contacts/contactsSlice';
 
 import type { ChangeEvent } from 'react';
 
-import { selectedChatCleared } from '@/features/chat/chatSlice';
 import ContactSearchItem from '@/features/contacts/components/ContactSearchItem';
 import { X } from 'lucide-react';
 import TextInput from '../form/TextInput';
@@ -70,7 +70,16 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
             {data?.length !== 0 ? (
               <ul className="mb-auto p-2">
                 {data?.map((contact) => {
-                  return <ContactSearchItem key={contact._id} {...contact} />;
+                  const isSelected = selectedContacts.some(
+                    (selectedContact) => selectedContact._id === contact._id,
+                  );
+                  return (
+                    <ContactSearchItem
+                      key={contact._id}
+                      contactId={contact._id}
+                      isSelected={isSelected}
+                    />
+                  );
                 })}
               </ul>
             ) : (
@@ -81,14 +90,14 @@ const MultiSelect = ({ onCloseClick }: MultiSelectProps) => {
           </div>
           <div className="flex justify-between border-t border-gray-200 p-4">
             <ul className="flex">
-              {selectedContacts.map((id, index) => (
+              {selectedContacts.map((contact, index) => (
                 <div
-                  key={id}
+                  key={contact._id}
                   className={cn('relative', `right-[${index * 10}px]`)}
                 >
                   <UserIcon
-                    colorClass={id.color_class}
-                    src={id.profile_image}
+                    colorClass={contact.color_class}
+                    src={contact.profile_image}
                     style="sm"
                     className="ring ring-white"
                   />

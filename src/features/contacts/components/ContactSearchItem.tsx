@@ -1,17 +1,26 @@
-import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import { selectContactByUsernameById } from '../contactsSlice';
 
 import IconButton from '@/components/general/IconButton';
 import UserIcon from '@/components/general/UserIcon';
-import { Plus } from 'lucide-react';
+import {
+  selectedContactAdded,
+  selectedContactRemoved,
+} from '@/features/chatRooms/chatRoomsSlice';
+import { Check, Plus } from 'lucide-react';
 
-type ContactSearchProps = { contactId: string };
+type ContactSearchProps = { contactId: string; isSelected: boolean };
 
-const ContactSearchItem = ({ contactId }: ContactSearchProps) => {
-  const contact = useAppSelector(selectContactByUsernameById(contactId));
+const ContactSearchItem = ({ contactId, isSelected }: ContactSearchProps) => {
+  const contact = useAppSelector(selectContactByUsernameById(contactId))!;
 
-  const handleContactClick = () => {};
+  const dispatch = useAppDispatch();
+
+  const handleContactClick = () => {
+    if (isSelected) dispatch(selectedContactRemoved(contact._id));
+    else dispatch(selectedContactAdded(contact));
+  };
 
   return (
     <li className="flex items-center justify-between gap-4 rounded-lg p-2 transition hover:bg-gray-50">
@@ -26,11 +35,11 @@ const ContactSearchItem = ({ contactId }: ContactSearchProps) => {
       </div>
       <IconButton
         aria-label="Add Contact"
-        onClick={handleContactClick}
         className="bg-transparent"
         style="round"
+        onClick={handleContactClick}
       >
-        <Plus />
+        {isSelected ? <Check /> : <Plus />}
       </IconButton>
     </li>
   );
