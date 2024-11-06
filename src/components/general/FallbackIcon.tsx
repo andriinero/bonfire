@@ -22,8 +22,8 @@ const FallbackIcon = ({
         'bg-' + colorClass,
         className,
         {
-          'size-6': style === 'xs',
-          'size-8': style === 'sm',
+          'size-6 text-lg': style === 'xs',
+          'size-8 text-xl': style === 'sm',
           'size-10': style === 'md',
           'size-12 text-3xl': style === 'lg',
           'size-20 text-4xl': style === 'xl',
