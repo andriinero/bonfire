@@ -8,12 +8,13 @@ import { getErrorData } from '@/utils/getErrorData';
 import type { RootState } from '@/app/store';
 import type { ChatRoom } from '@/types/ChatRoom';
 import { PushNotificationType } from '@/types/PushNotification';
+import type { User } from '@/types/User';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 type ChatRoomState = {
   isCreateChatRoomModalOpen: boolean;
   chatRoomsInitQueue: string[];
-  selectedContacts: string[];
+  selectedContacts: User[];
 };
 
 const initialState: ChatRoomState = {
@@ -46,12 +47,12 @@ const chatRoomSlice = createSlice({
         (c) => c !== chatRoomId,
       );
     },
-    selectedContactAdded: (state, action: PayloadAction<string>) => {
+    selectedContactAdded: (state, action: PayloadAction<User>) => {
       state.selectedContacts.push(action.payload);
     },
     selectedContactRemoved: (state, action: PayloadAction<string>) => {
       state.selectedContacts = state.selectedContacts.filter(
-        (contactId) => contactId !== action.payload,
+        (user) => user._id !== action.payload,
       );
     },
     selectedContactReset: (state) => {
@@ -142,6 +143,9 @@ export const {
   createChatRoomModalClosed,
   chatRoomLoadingStarted,
   chatRoomLoadingFinished,
+  selectedContactAdded,
+  selectedContactRemoved,
+  selectedContactReset,
 } = chatRoomSlice.actions;
 
 export const {
