@@ -43,11 +43,6 @@ const MultiSelect = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
   };
 
-  const handleFormSubmit = () => {
-    const selectedContactIds = selectedContacts.map((contact) => contact._id);
-    postChatRoom({ userIds: selectedContactIds });
-  };
-
   const handleTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
@@ -55,6 +50,11 @@ const MultiSelect = () => {
       const input = e.target.value;
       if (input) queryContactsByUsername(input);
     }, REQUEST_DELAY_MS);
+  };
+
+  const handleFormSubmit = () => {
+    const selectedContactIds = selectedContacts.map((contact) => contact._id);
+    postChatRoom({ userIds: selectedContactIds });
   };
 
   const isSubmitDisabled = isContactsFetching || isPostChatRoomLoading;

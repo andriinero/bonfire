@@ -30,6 +30,7 @@ const ContactSearchItem = ({ contactId, isSelected }: ContactSearchProps) => {
           colorClass={contact?.color_class}
           isOnline={contact?.is_online}
           src={contact?.profile_image}
+          style="sm"
         />
         <h2 className="font-medium">{contact?.username}</h2>
       </div>
