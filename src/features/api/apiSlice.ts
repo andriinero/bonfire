@@ -5,7 +5,6 @@ import EnvVars from '@/constants/EnvVars';
 
 export const apiSlice = createApi({
   tagTypes: ['authData', 'chatRooms', 'contacts'],
-  keepUnusedDataFor: 100000,
   baseQuery: fetchBaseQuery({
     baseUrl: EnvVars.API_SERVER_URL + '/api/',
     prepareHeaders: (headers, { getState }) => {
