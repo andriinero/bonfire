@@ -1,34 +1,32 @@
 import { isAction, isAnyOf } from '@reduxjs/toolkit';
 
-import Storage from '@/lib/Storage';
-import SocketConnection from '@/services/SocketConnection';
+import { connectionCreated, messageSent } from '@/features/socket/socketSlice';
 
-import { connectionCreated } from '@/features/socket/socketSlice';
+import Storage from '@/lib/Storage';
+import SocketClient from '@/services/SocketClient';
 
 import type { RootState } from '@/app/store';
 import type { Middleware } from '@reduxjs/toolkit';
 
 export const createSocketMiddleware = (): Middleware<unknown, RootState> => {
   const token = Storage.getToken();
-  const socketConnection = new SocketConnection(token);
+  const socketClient = SocketClient.instance;
+  socketClient.createConnection(token);
 
   return () => (next) => (action) => {
     if (!isAction(action)) return next(action);
 
-    const hasToken = isAnyOf(connectionCreated);
-
     switch (action.type) {
       case 'socket/connectionCreated':
-        if (hasToken(action))
-          socketConnection.createNewConnection(action.payload.token);
-
-        socketConnection.socket.on('message:receive', () => {});
-        break;
-      case 'socket/connected':
-        socketConnection.connect();
+        if (isAnyOf(connectionCreated)(action))
+          socketClient.createConnection(action.payload.token);
         break;
       case 'socket/disconnected':
-        socketConnection.disconnect();
+        socketClient.disconnect();
+        break;
+      case 'socket/messageSent':
+        if (isAnyOf(messageSent)(action))
+          socketClient.socket.emit('message:send', action.payload);
         break;
     }
 
