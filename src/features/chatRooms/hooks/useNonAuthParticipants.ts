@@ -7,7 +7,7 @@ const useNonAuthParticipants = (chatRoomId: string) => {
   const authUserId = useAppSelector(selectAuthUserId);
   const participants = useAppSelector(selectParticipantsByChatId(chatRoomId));
 
-  const nonAuthParticipants = participants?.filter((p) => p._id !== authUserId);
+  const nonAuthParticipants = participants?.filter((p) => p.id !== authUserId);
 
   return nonAuthParticipants;
 };

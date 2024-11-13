@@ -15,10 +15,10 @@ const MessagePage = ({ chatRoomId, page }: MessagePageProps) => {
       {messagesList &&
         messagesList.map((m) => (
           <MessageItem
-            key={m._id}
+            key={m.id}
             chatRoomId={chatRoomId}
             page={page}
-            id={m._id}
+            id={m.id}
           />
         ))}
     </>

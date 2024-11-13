@@ -13,7 +13,7 @@ const useChatRoomOnlineStatus = (id: string) => {
 
   const onlineCount = participants
     ? participants.reduce((prev, cur) => {
-        if (cur.is_online) return ++prev;
+        if (cur.isOnline) return ++prev;
         return prev;
       }, 0)
     : 0;
@@ -21,7 +21,7 @@ const useChatRoomOnlineStatus = (id: string) => {
   if (isGroup) {
     status = onlineCount > 0 ? `${onlineCount} online` : 'no active users';
   } else {
-    status = nonAuthParticipants?.[0]?.is_online ? 'online' : 'offline';
+    status = nonAuthParticipants?.[0]?.isOnline ? 'online' : 'offline';
   }
 
   return status;

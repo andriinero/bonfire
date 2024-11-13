@@ -14,14 +14,15 @@ import UserIcon from '@/components/general/UserIcon';
 
 type UserMessageProps = Pick<Message, 'user' | 'body' | 'created'>;
 
-const UserMessage = ({ user, body, created }: UserMessageProps) => {
+const UserMessage = ({ userId: user, body, created }: UserMessageProps) => {
   const selectedChatId = useAppSelector(selectSelectedChatId);
   const authUserId = useAppSelector(selectAuthUserId);
+
   const participantData = useAppSelector(
     selectParticipantById(selectedChatId!, user!),
   );
 
-  const isAuthor = authUserId === participantData?._id;
+  const isAuthor = authUserId === participantData?.id;
 
   return (
     <li
@@ -31,9 +32,9 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
       <div>
         <UserIcon
           title={participantData?.username}
-          colorClass={participantData?.color_class}
-          src={participantData?.profile_image}
-          isOnline={participantData?.is_online}
+          colorClass={participantData?.colorClass}
+          src={participantData?.profileImage}
+          isOnline={participantData?.isOnline}
         />
       </div>
       <div className="flex flex-col gap-2">

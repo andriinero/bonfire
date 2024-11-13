@@ -33,7 +33,7 @@ const ChatRoomList = () => {
               scrollableTarget="chat-rooms-list"
             >
               {chatList!.map((c) => (
-                <ChatRoomItem key={c._id} chatId={c._id} />
+                <ChatRoomItem key={c.id} chatId={c.id} />
               ))}
             </InfiniteScroll>
           </ul>

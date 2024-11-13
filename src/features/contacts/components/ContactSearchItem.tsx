@@ -18,7 +18,7 @@ const ContactSearchItem = ({ contactId, isSelected }: ContactSearchProps) => {
   const dispatch = useAppDispatch();
 
   const handleContactClick = () => {
-    if (isSelected) dispatch(selectedContactRemoved(contact._id));
+    if (isSelected) dispatch(selectedContactRemoved(contact.id));
     else dispatch(selectedContactAdded(contact));
   };
 
@@ -27,9 +27,9 @@ const ContactSearchItem = ({ contactId, isSelected }: ContactSearchProps) => {
       <div className="flex items-center gap-2">
         <UserIcon
           title={contact?.username}
-          colorClass={contact?.color_class}
-          isOnline={contact?.is_online}
-          src={contact?.profile_image}
+          colorClass={contact?.colorClass}
+          isOnline={contact?.isOnline}
+          src={contact?.profileImage}
           style="sm"
         />
         <h2 className="font-medium">{contact?.username}</h2>

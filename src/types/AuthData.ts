@@ -5,8 +5,8 @@ export const AuthDataSchema = z.object({
   username: z.string(),
   email: z.string(),
   role: z.enum(['guest', 'user', 'admin']),
-  profile_image: z.string().optional(),
-  color_class: z.string(),
+  profileImage: z.string().optional(),
+  colorClass: z.string(),
 });
 
 export type AuthData = z.infer<typeof AuthDataSchema>;

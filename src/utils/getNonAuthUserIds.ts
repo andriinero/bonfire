@@ -4,7 +4,7 @@ const getNonAuthUserIds = (authUserId: string, users?: User[]): string[] => {
   let result: string[] = [];
   result = users
     ? users
-        .map((userData) => userData._id)
+        .map((userData) => userData.id)
         .filter((userId) => userId !== authUserId)
     : [];
 

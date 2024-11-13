@@ -24,10 +24,10 @@ const pushNotificationsSlice = createSlice({
       ) => {
         state.notificationsList.push(notification);
       },
-      prepare: (notificationData: Omit<TPushNotification, '_id'>) => {
+      prepare: (notificationData: Omit<TPushNotification, 'id'>) => {
         return {
           payload: {
-            _id: uuidv4(),
+            id: uuidv4(),
             body: notificationData.body,
             type: notificationData.type,
             list: notificationData.list,
@@ -40,7 +40,7 @@ const pushNotificationsSlice = createSlice({
       { payload: id }: PayloadAction<string>,
     ) => {
       state.notificationsList = state.notificationsList.filter(
-        (n) => n._id !== id,
+        (n) => n.id !== id,
       );
     },
     pushNotificationsListCleared: (state) => {
@@ -64,4 +64,4 @@ export const selectPushNotificationsList = (state: RootState) =>
   state.pushNotifications.notificationsList;
 
 export const selectPushNotificationById = (id: string) => (state: RootState) =>
-  state.pushNotifications.notificationsList.find((n) => n._id === id);
+  state.pushNotifications.notificationsList.find((n) => n.id === id);

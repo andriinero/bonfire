@@ -13,8 +13,8 @@ const testUser = testData.createRandomUser(),
   testChatRoom = testData.createChatRoom(),
   testMessages = testData.getMultipleRandomMessages(
     5,
-    testChatRoom._id,
-    testUser._id,
+    testChatRoom.id,
+    testUser.id,
   ),
   token = faker.string.uuid();
 

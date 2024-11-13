@@ -3,9 +3,9 @@ import { z } from 'zod';
 import { MessageType } from './MessageType';
 
 export const MessageSchema = z.object({
-  _id: z.string(),
-  chat_room: z.string(),
-  user: z.string().optional(),
+  id: z.string(),
+  chatRoomId: z.string(),
+  userId: z.string().optional(),
   body: z.string(),
   created: z.string(),
   reply: z.string().nullable(),

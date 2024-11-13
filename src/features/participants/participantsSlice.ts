@@ -60,4 +60,4 @@ export const selectParticipantById =
   (chatRoomId: string, userId: string) => (state: RootState) =>
     participantsApiSlice.endpoints.getParticipants
       .select(chatRoomId)(state)
-      .data?.find((u) => u._id === userId);
+      .data?.find((u) => u.id === userId);

@@ -7,7 +7,7 @@ export enum PushNotificationType {
 }
 
 export const pushNotificationScheme = z.object({
-  _id: z.string(),
+  id: z.string(),
   body: z.string().optional(),
   list: z.array(z.string()).optional(),
   type: z.nativeEnum(PushNotificationType),

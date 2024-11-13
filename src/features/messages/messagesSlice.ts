@@ -123,4 +123,4 @@ export const selectMessageById =
   (state: RootState) =>
     messagesApiSlice.endpoints.getMessages
       .select({ chatRoomId, page })(state)
-      .data?.find((m) => m._id === id);
+      .data?.find((m) => m.id === id);

@@ -93,7 +93,7 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
         ) => {
           const patchResult = dispatch(
             contactsApiSlice.util.updateQueryData('getContacts', 0, (draft) => {
-              const contactIndex = draft.findIndex((c) => c._id === userId);
+              const contactIndex = draft.findIndex((c) => c.id === userId);
               if (contactIndex > -1) draft.splice(contactIndex, 1);
             }),
           );
@@ -147,7 +147,7 @@ export const selectContactsList = createSelector(
 
 export const selectContactById = (contactId: string) =>
   createSelector(selectContactsList, (contactsList) =>
-    contactsList.find((c) => c._id === contactId),
+    contactsList.find((c) => c.id === contactId),
   );
 
 export const selectContactsListByUsernameResult =
@@ -160,5 +160,5 @@ export const selectContactsListByUsername = createSelector(
 
 export const selectContactByUsernameById = (contactId: string) =>
   createSelector(selectContactsList, (contactsList) =>
-    contactsList.find((c) => c._id === contactId),
+    contactsList.find((c) => c.id === contactId),
   );

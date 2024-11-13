@@ -65,8 +65,8 @@ const NavControls = () => {
             <DropdownMenuTrigger className="focus:outline-none">
               <UserIcon
                 title={authData?.username}
-                src={authData?.profile_image}
-                colorClass={authData?.color_class}
+                src={authData?.profileImage}
+                colorClass={authData?.colorClass}
                 className="ring-2 ring-amber-500 ring-offset-1"
               />
             </DropdownMenuTrigger>

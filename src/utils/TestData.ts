@@ -13,32 +13,32 @@ const createRandomUser = (): User => {
   const email = faker.internet.email({ firstName, lastName });
 
   return {
-    _id: faker.string.uuid(),
+    id: faker.string.uuid(),
     username,
     email,
     role: 'user',
     created: faker.date.recent().toISOString(),
-    is_online: faker.helpers.arrayElement<boolean>([true, false]),
-    profile_image: faker.image.avatar(),
-    color_class: 'sky-400',
+    isOnline: faker.helpers.arrayElement<boolean>([true, false]),
+    profileImage: faker.image.avatar(),
+    colorClass: 'sky-400',
   };
 };
 
 const getAuthDataFromUser = (user: User): AuthData => {
   return {
-    sub: user._id,
+    sub: user.id,
     username: user.username,
     email: user.email,
     role: 'user',
-    color_class: 'sky-400',
+    colorClass: 'sky-400',
   };
 };
 
 const createChatRoom = (): ChatRoom => {
   return {
-    _id: faker.string.uuid(),
+    id: faker.string.uuid(),
     created: faker.date.recent().toISOString(),
-    color_class: 'amber-400',
+    colorClass: 'amber-400',
   };
 };
 
@@ -47,9 +47,9 @@ const createRandomUserMessage = (
   userId: string,
 ): Message => {
   return {
-    _id: faker.string.uuid(),
-    chat_room: chatRoomId,
-    user: userId,
+    id: faker.string.uuid(),
+    chatRoomId: chatRoomId,
+    userId: userId,
     body: faker.lorem.sentence(),
     created: faker.date.recent().toISOString(),
     reply: null,

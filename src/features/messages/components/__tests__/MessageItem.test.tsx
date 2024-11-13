@@ -6,8 +6,8 @@ import { MessageType } from '@/types/MessageType';
 import MessageItem from '../MessageItem';
 
 const testMessage: Message = {
-  _id: 'm01',
-  chat_room: 'johnchat01',
+  id: 'm01',
+  chatRoomId: 'johnchat01',
   body: 'Chat room created',
   created: new Date().toJSON(),
   reply: null,

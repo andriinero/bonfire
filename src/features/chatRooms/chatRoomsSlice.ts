@@ -52,7 +52,7 @@ const chatRoomSlice = createSlice({
     },
     selectedContactRemoved: (state, action: PayloadAction<string>) => {
       state.selectedContacts = state.selectedContacts.filter(
-        (user) => user._id !== action.payload,
+        (user) => user.id !== action.payload,
       );
     },
     selectedContactsReset: (state) => {
@@ -111,7 +111,7 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
       onQueryStarted: async ({ chatRoomId }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
           chatRoomsApiSlice.util.updateQueryData('getChatRooms', 0, (draft) => {
-            const chatRoomIndex = draft.findIndex((c) => c._id === chatRoomId);
+            const chatRoomIndex = draft.findIndex((c) => c.id === chatRoomId);
             if (chatRoomIndex > -1) draft.splice(chatRoomIndex, 1);
           }),
         );
@@ -173,7 +173,7 @@ export const selectChatRoomsList = createSelector(
 
 export const selectChatRoomById = (chatId: string) =>
   createSelector(selectChatRoomsList, (chatList) =>
-    chatList.find((c: ChatRoom) => c._id === chatId),
+    chatList.find((c: ChatRoom) => c.id === chatId),
   );
 
 export const selectIsChatRoomsLoading = (state: RootState) =>

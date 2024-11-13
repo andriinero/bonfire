@@ -1,11 +1,12 @@
 import { useAppDispatch } from '@/app/hooks';
+import { useEffect } from 'react';
+
 import {
   messageListStateInitialized,
   useGetMessagesPageCountQuery,
   useGetMessagesQuery,
 } from '@/features/messages/messagesSlice';
 import { useGetParticipantsQuery } from '@/features/participants/participantsSlice';
-import { useEffect } from 'react';
 
 const useInitChat = (chatRoomId: string) => {
   const {

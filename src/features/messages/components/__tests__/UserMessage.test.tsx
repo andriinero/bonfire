@@ -8,15 +8,15 @@ vi.mock('@/app/hooks', () => ({
 }));
 
 const testUser: User = {
-  _id: 'user0',
+  id: 'user0',
   username: 'John',
   email: 'john@gmail.com',
   role: 'user',
   created: new Date().toISOString(),
-  is_online: true,
-  profile_image:
+  isOnline: true,
+  profileImage:
     'https://img.freepik.com/premium-photo/profile-picture-happy-young-caucasian-man-spectacles-show-confidence-leadership-headshot-portrait-smiling-millennial-male-glasses-posing-indoors-home-employment-success-concept_774935-1446.jpg',
-  color_class: 'sky-400',
+  colorClass: 'sky-400',
 };
 
 it('renders user message', () => {
@@ -26,7 +26,7 @@ it('renders user message', () => {
     .mockReturnValueOnce(testUser);
   render(
     <UserMessage
-      user="user0"
+      userId="user0"
       body="test message"
       created={new Date().toISOString()}
     />,

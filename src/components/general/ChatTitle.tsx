@@ -29,7 +29,7 @@ const ChatTitle = ({
     if (!chat?.name) {
       if (chatParticipants) {
         const names = chatParticipants
-          .filter((p) => p._id !== authUserId)
+          .filter((p) => p.id !== authUserId)
           .slice(0, MAX_NAMES_IN_TITLE)
           .map((p) => p.username)
           .join(', ');

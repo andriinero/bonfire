@@ -15,8 +15,11 @@ type MessageProps = {
 const MessageItem = ({ chatRoomId, page, id }: MessageProps) => {
   const message = useAppSelector(selectMessageById({ chatRoomId, page, id }));
 
+  // FIXME: remove comment
+  console.log(message);
+
   return message ? (
-    message?.type === 'message' ? (
+    message?.type === 'MESSAGE' ? (
       <UserMessage {...message} />
     ) : (
       <ActionMessage body={message.body} />

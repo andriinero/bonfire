@@ -23,7 +23,7 @@ const Home = () => {
 
   useEffect(() => {
     if (isSuccess && chatRoomsList!.length > 0)
-      dispatch(selectedChatIdSet(chatRoomsList![0]._id));
+      dispatch(selectedChatIdSet(chatRoomsList![0].id));
   }, [isSuccess, chatRoomsList, dispatch]);
 
   return (

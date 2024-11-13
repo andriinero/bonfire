@@ -25,9 +25,9 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
       <div className="flex items-center gap-2">
         <UserIcon
           title={contact?.username}
-          colorClass={contact?.color_class}
-          isOnline={contact?.is_online}
-          src={contact?.profile_image}
+          colorClass={contact?.colorClass}
+          isOnline={contact?.isOnline}
+          src={contact?.profileImage}
           style="md"
         />
         <h2 className="text-md font-medium">{contact?.username}</h2>

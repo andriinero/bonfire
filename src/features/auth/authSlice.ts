@@ -164,4 +164,4 @@ export const selectAuthEmail = (state: RootState) => state.auth.authData?.email;
 export const selectAuthRole = (state: RootState) => state.auth.authData?.role;
 
 export const selectAuthProfileImage = (state: RootState) =>
-  state.auth.authData?.profile_image;
+  state.auth.authData?.profileImage;

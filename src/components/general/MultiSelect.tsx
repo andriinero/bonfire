@@ -53,7 +53,7 @@ const MultiSelect = () => {
   };
 
   const handleFormSubmit = () => {
-    const selectedContactIds = selectedContacts.map((contact) => contact._id);
+    const selectedContactIds = selectedContacts.map((contact) => contact.id);
     postChatRoom({ userIds: selectedContactIds });
   };
 
@@ -67,7 +67,7 @@ const MultiSelect = () => {
           placeholder="Enter the contact name"
           className="rounded-lg"
         />
-        <div className="animate-in fade-in slide-in-from-top-2 zoom-in-95 absolute z-10 mt-2 flex w-full flex-col gap-2 rounded-lg bg-white shadow-md ring-1 ring-gray-300">
+        <div className="absolute z-10 mt-2 flex w-full flex-col gap-2 rounded-lg bg-white shadow-md ring-1 ring-gray-300 animate-in fade-in zoom-in-95 slide-in-from-top-2">
           <div className="border-b border-gray-200 p-3">
             <h2 className="font-bold">New chat room</h2>
             <p className="text-sm text-gray-700">
@@ -79,12 +79,12 @@ const MultiSelect = () => {
               <ul className="mb-auto p-2">
                 {contacts?.map((contact) => {
                   const isSelected = selectedContacts.some(
-                    (selectedContact) => selectedContact._id === contact._id,
+                    (selectedContact) => selectedContact.id === contact.id,
                   );
                   return (
                     <ContactSearchItem
-                      key={contact._id}
-                      contactId={contact._id}
+                      key={contact.id}
+                      contactId={contact.id}
                       isSelected={isSelected}
                     />
                   );
@@ -100,13 +100,13 @@ const MultiSelect = () => {
             <ul className="flex">
               {selectedContacts.map((contact, index) => (
                 <div
-                  key={contact._id}
+                  key={contact.id}
                   className={cn('relative', `right-[${index * 20}px]`)}
                 >
                   <UserIcon
                     title={contact.username}
-                    colorClass={contact.color_class}
-                    src={contact.profile_image}
+                    colorClass={contact.colorClass}
+                    src={contact.profileImage}
                     style="sm"
                     className="ring ring-white"
                   />

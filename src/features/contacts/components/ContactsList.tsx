@@ -35,7 +35,7 @@ const ContactsList = () => {
               scrollableTarget="contacts-list"
             >
               {contactsList!.map((c) => (
-                <ContactsItem key={c._id} contactId={c._id} />
+                <ContactsItem key={c.id} contactId={c.id} />
               ))}
             </InfiniteScroll>
           </ul>
