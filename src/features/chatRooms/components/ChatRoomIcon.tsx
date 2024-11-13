@@ -21,10 +21,12 @@ const ChatRoomIcon = ({
   const nonAuthParticipants = useNonAuthParticipants(chatRoomId);
   const firstParticipant = nonAuthParticipants?.[0];
 
+  const chatRoomTitle = chatRoom?.name || firstParticipant?.username;
+
   return nonAuthParticipants ? (
     nonAuthParticipants.length > 1 ? (
       <FallbackIcon
-        title={chatRoom?.name}
+        title={chatRoomTitle}
         colorClass={chatRoom?.colorClass}
         className={className}
         style={style}

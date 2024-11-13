@@ -8,12 +8,12 @@ type FallbackIconProps = {
 };
 
 const FallbackIcon = ({
-  title = 'N',
+  title = '?',
   style = 'md',
   colorClass = 'amber-400',
   className,
 }: FallbackIconProps) => {
-  const capitalizedTitle = title.substring(0, 1).toUpperCase();
+  const capitalizedTitle = title ? title.substring(0, 1).toUpperCase() : '?';
 
   return (
     <div

@@ -12,7 +12,7 @@ import DotDivider from '@/components/general/DotDivider';
 import TimeStamp from '@/components/general/TimeStamp';
 import UserIcon from '@/components/general/UserIcon';
 
-type UserMessageProps = Pick<Message, 'user' | 'body' | 'created'>;
+type UserMessageProps = Pick<Message, 'userId' | 'body' | 'created'>;
 
 const UserMessage = ({ userId: user, body, created }: UserMessageProps) => {
   const selectedChatId = useAppSelector(selectSelectedChatId);
