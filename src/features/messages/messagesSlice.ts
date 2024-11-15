@@ -59,11 +59,11 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
           { dispatch, cacheDataLoaded, cacheEntryRemoved },
         ) => {
           const socket = SocketClient.instance.socket;
-          const updateCacheHandler = (message: Message) => {
+          const handleReceiveMessage = (message: Message) => {
             dispatch(
               messagesApiSlice.util.updateQueryData(
                 'getMessages',
-                { chatRoomId: message.chat_room, page: 0 },
+                { chatRoomId: message.chatRoomId, page: 0 },
                 (draft) => {
                   draft.unshift(message);
                 },
@@ -73,7 +73,7 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
 
           await cacheDataLoaded;
           socket.removeAllListeners('message:receive');
-          socket.on('message:receive', updateCacheHandler);
+          socket.on('message:receive', handleReceiveMessage);
 
           await cacheEntryRemoved;
           socket.removeAllListeners('message:receive');

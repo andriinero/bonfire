@@ -42,7 +42,7 @@ const UserIcon = ({
               'size-8': style === 'sm',
               'size-10': style === 'md',
               'size-12': style === 'lg',
-              'size-20': style === 'xl',
+              'size-16': style === 'xl',
             },
           )}
           alt="User Icon"

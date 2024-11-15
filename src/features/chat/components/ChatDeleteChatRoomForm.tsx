@@ -9,7 +9,6 @@ import type { MouseEventHandler } from 'react';
 
 import Form from '@/components/form/Form';
 import FormTitle from '@/components/form/FormTitle';
-import InputLabel from '@/components/form/InputLabel';
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
 import XIcon from '@/components/general/XIcon';
@@ -42,7 +41,7 @@ const ChatDeleteChatRoomForm = ({
   return (
     <Form
       onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex flex-col items-start gap-4 rounded-md bg-white p-8 shadow-md"
+      className="flex flex-col items-start gap-5 rounded-md bg-white p-8 shadow-md"
     >
       <FormTitle className="flex w-full items-center justify-between">
         <span>Delete chat</span>
@@ -54,7 +53,7 @@ const ChatDeleteChatRoomForm = ({
           <XIcon />
         </IconButton>
       </FormTitle>
-      <InputLabel>Are you sure you want to delete this chat?</InputLabel>
+      <p className="font-medium">Are you sure you want to delete this chat?</p>
       <Button
         disabled={isSubmitDisabled}
         className="w-full bg-red-600 hover:bg-red-500"

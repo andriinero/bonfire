@@ -8,6 +8,7 @@ import type { MouseEventHandler } from 'react';
 
 import Form from '@/components/form/Form';
 import FormTitle from '@/components/form/FormTitle';
+import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
@@ -43,7 +44,7 @@ const CreateContactForm = ({ onCloseClick }: CreateContactFormProps) => {
   return (
     <Form
       onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex flex-col items-start gap-4 rounded-md bg-white p-8 shadow-md"
+      className="flex flex-col items-start gap-5 rounded-md bg-white p-8 shadow-md"
     >
       <FormTitle className="flex w-full items-center justify-between">
         <span>Create contact</span>
@@ -55,15 +56,17 @@ const CreateContactForm = ({ onCloseClick }: CreateContactFormProps) => {
           <XIcon />
         </IconButton>
       </FormTitle>
-      <InputLabel htmlFor="create-contact-username">
-        Enter contact username
-      </InputLabel>
-      <TextInput
-        {...register('contactUsername')}
-        className="min-w-72"
-        id="create-contact-username"
-        placeholder="e.g. user01"
-      />
+      <InputGroup>
+        <InputLabel htmlFor="create-contact-username">
+          Enter contact username
+        </InputLabel>
+        <TextInput
+          {...register('contactUsername')}
+          className="min-w-72"
+          id="create-contact-username"
+          placeholder="e.g. user01"
+        />
+      </InputGroup>
       {errors.contactUsername && (
         <ValidationError visible={!!errors.contactUsername}>
           {errors.contactUsername?.message}

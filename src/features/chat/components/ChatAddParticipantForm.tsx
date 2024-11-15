@@ -17,6 +17,7 @@ import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
 import XIcon from '@/components/general/XIcon';
+import InputGroup from '@/components/form/InputGroup';
 
 const AddParticipantSchema = z.object({
   participantUsername: z
@@ -56,7 +57,7 @@ const ChatAddParticipantForm = ({
   return (
     <Form
       onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex flex-col items-start gap-4 rounded-md bg-white p-8 shadow-md"
+      className="flex flex-col items-start gap-5 rounded-md bg-white p-8 shadow-md"
     >
       <FormTitle className="flex w-full items-center justify-between">
         <span>Add participant</span>
@@ -68,15 +69,17 @@ const ChatAddParticipantForm = ({
           <XIcon />
         </IconButton>
       </FormTitle>
-      <InputLabel htmlFor="create-participant-username">
-        Enter participant username
-      </InputLabel>
-      <TextInput
-        className="min-w-72"
-        {...register('participantUsername')}
-        id="add-participant-username"
-        placeholder="e.g. user01"
-      />
+      <InputGroup>
+        <InputLabel htmlFor="create-participant-username">
+          Enter participant username
+        </InputLabel>
+        <TextInput
+          className="min-w-72"
+          {...register('participantUsername')}
+          id="add-participant-username"
+          placeholder="e.g. user01"
+        />
+      </InputGroup>
       {errors.participantUsername && (
         <ValidationError visible={!!errors.participantUsername}>
           {errors.participantUsername?.message}

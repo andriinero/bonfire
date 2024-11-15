@@ -26,7 +26,7 @@ const FallbackIcon = ({
           'size-8 text-xl': style === 'sm',
           'size-10': style === 'md',
           'size-12 text-3xl': style === 'lg',
-          'size-20 text-4xl': style === 'xl',
+          'size-16 text-4xl': style === 'xl',
         },
       )}
     >
