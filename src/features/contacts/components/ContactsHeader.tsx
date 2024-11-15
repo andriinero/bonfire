@@ -27,7 +27,7 @@ const ContactsHeader = () => {
   };
 
   return (
-    <div className="flex items-center justify-between gap-16 p-4">
+    <div className="flex items-center justify-between gap-16 p-5">
       <h1 className="text-2xl font-bold text-gray-800">Contacts</h1>
       <IconButton
         aria-label="Create Contact"

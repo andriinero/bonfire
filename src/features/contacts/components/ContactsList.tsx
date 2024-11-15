@@ -16,11 +16,11 @@ const ContactsList = () => {
   const isDataLoading = isFetching || isLoading;
 
   return (
-    <div className="overflow-y-auto p-4 py-0 sm:p-4">
+    <div className="flex-1 overflow-y-auto p-4 py-0">
       {isDataLoading ? (
         <Spinner />
       ) : isSuccess ? (
-        <div className="space-y-4 overflow-y-auto">
+        <div className="space-y-4 overflow-y-auto py-4">
           <h2 className="text-sm text-gray-600">
             Active contacts ({contactsList!.length})
           </h2>

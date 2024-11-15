@@ -17,7 +17,7 @@ const ChatRoomList = () => {
   const isDataLoading = isFetching || isLoading;
 
   return (
-    <div className="overflow-y-auto p-4 py-0 sm:p-4">
+    <div className="overflow-y-auto p-4 py-0 sm:p-4 sm:py-0">
       {isDataLoading ? (
         <Spinner />
       ) : isSuccess ? (
