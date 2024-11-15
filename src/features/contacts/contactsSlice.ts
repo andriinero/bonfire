@@ -64,6 +64,18 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
         { contactUsername },
         { dispatch, queryFulfilled },
       ) => {
+        const patchResult = dispatch(
+          contactsApiSlice.util.updateQueryData(
+            'getRecommendedContacts',
+            undefined,
+            (draft) => {
+              const index = draft.findIndex(
+                (contact) => contact.username === contactUsername,
+              );
+              if (index > -1) draft.splice(index, 1);
+            },
+          ),
+        );
         try {
           await queryFulfilled;
           dispatch(
@@ -74,6 +86,7 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
           );
           dispatch(createContactsModalClosed());
         } catch (err) {
+          patchResult.undo();
           const errorData = getErrorData((err as { error: unknown }).error);
           dispatch(
             pushNotificationAdded({

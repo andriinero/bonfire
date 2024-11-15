@@ -16,7 +16,7 @@ const RecommendedContactList = () => {
       ) : isSuccess ? (
         <ul className="flex justify-around gap-6 px-8">
           {contactList.map((contact) => (
-            <RecommendedContactItem contactId={contact.id} />
+            <RecommendedContactItem key={contact.id} contactId={contact.id} />
           ))}
         </ul>
       ) : (
