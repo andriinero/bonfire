@@ -52,7 +52,7 @@ const ChatDrawerPanel = () => {
         <ChatRoomIcon chatRoomId={selectedChatId} style="xl" />
         <div className="text-center">
           <ChatTitle
-            className="text-2xl font-semibold"
+            className="text-xl font-semibold"
             chatRoomId={selectedChatId}
           />
           <ChatOnlineStatus chatRoomId={selectedChatId} className="text-sm" />
