@@ -18,6 +18,7 @@ import TextInput from '../form/TextInput';
 import Button from './Button';
 import IconButton from './IconButton';
 import UserIcon from './UserIcon';
+import useEscapeListener from '@/hooks/useCloseModalListener';
 
 const REQUEST_DELAY_MS = 500;
 
@@ -42,6 +43,8 @@ const MultiSelect = () => {
     dispatch(selectedContactsReset());
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
   };
+
+  useEscapeListener(handleCloseForm);
 
   const handleTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);

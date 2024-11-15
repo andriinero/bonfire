@@ -11,6 +11,7 @@ import Backdrop from '@/components/general/Backdrop';
 import IconButton from '@/components/general/IconButton';
 import XIcon from '@/components/general/XIcon';
 import ChatDrawerPanel from '@/features/chat/components/ChatDrawer';
+import useEscapeListener from '@/hooks/useCloseModalListener';
 
 const drawerPanelMap: Record<DrawerPanelType, ReactNode> = {
   [DrawerPanelType.CHAT]: <ChatDrawerPanel />,
@@ -25,6 +26,8 @@ const Drawer = () => {
   const handleCloseDrawerClick = (): void => {
     dispatch(drawerClosed());
   };
+
+  useEscapeListener(handleCloseDrawerClick);
 
   return (
     <>
