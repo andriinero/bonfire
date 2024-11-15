@@ -1,4 +1,4 @@
-import useCloseModalListener from '@/hooks/useCloseModalListener';
+import useEscapeListener from '@/hooks/useCloseModalListener';
 import { motion } from 'framer-motion';
 
 import cn from '@/utils/cn';
@@ -22,7 +22,7 @@ const Modal = ({
   className,
   children,
 }: ModalProps) => {
-  useCloseModalListener(onBackdropClick);
+  useEscapeListener(onBackdropClick);
 
   return (
     <AnimatePresence>

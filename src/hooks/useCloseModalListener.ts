@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 
-const useCloseModalListener = (handleCloseModal: () => void) => {
+const useEscapeListener = (onEscapeDown: () => void) => {
   useEffect(() => {
-    const onEscapeDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleCloseModal();
+    const handleEvent = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onEscapeDown();
     };
-    window.addEventListener('keydown', onEscapeDown);
+    window.addEventListener('keydown', handleEvent);
 
     return () => {
-      window.removeEventListener('keydown', onEscapeDown);
+      window.removeEventListener('keydown', handleEvent);
     };
-  }, [handleCloseModal]);
+  }, [onEscapeDown]);
 };
 
-export default useCloseModalListener;
+export default useEscapeListener;
