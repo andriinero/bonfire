@@ -94,8 +94,8 @@ const MultiSelect = () => {
                 })}
               </ul>
             ) : (
-              <h1 className="text-center text-sm">
-                The search has returned no results
+              <h1 className="text-center text-sm text-gray-700">
+                Contact list is empty :(
               </h1>
             )}
           </div>

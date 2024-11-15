@@ -44,6 +44,9 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
       },
       forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
     }),
+    getRecommendedContacts: builder.query<User[], void>({
+      query: () => `/profile/contacts/recommended`,
+    }),
     getContactsByUsername: builder.query<User[], string>({
       query: (username) => `/profile/contacts?page=0&username=${username}`,
     }),
@@ -126,6 +129,7 @@ export const { createContactsModalOpened, createContactsModalClosed } =
 
 export const {
   useGetContactsQuery,
+  useGetRecommendedContactsQuery,
   useGetContactsByUsernameQuery,
   useGetContactPageCountQuery,
   useDeleteContactMutation,
@@ -162,3 +166,9 @@ export const selectContactByUsernameById = (contactId: string) =>
   createSelector(selectContactsList, (contactsList) =>
     contactsList.find((c) => c.id === contactId),
   );
+
+export const selectRecommendedContactById =
+  (contactId: string) => (state: RootState) =>
+    contactsApiSlice.endpoints.getRecommendedContacts
+      .select()(state)
+      .data?.find((contact) => contact.id === contactId);
