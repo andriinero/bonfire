@@ -41,7 +41,7 @@ const ChatDeleteChatRoomForm = ({
   return (
     <Form
       onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex flex-col items-start gap-5 rounded-md bg-white p-8 shadow-md"
+      className="flex flex-col items-start gap-4 rounded-md bg-white p-8 shadow-md"
     >
       <FormTitle className="flex w-full items-center justify-between">
         <span>Delete chat</span>
