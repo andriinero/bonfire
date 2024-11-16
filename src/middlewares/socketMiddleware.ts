@@ -8,9 +8,15 @@ import SocketClient from '@/services/SocketClient';
 import type { RootState } from '@/app/store';
 import type { Middleware } from '@reduxjs/toolkit';
 
+export type SocketError = {
+  status: string;
+  data: { error: string };
+};
+
 export const createSocketMiddleware = (): Middleware<unknown, RootState> => {
   const token = Storage.getToken();
   const socketClient = SocketClient.instance;
+
   socketClient.createConnection(token);
 
   return () => (next) => (action) => {

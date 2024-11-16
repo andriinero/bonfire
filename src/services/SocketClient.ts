@@ -1,10 +1,12 @@
 import { io } from 'socket.io-client';
+import { v4 as uuidv4 } from 'uuid';
 
 import EnvVars from '@/constants/EnvVars';
 
 import type { ManagerOptions, Socket, SocketOptions } from 'socket.io-client';
 
 class SocketClient {
+  private static _id: string;
   private static _instance: SocketClient;
   private static _socket: Socket;
   private static _url = EnvVars.API_SERVER_URL;
@@ -12,9 +14,16 @@ class SocketClient {
   private constructor() {}
 
   public static get instance() {
-    if (!SocketClient._instance) return new SocketClient();
+    if (!SocketClient._instance) {
+      SocketClient._id = uuidv4();
+      SocketClient._instance = new SocketClient();
+    }
 
     return SocketClient._instance;
+  }
+
+  public get id() {
+    return SocketClient._id;
   }
 
   public get socket() {

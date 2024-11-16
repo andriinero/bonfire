@@ -1,3 +1,4 @@
+import SocketClient from '@/services/SocketClient';
 import { createSlice } from '@reduxjs/toolkit';
 
 import Storage from '@/lib/Storage';
@@ -7,6 +8,7 @@ import { apiSlice } from '../api/apiSlice';
 import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
 
 import type { AppThunk, RootState } from '@/app/store';
+import type { SocketError } from '@/middlewares/socketMiddleware';
 import type { AuthData } from '@/types/AuthData';
 import { PushNotificationType } from '@/types/PushNotification';
 import type { PayloadAction } from '@reduxjs/toolkit';
@@ -53,6 +55,29 @@ export const authApiSlice = apiSlice.injectEndpoints({
           const errorData = getErrorData(err);
           console.error(errorData.message);
         }
+      },
+      onCacheEntryAdded: async (
+        _,
+        { dispatch, cacheDataLoaded, cacheEntryRemoved },
+      ) => {
+        const socket = SocketClient.instance.socket;
+
+        const handleReceiveError = (err: SocketError) => {
+          // FIXME: remove console.log()
+          console.log('ping');
+          dispatch(
+            pushNotificationAdded({
+              type: PushNotificationType.ERROR,
+              body: err.data.error,
+            }),
+          );
+        };
+
+        socket.removeAllListeners('error:receive');
+        await cacheDataLoaded;
+        socket.on('error:receive', handleReceiveError);
+        await cacheEntryRemoved;
+        socket.removeAllListeners('error:receive');
       },
     }),
     postSignIn: builder.mutation<

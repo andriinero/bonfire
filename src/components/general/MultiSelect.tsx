@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import useEscapeListener from '@/hooks/useCloseModalListener';
 import { cn } from '@/lib/utils';
 import { useEffect, useRef } from 'react';
 
@@ -18,7 +19,6 @@ import TextInput from '../form/TextInput';
 import Button from './Button';
 import IconButton from './IconButton';
 import UserIcon from './UserIcon';
-import useEscapeListener from '@/hooks/useCloseModalListener';
 
 const REQUEST_DELAY_MS = 500;
 

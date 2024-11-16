@@ -59,6 +59,7 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
           { dispatch, cacheDataLoaded, cacheEntryRemoved },
         ) => {
           const socket = SocketClient.instance.socket;
+
           const handleReceiveMessage = (message: Message) => {
             dispatch(
               messagesApiSlice.util.updateQueryData(
@@ -71,10 +72,9 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
             );
           };
 
-          await cacheDataLoaded;
           socket.removeAllListeners('message:receive');
+          await cacheDataLoaded;
           socket.on('message:receive', handleReceiveMessage);
-
           await cacheEntryRemoved;
           socket.removeAllListeners('message:receive');
         },
