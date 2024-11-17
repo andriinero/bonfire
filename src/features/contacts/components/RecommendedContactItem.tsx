@@ -21,14 +21,16 @@ const RecommendedContactItem = ({ contactId }: RecommendedContactItemProps) => {
   return (
     <li
       onClick={handleContactClick}
-      className="flex cursor-pointer flex-col items-center gap-1"
+      className="flex w-12 cursor-pointer flex-col items-center gap-1"
     >
       <UserIcon
         title={contact?.username}
         colorClass={contact?.colorClass}
         src={contact?.profileImage}
       />
-      <p className="text-sm font-medium">{contact?.username}</p>
+      <p className="w-full truncate text-center text-sm font-medium">
+        {contact?.username}
+      </p>
     </li>
   );
 };
