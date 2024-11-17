@@ -2,7 +2,6 @@ import { isAction, isAnyOf } from '@reduxjs/toolkit';
 
 import { connectionCreated, messageSent } from '@/features/socket/socketSlice';
 
-import Storage from '@/lib/Storage';
 import SocketClient from '@/services/SocketClient';
 
 import type { RootState } from '@/app/store';
@@ -14,10 +13,7 @@ export type SocketError = {
 };
 
 export const createSocketMiddleware = (): Middleware<unknown, RootState> => {
-  const token = Storage.getToken();
   const socketClient = SocketClient.instance;
-
-  socketClient.createConnection(token);
 
   return () => (next) => (action) => {
     if (!isAction(action)) return next(action);

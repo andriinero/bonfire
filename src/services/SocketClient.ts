@@ -9,7 +9,7 @@ class SocketClient {
   private static _id: string;
   private static _instance: SocketClient;
   private static _socket: Socket;
-  private static _url = EnvVars.API_SERVER_URL;
+  private static readonly _url = EnvVars.API_SERVER_URL;
 
   private constructor() {}
 
@@ -30,8 +30,12 @@ class SocketClient {
     return SocketClient._socket;
   }
 
+  public get isConnected() {
+    return SocketClient?._socket.connected;
+  }
+
   public createConnection(token: string) {
-    if (SocketClient._socket?.connected) return;
+    if (SocketClient?._socket?.connected) return;
 
     const opts: Partial<ManagerOptions & SocketOptions> = {
       transports: ['polling'],
@@ -43,13 +47,13 @@ class SocketClient {
   }
 
   public connect() {
-    if (SocketClient._socket.connected) return;
+    if (!SocketClient._socket || SocketClient._socket.connected) return;
 
-    this.socket.connect();
+    SocketClient._socket.connect();
   }
 
   public disconnect() {
-    if (SocketClient._socket.disconnected) return;
+    if (!SocketClient._socket || SocketClient._socket.disconnected) return;
 
     SocketClient._socket.disconnect();
   }

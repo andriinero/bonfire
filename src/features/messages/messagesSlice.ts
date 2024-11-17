@@ -72,8 +72,8 @@ export const messagesApiSlice = apiSlice.injectEndpoints({
             );
           };
 
-          socket.removeAllListeners('message:receive');
           await cacheDataLoaded;
+          socket.removeAllListeners('message:receive');
           socket.on('message:receive', handleReceiveMessage);
           await cacheEntryRemoved;
           socket.removeAllListeners('message:receive');

@@ -60,24 +60,24 @@ export const authApiSlice = apiSlice.injectEndpoints({
         _,
         { dispatch, cacheDataLoaded, cacheEntryRemoved },
       ) => {
-        const socket = SocketClient.instance.socket;
-
-        const handleReceiveError = (err: SocketError) => {
-          // FIXME: remove console.log()
-          console.log('ping');
-          dispatch(
-            pushNotificationAdded({
-              type: PushNotificationType.ERROR,
-              body: err.data.error,
-            }),
-          );
-        };
-
-        socket.removeAllListeners('error:receive');
-        await cacheDataLoaded;
-        socket.on('error:receive', handleReceiveError);
-        await cacheEntryRemoved;
-        socket.removeAllListeners('error:receive');
+        // const socket = SocketClient.instance.socket;
+        // // FIXME: remove comment
+        // console.log(socket);
+        //
+        // const handleReceiveError = (err: SocketError) => {
+        //   dispatch(
+        //     pushNotificationAdded({
+        //       type: PushNotificationType.ERROR,
+        //       body: err.data.error,
+        //     }),
+        //   );
+        // };
+        //
+        // socket.removeAllListeners('error:receive');
+        // await cacheDataLoaded;
+        // socket.on('error:receive', handleReceiveError);
+        // await cacheEntryRemoved;
+        // socket.removeAllListeners('error:receive');
       },
     }),
     postSignIn: builder.mutation<
