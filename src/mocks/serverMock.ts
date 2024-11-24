@@ -1,11 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { HttpResponse, delay, http } from 'msw';
 
+import testData from '@/utils/TestData';
+
 import type { AuthData } from '@/types/AuthData';
 import type { ChatRoom } from '@/types/ChatRoom';
 import type { Message } from '@/types/Message';
 import type { User } from '@/types/User';
-import testData from '@/utils/TestData';
 
 const testUser = testData.createRandomUser(),
   testContacts = testData.getMultipleRandomUsers(2),

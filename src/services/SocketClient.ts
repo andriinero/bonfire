@@ -13,27 +13,6 @@ class SocketClient {
 
   private constructor() {}
 
-  public static get instance() {
-    if (!SocketClient._instance) {
-      SocketClient._id = uuidv4();
-      SocketClient._instance = new SocketClient();
-    }
-
-    return SocketClient._instance;
-  }
-
-  public get id() {
-    return SocketClient._id;
-  }
-
-  public get socket() {
-    return SocketClient._socket;
-  }
-
-  public get isConnected() {
-    return SocketClient?._socket.connected;
-  }
-
   public createConnection(token: string) {
     if (SocketClient?._socket?.connected) return;
 
@@ -56,6 +35,27 @@ class SocketClient {
     if (!SocketClient._socket || SocketClient._socket.disconnected) return;
 
     SocketClient._socket.disconnect();
+  }
+
+  public static get instance() {
+    if (!SocketClient._instance) {
+      SocketClient._id = uuidv4();
+      SocketClient._instance = new SocketClient();
+    }
+
+    return SocketClient._instance;
+  }
+
+  public get id() {
+    return SocketClient._id;
+  }
+
+  public get socket() {
+    return SocketClient._socket;
+  }
+
+  public get isConnected() {
+    return SocketClient?._socket.connected;
   }
 }
 

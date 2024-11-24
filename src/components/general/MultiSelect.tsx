@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import useEscapeListener from '@/hooks/useCloseModalListener';
+import useEscapeListener from '@/hooks/useEscapeListener';
 import { cn } from '@/lib/utils';
 import { useEffect, useRef } from 'react';
 

@@ -11,7 +11,7 @@ import Backdrop from '@/components/general/Backdrop';
 import IconButton from '@/components/general/IconButton';
 import XIcon from '@/components/general/XIcon';
 import ChatDrawerPanel from '@/features/chat/components/ChatDrawer';
-import useEscapeListener from '@/hooks/useCloseModalListener';
+import useEscapeListener from '@/hooks/useEscapeListener';
 
 const drawerPanelMap: Record<DrawerPanelType, ReactNode> = {
   [DrawerPanelType.CHAT]: <ChatDrawerPanel />,

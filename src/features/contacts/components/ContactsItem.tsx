@@ -13,7 +13,7 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
 
   const [deleteContact] = useDeleteContactMutation();
 
-  const handleContactDelete = (): void => {
+  const handleContactDelete = () => {
     deleteContact({
       userId: contactId,
       username: contact.username,
@@ -30,7 +30,7 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
           src={contact?.profileImage}
           style="md"
         />
-        <h2 className="text-md font-medium">{contact?.username}</h2>
+        <h2>{contact?.username}</h2>
       </div>
       <IconButton
         aria-label="Delete Contact"
