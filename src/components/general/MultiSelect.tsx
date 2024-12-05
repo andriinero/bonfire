@@ -51,7 +51,7 @@ const MultiSelect = () => {
 
     timeoutRef.current = setTimeout(() => {
       const input = e.target.value;
-      if (input) queryContactsByUsername(input);
+      queryContactsByUsername(input);
     }, REQUEST_DELAY_MS);
   };
 
