@@ -9,6 +9,13 @@ const testMessage: Message = {
   id: 'm01',
   chatRoomId: 'johnchat01',
   body: 'Chat room created',
+  user: {
+    id: '01',
+    username: 'John',
+    isOnline: false,
+    colorClass: '',
+    profileImage: '',
+  },
   created: new Date().toJSON(),
   reply: null,
   type: MessageType.ACTION,

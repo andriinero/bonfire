@@ -15,7 +15,7 @@ const testUser = testData.createRandomUser(),
   testMessages = testData.getMultipleRandomMessages(
     5,
     testChatRoom.id,
-    testUser.id,
+    testUser,
   ),
   token = faker.string.uuid();
 

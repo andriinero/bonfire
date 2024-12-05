@@ -26,7 +26,7 @@ it('renders user message', () => {
     .mockReturnValueOnce(testUser);
   render(
     <UserMessage
-      userId="user0"
+      user={testUser}
       body="test message"
       created={new Date().toISOString()}
     />,

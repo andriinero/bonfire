@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 
 import type { AuthData } from '@/types/AuthData';
 import type { ChatRoom } from '@/types/ChatRoom';
-import type { Message } from '@/types/Message';
+import type { Message, MessageAuthor } from '@/types/Message';
 import { MessageType } from '@/types/MessageType';
 import type { User } from '@/types/User';
 
@@ -44,12 +44,12 @@ const createChatRoom = (): ChatRoom => {
 
 const createRandomUserMessage = (
   chatRoomId: string,
-  userId: string,
+  user: MessageAuthor,
 ): Message => {
   return {
     id: faker.string.uuid(),
-    chatRoomId: chatRoomId,
-    userId: userId,
+    chatRoomId,
+    user,
     body: faker.lorem.sentence(),
     created: faker.date.recent().toISOString(),
     reply: null,
@@ -60,11 +60,11 @@ const createRandomUserMessage = (
 const getMultipleRandomMessages = (
   count: number,
   chatRoomId: string,
-  userId: string,
+  user: MessageAuthor,
 ) => {
   const result: Message[] = [];
   for (let i = 0; i < count; i++)
-    result.push(createRandomUserMessage(chatRoomId, userId));
+    result.push(createRandomUserMessage(chatRoomId, user));
 
   return result;
 };
