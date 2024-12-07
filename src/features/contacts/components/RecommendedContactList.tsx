@@ -1,5 +1,7 @@
-import Spinner from '@/components/general/Spinner';
 import { useGetRecommendedContactsQuery } from '../contactsSlice';
+
+import ListPlaceholder from '@/components/general/ListPlaceholder';
+import Spinner from '@/components/general/Spinner';
 import RecommendedContactItem from './RecommendedContactItem';
 
 const RecommendedContactList = () => {
@@ -26,7 +28,9 @@ const RecommendedContactList = () => {
               ))}
             </ul>
           ) : (
-            <p className="text-center text-sm">You're all caught up!</p>
+            <ListPlaceholder className="text-sm">
+              You're all caught up!
+            </ListPlaceholder>
           )
         ) : (
           <p>Error: fetching data</p>
