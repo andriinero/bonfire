@@ -44,14 +44,14 @@ export const serverHandlers = [
     await delay(150);
     return HttpResponse.json([testChatRoom]);
   }),
-  http.get<never, never, Message[]>(
+  http.get<{ chatroomid: string }, never, Message[]>(
     '/api/chat-rooms/:chatroomid/messages',
     async () => {
       await delay(150);
       return HttpResponse.json(testMessages);
     },
   ),
-  http.get<never, never, User[]>(
+  http.get<{ chatroomid: string }, never, User[]>(
     '/api/chat-rooms/:chatroomid/participants',
     async () => {
       await delay(150);
@@ -62,10 +62,40 @@ export const serverHandlers = [
     await delay(150);
     return HttpResponse.json(testContacts);
   }),
-  http.delete<never, never, string>(
+  http.post<never, never, string>('/api/profile/contacts', async () => {
+    await delay(150);
+    return HttpResponse.json('OK');
+  }),
+  http.delete<{ userid: string }, never, string>(
     '/api/profile/contacts/:userid',
     async () => {
+      await delay(150);
       return HttpResponse.json('OK');
+    },
+  ),
+  http.get<never, never, User[]>(
+    '/api/profile/contacts/recommended',
+    async () => {
+      await delay(150);
+      return HttpResponse.json(testContacts);
+    },
+  ),
+  http.get<never, never, number>('/api/chat-rooms/page-count', async () => {
+    await delay(150);
+    return HttpResponse.json(1);
+  }),
+  http.get<{ chatroomid: string }, never, number>(
+    '/api/chat-rooms/:chatroomid/messages/page-count',
+    async () => {
+      await delay(150);
+      return HttpResponse.json(1);
+    },
+  ),
+  http.get<never, never, number>(
+    '/api/profile/contacts/page-count',
+    async () => {
+      await delay(150);
+      return HttpResponse.json(1);
     },
   ),
 ];
