@@ -12,6 +12,7 @@ import ChatRoomIcon from '@/features/chatRooms/components/ChatRoomIcon';
 import { DrawerPanelType } from '@/features/drawer/types/DrawerPanel';
 import { ChevronLeft, Ellipsis } from 'lucide-react';
 import ChatOnlineStatus from './ChatOnlineStatus';
+import NotificationMenu from '@/features/notifications/components/NotificationMenu';
 
 const ChatHeader = () => {
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
@@ -47,13 +48,16 @@ const ChatHeader = () => {
           </p>
         </div>
       </div>
-      <IconButton
-        onClick={handleOpenChatDrawerClick}
-        aria-label="chat-options"
-        className="text-amber-500"
-      >
-        <Ellipsis />
-      </IconButton>
+      <div className="flex gap-3">
+        <NotificationMenu />
+        <IconButton
+          onClick={handleOpenChatDrawerClick}
+          aria-label="chat-options"
+          className="text-amber-500"
+        >
+          <Ellipsis />
+        </IconButton>
+      </div>
     </header>
   );
 };

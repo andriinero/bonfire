@@ -13,6 +13,7 @@ import contactsSlice from '@/features/contacts/contactsSlice';
 import messagesSlice from '@/features/messages/messagesSlice';
 import pushNotificationsSlice from '@/features/pushNotifications/pushNotificationsSlice';
 import drawerSlice from '@/features/drawer/drawerSlice';
+import notificationsSlice from '@/features/notifications/notificationsSlice';
 
 const rootReducer = combineSlices(
   authSlice,
@@ -23,6 +24,7 @@ const rootReducer = combineSlices(
   contactsSlice,
   pushNotificationsSlice,
   drawerSlice,
+  notificationsSlice,
 );
 export type RootState = ReturnType<typeof rootReducer>;
 
