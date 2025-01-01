@@ -38,7 +38,7 @@ const NotificationMenu = () => {
   const [notifications, setNotifications] = useState([
     {
       id: '1',
-      body: 'mentioned you in a comment',
+      body: 'added you to the chat',
       type: NotificationType.MESSAGE,
       created: new Date().toString(),
       isRead: false,
@@ -50,7 +50,7 @@ const NotificationMenu = () => {
     },
     {
       id: '2',
-      body: 'sent you a friend request',
+      body: 'removed you from the chat',
       type: NotificationType.MESSAGE,
       created: new Date().toString(),
       isRead: false,
@@ -114,6 +114,11 @@ const NotificationMenu = () => {
                         className="text-muted-foreground text-xs"
                         date={notification.created}
                       />
+                      {!notification.isRead && (
+                        <p className="text-xs font-medium uppercase text-amber-500">
+                          NEW
+                        </p>
+                      )}
                     </div>
                   </div>
                   <IconButton
