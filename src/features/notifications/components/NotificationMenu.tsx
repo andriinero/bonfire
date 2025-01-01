@@ -41,6 +41,9 @@ const NotificationMenu = () => {
     { isLoading: isDeleteAllNotificationsLoading },
   ] = useDeleteAllNotificationsMutation();
 
+  // FIXME: remove comment
+  console.log(notifications);
+
   const dispatch = useAppDispatch();
 
   const handleToggleMenu = (isOpen: boolean): void => {
@@ -93,7 +96,7 @@ const NotificationMenu = () => {
               isSuccess &&
               notifications.map((n, index) => (
                 <>
-                  <NotificationItem id={n.id} />
+                  <NotificationItem key={n.id} id={n.id} />
                   {index !== notifications.length - 1 && <Separator />}
                 </>
               ))

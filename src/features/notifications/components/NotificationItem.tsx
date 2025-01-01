@@ -28,9 +28,14 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
       key={notification?.id}
       className="flex items-start space-x-4 p-4 transition-colors hover:bg-gray-50"
     >
-      <UserIcon />
+      <UserIcon
+        title={notification?.sender.username}
+        colorClass={notification?.sender.colorClass}
+      />
       <div className="flex-1 space-y-1">
-        <p className="text-sm font-medium leading-none">Placeholder</p>
+        <p className="text-sm font-medium leading-none">
+          {notification?.sender.username}
+        </p>
         <p className="text-sm text-gray-700">{notification?.body}</p>
         <div className="flex justify-between">
           <TimeStamp
