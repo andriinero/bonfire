@@ -1,9 +1,18 @@
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { useState } from 'react';
+
+import {
+  notificationMenuStateSet,
+  selectIsNotificationMenuOpen,
+} from '../notificationsSlice';
 
 import { cn } from '@/lib/utils';
 
+import { NotificationType } from '@/types/Notification';
+
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
+import TimeStamp from '@/components/general/TimeStamp';
 import UserIcon from '@/components/general/UserIcon';
 import {
   Card,
@@ -20,70 +29,57 @@ import {
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { Bell, X } from 'lucide-react';
-import { useAppSelector } from '@/app/hooks';
-import { selectIsNotificationMenuOpen } from '../notificationsSlice';
-
-interface Notification {
-  id: string;
-  avatar: string;
-  name: string;
-  description: string;
-  time: string;
-  read: boolean;
-}
 
 const NotificationMenu = () => {
   const isNotificationMenuOpen = useAppSelector(selectIsNotificationMenuOpen);
 
-  const [notifications, setNotifications] = useState<Notification[]>([
+  const dispatch = useAppDispatch();
+
+  const [notifications, setNotifications] = useState([
     {
       id: '1',
-      avatar: '/avatars/01.png',
-      name: 'Alice Johnson',
-      description: 'mentioned you in a comment',
-      time: '5 min ago',
-      read: false,
+      body: 'mentioned you in a comment',
+      type: NotificationType.MESSAGE,
+      created: new Date().toString(),
+      isRead: false,
+      sender: {
+        id: '11',
+        username: 'Alex',
+        colorClass: 'gb',
+      },
     },
     {
       id: '2',
-      avatar: '/avatars/02.png',
-      name: 'Bob Smith',
-      description: 'sent you a friend request',
-      time: '15 min ago',
-      read: false,
+      body: 'sent you a friend request',
+      type: NotificationType.MESSAGE,
+      created: new Date().toString(),
+      isRead: false,
     },
     {
       id: '3',
-      avatar: '/avatars/03.png',
-      name: 'Charlie Davis',
-      description: 'shared a document with you',
-      time: '1 hour ago',
-      read: false,
-    },
-    {
-      id: '4',
-      avatar: '/avatars/04.png',
-      name: 'Diana Miller',
-      description: 'liked your post',
-      time: '2 hours ago',
-      read: true,
+      body: 'shared a document with you',
+      type: NotificationType.MESSAGE,
+      created: new Date().toString(),
+      isRead: true,
     },
   ]);
 
-  const handleToggleMenu = (): void => {};
-
-  const handleMarkAllAsRead = (): void => {
-    setNotifications(notifications.map((n) => ({ ...n, read: true })));
+  const handleToggleMenu = (isOpen: boolean): void => {
+    dispatch(notificationMenuStateSet(isOpen));
   };
 
   const handleDismissNotification = (id: string): void => {
     setNotifications(notifications.filter((n) => n.id !== id));
   };
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  const handleDismissAll = (): void => {
+    setNotifications([]);
+  };
+
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   return (
-    <Popover>
+    <Popover open={isNotificationMenuOpen} onOpenChange={handleToggleMenu}>
       <PopoverTrigger asChild>
         <IconButton style="primary" className="relative text-amber-500">
           <Bell className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
@@ -100,45 +96,49 @@ const NotificationMenu = () => {
               You have {unreadCount} unread messages
             </CardDescription>
           </CardHeader>
-          <CardContent className="max-h-[300px] overflow-auto px-0">
+          <CardContent className="max-h-[300px] overflow-auto p-0">
             {notifications.map((notification, index) => (
-              <div
-                key={notification.id}
-                className={cn(
-                  'hover:bg-muted/50 flex items-start space-x-4 p-4 transition-colors',
-                  !notification.read && 'bg-muted/30',
-                )}
-              >
-                <UserIcon title={notification.name} />
-                <div className="flex-1 space-y-1">
-                  <p className="text-sm font-medium leading-none">
-                    {notification.name}
-                  </p>
-                  <p className="text-muted-foreground text-sm">
-                    {notification.description}
-                  </p>
-                  <p className="text-muted-foreground text-xs">
-                    {notification.time}
-                  </p>
-                </div>
-                <IconButton
-                  style="primary"
-                  className="p-1"
-                  onClick={() => handleDismissNotification(notification.id)}
+              <>
+                <div
+                  key={notification.id}
+                  className="flex items-start space-x-4 p-4 transition-colors hover:bg-gray-50"
                 >
-                  <X />
-                </IconButton>
-                {index < notifications.length - 1 && (
-                  <Separator className="absolute bottom-0 left-4 right-4" />
-                )}
-              </div>
+                  <UserIcon />
+                  <div className="flex-1 space-y-1">
+                    <p className="text-sm font-medium leading-none">
+                      Placeholder
+                    </p>
+                    <p className="text-sm text-gray-700">{notification.body}</p>
+                    <div className="flex justify-between">
+                      <TimeStamp
+                        className="text-muted-foreground text-xs"
+                        date={notification.created}
+                      />
+                    </div>
+                  </div>
+                  <IconButton
+                    style="primary"
+                    className="p-1"
+                    onClick={() => handleDismissNotification(notification.id)}
+                  >
+                    <X />
+                  </IconButton>
+                </div>
+                {index !== notifications.length - 1 && <Separator />}
+              </>
             ))}
           </CardContent>
-          <CardFooter className="border-t p-4">
-            <Button style="hollow" className="w-full">
-              Dismiss all
-            </Button>
-          </CardFooter>
+          {notifications.length > 0 && (
+            <CardFooter className="border-t p-4">
+              <Button
+                onClick={handleDismissAll}
+                style="primary"
+                className="w-full"
+              >
+                Dismiss all
+              </Button>
+            </CardFooter>
+          )}
         </Card>
       </PopoverContent>
     </Popover>
