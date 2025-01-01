@@ -1,19 +1,13 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { useState } from 'react';
 
 import {
   notificationMenuStateSet,
   selectIsNotificationMenuOpen,
+  useGetNotificationsQuery,
 } from '../notificationsSlice';
-
-import { cn } from '@/lib/utils';
-
-import { NotificationType } from '@/types/Notification';
 
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
-import TimeStamp from '@/components/general/TimeStamp';
-import UserIcon from '@/components/general/UserIcon';
 import {
   Card,
   CardContent,
@@ -28,55 +22,26 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { Bell, X } from 'lucide-react';
+import { Bell } from 'lucide-react';
+import NotificationItem from './NotificationItem';
 
 const NotificationMenu = () => {
+  const { data: notifications, isSuccess } = useGetNotificationsQuery({
+    page: 0,
+  });
   const isNotificationMenuOpen = useAppSelector(selectIsNotificationMenuOpen);
 
   const dispatch = useAppDispatch();
-
-  const [notifications, setNotifications] = useState([
-    {
-      id: '1',
-      body: 'added you to the chat',
-      type: NotificationType.MESSAGE,
-      created: new Date().toString(),
-      isRead: false,
-      sender: {
-        id: '11',
-        username: 'Alex',
-        colorClass: 'gb',
-      },
-    },
-    {
-      id: '2',
-      body: 'removed you from the chat',
-      type: NotificationType.MESSAGE,
-      created: new Date().toString(),
-      isRead: false,
-    },
-    {
-      id: '3',
-      body: 'shared a document with you',
-      type: NotificationType.MESSAGE,
-      created: new Date().toString(),
-      isRead: true,
-    },
-  ]);
 
   const handleToggleMenu = (isOpen: boolean): void => {
     dispatch(notificationMenuStateSet(isOpen));
   };
 
-  const handleDismissNotification = (id: string): void => {
-    setNotifications(notifications.filter((n) => n.id !== id));
-  };
+  const handleDismissAll = (): void => {};
 
-  const handleDismissAll = (): void => {
-    setNotifications([]);
-  };
-
-  const unreadCount = notifications.filter((n) => !n.isRead).length;
+  const unreadCount = isSuccess
+    ? notifications.filter((n) => !n.isRead).length
+    : 0;
 
   return (
     <Popover open={isNotificationMenuOpen} onOpenChange={handleToggleMenu}>
@@ -97,43 +62,15 @@ const NotificationMenu = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="max-h-[300px] overflow-auto p-0">
-            {notifications.map((notification, index) => (
-              <>
-                <div
-                  key={notification.id}
-                  className="flex items-start space-x-4 p-4 transition-colors hover:bg-gray-50"
-                >
-                  <UserIcon />
-                  <div className="flex-1 space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      Placeholder
-                    </p>
-                    <p className="text-sm text-gray-700">{notification.body}</p>
-                    <div className="flex justify-between">
-                      <TimeStamp
-                        className="text-muted-foreground text-xs"
-                        date={notification.created}
-                      />
-                      {!notification.isRead && (
-                        <p className="text-xs font-medium uppercase text-amber-500">
-                          NEW
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                  <IconButton
-                    style="primary"
-                    className="p-1"
-                    onClick={() => handleDismissNotification(notification.id)}
-                  >
-                    <X />
-                  </IconButton>
-                </div>
-                {index !== notifications.length - 1 && <Separator />}
-              </>
-            ))}
+            {isSuccess &&
+              notifications.map((n, index) => (
+                <>
+                  <NotificationItem id={n.id} />
+                  {index !== notifications.length - 1 && <Separator />}
+                </>
+              ))}
           </CardContent>
-          {notifications.length > 0 && (
+          {isSuccess && notifications.length > 0 && (
             <CardFooter className="border-t p-4">
               <Button
                 onClick={handleDismissAll}
