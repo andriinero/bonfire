@@ -8,6 +8,7 @@ import {
 
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
+import Spinner from '@/components/general/Spinner';
 import {
   Card,
   CardContent,
@@ -26,7 +27,11 @@ import { Bell } from 'lucide-react';
 import NotificationItem from './NotificationItem';
 
 const NotificationMenu = () => {
-  const { data: notifications, isSuccess } = useGetNotificationsQuery({
+  const {
+    data: notifications,
+    isLoading,
+    isSuccess,
+  } = useGetNotificationsQuery({
     page: 0,
   });
   const isNotificationMenuOpen = useAppSelector(selectIsNotificationMenuOpen);
@@ -58,17 +63,33 @@ const NotificationMenu = () => {
               <CardTitle className="text-xl">Notifications</CardTitle>
             </div>
             <CardDescription>
-              You have {unreadCount} unread messages
+              {isLoading ? (
+                <></>
+              ) : isSuccess ? (
+                notifications.length > 0 ? (
+                  `You have ${unreadCount} unread messages`
+                ) : (
+                  "You're all caught up!"
+                )
+              ) : (
+                <p>It's quiet here... too quiet.</p>
+              )}
             </CardDescription>
           </CardHeader>
           <CardContent className="max-h-[300px] overflow-auto p-0">
-            {isSuccess &&
+            {isLoading ? (
+              <div className="p-4">
+                <Spinner />
+              </div>
+            ) : (
+              isSuccess &&
               notifications.map((n, index) => (
                 <>
                   <NotificationItem id={n.id} />
                   {index !== notifications.length - 1 && <Separator />}
                 </>
-              ))}
+              ))
+            )}
           </CardContent>
           {isSuccess && notifications.length > 0 && (
             <CardFooter className="border-t p-4">

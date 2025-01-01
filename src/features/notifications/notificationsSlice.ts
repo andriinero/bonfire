@@ -22,7 +22,7 @@ const notificationsSlice = createSlice({
 export const notificationsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getNotifications: builder.query<Notification[], { page: number }>({
-      query: ({ page }) => `/notifications?page=${page}`,
+      query: ({ page }) => `/profile/notifications?page=${page}`,
     }),
   }),
 });
