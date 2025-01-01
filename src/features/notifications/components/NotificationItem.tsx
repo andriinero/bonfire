@@ -1,6 +1,9 @@
 import { useAppSelector } from '@/app/hooks';
 
-import { selectNotificationById } from '../notificationsSlice';
+import {
+  selectNotificationById,
+  useDeleteNotificationMutation,
+} from '../notificationsSlice';
 
 import IconButton from '@/components/general/IconButton';
 import TimeStamp from '@/components/general/TimeStamp';
@@ -12,7 +15,13 @@ type NotificationItemProps = { id: string };
 const NotificationItem = ({ id }: NotificationItemProps) => {
   const notification = useAppSelector(selectNotificationById({ page: 0, id }));
 
-  const handleDismissNotification = (): void => {};
+  const [deleteNotification, { isLoading }] = useDeleteNotificationMutation();
+
+  const handleDismissNotification = (): void => {
+    deleteNotification(id);
+  };
+
+  const isDismissButtonDisabled = isLoading;
 
   return (
     <div
@@ -37,6 +46,7 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
         style="primary"
         className="p-1"
         onClick={handleDismissNotification}
+        disabled={isDismissButtonDisabled}
       >
         <X />
       </IconButton>

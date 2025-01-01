@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import {
   notificationMenuStateSet,
   selectIsNotificationMenuOpen,
+  useDeleteAllNotificationsMutation,
   useGetNotificationsQuery,
 } from '../notificationsSlice';
 
@@ -27,14 +28,18 @@ import { Bell } from 'lucide-react';
 import NotificationItem from './NotificationItem';
 
 const NotificationMenu = () => {
+  const isNotificationMenuOpen = useAppSelector(selectIsNotificationMenuOpen);
   const {
     data: notifications,
-    isLoading,
+    isLoading: areNotificationsLoading,
     isSuccess,
   } = useGetNotificationsQuery({
     page: 0,
   });
-  const isNotificationMenuOpen = useAppSelector(selectIsNotificationMenuOpen);
+  const [
+    deleteAllNotifications,
+    { isLoading: isDeleteAllNotificationsLoading },
+  ] = useDeleteAllNotificationsMutation();
 
   const dispatch = useAppDispatch();
 
@@ -42,11 +47,14 @@ const NotificationMenu = () => {
     dispatch(notificationMenuStateSet(isOpen));
   };
 
-  const handleDismissAll = (): void => {};
+  const handleDismissAll = (): void => {
+    deleteAllNotifications();
+  };
 
   const unreadCount = isSuccess
     ? notifications.filter((n) => !n.isRead).length
     : 0;
+  const isDismissButtonDisabled = isDeleteAllNotificationsLoading;
 
   return (
     <Popover open={isNotificationMenuOpen} onOpenChange={handleToggleMenu}>
@@ -63,7 +71,7 @@ const NotificationMenu = () => {
               <CardTitle className="text-xl">Notifications</CardTitle>
             </div>
             <CardDescription>
-              {isLoading ? (
+              {areNotificationsLoading ? (
                 <></>
               ) : isSuccess ? (
                 notifications.length > 0 ? (
@@ -77,7 +85,7 @@ const NotificationMenu = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="max-h-[300px] overflow-auto p-0">
-            {isLoading ? (
+            {areNotificationsLoading ? (
               <div className="p-4">
                 <Spinner />
               </div>
@@ -97,6 +105,7 @@ const NotificationMenu = () => {
                 onClick={handleDismissAll}
                 style="primary"
                 className="w-full"
+                disabled={isDismissButtonDisabled}
               >
                 Dismiss all
               </Button>

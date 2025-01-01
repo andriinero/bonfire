@@ -24,10 +24,26 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
     getNotifications: builder.query<Notification[], { page: number }>({
       query: ({ page }) => `/profile/notifications?page=${page}`,
     }),
+    deleteAllNotifications: builder.mutation<void, void>({
+      query: () => ({
+        url: `/profile/notifications`,
+        method: 'DELETE',
+      }),
+    }),
+    deleteNotification: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/profile/notifications/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
-export const { useGetNotificationsQuery } = notificationsApiSlice;
+export const {
+  useGetNotificationsQuery,
+  useDeleteAllNotificationsMutation,
+  useDeleteNotificationMutation,
+} = notificationsApiSlice;
 
 export const { notificationMenuStateSet } = notificationsSlice.actions;
 
