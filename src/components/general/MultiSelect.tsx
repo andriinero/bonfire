@@ -70,7 +70,7 @@ const MultiSelect = () => {
           placeholder="Enter the contact name"
           className="rounded-lg"
         />
-        <div className="absolute z-10 mt-2 flex w-full flex-col gap-2 rounded-lg bg-white shadow-md ring-1 ring-gray-300 animate-in fade-in zoom-in-95 slide-in-from-top-2">
+        <div className="absolute z-10 mt-2 flex w-full flex-col gap-2 rounded-md bg-white shadow-md ring-1 ring-gray-200 animate-in fade-in zoom-in-95 slide-in-from-top-2">
           <div className="border-b border-gray-200 p-3">
             <h2 className="font-bold">New chat room</h2>
             <p className="text-sm text-gray-700">

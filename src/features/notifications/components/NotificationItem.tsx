@@ -1,6 +1,5 @@
 import { useAppSelector } from '@/app/hooks';
-import { useInView } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 import {
   selectNotificationById,
@@ -34,7 +33,7 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
     }
   };
 
-  const handleDismissNotification = (): void => {
+  const handleDismissNotification = () => {
     deleteNotification(id);
   };
 
