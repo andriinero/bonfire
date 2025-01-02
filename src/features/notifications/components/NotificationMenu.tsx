@@ -10,6 +10,7 @@ import {
 import Button from '@/components/general/Button';
 import IconButton from '@/components/general/IconButton';
 import Spinner from '@/components/general/Spinner';
+import { BellIcon } from '@/components/ui/bell';
 import {
   Card,
   CardContent,
@@ -24,9 +25,8 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { Bell } from 'lucide-react';
 import NotificationItem from './NotificationItem';
-import { BellIcon } from '@/components/ui/bell';
+import cn from '@/utils/cn';
 
 const NotificationMenu = () => {
   const isNotificationMenuOpen = useAppSelector(selectIsNotificationMenuOpen);
@@ -56,6 +56,8 @@ const NotificationMenu = () => {
     ? notifications.filter((n) => !n.isRead).length
     : 0;
   const isDismissButtonDisabled = isDeleteAllNotificationsLoading;
+  const notificationsPresent =
+    isSuccess && notifications && notifications.length > 0;
 
   return (
     <Popover open={isNotificationMenuOpen} onOpenChange={handleToggleMenu}>
@@ -71,8 +73,10 @@ const NotificationMenu = () => {
         </IconButton>
       </PopoverTrigger>
       <PopoverContent className="w-80 p-0" align="end">
-        <Card className="border-none">
-          <CardHeader className="border-b p-4">
+        <Card className="border-none shadow-none">
+          <CardHeader
+            className={cn('p-4', { 'border-b': notificationsPresent })}
+          >
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">Notifications</CardTitle>
             </div>
@@ -96,7 +100,7 @@ const NotificationMenu = () => {
                 <Spinner />
               </div>
             ) : (
-              isSuccess &&
+              notificationsPresent &&
               notifications.map((n, index) => (
                 <div key={n.id}>
                   <NotificationItem key={n.id} id={n.id} />
@@ -105,7 +109,7 @@ const NotificationMenu = () => {
               ))
             )}
           </CardContent>
-          {isSuccess && notifications.length > 0 && (
+          {notificationsPresent && (
             <CardFooter className="border-t p-4">
               <Button
                 onClick={handleDismissAll}
