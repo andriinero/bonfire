@@ -16,7 +16,6 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
   const notification = useAppSelector(selectNotificationById({ page: 0, id }));
 
   const [deleteNotification, { isLoading }] = useDeleteNotificationMutation();
-
   const handleDismissNotification = (): void => {
     deleteNotification(id);
   };
@@ -24,10 +23,7 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
   const isDismissButtonDisabled = isLoading;
 
   return (
-    <div
-      key={notification?.id}
-      className="flex items-start space-x-4 p-4 transition-colors hover:bg-gray-50"
-    >
+    <div className="flex items-start space-x-4 p-4 transition-colors hover:bg-gray-50">
       <UserIcon
         title={notification?.sender.username}
         colorClass={notification?.sender.colorClass}

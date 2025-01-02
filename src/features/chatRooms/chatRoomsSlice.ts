@@ -111,8 +111,8 @@ export const chatRoomsApiSlice = apiSlice.injectEndpoints({
       onQueryStarted: async ({ chatRoomId }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
           chatRoomsApiSlice.util.updateQueryData('getChatRooms', 0, (draft) => {
-            const chatRoomIndex = draft.findIndex((c) => c.id === chatRoomId);
-            if (chatRoomIndex > -1) draft.splice(chatRoomIndex, 1);
+            const index = draft.findIndex((c) => c.id === chatRoomId);
+            if (index > -1) draft.splice(index, 1);
           }),
         );
         try {

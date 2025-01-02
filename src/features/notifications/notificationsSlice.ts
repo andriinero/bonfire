@@ -4,6 +4,9 @@ import { apiSlice } from '../api/apiSlice';
 import type { RootState } from '@/app/store';
 import type { Notification } from '@/types/Notification';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { getErrorData } from '@/utils/getErrorData';
+import { PushNotificationType } from '@/types/PushNotification';
+import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
 
 type NotificationsState = { isNotificationMenuOpen: boolean };
 
@@ -35,6 +38,30 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
         url: `/profile/notifications/${id}`,
         method: 'DELETE',
       }),
+      onQueryStarted: async (id, { dispatch, queryFulfilled }) => {
+        const patchResult = dispatch(
+          notificationsApiSlice.util.updateQueryData(
+            'getNotifications',
+            { page: 0 },
+            (draft) => {
+              const index = draft.findIndex((n) => n.id === id);
+              if (index > -1) draft.splice(index, 1);
+            },
+          ),
+        );
+        try {
+          await queryFulfilled;
+        } catch (err) {
+          patchResult.undo();
+          const errorData = getErrorData((err as { error: unknown }).error);
+          dispatch(
+            pushNotificationAdded({
+              body: `Delete chat: "${errorData.message}"`,
+              type: PushNotificationType.ERROR,
+            }),
+          );
+        }
+      },
     }),
   }),
 });
