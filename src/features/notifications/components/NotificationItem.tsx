@@ -18,27 +18,21 @@ const MARK_AS_READ_POST_DELAY = 4000;
 type NotificationItemProps = { id: string };
 
 const NotificationItem = ({ id }: NotificationItemProps) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref);
+  const timeoutId = useRef<NodeJS.Timeout>();
   const notification = useAppSelector(selectNotificationById({ page: 0, id }));
 
   const [postMarkAsRead, { isLoading: isMarkAsReadLoading }] =
     usePostMarkAsReadMutation();
-
-  // useEffect(() => {
-  //   let timeoutId = null;
-  //   if (!notification?.isRead && isInView && !isMarkAsReadLoading) {
-  //     timeoutId = setTimeout(() => {
-  //       postMarkAsRead(id);
-  //     }, MARK_AS_READ_POST_DELAY);
-  //   }
-  //
-  //   return () => {
-  //     if (timeoutId) clearTimeout(timeoutId);
-  //   };
-  // }, [id, notification, isInView, isMarkAsReadLoading, postMarkAsRead]);
-
   const [deleteNotification, { isLoading }] = useDeleteNotificationMutation();
+
+  const handleMarkAsRead = () => {
+    if (!timeoutId.current && !notification?.isRead && !isMarkAsReadLoading) {
+      timeoutId.current = setTimeout(() => {
+        postMarkAsRead(id);
+        timeoutId.current = undefined;
+      }, MARK_AS_READ_POST_DELAY);
+    }
+  };
 
   const handleDismissNotification = (): void => {
     deleteNotification(id);
@@ -48,7 +42,7 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
 
   return (
     <div
-      ref={ref}
+      onMouseEnter={handleMarkAsRead}
       className="flex items-start space-x-4 p-4 transition-colors hover:bg-gray-50"
     >
       <UserIcon
