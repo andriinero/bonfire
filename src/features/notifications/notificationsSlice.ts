@@ -33,6 +33,36 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
       }),
     }),
+    postMarkAsRead: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/profile/notifications/${id}/mark-as-read`,
+        method: 'POST',
+      }),
+      onQueryStarted: async (id, { dispatch, queryFulfilled }) => {
+        const patchResult = dispatch(
+          notificationsApiSlice.util.updateQueryData(
+            'getNotifications',
+            { page: 0 },
+            (draft) => {
+              const index = draft.findIndex((n) => n.id === id);
+              if (index > -1) draft[index].isRead = true;
+            },
+          ),
+        );
+        try {
+          await queryFulfilled;
+        } catch (err) {
+          patchResult.undo();
+          const errorData = getErrorData((err as { error: unknown }).error);
+          dispatch(
+            pushNotificationAdded({
+              body: `Mark as read: "${errorData.message}"`,
+              type: PushNotificationType.ERROR,
+            }),
+          );
+        }
+      },
+    }),
     deleteNotification: builder.mutation<void, string>({
       query: (id) => ({
         url: `/profile/notifications/${id}`,
@@ -56,7 +86,7 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
           const errorData = getErrorData((err as { error: unknown }).error);
           dispatch(
             pushNotificationAdded({
-              body: `Delete chat: "${errorData.message}"`,
+              body: `Dismiss notification: "${errorData.message}"`,
               type: PushNotificationType.ERROR,
             }),
           );
@@ -68,6 +98,7 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetNotificationsQuery,
+  usePostMarkAsReadMutation,
   useDeleteAllNotificationsMutation,
   useDeleteNotificationMutation,
 } = notificationsApiSlice;
