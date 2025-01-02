@@ -38,15 +38,15 @@ const MultiSelect = () => {
     queryContactsByUsername('');
   }, [dispatch, queryContactsByUsername]);
 
-  const handleCloseForm = () => {
+  const handleFormClose = () => {
     dispatch(createChatRoomClosed());
     dispatch(selectedContactsReset());
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
   };
 
-  useEscapeListener(handleCloseForm);
+  useEscapeListener(handleFormClose);
 
-  const handleTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleContactQuery = (e: ChangeEvent<HTMLInputElement>) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     timeoutRef.current = setTimeout(() => {
@@ -66,7 +66,7 @@ const MultiSelect = () => {
     <div className="flex w-full gap-1">
       <div className="relative flex-1">
         <TextInput
-          onChange={handleTextInputChange}
+          onChange={handleContactQuery}
           placeholder="Enter the contact name"
           className="rounded-lg"
         />
@@ -126,7 +126,7 @@ const MultiSelect = () => {
           </div>
         </div>
       </div>
-      <IconButton className="p-2" onClick={handleCloseForm}>
+      <IconButton className="p-2" onClick={handleFormClose}>
         <X />
       </IconButton>
     </div>

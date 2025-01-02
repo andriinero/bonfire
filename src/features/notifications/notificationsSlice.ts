@@ -27,12 +27,6 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
     getNotifications: builder.query<Notification[], { page: number }>({
       query: ({ page }) => `/profile/notifications?page=${page}`,
     }),
-    deleteAllNotifications: builder.mutation<void, void>({
-      query: () => ({
-        url: `/profile/notifications`,
-        method: 'DELETE',
-      }),
-    }),
     postMarkAsRead: builder.mutation<void, string>({
       query: (id) => ({
         url: `/profile/notifications/${id}/mark-as-read`,
@@ -57,6 +51,35 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
           dispatch(
             pushNotificationAdded({
               body: `Mark as read: "${errorData.message}"`,
+              type: PushNotificationType.ERROR,
+            }),
+          );
+        }
+      },
+    }),
+    deleteAllNotifications: builder.mutation<void, void>({
+      query: () => ({
+        url: `/profile/notifications`,
+        method: 'DELETE',
+      }),
+      onQueryStarted: async (id, { dispatch, queryFulfilled }) => {
+        const patchResult = dispatch(
+          notificationsApiSlice.util.updateQueryData(
+            'getNotifications',
+            { page: 0 },
+            (draft) => {
+              draft.length = 0;
+            },
+          ),
+        );
+        try {
+          await queryFulfilled;
+        } catch (err) {
+          patchResult.undo();
+          const errorData = getErrorData((err as { error: unknown }).error);
+          dispatch(
+            pushNotificationAdded({
+              body: `Dismiss all notifications: "${errorData.message}"`,
               type: PushNotificationType.ERROR,
             }),
           );
