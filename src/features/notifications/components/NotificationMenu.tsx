@@ -62,9 +62,11 @@ const NotificationMenu = () => {
       <PopoverTrigger asChild>
         <IconButton style="primary" className="relative text-amber-500">
           <BellIcon isActive={unreadCount > 0} />
-          <span className="absolute right-0 top-0 mr-[5px] mt-[5px] size-[16px] rounded-full bg-amber-500 text-[10px] font-bold text-white ring-2 ring-white">
-            {unreadCount}
-          </span>
+          {unreadCount > 0 && (
+            <span className="absolute right-0 top-0 mr-[7px] mt-[7px] size-[13px] rounded-full bg-amber-500 text-[8px] font-bold text-white ring-2 ring-white">
+              {unreadCount}
+            </span>
+          )}
           <span className="sr-only">Toggle notifications</span>
         </IconButton>
       </PopoverTrigger>
