@@ -17,7 +17,7 @@ const TextInput = forwardRef(
         ref={ref}
         type="text"
         className={cn(
-          'w-full rounded-md px-2 py-1.5 text-sm leading-6 text-gray-900 ring-1 ring-inset ring-gray-200 transition focus:border-solid focus:outline-0 focus:ring-2 focus:ring-inset focus:ring-amber-500',
+          'w-full rounded-md px-2 py-1.5 text-sm leading-6 text-gray-950 ring-1 ring-inset ring-gray-200 transition focus:border-solid focus:outline-0 focus:ring-2 focus:ring-inset focus:ring-amber-500',
           className,
         )}
         {...otherProps}

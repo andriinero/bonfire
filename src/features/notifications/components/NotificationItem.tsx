@@ -12,7 +12,7 @@ import TimeStamp from '@/components/general/TimeStamp';
 import UserIcon from '@/components/general/UserIcon';
 import { X } from 'lucide-react';
 
-const MARK_AS_READ_POST_DELAY = 4000;
+const MARK_AS_READ_POST_DELAY = 3000;
 
 type NotificationItemProps = { id: string };
 

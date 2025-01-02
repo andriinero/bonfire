@@ -34,10 +34,10 @@ const IconButton = forwardRef<HTMLButtonElement, ControlsIconProps>(
         className={cn(
           'rounded-lg p-3 text-gray-700 transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-amber-500',
           {
-            'bg-gray-100 text-gray-800': isSelected,
+            'bg-gray-100 text-gray-950': isSelected,
           },
           {
-            'rounded-full bg-gray-100 p-2 text-gray-800 hover:bg-gray-200':
+            'rounded-full bg-gray-100 p-2 text-gray-950 hover:bg-gray-200':
               style === 'round',
           },
           className,

@@ -13,7 +13,7 @@ const RecommendedContactList = () => {
 
   return (
     <div className="flex flex-col gap-4 overflow-x-auto border-b border-t p-5">
-      <h2 className="text-md font-bold">Suggested Contacts</h2>
+      <h2 className="text-md font-semibold">Suggested Contacts</h2>
       <div className="flex w-full flex-1 items-center justify-center">
         {isLoading ? (
           <Spinner />

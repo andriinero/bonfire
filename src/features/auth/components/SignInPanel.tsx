@@ -63,7 +63,7 @@ const SignInPanel = () => {
   const isSubmitDisabled = isPostSignInLoading;
 
   return (
-    <div className="container space-y-8 rounded-md bg-white p-12 text-sm font-medium text-gray-900 sm:shadow">
+    <div className="container space-y-8 rounded-md bg-white p-12 text-sm font-medium text-gray-950 sm:shadow">
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputGroup>
           <InputLabel htmlFor="sign-in-email">Email address</InputLabel>
@@ -107,13 +107,13 @@ const SignInPanel = () => {
           <span>Google</span>
         </Button>
         <Button
-          className="gap-2 font-semibold "
+          className="gap-2 font-semibold"
           type="button"
           style="hollow"
           onClick={handleGuestSignIn}
         >
           <UserIcon isOnline={false} src="/guest.png" style="xs" />
-          <p className="text-gray-900">Guest</p>
+          <p className="text-gray-950">Guest</p>
         </Button>
       </div>
       <div className="space-x-1 text-center">

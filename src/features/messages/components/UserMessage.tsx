@@ -42,7 +42,7 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
         </div>
         <p
           className={cn(
-            'max-w-[30ch] self-start rounded-2xl bg-gray-100 px-3 py-2 text-start text-sm font-medium text-gray-900',
+            'max-w-[30ch] self-start rounded-2xl bg-gray-100 px-3 py-2 text-start text-sm font-medium text-gray-950',
             {
               'self-end bg-amber-500 text-white': isAuthor,
             },

@@ -17,7 +17,7 @@ const SignIn = () => {
     <div className="flex min-h-dvh items-center justify-center sm:bg-gray-100">
       <main className="w-full max-w-lg space-y-8">
         <AppLogo />
-        <h1 className="text-center text-2xl font-bold tracking-tight text-gray-900">
+        <h1 className="text-center text-2xl font-bold text-gray-950">
           Sign in to your account
         </h1>
         <SignInPanel />

@@ -51,7 +51,7 @@ const ChatMessageInput = () => {
       >
         <TextInput
           {...register('body')}
-          className="flex-1 rounded-full bg-gray-100 px-4 py-2 text-gray-800 outline-0 ring-0"
+          className="flex-1 rounded-full bg-gray-100 px-4 py-2 text-gray-950 outline-0 ring-0"
           type="text"
           placeholder="Write a message..."
         />
