@@ -13,7 +13,7 @@ import TimeStamp from '@/components/general/TimeStamp';
 import UserIcon from '@/components/general/UserIcon';
 import { X } from 'lucide-react';
 
-const MARK_AS_READ_POST_DELAY = 2000;
+const MARK_AS_READ_POST_DELAY = 4000;
 
 type NotificationItemProps = { id: string };
 
@@ -25,18 +25,18 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
   const [postMarkAsRead, { isLoading: isMarkAsReadLoading }] =
     usePostMarkAsReadMutation();
 
-  useEffect(() => {
-    let timeoutId = null;
-    if (!notification?.isRead && isInView && !isMarkAsReadLoading) {
-      timeoutId = setTimeout(() => {
-        postMarkAsRead(id);
-      }, MARK_AS_READ_POST_DELAY);
-    }
-
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [id, notification, isInView, isMarkAsReadLoading, postMarkAsRead]);
+  // useEffect(() => {
+  //   let timeoutId = null;
+  //   if (!notification?.isRead && isInView && !isMarkAsReadLoading) {
+  //     timeoutId = setTimeout(() => {
+  //       postMarkAsRead(id);
+  //     }, MARK_AS_READ_POST_DELAY);
+  //   }
+  //
+  //   return () => {
+  //     if (timeoutId) clearTimeout(timeoutId);
+  //   };
+  // }, [id, notification, isInView, isMarkAsReadLoading, postMarkAsRead]);
 
   const [deleteNotification, { isLoading }] = useDeleteNotificationMutation();
 

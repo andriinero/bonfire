@@ -26,6 +26,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Bell } from 'lucide-react';
 import NotificationItem from './NotificationItem';
+import { BellIcon } from '@/components/ui/bell';
 
 const NotificationMenu = () => {
   const isNotificationMenuOpen = useAppSelector(selectIsNotificationMenuOpen);
@@ -60,7 +61,10 @@ const NotificationMenu = () => {
     <Popover open={isNotificationMenuOpen} onOpenChange={handleToggleMenu}>
       <PopoverTrigger asChild>
         <IconButton style="primary" className="relative text-amber-500">
-          <Bell className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+          <BellIcon isActive={unreadCount > 0} />
+          <span className="absolute right-0 top-0 mr-[5px] mt-[5px] size-[16px] rounded-full bg-amber-500 text-[10px] font-bold text-white ring-2 ring-white">
+            {unreadCount}
+          </span>
           <span className="sr-only">Toggle notifications</span>
         </IconButton>
       </PopoverTrigger>
