@@ -36,8 +36,12 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
             'justify-end': isAuthor,
           })}
         >
-          <p className="font-medium text-gray-500">{user.username}</p>
-          <DotDivider />
+          {!isAuthor && (
+            <>
+              <p className="font-medium text-gray-500">{user.username}</p>
+              <DotDivider />
+            </>
+          )}
           <TimeStamp date={created} className="text-xs text-gray-500" />
         </div>
         <p
