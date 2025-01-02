@@ -19,6 +19,14 @@ import TextInput from '../form/TextInput';
 import Button from './Button';
 import IconButton from './IconButton';
 import UserIcon from './UserIcon';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '../ui/card';
 
 const REQUEST_DELAY_MS = 500;
 
@@ -64,22 +72,22 @@ const MultiSelect = () => {
 
   return (
     <div className="flex w-full gap-1">
-      <div className="relative flex-1">
+      <div className="relative flex-1 space-y-2">
         <TextInput
           onChange={handleContactQuery}
           placeholder="Enter the contact name"
           className="rounded-lg"
         />
-        <div className="absolute z-10 mt-2 flex w-full flex-col gap-2 rounded-md bg-white shadow-md ring-1 ring-gray-200 animate-in fade-in zoom-in-95 slide-in-from-top-2">
-          <div className="border-b border-gray-200 p-3">
-            <h2 className="font-bold">New chat room</h2>
-            <p className="text-sm text-gray-700">
+        <Card className="absolute z-10 flex w-full flex-col animate-in fade-in zoom-in-95 slide-in-from-top-2">
+          <CardHeader className="space-y-1 border-b p-3">
+            <CardTitle>New chat room</CardTitle>
+            <CardDescription>
               Invite several contacts to your new chat.
-            </p>
-          </div>
-          <div className="flex basis-64 flex-col justify-center">
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col justify-center p-2">
             {contacts?.length !== 0 ? (
-              <ul className="mb-auto p-2">
+              <ul className="flex flex-col gap-1">
                 {contacts?.map((contact) => {
                   const isSelected = selectedContacts.some(
                     (selectedContact) => selectedContact.id === contact.id,
@@ -94,12 +102,12 @@ const MultiSelect = () => {
                 })}
               </ul>
             ) : (
-              <h1 className="text-center text-sm text-gray-700">
-                Contact list is empty :(
+              <h1 className="my-4 text-center text-sm text-gray-700">
+                Your contact list is empty :(
               </h1>
             )}
-          </div>
-          <div className="flex justify-between border-t border-gray-200 p-4">
+          </CardContent>
+          <CardFooter className="flex justify-between border-t p-3">
             <ul className="flex">
               {selectedContacts.map((contact, index) => (
                 <div
@@ -123,8 +131,8 @@ const MultiSelect = () => {
             >
               Create
             </Button>
-          </div>
-        </div>
+          </CardFooter>
+        </Card>
       </div>
       <IconButton className="p-2" onClick={handleFormClose}>
         <X />

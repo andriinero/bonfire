@@ -72,14 +72,12 @@ const NotificationMenu = () => {
           <span className="sr-only">Toggle notifications</span>
         </IconButton>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-0" align="end">
-        <Card className="border-none shadow-none">
+      <PopoverContent className="w-80 border-none p-0 shadow-none" align="end">
+        <Card>
           <CardHeader
             className={cn('p-4', { 'border-b': notificationsPresent })}
           >
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-xl">Notifications</CardTitle>
-            </div>
+            <CardTitle>Notifications</CardTitle>
             <CardDescription>
               {areNotificationsLoading ? (
                 <></>
