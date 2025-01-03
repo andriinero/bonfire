@@ -1,5 +1,4 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import useEscapeListener from '@/hooks/useEscapeListener';
 import { cn } from '@/lib/utils';
 import { useEffect, useRef } from 'react';
 
@@ -38,7 +37,6 @@ const MultiSelect = () => {
   ] = contactsApiSlice.useLazyGetContactsByUsernameQuery();
   const [postChatRoom, { isLoading: isPostChatRoomLoading }] =
     usePostChatRoomMutation();
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -50,8 +48,6 @@ const MultiSelect = () => {
     dispatch(selectedContactsReset());
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
   };
-
-  useEscapeListener(handleFormClose);
 
   const handleContactQuery = (e: ChangeEvent<HTMLInputElement>) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);

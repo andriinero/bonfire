@@ -1,4 +1,3 @@
-import useEscapeListener from '@/hooks/useEscapeListener';
 import { motion } from 'framer-motion';
 
 import cn from '@/utils/cn';
@@ -22,8 +21,6 @@ const Modal = ({
   className,
   children,
 }: ModalProps) => {
-  useEscapeListener(onBackdropClick);
-
   return (
     <AnimatePresence>
       {isOpen && (

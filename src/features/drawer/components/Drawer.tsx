@@ -1,5 +1,4 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import useEscapeListener from '@/hooks/useEscapeListener';
 import { motion } from 'framer-motion';
 
 import { drawerClosed, selectCurrentDrawerPanelType } from '../drawerSlice';
@@ -20,14 +19,11 @@ const drawerPanelMap: Record<DrawerPanelType, ReactNode> = {
 
 const Drawer = () => {
   const currentDrawerPanelType = useAppSelector(selectCurrentDrawerPanelType);
-
   const dispatch = useAppDispatch();
 
   const handleCloseDrawerClick = () => {
     dispatch(drawerClosed());
   };
-
-  useEscapeListener(handleCloseDrawerClick);
 
   return (
     <>

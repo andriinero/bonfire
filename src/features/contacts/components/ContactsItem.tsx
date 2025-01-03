@@ -20,7 +20,7 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
   };
 
   return (
-    <li key={contact?.id} className="flex items-center gap-4">
+    <li key={contact?.id} className="flex items-center gap-4 p-2">
       <UserIcon title={contact?.username} colorClass={contact?.colorClass} />
       <div className="flex-grow">
         <p className="font-semibold">{contact?.username}</p>
