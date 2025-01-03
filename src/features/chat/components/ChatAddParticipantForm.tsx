@@ -11,8 +11,6 @@ import type { MouseEventHandler } from 'react';
 
 import Form from '@/components/form/Form';
 import InputGroup from '@/components/form/InputGroup';
-import InputLabel from '@/components/form/InputLabel';
-import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import {
   Card,
@@ -23,6 +21,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 
 const AddParticipantSchema = z.object({
   participantUsername: z
@@ -68,8 +68,8 @@ const ChatAddParticipantForm = ({
       <CardContent>
         <Form id="add-participant" onSubmit={handleSubmit(handleFormSubmit)}>
           <InputGroup>
-            <InputLabel htmlFor="add-participant">Username</InputLabel>
-            <TextInput
+            <Label htmlFor="add-participant">Username</Label>
+            <Input
               className="min-w-72"
               {...register('participantUsername')}
               id="add-participant-username"

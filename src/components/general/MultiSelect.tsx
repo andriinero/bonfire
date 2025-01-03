@@ -15,8 +15,7 @@ import type { ChangeEvent } from 'react';
 
 import ContactSearchItem from '@/features/contacts/components/ContactSearchItem';
 import { X } from 'lucide-react';
-import TextInput from '../form/TextInput';
-import UserIcon from './UserIcon';
+import { Button } from '../ui/button';
 import {
   Card,
   CardContent,
@@ -25,7 +24,8 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
-import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import UserIcon from './UserIcon';
 
 const REQUEST_DELAY_MS = 500;
 
@@ -72,7 +72,7 @@ const MultiSelect = () => {
   return (
     <div className="flex w-full gap-1">
       <div className="relative flex-1 space-y-2">
-        <TextInput
+        <Input
           onChange={handleContactQuery}
           placeholder="Enter the contact name"
           className="rounded-lg"

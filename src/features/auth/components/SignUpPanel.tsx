@@ -7,12 +7,12 @@ import { usePostSignUpMutation } from '../authSlice';
 
 import Form from '@/components/form/Form';
 import InputGroup from '@/components/form/InputGroup';
-import InputLabel from '@/components/form/InputLabel';
-import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import AppLink from '@/components/general/AppLink';
 import Paths from '@/constants/Paths';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 
 const SignUpBodySchema = z
   .object({
@@ -54,8 +54,8 @@ const SignUpPanel = () => {
     <div className="container space-y-8 rounded-md bg-white p-10 text-sm font-medium text-slate-400 sm:shadow">
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputGroup>
-          <InputLabel htmlFor="sign-in-username">Username</InputLabel>
-          <TextInput
+          <Label htmlFor="sign-in-username">Username</Label>
+          <Input
             {...register('username')}
             id="sign-in-username"
             aria-errormessage="username-error"
@@ -65,8 +65,8 @@ const SignUpPanel = () => {
           </ValidationError>
         </InputGroup>
         <InputGroup>
-          <InputLabel htmlFor="sign-in-email">Email address</InputLabel>
-          <TextInput
+          <Label htmlFor="sign-in-email">Email address</Label>
+          <Input
             {...register('email')}
             id="sign-in-email"
             type="email"
@@ -77,8 +77,8 @@ const SignUpPanel = () => {
           </ValidationError>
         </InputGroup>
         <InputGroup>
-          <InputLabel htmlFor="sign-in-password">Password</InputLabel>
-          <TextInput
+          <Label htmlFor="sign-in-password">Password</Label>
+          <Input
             {...register('password')}
             id="sign-in-password"
             type="password"
@@ -89,10 +89,8 @@ const SignUpPanel = () => {
           </ValidationError>
         </InputGroup>
         <InputGroup>
-          <InputLabel htmlFor="sign-in-confirm-password">
-            Confirm password
-          </InputLabel>
-          <TextInput
+          <Label htmlFor="sign-in-confirm-password">Confirm password</Label>
+          <Input
             {...register('confirmPassword')}
             id="sign-in-confirm-password"
             type="password"

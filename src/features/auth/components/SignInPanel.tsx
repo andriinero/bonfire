@@ -11,15 +11,15 @@ import {
   usePostSignInMutation,
 } from '../authSlice';
 
+import Form from '@/components/form/Form';
+import InputGroup from '@/components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
 import AppLink from '@/components/general/AppLink';
 import UserIcon from '@/components/general/UserIcon';
-import { Navigate } from 'react-router-dom';
-import Form from '../../../components/form/Form';
-import InputGroup from '../../../components/form/InputGroup';
-import InputLabel from '../../../components/form/InputLabel';
-import TextInput from '../../../components/form/TextInput';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Navigate } from 'react-router-dom';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),
@@ -28,18 +28,17 @@ const SignInBodySchema = z.object({
 export type TSignInBody = z.infer<typeof SignInBodySchema>;
 
 const SignInPanel = () => {
-  const { refetch: refetchAuthData } = useGetAuthDataQuery();
-  const [
-    postSignIn,
-    { isLoading: isPostSignInLoading, isSuccess: isPostSignInSuccess },
-  ] = usePostSignInMutation();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TSignInBody>({ resolver: zodResolver(SignInBodySchema) });
 
+  const { refetch: refetchAuthData } = useGetAuthDataQuery();
+  const [
+    postSignIn,
+    { isLoading: isPostSignInLoading, isSuccess: isPostSignInSuccess },
+  ] = usePostSignInMutation();
   const dispatch = useAppDispatch();
 
   if (isPostSignInSuccess)
@@ -66,8 +65,8 @@ const SignInPanel = () => {
     <div className="container space-y-8 rounded-md bg-white p-12 text-sm font-medium text-gray-950 sm:shadow">
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <InputGroup>
-          <InputLabel htmlFor="sign-in-email">Email address</InputLabel>
-          <TextInput
+          <Label htmlFor="sign-in-email">Email address</Label>
+          <Input
             {...register('email')}
             id="sign-in-email"
             aria-errormessage="email-error"
@@ -77,8 +76,8 @@ const SignInPanel = () => {
           </ValidationError>
         </InputGroup>
         <InputGroup>
-          <InputLabel htmlFor="sign-in-password">Password</InputLabel>
-          <TextInput
+          <Label htmlFor="sign-in-password">Password</Label>
+          <Input
             {...register('password')}
             id="sign-in-password"
             type="password"

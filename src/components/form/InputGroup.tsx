@@ -6,7 +6,7 @@ type InputGroupProps = { children?: ReactNode; className?: string };
 
 const InputGroup = ({ children, className }: InputGroupProps) => {
   return (
-    <div className={cn('flex w-full flex-col gap-2', className)}>
+    <div className={cn('flex w-full flex-col gap-1.5', className)}>
       {children}
     </div>
   );

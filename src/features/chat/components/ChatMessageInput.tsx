@@ -8,9 +8,9 @@ import { selectSelectedChatId } from '../chatSlice';
 
 import type { TPostMessageBody } from '@/features/messages/messagesSlice';
 
-import TextInput from '@/components/form/TextInput';
-import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Send } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 const MessageBarSchema = z.object({
   body: z.string().min(1, 'Message must contain at least one character'),
@@ -49,7 +49,7 @@ const ChatMessageInput = () => {
         className="flex items-center gap-4"
         onSubmit={handleSubmit(handleFormSubmit)}
       >
-        <TextInput
+        <Input
           {...register('body')}
           className="flex-1 rounded-full bg-gray-100 px-4 py-2 text-gray-950 outline-0 ring-0"
           type="text"
