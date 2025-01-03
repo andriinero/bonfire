@@ -11,10 +11,9 @@ import { UserPlus } from 'lucide-react';
 
 const ChatRoomHeader = () => {
   const isCreateChatRoomOpen = useAppSelector(selectIsCreateChatRoomModalOpen);
-
   const dispatch = useAppDispatch();
 
-  const handleModalOpen = (): void => {
+  const handleModalOpen = () => {
     dispatch(createChatRoomOpened());
   };
 

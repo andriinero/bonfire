@@ -10,14 +10,19 @@ import { selectSelectedChatId } from '../chatSlice';
 import type { MouseEventHandler } from 'react';
 
 import Form from '@/components/form/Form';
-import FormTitle from '@/components/form/FormTitle';
+import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
-import IconButton from '@/components/general/IconButton';
-import XIcon from '@/components/general/XIcon';
-import InputGroup from '@/components/form/InputGroup';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 const AddParticipantSchema = z.object({
   participantUsername: z
@@ -55,40 +60,42 @@ const ChatAddParticipantForm = ({
   const isSubmitDisabled = isLoading || !isDirty;
 
   return (
-    <Form
-      onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex flex-col items-start gap-4 rounded-md bg-white p-8 shadow-md"
-    >
-      <FormTitle className="flex w-full items-center justify-between">
-        <span>Add participant</span>
-        <IconButton
-          aria-label="Close Form"
-          onClick={onCloseClick}
-          className="p-0"
+    <Card>
+      <CardHeader>
+        <CardTitle>Add participant</CardTitle>
+        <CardDescription>Enter contact username</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form id="add-participant" onSubmit={handleSubmit(handleFormSubmit)}>
+          <InputGroup>
+            <InputLabel htmlFor="add-participant">Username</InputLabel>
+            <TextInput
+              className="min-w-72"
+              {...register('participantUsername')}
+              id="add-participant-username"
+              placeholder="e.g. user01"
+            />
+          </InputGroup>
+          {errors.participantUsername && (
+            <ValidationError visible={!!errors.participantUsername}>
+              {errors.participantUsername?.message}
+            </ValidationError>
+          )}
+        </Form>
+      </CardContent>
+      <CardFooter className="justify-end gap-4">
+        <Button aria-label="Close Form" onClick={onCloseClick} style="hollow">
+          Cancel
+        </Button>
+        <Button
+          disabled={isSubmitDisabled}
+          type="submit"
+          form="add-participant"
         >
-          <XIcon />
-        </IconButton>
-      </FormTitle>
-      <InputGroup>
-        <InputLabel htmlFor="create-participant-username">
-          Enter participant username
-        </InputLabel>
-        <TextInput
-          className="min-w-72"
-          {...register('participantUsername')}
-          id="add-participant-username"
-          placeholder="e.g. user01"
-        />
-      </InputGroup>
-      {errors.participantUsername && (
-        <ValidationError visible={!!errors.participantUsername}>
-          {errors.participantUsername?.message}
-        </ValidationError>
-      )}
-      <Button disabled={isSubmitDisabled} className="w-full" type="submit">
-        Add
-      </Button>
-    </Form>
+          Add
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

@@ -9,7 +9,7 @@ const useNotificationDismiss = (id: string) => {
   const [isBeingDismissed, setIsBeingDismissed] = useState(false);
   const dispatch = useAppDispatch();
 
-  const handleNotificationDismiss = useCallback((): void => {
+  const handleNotificationDismiss = useCallback(() => {
     setIsBeingDismissed(true);
     setTimeout(() => {
       dispatch(pushNotificationRemoved(id));

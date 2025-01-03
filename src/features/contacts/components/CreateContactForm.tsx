@@ -7,14 +7,19 @@ import { usePostContactMutation } from '../contactsSlice';
 import type { MouseEventHandler } from 'react';
 
 import Form from '@/components/form/Form';
-import FormTitle from '@/components/form/FormTitle';
 import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import Button from '@/components/general/Button';
-import IconButton from '@/components/general/IconButton';
-import XIcon from '@/components/general/XIcon';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 const CreateContactBodySchema = z.object({
   contactUsername: z
@@ -42,40 +47,43 @@ const CreateContactForm = ({ onCloseClick }: CreateContactFormProps) => {
   };
 
   return (
-    <Form
-      onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex flex-col items-start gap-4 rounded-md bg-white p-8 shadow-md"
-    >
-      <FormTitle className="flex w-full items-center justify-between">
-        <span>Create contact</span>
-        <IconButton
-          aria-label="Close Form"
-          onClick={onCloseClick}
-          className="p-0"
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          <span>Create contact</span>
+        </CardTitle>
+        <CardDescription>Enter contact username</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form
+          id="create-contact-form"
+          onSubmit={handleSubmit(handleFormSubmit)}
         >
-          <XIcon />
-        </IconButton>
-      </FormTitle>
-      <InputGroup>
-        <InputLabel htmlFor="create-contact-username">
-          Enter contact username
-        </InputLabel>
-        <TextInput
-          {...register('contactUsername')}
-          className="min-w-72"
-          id="create-contact-username"
-          placeholder="e.g. user01"
-        />
-      </InputGroup>
-      {errors.contactUsername && (
-        <ValidationError visible={!!errors.contactUsername}>
-          {errors.contactUsername?.message}
-        </ValidationError>
-      )}
-      <Button className="w-full" type="submit">
-        Create
-      </Button>
-    </Form>
+          <InputGroup>
+            <InputLabel htmlFor="create-contact-username">Username</InputLabel>
+            <TextInput
+              {...register('contactUsername')}
+              className="min-w-72"
+              id="create-contact-username"
+              placeholder="e.g. user01"
+            />
+          </InputGroup>
+          {errors.contactUsername && (
+            <ValidationError visible={!!errors.contactUsername}>
+              {errors.contactUsername?.message}
+            </ValidationError>
+          )}
+        </Form>
+      </CardContent>
+      <CardFooter className="justify-end gap-4">
+        <Button aria-label="Close Form" onClick={onCloseClick} style="hollow">
+          Cancel
+        </Button>
+        <Button type="submit" form="create-contact-form">
+          Create
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

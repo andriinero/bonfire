@@ -27,22 +27,21 @@ const ChatDrawerPanel = () => {
     selectIsAddParticiapntFormOpen,
   );
   const selectedChatId = useAppSelector(selectSelectedChatId)!;
-
   const dispatch = useAppDispatch();
 
-  const handleAddParticipantFormClick = (): void => {
+  const handleAddParticipantFormClick = () => {
     dispatch(addParticipantFormOpened());
   };
 
-  const handleDeleteChatRoomClick = (): void => {
+  const handleDeleteChatRoomClick = () => {
     dispatch(deleteChatRoomFormOpened());
   };
 
-  const handleCloseAddParticipantForm = (): void => {
+  const handleCloseAddParticipantForm = () => {
     dispatch(addParticipantFormClosed());
   };
 
-  const handleCloseDeleteChatRoomForm = (): void => {
+  const handleCloseDeleteChatRoomForm = () => {
     dispatch(deleteChatRoomFormClosed());
   };
 

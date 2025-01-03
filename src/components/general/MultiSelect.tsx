@@ -80,9 +80,9 @@ const MultiSelect = () => {
         />
         <Card className="absolute z-10 flex w-full flex-col animate-in fade-in zoom-in-95 slide-in-from-top-2">
           <CardHeader className="space-y-1 border-b p-3">
-            <CardTitle>New chat room</CardTitle>
+            <CardTitle className="text-base">New chat room</CardTitle>
             <CardDescription>
-              Invite several contacts to your new chat.
+              Invite several people to your new chat.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col justify-center p-2">

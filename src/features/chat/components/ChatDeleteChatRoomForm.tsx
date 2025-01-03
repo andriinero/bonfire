@@ -8,10 +8,14 @@ import { selectedChatIdSet, selectSelectedChatId } from '../chatSlice';
 import type { MouseEventHandler } from 'react';
 
 import Form from '@/components/form/Form';
-import FormTitle from '@/components/form/FormTitle';
 import Button from '@/components/general/Button';
-import IconButton from '@/components/general/IconButton';
-import XIcon from '@/components/general/XIcon';
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 type ChatDeleteChatRoomFormProps = { onCloseClick: MouseEventHandler };
 
@@ -24,11 +28,10 @@ const ChatDeleteChatRoomForm = ({
   } = useForm();
 
   const selectedChatId = useAppSelector(selectSelectedChatId)!;
-
   const [deleteChatRoom] = useDeleteChatRoomMutation();
   const dispatch = useAppDispatch();
 
-  const handleFormSubmit = async (): Promise<void> => {
+  const handleFormSubmit = async () => {
     await deleteChatRoom({
       chatRoomId: selectedChatId,
     }).unwrap();
@@ -39,29 +42,28 @@ const ChatDeleteChatRoomForm = ({
   const isSubmitDisabled = isLoading;
 
   return (
-    <Form
-      onSubmit={handleSubmit(handleFormSubmit)}
-      className="flex flex-col items-start gap-4 rounded-md bg-white p-8 shadow-md"
-    >
-      <FormTitle className="flex w-full items-center justify-between">
-        <span>Delete chat</span>
-        <IconButton
-          aria-label="Close Form"
-          onClick={onCloseClick}
-          className="p-0"
+    <Card>
+      <CardHeader>
+        <CardTitle>Delete chat</CardTitle>
+        <CardDescription>
+          Are you sure you want to delete this chat?
+        </CardDescription>
+      </CardHeader>
+      <Form id="delete-chat-form" onSubmit={handleSubmit(handleFormSubmit)} />
+      <CardFooter className="justify-end gap-4">
+        <Button aria-label="Close Form" onClick={onCloseClick} style="hollow">
+          Cancel
+        </Button>
+        <Button
+          disabled={isSubmitDisabled}
+          className="bg-red-600 hover:bg-red-500"
+          type="submit"
+          form="delete-chat-form"
         >
-          <XIcon />
-        </IconButton>
-      </FormTitle>
-      <p className="font-medium">Are you sure you want to delete this chat?</p>
-      <Button
-        disabled={isSubmitDisabled}
-        className="w-full bg-red-600 hover:bg-red-500"
-        type="submit"
-      >
-        Delete
-      </Button>
-    </Form>
+          Delete
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

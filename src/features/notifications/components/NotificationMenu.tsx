@@ -25,8 +25,8 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import NotificationItem from './NotificationItem';
 import cn from '@/utils/cn';
+import NotificationItem from './NotificationItem';
 
 const NotificationMenu = () => {
   const isNotificationMenuOpen = useAppSelector(selectIsNotificationMenuOpen);
@@ -41,14 +41,13 @@ const NotificationMenu = () => {
     deleteAllNotifications,
     { isLoading: isDeleteAllNotificationsLoading },
   ] = useDeleteAllNotificationsMutation();
-
   const dispatch = useAppDispatch();
 
-  const handleToggleMenu = (isOpen: boolean): void => {
+  const handleToggleMenu = (isOpen: boolean) => {
     dispatch(notificationMenuStateSet(isOpen));
   };
 
-  const handleDismissAll = (): void => {
+  const handleDismissAll = () => {
     deleteAllNotifications();
   };
 
@@ -77,7 +76,7 @@ const NotificationMenu = () => {
           <CardHeader
             className={cn('p-4', { 'border-b': notificationsPresent })}
           >
-            <CardTitle>Notifications</CardTitle>
+            <CardTitle className="text-base">Notifications</CardTitle>
             <CardDescription>
               {areNotificationsLoading ? (
                 <></>

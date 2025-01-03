@@ -24,15 +24,14 @@ type ChatRoomItemProps = {
 };
 
 const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
-  useInitAndUpdateChatLoadingState(chatId);
-
   const isChatRoomsLoading = useAppSelector(selectIsChatRoomsLoading);
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
   const lastMessage = useChatLastMessage(chatId);
-
   const dispatch = useAppDispatch();
 
-  const handleChatClick = (): void => {
+  useInitAndUpdateChatLoadingState(chatId);
+
+  const handleChatClick = () => {
     dispatch(selectedChatIdSet(chatId));
     dispatch(sidebarClosed());
     dispatch(drawerClosed());
@@ -59,7 +58,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
             <ChatRoomIcon chatRoomId={chatId} />
           </div>
           <div className="flex grow justify-between gap-2">
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-center">
               <ChatTitle chatRoomId={chatId} />
               <div className="flex items-center gap-1 text-sm text-gray-500">
                 {lastMessage ? (

@@ -10,20 +10,19 @@ import ChatTitle from '@/components/general/ChatTitle';
 import IconButton from '@/components/general/IconButton';
 import ChatRoomIcon from '@/features/chatRooms/components/ChatRoomIcon';
 import { DrawerPanelType } from '@/features/drawer/types/DrawerPanel';
+import NotificationMenu from '@/features/notifications/components/NotificationMenu';
 import { ChevronLeft, Ellipsis } from 'lucide-react';
 import ChatOnlineStatus from './ChatOnlineStatus';
-import NotificationMenu from '@/features/notifications/components/NotificationMenu';
 
 const ChatHeader = () => {
   const selectedChatId = useAppSelector(selectSelectedChatId) as string;
-
   const dispatch = useAppDispatch();
 
-  const handleOpenSidebarClick = (): void => {
+  const handleOpenSidebarClick = () => {
     dispatch(sidebarOpened());
   };
 
-  const handleOpenChatDrawerClick = (): void => {
+  const handleOpenChatDrawerClick = () => {
     dispatch(drawerPanelTypeSet(DrawerPanelType.CHAT));
     dispatch(drawerOpened());
   };
@@ -48,7 +47,7 @@ const ChatHeader = () => {
           </p>
         </div>
       </div>
-      <div className="flex gap-3">
+      <div className="flex gap-2">
         <NotificationMenu />
         <IconButton
           onClick={handleOpenChatDrawerClick}

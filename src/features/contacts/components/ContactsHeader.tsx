@@ -15,14 +15,13 @@ const ContactsHeader = () => {
   const isCreateContactModalOpen = useAppSelector(
     selectIsCreateContactModalOpen,
   );
-
   const dispatch = useAppDispatch();
 
-  const handleModalOpen = (): void => {
+  const handleModalOpen = () => {
     dispatch(createContactsModalOpened());
   };
 
-  const handleModalClose = (): void => {
+  const handleModalClose = () => {
     dispatch(createContactsModalClosed());
   };
 

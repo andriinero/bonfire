@@ -32,7 +32,7 @@ const NavControls = () => {
     <nav className="h-full w-full px-4 sm:px-0">
       <ul
         role="tablist"
-        className="flex h-full justify-around sm:flex-col sm:gap-4"
+        className="flex h-full justify-around sm:flex-col sm:gap-2"
       >
         <li>
           <AppLink

@@ -10,7 +10,7 @@ const useScrollDownMessageList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const handleScrollToBottom = (): void => {
+    const handleScrollToBottom = () => {
       if (listRef.current) {
         const ul = listRef.current;
         const scrollHeight = listRef.current.scrollHeight;

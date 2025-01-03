@@ -10,7 +10,7 @@ const useHandleSignOut = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleSignOutClick = (): void => {
+  const handleSignOutClick = () => {
     dispatch(signedOut());
     dispatch(apiSlice.util.resetApiState());
     dispatch(selectedChatIdSet(''));

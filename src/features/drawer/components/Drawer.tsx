@@ -23,7 +23,7 @@ const Drawer = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleCloseDrawerClick = (): void => {
+  const handleCloseDrawerClick = () => {
     dispatch(drawerClosed());
   };
 
