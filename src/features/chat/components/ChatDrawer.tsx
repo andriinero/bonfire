@@ -11,13 +11,13 @@ import {
 import { selectSelectedChatId } from '../chatSlice';
 
 import ChatTitle from '@/components/general/ChatTitle';
-import IconButton from '@/components/general/IconButton';
 import Modal from '@/components/general/Modal';
 import ChatRoomIcon from '@/features/chatRooms/components/ChatRoomIcon';
 import { Trash2, UserPlus } from 'lucide-react';
 import ChatAddParticipantForm from './ChatAddParticipantForm';
 import ChatDeleteChatRoomForm from './ChatDeleteChatRoomForm';
 import ChatOnlineStatus from './ChatOnlineStatus';
+import { Button } from '@/components/ui/button';
 
 const ChatDrawerPanel = () => {
   const isDeleteChatRoomFormOpen = useAppSelector(
@@ -58,20 +58,22 @@ const ChatDrawerPanel = () => {
         </div>
       </div>
       <div className="flex justify-center gap-6">
-        <IconButton
+        <Button
           aria-label="Add Chat Participant"
-          className="bg-gray-100"
           onClick={handleAddParticipantFormClick}
+          variant="secondary"
+          size="icon"
         >
           <UserPlus />
-        </IconButton>
-        <IconButton
+        </Button>
+        <Button
           aria-label="Delete Chat"
-          className="bg-gray-100 text-red-700"
           onClick={handleDeleteChatRoomClick}
+          variant="destructive"
+          size="icon"
         >
           <Trash2 />
-        </IconButton>
+        </Button>
       </div>
       <Modal
         isOpen={isAddParticipantFormOpen}

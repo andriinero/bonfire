@@ -8,7 +8,6 @@ import { selectedChatIdSet, selectSelectedChatId } from '../chatSlice';
 import type { MouseEventHandler } from 'react';
 
 import Form from '@/components/form/Form';
-import Button from '@/components/general/Button';
 import {
   Card,
   CardDescription,
@@ -16,6 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 type ChatDeleteChatRoomFormProps = { onCloseClick: MouseEventHandler };
 
@@ -51,14 +51,14 @@ const ChatDeleteChatRoomForm = ({
       </CardHeader>
       <Form id="delete-chat-form" onSubmit={handleSubmit(handleFormSubmit)} />
       <CardFooter className="justify-end gap-4">
-        <Button aria-label="Close Form" onClick={onCloseClick} style="hollow">
+        <Button aria-label="Close Form" onClick={onCloseClick} variant="ghost">
           Cancel
         </Button>
         <Button
           disabled={isSubmitDisabled}
-          className="bg-red-600 hover:bg-red-500"
           type="submit"
           form="delete-chat-form"
+          variant="destructive"
         >
           Delete
         </Button>

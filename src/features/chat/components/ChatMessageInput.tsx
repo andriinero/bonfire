@@ -9,8 +9,8 @@ import { selectSelectedChatId } from '../chatSlice';
 import type { TPostMessageBody } from '@/features/messages/messagesSlice';
 
 import TextInput from '@/components/form/TextInput';
-import Button from '@/components/general/Button';
 import { Send } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const MessageBarSchema = z.object({
   body: z.string().min(1, 'Message must contain at least one character'),
@@ -57,11 +57,10 @@ const ChatMessageInput = () => {
         />
         <Button
           disabled={isSubmitDisabled}
-          style="primary"
           type="submit"
-          className="cursor-pointer rounded-full p-2 text-white transition"
+          className="size-10 cursor-pointer rounded-full text-white transition"
         >
-          <Send className="text-lg" />
+          <Send />
         </Button>
       </form>
     </div>

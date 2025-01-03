@@ -6,8 +6,8 @@ import {
   selectIsCreateContactModalOpen,
 } from '../contactsSlice';
 
-import IconButton from '@/components/general/IconButton';
 import Modal from '@/components/general/Modal';
+import { Button } from '@/components/ui/button';
 import { UserPlus } from 'lucide-react';
 import CreateContactForm from './CreateContactForm';
 
@@ -28,13 +28,14 @@ const ContactsHeader = () => {
   return (
     <div className="flex items-center justify-between gap-16 p-5">
       <h1 className="text-2xl font-bold text-gray-950">Contacts</h1>
-      <IconButton
+      <Button
         aria-label="Create Contact"
         onClick={handleModalOpen}
-        style="round"
+        variant="roundedGhost"
+        size="icon"
       >
         <UserPlus />
-      </IconButton>
+      </Button>
       <Modal
         isOpen={isCreateContactModalOpen}
         onBackdropClick={handleModalClose}

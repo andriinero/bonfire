@@ -11,8 +11,8 @@ import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
 import AppLink from '@/components/general/AppLink';
-import Button from '@/components/general/Button';
 import Paths from '@/constants/Paths';
+import { Button } from '@/components/ui/button';
 
 const SignUpBodySchema = z
   .object({
@@ -105,12 +105,7 @@ const SignUpPanel = () => {
             {errors.confirmPassword?.message}
           </ValidationError>
         </InputGroup>
-        <Button
-          disabled={isSubmitDisabled}
-          className="mt-2"
-          style="primary"
-          type="submit"
-        >
+        <Button disabled={isSubmitDisabled} className="mt-2" type="submit">
           Sign Up
         </Button>
       </Form>

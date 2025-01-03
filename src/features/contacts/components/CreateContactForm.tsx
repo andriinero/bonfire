@@ -11,7 +11,7 @@ import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
-import Button from '@/components/general/Button';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -76,7 +76,7 @@ const CreateContactForm = ({ onCloseClick }: CreateContactFormProps) => {
         </Form>
       </CardContent>
       <CardFooter className="justify-end gap-4">
-        <Button aria-label="Close Form" onClick={onCloseClick} style="hollow">
+        <Button aria-label="Close Form" onClick={onCloseClick} variant="ghost">
           Cancel
         </Button>
         <Button type="submit" form="create-contact-form">

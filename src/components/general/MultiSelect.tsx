@@ -16,8 +16,6 @@ import type { ChangeEvent } from 'react';
 import ContactSearchItem from '@/features/contacts/components/ContactSearchItem';
 import { X } from 'lucide-react';
 import TextInput from '../form/TextInput';
-import Button from './Button';
-import IconButton from './IconButton';
 import UserIcon from './UserIcon';
 import {
   Card,
@@ -27,6 +25,7 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
+import { Button } from '../ui/button';
 
 const REQUEST_DELAY_MS = 500;
 
@@ -134,9 +133,14 @@ const MultiSelect = () => {
           </CardFooter>
         </Card>
       </div>
-      <IconButton className="p-2" onClick={handleFormClose}>
+      <Button
+        className="p-2"
+        onClick={handleFormClose}
+        variant="ghost"
+        size="icon"
+      >
         <X />
-      </IconButton>
+      </Button>
     </div>
   );
 };

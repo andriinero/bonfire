@@ -14,7 +14,6 @@ import InputGroup from '@/components/form/InputGroup';
 import InputLabel from '@/components/form/InputLabel';
 import TextInput from '@/components/form/TextInput';
 import ValidationError from '@/components/form/ValidationError';
-import Button from '@/components/general/Button';
 import {
   Card,
   CardContent,
@@ -23,6 +22,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 const AddParticipantSchema = z.object({
   participantUsername: z
@@ -84,7 +84,7 @@ const ChatAddParticipantForm = ({
         </Form>
       </CardContent>
       <CardFooter className="justify-end gap-4">
-        <Button aria-label="Close Form" onClick={onCloseClick} style="hollow">
+        <Button aria-label="Close Form" onClick={onCloseClick} variant="ghost">
           Cancel
         </Button>
         <Button

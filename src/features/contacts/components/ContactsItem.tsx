@@ -2,8 +2,8 @@ import { useAppSelector } from '@/app/hooks';
 
 import { selectContactById, useDeleteContactMutation } from '../contactsSlice';
 
-import IconButton from '@/components/general/IconButton';
 import UserIcon from '@/components/general/UserIcon';
+import { Button } from '@/components/ui/button';
 import { UserRoundMinus } from 'lucide-react';
 
 type ContactsItemProps = { contactId: string };
@@ -32,14 +32,16 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
         />
         <h2>{contact?.username}</h2>
       </div>
-      <IconButton
+
+      <Button
         aria-label="Delete Contact"
         onClick={handleContactDelete}
         className="bg-transparent"
-        style="round"
+        variant="roundedGhost"
+        size="icon"
       >
         <UserRoundMinus />
-      </IconButton>
+      </Button>
     </li>
   );
 };

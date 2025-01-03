@@ -19,7 +19,7 @@ import Form from '../../../components/form/Form';
 import InputGroup from '../../../components/form/InputGroup';
 import InputLabel from '../../../components/form/InputLabel';
 import TextInput from '../../../components/form/TextInput';
-import Button from '../../../components/general/Button';
+import { Button } from '@/components/ui/button';
 
 const SignInBodySchema = z.object({
   email: z.string().email(),
@@ -88,7 +88,7 @@ const SignInPanel = () => {
             {errors.password?.message}
           </ValidationError>
         </InputGroup>
-        <Button disabled={isSubmitDisabled} style="primary" type="submit">
+        <Button disabled={isSubmitDisabled} type="submit">
           Sign In
         </Button>
       </Form>
@@ -98,7 +98,7 @@ const SignInPanel = () => {
         <div className="border-b"></div>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <Button disabled className="space-x-3" type="button" style="hollow">
+        <Button disabled type="button" variant="outline">
           <img
             src="/google-logo.png"
             alt="Google Icon"
@@ -107,13 +107,13 @@ const SignInPanel = () => {
           <span>Google</span>
         </Button>
         <Button
-          className="gap-2 font-semibold"
+          className="font-semibold"
           type="button"
-          style="hollow"
+          variant="outline"
           onClick={handleGuestSignIn}
         >
           <UserIcon isOnline={false} src="/guest.png" style="xs" />
-          <p className="text-gray-950">Guest</p>
+          <p>Guest</p>
         </Button>
       </div>
       <div className="space-x-1 text-center">

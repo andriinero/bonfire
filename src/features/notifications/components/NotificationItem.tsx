@@ -7,9 +7,9 @@ import {
   usePostMarkAsReadMutation,
 } from '../notificationsSlice';
 
-import IconButton from '@/components/general/IconButton';
 import TimeStamp from '@/components/general/TimeStamp';
 import UserIcon from '@/components/general/UserIcon';
+import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 
 const MARK_AS_READ_POST_DELAY = 3000;
@@ -18,8 +18,8 @@ type NotificationItemProps = { id: string };
 
 const NotificationItem = ({ id }: NotificationItemProps) => {
   const timeoutId = useRef<NodeJS.Timeout>();
-  const notification = useAppSelector(selectNotificationById({ page: 0, id }));
 
+  const notification = useAppSelector(selectNotificationById({ page: 0, id }));
   const [postMarkAsRead, { isLoading: isMarkAsReadLoading }] =
     usePostMarkAsReadMutation();
   const [deleteNotification, { isLoading }] = useDeleteNotificationMutation();
@@ -63,14 +63,15 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
           )}
         </div>
       </div>
-      <IconButton
-        style="primary"
+      <Button
         className="p-1"
+        variant="ghost"
+        size="smallIcon"
         onClick={handleDismissNotification}
         disabled={isDismissButtonDisabled}
       >
         <X />
-      </IconButton>
+      </Button>
     </div>
   );
 };

@@ -7,10 +7,9 @@ import {
   useGetNotificationsQuery,
 } from '../notificationsSlice';
 
-import Button from '@/components/general/Button';
-import IconButton from '@/components/general/IconButton';
 import Spinner from '@/components/general/Spinner';
 import { BellIcon } from '@/components/ui/bell';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -61,7 +60,11 @@ const NotificationMenu = () => {
   return (
     <Popover open={isNotificationMenuOpen} onOpenChange={handleToggleMenu}>
       <PopoverTrigger asChild>
-        <IconButton style="primary" className="relative text-amber-500">
+        <Button
+          className="relative text-amber-500 hover:text-amber-500"
+          variant="ghost"
+          size="icon"
+        >
           <BellIcon isActive={unreadCount > 0} />
           {unreadCount > 0 && (
             <span className="absolute right-0 top-0 mr-[7px] mt-[7px] size-[13px] rounded-full bg-amber-500 text-[8px] font-bold text-white ring-2 ring-white">
@@ -69,7 +72,7 @@ const NotificationMenu = () => {
             </span>
           )}
           <span className="sr-only">Toggle notifications</span>
-        </IconButton>
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 border-none p-0 shadow-none" align="end">
         <Card>
@@ -110,7 +113,6 @@ const NotificationMenu = () => {
             <CardFooter className="border-t p-4">
               <Button
                 onClick={handleDismissAll}
-                style="primary"
                 className="w-full"
                 disabled={isDismissButtonDisabled}
               >

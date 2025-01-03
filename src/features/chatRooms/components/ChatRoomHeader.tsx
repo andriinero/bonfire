@@ -5,8 +5,8 @@ import {
   selectIsCreateChatRoomModalOpen,
 } from '../chatRoomsSlice';
 
-import IconButton from '@/components/general/IconButton';
 import MultiSelect from '@/components/general/MultiSelect';
+import { Button } from '@/components/ui/button';
 import { UserPlus } from 'lucide-react';
 
 const ChatRoomHeader = () => {
@@ -24,13 +24,14 @@ const ChatRoomHeader = () => {
       ) : (
         <>
           <h1 className="text-2xl font-bold text-gray-950">Messages</h1>
-          <IconButton
+          <Button
             aria-label="Open create chat room form"
             onClick={handleModalOpen}
-            style="round"
+            variant="roundedGhost"
+            size="icon"
           >
             <UserPlus />
-          </IconButton>
+          </Button>
         </>
       )}
     </div>

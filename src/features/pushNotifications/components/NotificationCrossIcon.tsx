@@ -3,8 +3,8 @@ import cn from '@/utils/cn';
 import { PushNotificationType } from '@/types/PushNotification';
 import type { MouseEventHandler } from 'react';
 
-import IconButton from '@/components/general/IconButton';
-import XIcon from '@/components/general/XIcon';
+import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
 
 const styleMap: Record<PushNotificationType, { color: string }> = {
   [PushNotificationType.ERROR]: { color: 'text-red-400 hover:bg-red-100' },
@@ -28,12 +28,14 @@ const NotificationCrossIcon = ({
   className,
 }: NotificationCrossIconProps) => {
   return (
-    <IconButton className="self-start justify-self-end p-0.5">
-      <XIcon
-        className={cn('rounded text-sm', styleMap[type].color, className)}
-        onClick={onCrossClick}
-      />
-    </IconButton>
+    <Button
+      onClick={onCrossClick}
+      className="size-6 self-start justify-self-end"
+      variant="ghost"
+      size="icon"
+    >
+      <X className={cn('rounded text-sm', styleMap[type].color, className)} />
+    </Button>
   );
 };
 

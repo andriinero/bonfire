@@ -6,8 +6,8 @@ import usePathnameEnd from '@/hooks/usePathnameEnd';
 import Paths from '@/constants/Paths';
 
 import AppLink from '@/components/general/AppLink';
-import IconButton from '@/components/general/IconButton';
 import UserIcon from '@/components/general/UserIcon';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,16 +17,17 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { LogOut, MessageSquare, Users } from 'lucide-react';
+import cn from '@/utils/cn';
 
 const NavControls = () => {
   const pathEnd = usePathnameEnd();
 
-  const isChatsSelected = pathEnd === 'chats';
-  const isContactsSelected = pathEnd === 'contacts';
-
   const authData = useAppSelector(selectAuthData);
 
   const handleSignOut = useHandleSignOut();
+
+  const isChatsSelected = pathEnd === 'chats';
+  const isContactsSelected = pathEnd === 'contacts';
 
   return (
     <nav className="h-full w-full px-4 sm:px-0">
@@ -42,9 +43,13 @@ const NavControls = () => {
             aria-label="Chats Tab"
             aria-selected={isChatsSelected}
           >
-            <IconButton tabIndex={-1} isSelected={isChatsSelected}>
+            <Button
+              tabIndex={-1}
+              variant={isChatsSelected ? 'secondary' : 'ghost'}
+              size="icon"
+            >
               <MessageSquare />
-            </IconButton>
+            </Button>
           </AppLink>
         </li>
         <li>
@@ -55,9 +60,13 @@ const NavControls = () => {
             aria-label="Contacts Tab"
             aria-selected={isContactsSelected}
           >
-            <IconButton tabIndex={-1} isSelected={isContactsSelected}>
+            <Button
+              tabIndex={-1}
+              variant={isContactsSelected ? 'secondary' : 'ghost'}
+              size="icon"
+            >
               <Users />
-            </IconButton>
+            </Button>
           </AppLink>
         </li>
         <li className="mt-auto">

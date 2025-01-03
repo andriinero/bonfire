@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import useEscapeListener from '@/hooks/useEscapeListener';
 import { motion } from 'framer-motion';
 
 import { drawerClosed, selectCurrentDrawerPanelType } from '../drawerSlice';
@@ -8,10 +9,9 @@ import type { ReactNode } from 'react';
 import { DrawerPanelType } from '../types/DrawerPanel';
 
 import Backdrop from '@/components/general/Backdrop';
-import IconButton from '@/components/general/IconButton';
-import XIcon from '@/components/general/XIcon';
+import { Button } from '@/components/ui/button';
 import ChatDrawerPanel from '@/features/chat/components/ChatDrawer';
-import useEscapeListener from '@/hooks/useEscapeListener';
+import { X } from 'lucide-react';
 
 const drawerPanelMap: Record<DrawerPanelType, ReactNode> = {
   [DrawerPanelType.CHAT]: <ChatDrawerPanel />,
@@ -40,13 +40,15 @@ const Drawer = () => {
         exit="exit"
       >
         <div className="flex justify-end">
-          <IconButton
+          <Button
             onClick={handleCloseDrawerClick}
             aria-label="Close Drawer"
             className="p-2"
+            variant="ghost"
+            size="icon"
           >
-            <XIcon />
-          </IconButton>
+            <X />
+          </Button>
         </div>
         {currentDrawerPanelType && drawerPanelMap[currentDrawerPanelType]}
       </motion.div>

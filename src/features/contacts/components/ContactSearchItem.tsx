@@ -2,8 +2,8 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import { selectContactByUsernameById } from '../contactsSlice';
 
-import IconButton from '@/components/general/IconButton';
 import UserIcon from '@/components/general/UserIcon';
+import { Button } from '@/components/ui/button';
 import {
   selectedContactAdded,
   selectedContactRemoved,
@@ -14,7 +14,6 @@ type ContactSearchProps = { contactId: string; isSelected: boolean };
 
 const ContactSearchItem = ({ contactId, isSelected }: ContactSearchProps) => {
   const contact = useAppSelector(selectContactByUsernameById(contactId))!;
-
   const dispatch = useAppDispatch();
 
   const handleContactClick = () => {
@@ -34,14 +33,15 @@ const ContactSearchItem = ({ contactId, isSelected }: ContactSearchProps) => {
         />
         <p className="text-sm font-medium">{contact?.username}</p>
       </div>
-      <IconButton
+      <Button
         aria-label="Add Contact"
         className="bg-transparent"
-        style="round"
+        variant="roundedGhost"
+        size="smallIcon"
         onClick={handleContactClick}
       >
         {isSelected ? <Check /> : <Plus />}
-      </IconButton>
+      </Button>
     </li>
   );
 };
