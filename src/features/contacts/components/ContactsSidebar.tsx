@@ -1,12 +1,12 @@
 import ContactsHeader from './ContactsHeader';
 import ContactsList from './ContactsList';
-import RecommendedContactList from './RecommendedContactList';
+import RecommendedContact from './RecommendedContact';
 
 const ContactsSidebar = () => {
   return (
-    <div className="grid h-full grid-rows-[auto,minmax(50px,150px),1fr]">
+    <div className="grid h-full grid-rows-[auto,auto,1fr]">
       <ContactsHeader />
-      <RecommendedContactList />
+      <RecommendedContact />
       <ContactsList />
     </div>
   );
