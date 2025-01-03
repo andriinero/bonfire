@@ -18,7 +18,7 @@ const ChatRoomHeader = () => {
   };
 
   return (
-    <div className="flex items-center justify-between gap-16 p-4">
+    <div className="flex items-center justify-between gap-16 px-4 py-5">
       {isCreateChatRoomOpen ? (
         <MultiSelect />
       ) : (

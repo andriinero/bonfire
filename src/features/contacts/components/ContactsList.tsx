@@ -26,7 +26,7 @@ const ContactsList = () => {
           </h2>
           <ul id="contacts-list">
             <InfiniteScroll
-              className="space-y-2"
+              className="space-y-4"
               dataLength={contactsList!.length}
               next={fetchNext}
               hasMore={hasMore}

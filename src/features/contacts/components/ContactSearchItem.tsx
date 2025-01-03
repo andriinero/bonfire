@@ -31,7 +31,7 @@ const ContactSearchItem = ({ contactId, isSelected }: ContactSearchProps) => {
           src={contact?.profileImage}
           style="sm"
         />
-        <p className="text-sm font-medium">{contact?.username}</p>
+        <p className="text-sm font-semibold">{contact?.username}</p>
       </div>
       <Button
         aria-label="Add Contact"

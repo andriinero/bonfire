@@ -49,7 +49,10 @@ const ChatTitle = ({
   }, [chat, chatParticipants, authUserId]);
 
   return (
-    <h3 className={cn('font-medium text-gray-950', className)} {...otherProps}>
+    <h3
+      className={cn('font-semibold text-gray-950', className)}
+      {...otherProps}
+    >
       {title}
     </h3>
   );
