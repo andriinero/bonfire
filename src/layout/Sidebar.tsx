@@ -17,7 +17,7 @@ const Sidebar = () => {
         { flex: isSidebarOpen },
       )}
     >
-      <div className="flex flex-col items-center justify-between border-t p-2 sm:border-r sm:py-4">
+      <div className="flex flex-col items-center justify-between border-t p-3 sm:border-r sm:py-4">
         <NavControls />
       </div>
       <section className="sm:flex-0 w-full flex-1">

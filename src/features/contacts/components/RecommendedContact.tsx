@@ -29,7 +29,7 @@ const RecommendedContact = () => {
   };
 
   return (
-    <Card className="mx-3">
+    <Card className="mx-4">
       <CardHeader>
         <CardTitle className="text-lg">Recommended Contact</CardTitle>
         <CardDescription>

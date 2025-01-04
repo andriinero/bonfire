@@ -17,7 +17,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { LogOut, MessageSquare, Users } from 'lucide-react';
-import cn from '@/utils/cn';
 
 const NavControls = () => {
   const pathEnd = usePathnameEnd();
@@ -33,7 +32,7 @@ const NavControls = () => {
     <nav className="h-full w-full px-4 sm:px-0">
       <ul
         role="tablist"
-        className="flex h-full justify-around sm:flex-col sm:gap-2"
+        className="flex h-full justify-around sm:flex-col sm:gap-3"
       >
         <li>
           <AppLink
