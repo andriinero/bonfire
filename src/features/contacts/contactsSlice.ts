@@ -1,17 +1,22 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from '../api/apiSlice';
 
+import { getErrorData } from '@/utils/getErrorData';
+
+import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
+
 import type { RootState } from '@/app/store';
 import { PushNotificationType } from '@/types/PushNotification';
 import type { User } from '@/types/User';
-import { getErrorData } from '@/utils/getErrorData';
-import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 type ContactsState = {
   isCreateContactModalOpen: boolean;
+  selectedContactId: string | null;
 };
 
 const initialState: ContactsState = {
+  selectedContactId: null,
   isCreateContactModalOpen: false,
 };
 
@@ -24,6 +29,9 @@ const contactsSlice = createSlice({
     },
     createContactsModalClosed: (state) => {
       state.isCreateContactModalOpen = false;
+    },
+    selectedContactIdSet: (state, action: PayloadAction<string | null>) => {
+      state.selectedContactId = action.payload;
     },
   },
 });
@@ -137,8 +145,11 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { createContactsModalOpened, createContactsModalClosed } =
-  contactsSlice.actions;
+export const {
+  createContactsModalOpened,
+  createContactsModalClosed,
+  selectedContactIdSet,
+} = contactsSlice.actions;
 
 export const {
   useGetContactsQuery,
@@ -150,6 +161,9 @@ export const {
 } = contactsApiSlice;
 
 export default contactsSlice;
+
+export const selectSelectedContactId = (state: RootState) =>
+  state.contacts.selectedContactId;
 
 export const selectIsCreateContactModalOpen = (state: RootState) =>
   state.contacts.isCreateContactModalOpen;

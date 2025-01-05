@@ -1,6 +1,11 @@
-import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { motion } from 'framer-motion';
 
-import { selectContactById, useDeleteContactMutation } from '../contactsSlice';
+import {
+  selectContactById,
+  selectedContactIdSet,
+  useDeleteContactMutation,
+} from '../contactsSlice';
 
 import UserIcon from '@/components/general/UserIcon';
 import { Button } from '@/components/ui/button';
@@ -11,6 +16,11 @@ type ContactsItemProps = { contactId: string };
 const ContactsItem = ({ contactId }: ContactsItemProps) => {
   const contact = useAppSelector(selectContactById(contactId))!;
   const [deleteContact] = useDeleteContactMutation();
+  const dispatch = useAppDispatch();
+
+  const handleSetSelectedContactId = () => {
+    dispatch(selectedContactIdSet(contactId));
+  };
 
   const handleContactDelete = () => {
     deleteContact({
@@ -20,12 +30,18 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
   };
 
   return (
-    <li key={contact?.id} className="flex items-center gap-4 p-2">
-      <UserIcon title={contact?.username} colorClass={contact?.colorClass} />
+    <motion.li
+      key={contact?.id}
+      className="flex items-center gap-4 p-2 hover:cursor-pointer hover:bg-gray-100"
+    >
+      <UserIcon
+        onClick={handleSetSelectedContactId}
+        title={contact?.username}
+        colorClass={contact?.colorClass}
+      />
       <div className="flex-grow">
         <p className="font-semibold">{contact?.username}</p>
         <p className="text-sm text-gray-500">{contact?.email}</p>
-        {/* <p className="text-sm font-semibold text-gray-500">{contact.created}</p> */}
       </div>
       <div>
         <Button
@@ -36,7 +52,7 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
           <UserRoundMinus />
         </Button>
       </div>
-    </li>
+    </motion.li>
   );
 };
 

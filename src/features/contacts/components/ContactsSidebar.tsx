@@ -1,5 +1,7 @@
+import { AnimatePresence } from 'framer-motion';
 import ContactsHeader from './ContactsHeader';
 import ContactsList from './ContactsList';
+import ContactsProfileCard from './ContactsProfileCard';
 import RecommendedContact from './RecommendedContact';
 
 const ContactsSidebar = () => {
@@ -8,6 +10,9 @@ const ContactsSidebar = () => {
       <ContactsHeader />
       <RecommendedContact />
       <ContactsList />
+      <AnimatePresence>
+        <ContactsProfileCard />
+      </AnimatePresence>
     </div>
   );
 };

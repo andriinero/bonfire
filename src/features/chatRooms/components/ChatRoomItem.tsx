@@ -31,7 +31,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
 
   useInitAndUpdateChatLoadingState(chatId);
 
-  const handleChatClick = () => {
+  const handleSetSelectedChatId = () => {
     dispatch(selectedChatIdSet(chatId));
     dispatch(sidebarClosed());
     dispatch(drawerClosed());
@@ -48,7 +48,7 @@ const ChatRoomItem = ({ chatId }: ChatRoomItemProps) => {
           'sm:bg-gray-100': isChatRoomSelected,
         },
       )}
-      onClick={handleChatClick}
+      onClick={handleSetSelectedChatId}
     >
       {isChatRoomsLoading ? (
         <ChatRoomItemLoader />

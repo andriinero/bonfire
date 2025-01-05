@@ -18,10 +18,11 @@ const UserIcon = ({
   src,
   isOnline = false,
   style = 'md',
+  onClick,
   ...otherProps
 }: UserIconProps) => {
   return (
-    <div className="relative">
+    <div onClick={onClick} className="relative">
       <div
         className={cn(
           'invisible absolute ml-6 size-4 shrink-0 select-none rounded-full border-2 border-white bg-green-400',
