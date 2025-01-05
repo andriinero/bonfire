@@ -10,8 +10,8 @@ import {
 
 import UserIcon from '@/components/general/UserIcon';
 import { Button } from '@/components/ui/button';
-import { UserRoundMinus } from 'lucide-react';
 import cn from '@/utils/cn';
+import { UserRoundMinus } from 'lucide-react';
 
 type ContactsItemProps = { contactId: string };
 
@@ -38,18 +38,19 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
     <motion.li
       key={contact?.id}
       className={cn(
-        'flex items-center gap-4 rounded-lg p-2 hover:cursor-pointer hover:bg-gray-50',
+        'flex items-center justify-between gap-4 rounded-lg p-2 hover:bg-gray-50',
         { 'bg-gray-100': isSelectedContact },
       )}
     >
-      <UserIcon
+      <div
         onClick={handleSetSelectedContactId}
-        title={contact?.username}
-        colorClass={contact?.colorClass}
-      />
-      <div className="flex-grow">
-        <p className="font-semibold">{contact?.username}</p>
-        <p className="text-sm text-gray-500">{contact?.email}</p>
+        className="flex gap-3 hover:cursor-pointer "
+      >
+        <UserIcon title={contact?.username} colorClass={contact?.colorClass} />
+        <div className="flex-grow">
+          <p className="font-semibold">{contact?.username}</p>
+          <p className="text-sm text-gray-500">{contact?.email}</p>
+        </div>
       </div>
       <div>
         <Button
