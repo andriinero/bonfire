@@ -9,7 +9,7 @@ import { selectSelectedChatId } from '../chatSlice';
 import type { TPostMessageBody } from '@/features/messages/messagesSlice';
 
 import { Button } from '@/components/ui/button';
-import { Send } from 'lucide-react';
+import { Send, ThumbsUp } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
 const MessageBarSchema = z.object({
@@ -30,7 +30,7 @@ const ChatMessageInput = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleFormSubmit = async (data: TMessageBar): Promise<void> => {
+  const handleSendMessage = async (data: TMessageBar) => {
     if (!selectedChatId) return;
 
     const postBody: TPostMessageBody = {
@@ -41,28 +41,30 @@ const ChatMessageInput = () => {
     reset();
   };
 
-  const isSubmitDisabled = isSubmitting || !isValid;
+  const handleSendThumbsUp = async () => {
+    if (!selectedChatId) return;
+    dispatch(messageSent({ chatRoomId: selectedChatId, body: '👍' }));
+    reset();
+  };
 
   return (
-    <div className="border-t px-4 py-2">
-      <form
-        className="flex items-center gap-4"
-        onSubmit={handleSubmit(handleFormSubmit)}
-      >
+    <div className="flex gap-2 border-t px-4 py-2">
+      <form onSubmit={handleSubmit(handleSendMessage)} className="flex-1">
         <Input
           {...register('body')}
           className="flex-1 rounded-full bg-gray-100 px-4 py-2 text-gray-950 outline-0 ring-0"
           type="text"
           placeholder="Write a message..."
         />
-        <Button
-          disabled={isSubmitDisabled}
-          type="submit"
-          className="size-10 cursor-pointer rounded-full text-white transition"
-        >
-          <Send />
-        </Button>
       </form>
+      <Button
+        onClick={handleSendThumbsUp}
+        className="cursor-pointer rounded-full text-amber-500 transition"
+        variant="ghost"
+        size="icon"
+      >
+        <ThumbsUp />
+      </Button>
     </div>
   );
 };
