@@ -7,7 +7,7 @@ import {
 
 import MultiSelect from '@/components/general/MultiSelect';
 import { Button } from '@/components/ui/button';
-import { UserPlus } from 'lucide-react';
+import { MessageSquarePlus } from 'lucide-react';
 
 const ChatRoomHeader = () => {
   const isCreateChatRoomOpen = useAppSelector(selectIsCreateChatRoomModalOpen);
@@ -30,7 +30,7 @@ const ChatRoomHeader = () => {
             variant="roundedGhost"
             size="icon"
           >
-            <UserPlus />
+            <MessageSquarePlus />
           </Button>
         </>
       )}
