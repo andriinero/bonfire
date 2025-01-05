@@ -6,7 +6,7 @@ import usePathnameEnd from '@/hooks/usePathnameEnd';
 import Paths from '@/constants/Paths';
 
 import AppLink from '@/components/general/AppLink';
-import UserIcon from '@/components/general/UserIcon';
+import UserAvatar from '@/components/general/UserAvatar';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -71,7 +71,7 @@ const NavControls = () => {
         <li className="mt-auto">
           <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none">
-              <UserIcon
+              <UserAvatar
                 title={authData?.username}
                 src={authData?.profileImage}
                 colorClass={authData?.colorClass}

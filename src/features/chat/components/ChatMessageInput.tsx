@@ -9,11 +9,11 @@ import { selectSelectedChatId } from '../chatSlice';
 import type { TPostMessageBody } from '@/features/messages/messagesSlice';
 
 import { Button } from '@/components/ui/button';
-import { Send, ThumbsUp } from 'lucide-react';
+import { ThumbsUp } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
 const MessageBarSchema = z.object({
-  body: z.string().min(1, 'Message must contain at least one character'),
+  body: z.string().min(1, 'Message must contain at least one character')
 });
 
 type TMessageBar = z.infer<typeof MessageBarSchema>;
@@ -23,11 +23,10 @@ const ChatMessageInput = () => {
     register,
     handleSubmit,
     formState: { isSubmitting, isValid },
-    reset,
+    reset
   } = useForm<TMessageBar>({ resolver: zodResolver(MessageBarSchema) });
 
   const selectedChatId = useAppSelector(selectSelectedChatId);
-
   const dispatch = useAppDispatch();
 
   const handleSendMessage = async (data: TMessageBar) => {
@@ -35,7 +34,7 @@ const ChatMessageInput = () => {
 
     const postBody: TPostMessageBody = {
       chatRoomId: selectedChatId,
-      body: data.body,
+      body: data.body
     };
     dispatch(messageSent(postBody));
     reset();
@@ -48,7 +47,7 @@ const ChatMessageInput = () => {
   };
 
   return (
-    <div className="flex gap-2 border-t px-4 py-2">
+    <div className="flex gap-2 border-t p-2">
       <form onSubmit={handleSubmit(handleSendMessage)} className="flex-1">
         <Input
           {...register('body')}

@@ -8,7 +8,7 @@ import {
 } from '../notificationsSlice';
 
 import TimeStamp from '@/components/general/TimeStamp';
-import UserIcon from '@/components/general/UserIcon';
+import UserAvatar from '@/components/general/UserAvatar';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 
@@ -44,7 +44,7 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
       onMouseEnter={handleMarkAsRead}
       className="flex items-start space-x-4 p-4 transition-colors hover:bg-gray-50"
     >
-      <UserIcon
+      <UserAvatar
         title={notification?.sender.username}
         colorClass={notification?.sender.colorClass}
       />

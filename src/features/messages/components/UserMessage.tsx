@@ -8,7 +8,7 @@ import type { Message } from '@/types/Message';
 
 import DotDivider from '@/components/general/DotDivider';
 import TimeStamp from '@/components/general/TimeStamp';
-import UserIcon from '@/components/general/UserIcon';
+import UserAvatar from '@/components/general/UserAvatar';
 
 type UserMessageProps = Pick<Message, 'user' | 'body' | 'created'>;
 
@@ -23,7 +23,7 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
       className={cn('flex gap-2', { 'flex-row-reverse': isAuthor })}
     >
       <div>
-        <UserIcon
+        <UserAvatar
           title={user.username}
           colorClass={user.colorClass}
           src={user.profileImage}

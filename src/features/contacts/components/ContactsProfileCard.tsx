@@ -7,7 +7,7 @@ import {
 } from '../contactsSlice';
 
 import Modal from '@/components/general/Modal';
-import UserIcon from '@/components/general/UserIcon';
+import UserAvatar from '@/components/general/UserAvatar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Globe, Mail, MapPin } from 'lucide-react';
@@ -29,7 +29,7 @@ const ContactsProfileCard = () => {
       <Card className="z-30 w-full max-w-sm overflow-hidden border-none">
         <div className="bg-amber-500 p-6 text-white">
           <div className="flex items-center gap-4">
-            <UserIcon
+            <UserAvatar
               className="ring ring-amber-400"
               title={contact?.username}
               colorClass={contact?.colorClass}

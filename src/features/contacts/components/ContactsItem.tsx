@@ -8,7 +8,7 @@ import {
   useDeleteContactMutation,
 } from '../contactsSlice';
 
-import UserIcon from '@/components/general/UserIcon';
+import UserAvatar from '@/components/general/UserAvatar';
 import { Button } from '@/components/ui/button';
 import cn from '@/utils/cn';
 import { UserRoundMinus } from 'lucide-react';
@@ -46,7 +46,7 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
         onClick={handleSetSelectedContactId}
         className="flex gap-3 hover:cursor-pointer "
       >
-        <UserIcon title={contact?.username} colorClass={contact?.colorClass} />
+        <UserAvatar title={contact?.username} colorClass={contact?.colorClass} />
         <div className="flex-grow">
           <p className="font-semibold">{contact?.username}</p>
           <p className="text-sm text-gray-500">{contact?.email}</p>

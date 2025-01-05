@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import UserIcon from '../UserIcon';
+import UserAvatar from '../UserAvatar';
 
 it('renders user icon with correct path', () => {
   const imgPath = '/test.png';
-  render(<UserIcon src={imgPath} />);
+  render(<UserAvatar src={imgPath} />);
 
   const userIcon = screen.getByRole('img');
 

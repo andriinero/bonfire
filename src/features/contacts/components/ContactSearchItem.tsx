@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import { selectContactByUsernameById } from '../contactsSlice';
 
-import UserIcon from '@/components/general/UserIcon';
+import UserAvatar from '@/components/general/UserAvatar';
 import { Button } from '@/components/ui/button';
 import {
   selectedContactAdded,
@@ -24,7 +24,7 @@ const ContactSearchItem = ({ contactId, isSelected }: ContactSearchProps) => {
   return (
     <li className="flex items-center justify-between gap-4 rounded-lg p-2 transition hover:bg-gray-50">
       <div className="flex items-center gap-2">
-        <UserIcon
+        <UserAvatar
           title={contact?.username}
           colorClass={contact?.colorClass}
           isOnline={contact?.isOnline}

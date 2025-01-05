@@ -11,7 +11,7 @@ type UserIconProps = {
   style?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 } & ComponentProps<'img'>;
 
-const UserIcon = ({
+const UserAvatar = ({
   className,
   title = '?',
   colorClass = 'amber-400',
@@ -61,4 +61,4 @@ const UserIcon = ({
   );
 };
 
-export default UserIcon;
+export default UserAvatar;

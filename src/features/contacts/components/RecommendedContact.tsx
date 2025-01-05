@@ -1,24 +1,15 @@
 import Spinner from '@/components/general/Spinner';
-import UserIcon from '@/components/general/UserIcon';
+import UserAvatar from '@/components/general/UserAvatar';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { UserPlus } from 'lucide-react';
-import {
-  useGetRecommendedContactsQuery,
-  usePostContactMutation,
-} from '../contactsSlice';
+import { useGetRecommendedContactsQuery, usePostContactMutation } from '../contactsSlice';
 
 const RecommendedContact = () => {
   const {
     data,
     isLoading: areRecommendedContactsLoading,
-    isSuccess: areRecommendedContactsFetched,
+    isSuccess: areRecommendedContactsFetched
   } = useGetRecommendedContactsQuery();
   const [postContactMutation, { isLoading: isPostContactLoading }] =
     usePostContactMutation();
@@ -35,7 +26,7 @@ const RecommendedContact = () => {
         <CardDescription>
           {data && data.length > 0
             ? 'Connect with passionate learners like you!'
-            : "You're all caught up!"}
+            : 'You\'re all caught up!'}
         </CardDescription>
       </CardHeader>
       {areRecommendedContactsLoading ? (
@@ -46,7 +37,7 @@ const RecommendedContact = () => {
         data.length > 0 ? (
           <CardContent className="flex justify-between">
             <div className="flex items-center space-x-4">
-              <UserIcon
+              <UserAvatar
                 title={data[0].username}
                 colorClass={data[0].colorClass}
               />

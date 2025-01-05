@@ -15,7 +15,7 @@ import Form from '@/components/form/Form';
 import InputGroup from '@/components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
 import AppLink from '@/components/general/AppLink';
-import UserIcon from '@/components/general/UserIcon';
+import UserAvatar from '@/components/general/UserAvatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -111,7 +111,7 @@ const SignInPanel = () => {
           variant="outline"
           onClick={handleGuestSignIn}
         >
-          <UserIcon isOnline={false} src="/guest.png" style="xs" />
+          <UserAvatar isOnline={false} src="/guest.png" style="xs" />
           <p>Guest</p>
         </Button>
       </div>

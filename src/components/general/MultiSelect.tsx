@@ -24,7 +24,7 @@ import {
   CardTitle,
 } from '../ui/card';
 import { Input } from '../ui/input';
-import UserIcon from './UserIcon';
+import UserAvatar from './UserAvatar';
 
 const REQUEST_DELAY_MS = 500;
 
@@ -109,7 +109,7 @@ const MultiSelect = () => {
                   key={contact.id}
                   className={cn('relative', `right-[${index * 20}px]`)}
                 >
-                  <UserIcon
+                  <UserAvatar
                     title={contact.username}
                     colorClass={contact.colorClass}
                     src={contact.profileImage}
