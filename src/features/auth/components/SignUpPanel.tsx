@@ -9,21 +9,33 @@ import Form from '@/components/form/Form';
 import InputGroup from '@/components/form/InputGroup';
 import ValidationError from '@/components/form/ValidationError';
 import AppLink from '@/components/general/AppLink';
-import Paths from '@/constants/Paths';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import Paths from '@/constants/Paths';
 
 const SignUpBodySchema = z
   .object({
     username: z
       .string()
       .min(3, 'Username must contain at least 3 characters')
-      .max(100, 'Username must contain at most 8 characters'),
+      .max(100, 'Username must contain at most 100 characters'),
     email: z
       .string()
       .min(3, 'Email must contain at least 3 characters')
-      .max(100, 'Email must contain at most 8 characters'),
+      .max(100, 'Email must contain at most 100 characters'),
+    firstName: z
+      .string()
+      .min(3, 'First name must contain at least 3 characters')
+      .max(100, 'First name must contain at most 100 characters'),
+    lastName: z
+      .string()
+      .min(3, 'Last name must contain at least 3 characters')
+      .max(100, 'Last name must contain at most 100 characters'),
+    location: z
+      .string()
+      .min(3, 'Location must contain at least 3 characters')
+      .max(100, 'Location must contain at most 100 characters'),
     password: z.string().min(8, 'Password must contain at least 8 characters'),
     confirmPassword: z.string(),
   })
@@ -51,8 +63,34 @@ const SignUpPanel = () => {
   const isSubmitDisabled = isLoading;
 
   return (
-    <div className="container space-y-8 rounded-md bg-white p-10 text-sm font-medium text-slate-400 sm:shadow">
+    <div className="container space-y-8 rounded-md bg-white p-10 text-sm font-medium sm:shadow">
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
+        <div className="flex gap-4">
+          <InputGroup>
+            <Label htmlFor="sign-in-first-name">First name</Label>
+            <Input
+              {...register('firstName')}
+              id="sign-in-first-name"
+              aria-errormessage="first-name-error"
+            />
+            <ValidationError id="first-name-error" visible={!!errors.email}>
+              {errors.email?.message}
+            </ValidationError>
+          </InputGroup>
+
+          <InputGroup>
+            <Label htmlFor="sign-in-last-name">Last name</Label>
+            <Input
+              {...register('lastName')}
+              id="sign-in-last-name"
+              aria-errormessage="last-name-error"
+            />
+            <ValidationError id="last-name-error" visible={!!errors.email}>
+              {errors.email?.message}
+            </ValidationError>
+          </InputGroup>
+        </div>
+
         <InputGroup>
           <Label htmlFor="sign-in-username">Username</Label>
           <Input
@@ -64,6 +102,7 @@ const SignUpPanel = () => {
             {errors.username?.message}
           </ValidationError>
         </InputGroup>
+
         <InputGroup>
           <Label htmlFor="sign-in-email">Email address</Label>
           <Input
@@ -76,6 +115,19 @@ const SignUpPanel = () => {
             {errors.email?.message}
           </ValidationError>
         </InputGroup>
+
+        <InputGroup>
+          <Label htmlFor="sign-in-location">Location</Label>
+          <Input
+            {...register('location')}
+            id="sign-in-location"
+            aria-errormessage="location-error"
+          />
+          <ValidationError id="location-error" visible={!!errors.username}>
+            {errors.username?.message}
+          </ValidationError>
+        </InputGroup>
+
         <InputGroup>
           <Label htmlFor="sign-in-password">Password</Label>
           <Input
@@ -88,6 +140,7 @@ const SignUpPanel = () => {
             {errors.password?.message}
           </ValidationError>
         </InputGroup>
+
         <InputGroup>
           <Label htmlFor="sign-in-confirm-password">Confirm password</Label>
           <Input
@@ -103,6 +156,7 @@ const SignUpPanel = () => {
             {errors.confirmPassword?.message}
           </ValidationError>
         </InputGroup>
+
         <Button disabled={isSubmitDisabled} className="mt-2" type="submit">
           Sign Up
         </Button>
