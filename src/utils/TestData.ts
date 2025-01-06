@@ -11,11 +11,15 @@ const createRandomUser = (): User => {
   const lastName = faker.person.lastName();
   const username = faker.internet.userName({ firstName, lastName });
   const email = faker.internet.email({ firstName, lastName });
+  const { city, county } = faker.location;
 
   return {
     id: faker.string.uuid(),
     username,
     email,
+    firstName,
+    lastName,
+    location: `${city}, ${county}`,
     role: 'user',
     created: faker.date.recent().toISOString(),
     isOnline: faker.helpers.arrayElement<boolean>([true, false]),
