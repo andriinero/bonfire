@@ -67,7 +67,7 @@ const NotificationMenu = () => {
         >
           <BellIcon isActive={unreadCount > 0} />
           {unreadCount > 0 && (
-            <span className="absolute right-0 top-0 mr-[7px] mt-[7px] size-[13px] rounded-full bg-amber-500 text-[8px] font-bold text-white ring-2 ring-white">
+            <span className="absolute right-0 top-0 mr-[7px] mt-[7px] flex size-[13px] items-center justify-center rounded-full bg-amber-500 text-[8px] font-bold text-white ring-2 ring-white">
               {unreadCount}
             </span>
           )}
