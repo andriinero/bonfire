@@ -55,7 +55,7 @@ const SignUpPanel = () => {
   const navigate = useNavigate();
   const [postSignUp, { isLoading }] = usePostSignUpMutation();
 
-  const handleFormSubmit = async (data: TSignUpBody): Promise<void> => {
+  const handleFormSubmit = async (data: TSignUpBody) => {
     await postSignUp(data).unwrap();
     navigate(Paths.Auth.SIGN_IN);
   };

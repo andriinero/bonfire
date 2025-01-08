@@ -58,7 +58,7 @@ const MultiSelect = () => {
     }, REQUEST_DELAY_MS);
   };
 
-  const handleFormSubmit = () => {
+  const handlePostChatRoom = () => {
     const selectedContactIds = selectedContacts.map((contact) => contact.id);
     postChatRoom({ userIds: selectedContactIds });
   };
@@ -120,7 +120,7 @@ const MultiSelect = () => {
               ))}
             </ul>
             <Button
-              onClick={handleFormSubmit}
+              onClick={handlePostChatRoom}
               disabled={isSubmitDisabled}
               className="rounded-md"
             >
