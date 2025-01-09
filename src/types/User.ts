@@ -7,6 +7,7 @@ export const UserSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   location: z.string(),
+  bio: z.string(),
   role: z.enum(['guest', 'user', 'admin']),
   created: z.string(),
   isOnline: z.boolean(),

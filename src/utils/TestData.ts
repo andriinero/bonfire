@@ -19,6 +19,7 @@ const createRandomUser = (): User => {
     email,
     firstName,
     lastName,
+    bio: 'test bio',
     location: `${city}, ${county}`,
     role: 'user',
     created: faker.date.recent().toISOString(),
@@ -33,6 +34,10 @@ const getAuthDataFromUser = (user: User): AuthData => {
     sub: user.id,
     username: user.username,
     email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    location: user.location,
+    bio: user.bio,
     role: 'user',
     colorClass: 'sky-400',
   };
