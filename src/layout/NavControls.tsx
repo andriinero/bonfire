@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { selectAuthData } from '@/features/auth/authSlice';
 import useHandleSignOut from '@/features/auth/hooks/useHandleSignOut';
 import usePathnameEnd from '@/hooks/usePathnameEnd';
@@ -16,14 +16,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { profileEditPanelStateSet } from '@/features/profile/profileSlice';
 import { LogOut, MessageSquare, Users } from 'lucide-react';
 
 const NavControls = () => {
   const pathEnd = usePathnameEnd();
 
   const authData = useAppSelector(selectAuthData);
+  const dispatch = useAppDispatch();
 
   const handleSignOut = useHandleSignOut();
+
+  const handleOpenProfileModal = () => {
+    dispatch(profileEditPanelStateSet(true));
+  };
 
   const isChatsSelected = pathEnd === 'chats';
   const isContactsSelected = pathEnd === 'contacts';
@@ -84,7 +90,9 @@ const NavControls = () => {
                 {authData?.email}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleOpenProfileModal}>
+                Profile
+              </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={handleSignOut}
                 className="text-red-700"

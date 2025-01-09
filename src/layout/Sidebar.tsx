@@ -1,14 +1,26 @@
-import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import { selectIsSidebarOpen } from '@/features/chat/chatSlice';
+import {
+  profileEditPanelStateSet,
+  selectIsProfileEditPanelOpen,
+} from '@/features/profile/profileSlice';
 
 import cn from '@/utils/cn';
 
+import Modal from '@/components/general/Modal';
+import ProfileEditPanel from '@/features/profile/components/ProfileEditPanel';
 import NavControls from '@/layout/NavControls';
 import { Outlet } from 'react-router-dom';
 
 const Sidebar = () => {
   const isSidebarOpen = useAppSelector(selectIsSidebarOpen);
+  const isEditProfilePanelOpen = useAppSelector(selectIsProfileEditPanelOpen);
+  const dispatch = useAppDispatch();
+
+  const handleCloseProfileModal = () => {
+    dispatch(profileEditPanelStateSet(false));
+  };
 
   return (
     <aside
@@ -19,6 +31,12 @@ const Sidebar = () => {
     >
       <div className="flex flex-col items-center justify-between border-t p-3 sm:border-r sm:py-4">
         <NavControls />
+        <Modal
+          onBackdropClick={handleCloseProfileModal}
+          isOpen={isEditProfilePanelOpen}
+        >
+          <ProfileEditPanel />
+        </Modal>
       </div>
       <section className="sm:flex-0 w-full flex-1">
         <Outlet />

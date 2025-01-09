@@ -1,3 +1,4 @@
+import { useAppSelector } from '@/app/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -5,7 +6,6 @@ import { z } from 'zod';
 import { selectAuthData } from '@/features/auth/authSlice';
 import { usePatchProfileMutation } from '../profileSlice';
 
-import { useAppSelector } from '@/app/hooks';
 import UserAvatar from '@/components/general/UserAvatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -68,7 +68,7 @@ const ProfileEditPanel = () => {
   const [patchProfile, { isLoading: isPatchProfileLoading }] =
     usePatchProfileMutation();
 
-  const handlePatchProfile = async (data: TProfilePatch) => {
+  const handleSubmitProfilePatch = async (data: TProfilePatch) => {
     patchProfile(data);
   };
 
@@ -81,7 +81,7 @@ const ProfileEditPanel = () => {
           Edit Profile
         </CardTitle>
       </CardHeader>
-      <form onSubmit={handleSubmit(handlePatchProfile)}>
+      <form onSubmit={handleSubmit(handleSubmitProfilePatch)}>
         <CardContent className="space-y-4">
           <div className="flex flex-col items-center space-y-4">
             <UserAvatar
