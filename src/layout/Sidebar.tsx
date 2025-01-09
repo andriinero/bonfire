@@ -32,6 +32,7 @@ const Sidebar = () => {
       <div className="flex flex-col items-center justify-between border-t p-3 sm:border-r sm:py-4">
         <NavControls />
         <Modal
+          className="max-w-xl"
           onBackdropClick={handleCloseProfileModal}
           isOpen={isEditProfilePanelOpen}
         >

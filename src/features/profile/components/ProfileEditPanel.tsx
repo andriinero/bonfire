@@ -66,8 +66,6 @@ const ProfileEditPanel = () => {
     profileImage,
     colorClass,
   } = useAppSelector(selectAuthData)!;
-  // FIXME: remove comment
-  console.log(firstName);
   const {
     register,
     handleSubmit,
@@ -87,7 +85,7 @@ const ProfileEditPanel = () => {
   const isFormLoading = isSubmitLoading || isPatchProfileLoading;
 
   return (
-    <Card className="mx-auto w-full max-w-2xl">
+    <Card className="rounded-lg">
       <CardHeader>
         <CardTitle className="text-center text-2xl font-bold">
           Edit Profile

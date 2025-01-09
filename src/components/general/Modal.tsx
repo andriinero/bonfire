@@ -27,7 +27,7 @@ const Modal = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-10 flex h-dvh w-dvw flex-col items-center justify-center">
+        <div className="fixed inset-0 z-30 flex h-dvh w-dvw flex-col items-center justify-center">
           <Backdrop onBackdropClick={onBackdropClick} />
           <motion.div
             variants={FadeInWithScale}
