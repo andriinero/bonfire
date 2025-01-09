@@ -57,14 +57,26 @@ export type TProfilePatch = z.infer<typeof profilePatchSchema>;
 
 const ProfileEditPanel = () => {
   const {
+    firstName,
+    lastName,
+    username,
+    email,
+    bio,
+    location,
+    profileImage,
+    colorClass,
+  } = useAppSelector(selectAuthData)!;
+  // FIXME: remove comment
+  console.log(firstName);
+  const {
     register,
     handleSubmit,
     formState: { isLoading: isSubmitLoading },
   } = useForm<TProfilePatch>({
     resolver: zodResolver(profilePatchSchema),
+    defaultValues: { firstName, lastName, username, email, bio, location },
   });
 
-  const authData = useAppSelector(selectAuthData);
   const [patchProfile, { isLoading: isPatchProfileLoading }] =
     usePatchProfileMutation();
 
@@ -85,9 +97,9 @@ const ProfileEditPanel = () => {
         <CardContent className="space-y-4">
           <div className="flex flex-col items-center space-y-4">
             <UserAvatar
-              title={authData?.username}
-              colorClass={authData?.colorClass}
-              src={authData?.profileImage}
+              title={username}
+              colorClass={colorClass}
+              src={profileImage}
             />
             <Input type="file" accept="image/*" className="hidden" />
             <Button type="button" variant="outline" disabled>
