@@ -34,6 +34,7 @@ const ContactsProfileCard = () => {
         <div className="bg-amber-500 p-6 text-white">
           <div className="flex items-center gap-4">
             <UserAvatar
+              style="lg"
               className="ring ring-amber-400"
               title={contact?.username}
               colorClass={contact?.colorClass}

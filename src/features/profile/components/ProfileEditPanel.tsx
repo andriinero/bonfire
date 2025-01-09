@@ -1,11 +1,15 @@
-import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { selectAuthData } from '@/features/auth/authSlice';
-import { usePatchProfileMutation } from '../profileSlice';
+import {
+  profileEditPanelStateSet,
+  usePatchProfileMutation,
+} from '../profileSlice';
 
+import ValidationError from '@/components/form/ValidationError';
 import UserAvatar from '@/components/general/UserAvatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -19,40 +23,33 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
-export const profilePatchSchema = z
-  .object({
-    firstName: z
-      .string()
-      .min(3, 'First name must contain at least 3 characters')
-      .max(100, 'First name must contain at most 100 characters'),
-    lastName: z
-      .string()
-      .min(3, 'Last name must contain at least 3 characters')
-      .max(100, 'Last name must contain at most 100 characters'),
-    username: z
-      .string()
-      .min(3, 'Username must contain at least 3 characters')
-      .max(100, 'Username must contain at most 100 characters'),
-    email: z
-      .string()
-      .email()
-      .min(3, 'Email must contain at least 3 characters')
-      .max(100, 'Email must contain at most 100 characters'),
-    location: z
-      .string()
-      .min(3, 'Location must contain at least 3 characters')
-      .max(100, 'Location must contain at most 100 characters'),
-    bio: z
-      .string()
-      .min(3, 'Bio must contain at least 3 characters')
-      .max(100, 'Bio must contain at most 100 characters'),
-    password: z.string().min(8, 'Password must contain at least 8 characters'),
-    confirmPassword: z.string(),
-  })
-  .refine(({ password, confirmPassword }) => password === confirmPassword, {
-    message: "Passwords don't match",
-    path: ['confirmPassword'],
-  });
+export const profilePatchSchema = z.object({
+  firstName: z
+    .string()
+    .min(3, 'First name must contain at least 3 characters')
+    .max(100, 'First name must contain at most 100 characters'),
+  lastName: z
+    .string()
+    .min(3, 'Last name must contain at least 3 characters')
+    .max(100, 'Last name must contain at most 100 characters'),
+  username: z
+    .string()
+    .min(3, 'Username must contain at least 3 characters')
+    .max(100, 'Username must contain at most 100 characters'),
+  email: z
+    .string()
+    .email()
+    .min(3, 'Email must contain at least 3 characters')
+    .max(100, 'Email must contain at most 100 characters'),
+  location: z
+    .string()
+    .min(3, 'Location must contain at least 3 characters')
+    .max(100, 'Location must contain at most 100 characters'),
+  bio: z
+    .string()
+    .min(3, 'Bio must contain at least 3 characters')
+    .max(100, 'Bio must contain at most 100 characters'),
+});
 export type TProfilePatch = z.infer<typeof profilePatchSchema>;
 
 const ProfileEditPanel = () => {
@@ -69,7 +66,7 @@ const ProfileEditPanel = () => {
   const {
     register,
     handleSubmit,
-    formState: { isLoading: isSubmitLoading },
+    formState: { errors, isLoading: isSubmitLoading },
   } = useForm<TProfilePatch>({
     resolver: zodResolver(profilePatchSchema),
     defaultValues: { firstName, lastName, username, email, bio, location },
@@ -77,24 +74,28 @@ const ProfileEditPanel = () => {
 
   const [patchProfile, { isLoading: isPatchProfileLoading }] =
     usePatchProfileMutation();
+  const dispatch = useAppDispatch();
 
   const handleSubmitProfilePatch = async (data: TProfilePatch) => {
     patchProfile(data);
   };
 
-  const isFormLoading = isSubmitLoading || isPatchProfileLoading;
+  const handleClosePanel = () => {
+    dispatch(profileEditPanelStateSet(false));
+  };
+
+  const isSubmitDisabled = isSubmitLoading || isPatchProfileLoading;
 
   return (
     <Card className="rounded-lg">
       <CardHeader>
-        <CardTitle className="text-center text-2xl font-bold">
-          Edit Profile
-        </CardTitle>
+        <CardTitle className="text-2xl font-bold">Edit Profile</CardTitle>
       </CardHeader>
       <form onSubmit={handleSubmit(handleSubmitProfilePatch)}>
         <CardContent className="space-y-4">
-          <div className="flex flex-col items-center space-y-4">
+          <div className="flex flex-col items-center justify-center gap-4">
             <UserAvatar
+              style="xl"
               title={username}
               colorClass={colorClass}
               src={profileImage}
@@ -113,6 +114,9 @@ const ProfileEditPanel = () => {
                 placeholder="Your first name"
               />
             </div>
+            {errors.firstName && (
+              <ValidationError>{errors.firstName.message}</ValidationError>
+            )}
             <div className="space-y-2">
               <Label htmlFor="lastName">Last Name</Label>
               <Input
@@ -120,6 +124,9 @@ const ProfileEditPanel = () => {
                 id="lastName"
                 placeholder="Your last name"
               />
+              {errors.lastName && (
+                <ValidationError>{errors.lastName.message}</ValidationError>
+              )}
             </div>
           </div>
           <div className="space-y-2">
@@ -129,6 +136,9 @@ const ProfileEditPanel = () => {
               id="username"
               placeholder="Your username"
             />
+            {errors.username && (
+              <ValidationError>{errors.username.message}</ValidationError>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
@@ -138,25 +148,9 @@ const ProfileEditPanel = () => {
               type="email"
               placeholder="Your email"
             />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                {...register('password')}
-                id="password"
-                placeholder="New password"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <Input
-                {...register('confirmPassword')}
-                id="confirmPassword"
-                type="password"
-                placeholder="Confirm new password"
-              />
-            </div>
+            {errors.email && (
+              <ValidationError>{errors.email.message}</ValidationError>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="location">Location</Label>
@@ -165,6 +159,9 @@ const ProfileEditPanel = () => {
               id="location"
               placeholder="Your location"
             />
+            {errors.location && (
+              <ValidationError>{errors.location.message}</ValidationError>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="bio">Bio</Label>
@@ -172,13 +169,21 @@ const ProfileEditPanel = () => {
               {...register('bio')}
               id="bio"
               placeholder="Tell us about yourself"
-              rows={4}
+              rows={3}
+              wrap="hard"
+              className="resize-none"
             />
+            {errors.bio && (
+              <ValidationError>{errors.bio.message}</ValidationError>
+            )}
           </div>
         </CardContent>
-        <CardFooter>
-          <Button type="submit" className="w-full" disabled={isFormLoading}>
-            {isFormLoading ? 'Updating...' : 'Update Profile'}
+        <CardFooter className="flex justify-end  gap-4">
+          <Button onClick={handleClosePanel} variant="ghost">
+            Cancel
+          </Button>
+          <Button type="submit" disabled={isSubmitDisabled}>
+            {isPatchProfileLoading ? 'Updating...' : 'Update Profile'}
           </Button>
         </CardFooter>
       </form>
