@@ -9,17 +9,17 @@ type NotificationsState = { isProfilePanelOpen: boolean };
 
 const initialState: NotificationsState = { isProfilePanelOpen: false };
 
-const notificationsSlice = createSlice({
-  name: 'notifications',
+const profileSlice = createSlice({
+  name: 'profile',
   initialState,
   reducers: {
-    notificationMenuStateSet: (state, actions: PayloadAction<boolean>) => {
+    profileEditPanelStateSet: (state, actions: PayloadAction<boolean>) => {
       state.isProfilePanelOpen = actions.payload;
     },
   },
 });
 
-export const notificationsApiSlice = apiSlice.injectEndpoints({
+export const profileApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     patchProfile: builder.mutation<void, TProfilePatch>({
       query: (body) => ({
@@ -31,11 +31,11 @@ export const notificationsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { usePatchProfileMutation } = notificationsApiSlice;
+export const { usePatchProfileMutation } = profileApiSlice;
 
-export const { notificationMenuStateSet } = notificationsSlice.actions;
+export const { profileEditPanelStateSet } = profileSlice.actions;
 
-export const selectIsProfilePanelOpen = (state: RootState) =>
-  state.notifications.isNotificationMenuOpen;
+export const selectIsProfileEditPanelOpen = (state: RootState) =>
+  state.profile.isProfilePanelOpen;
 
-export default notificationsSlice;
+export default profileSlice;

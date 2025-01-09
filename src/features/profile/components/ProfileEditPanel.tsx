@@ -1,6 +1,12 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { selectAuthData } from '@/features/auth/authSlice';
+import { usePatchProfileMutation } from '../profileSlice';
+
+import { useAppSelector } from '@/app/hooks';
+import UserAvatar from '@/components/general/UserAvatar';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -12,24 +18,44 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { zodResolver } from '@hookform/resolvers/zod';
-import UserAvatar from '@/components/general/UserAvatar';
-import { usePatchProfileMutation } from '../profileSlice';
 
-export const profilePatchSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  username: z.string(),
-  email: z.string(),
-  password: z.string(),
-  confirmPassword: z.string(),
-  location: z.string(),
-  bio: z.string(),
-  avatarUrl: z.string(),
-});
+export const profilePatchSchema = z
+  .object({
+    firstName: z
+      .string()
+      .min(3, 'First name must contain at least 3 characters')
+      .max(100, 'First name must contain at most 100 characters'),
+    lastName: z
+      .string()
+      .min(3, 'Last name must contain at least 3 characters')
+      .max(100, 'Last name must contain at most 100 characters'),
+    username: z
+      .string()
+      .min(3, 'Username must contain at least 3 characters')
+      .max(100, 'Username must contain at most 100 characters'),
+    email: z
+      .string()
+      .email()
+      .min(3, 'Email must contain at least 3 characters')
+      .max(100, 'Email must contain at most 100 characters'),
+    location: z
+      .string()
+      .min(3, 'Location must contain at least 3 characters')
+      .max(100, 'Location must contain at most 100 characters'),
+    bio: z
+      .string()
+      .min(3, 'Bio must contain at least 3 characters')
+      .max(100, 'Bio must contain at most 100 characters'),
+    password: z.string().min(8, 'Password must contain at least 8 characters'),
+    confirmPassword: z.string(),
+  })
+  .refine(({ password, confirmPassword }) => password === confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
 export type TProfilePatch = z.infer<typeof profilePatchSchema>;
 
-export default function ProfileEditCard() {
+const ProfileEditPanel = () => {
   const {
     register,
     handleSubmit,
@@ -38,6 +64,7 @@ export default function ProfileEditCard() {
     resolver: zodResolver(profilePatchSchema),
   });
 
+  const authData = useAppSelector(selectAuthData);
   const [patchProfile, { isLoading: isPatchProfileLoading }] =
     usePatchProfileMutation();
 
@@ -57,7 +84,11 @@ export default function ProfileEditCard() {
       <form onSubmit={handleSubmit(handlePatchProfile)}>
         <CardContent className="space-y-4">
           <div className="flex flex-col items-center space-y-4">
-            <UserAvatar />
+            <UserAvatar
+              title={authData?.username}
+              colorClass={authData?.colorClass}
+              src={authData?.profileImage}
+            />
             <Input type="file" accept="image/*" className="hidden" />
             <Button type="button" variant="outline" disabled>
               Change Avatar
@@ -87,7 +118,6 @@ export default function ProfileEditCard() {
               {...register('username')}
               id="username"
               placeholder="Your username"
-              required
             />
           </div>
           <div className="space-y-2">
@@ -95,10 +125,8 @@ export default function ProfileEditCard() {
             <Input
               {...register('email')}
               id="email"
-              name="email"
               type="email"
               placeholder="Your email"
-              required
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -146,4 +174,6 @@ export default function ProfileEditCard() {
       </form>
     </Card>
   );
-}
+};
+
+export default ProfileEditPanel;

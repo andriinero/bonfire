@@ -14,6 +14,7 @@ import messagesSlice from '@/features/messages/messagesSlice';
 import pushNotificationsSlice from '@/features/pushNotifications/pushNotificationsSlice';
 import drawerSlice from '@/features/drawer/drawerSlice';
 import notificationsSlice from '@/features/notifications/notificationsSlice';
+import profileSlice from '@/features/profile/profileSlice';
 
 const rootReducer = combineSlices(
   authSlice,
@@ -25,6 +26,7 @@ const rootReducer = combineSlices(
   pushNotificationsSlice,
   drawerSlice,
   notificationsSlice,
+  profileSlice,
 );
 export type RootState = ReturnType<typeof rootReducer>;
 
