@@ -7,6 +7,7 @@ import type { ReactNode } from 'react';
 
 import { AnimatePresence } from 'framer-motion';
 import Backdrop from './Backdrop';
+import useEscapeListener from '@/hooks/useEscapeListener';
 
 type ModalProps = {
   isOpen: boolean;
@@ -21,6 +22,8 @@ const Modal = ({
   className,
   children,
 }: ModalProps) => {
+  useEscapeListener(onBackdropClick);
+
   return (
     <AnimatePresence>
       {isOpen && (
