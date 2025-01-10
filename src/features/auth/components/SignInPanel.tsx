@@ -44,13 +44,13 @@ const SignInPanel = () => {
   if (isPostSignInSuccess)
     return <Navigate to={Paths.Home.BASE + Paths.Home.CHATS} />;
 
-  const handleFormSubmit = async (data: TSignInBody): Promise<void> => {
+  const handleFormSubmit = async (data: TSignInBody) => {
     const result = await postSignIn(data).unwrap();
     dispatch(tokenInitialized(result.token));
     refetchAuthData();
   };
 
-  const handleGuestSignIn = async (): Promise<void> => {
+  const handleGuestSignIn = async () => {
     const response = await postSignIn({
       email: 'max@gmail.com',
       password: 'strongpass1',

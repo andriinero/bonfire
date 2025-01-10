@@ -49,7 +49,7 @@ const ChatAddParticipantForm = ({
   const [postParticipant] = usePostParticipantMutation();
   const dispatch = useAppDispatch();
 
-  const handleFormSubmit = async (data: TAddParticipantBody): Promise<void> => {
+  const handleFormSubmit = async (data: TAddParticipantBody) => {
     await postParticipant({
       chatRoomId: selectedChatId,
       body: data,

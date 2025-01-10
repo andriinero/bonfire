@@ -4,6 +4,9 @@ import { apiSlice } from '../api/apiSlice';
 import type { RootState } from '@/app/store';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TProfilePatch } from './components/ProfileEditPanel';
+import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
+import { PushNotificationType } from '@/types/PushNotification';
+import { getErrorData } from '@/utils/getErrorData';
 
 type NotificationsState = { isProfilePanelOpen: boolean };
 
@@ -22,11 +25,31 @@ const profileSlice = createSlice({
 export const profileApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     patchProfile: builder.mutation<void, TProfilePatch>({
+      invalidatesTags: ['authData'],
       query: (body) => ({
         url: `/profile`,
         method: 'PATCH',
         body,
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+          dispatch(
+            pushNotificationAdded({
+              body: 'Profile updated successfully',
+              type: PushNotificationType.SUCCESS,
+            }),
+          );
+        } catch (err) {
+          const errorData = getErrorData((err as { error: unknown }).error);
+          dispatch(
+            pushNotificationAdded({
+              body: `Update profile: "${errorData.message}"`,
+              type: PushNotificationType.ERROR,
+            }),
+          );
+        }
+      },
     }),
   }),
 });

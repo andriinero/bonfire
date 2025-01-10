@@ -44,6 +44,7 @@ export const signedOut = (): AppThunk => (dispatch) => {
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAuthData: builder.query<AuthData, void>({
+      providesTags: ['authData'],
       query: () => '/auth/data',
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {

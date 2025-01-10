@@ -14,7 +14,7 @@ const useContactInfiniteScroll = () => {
 
   const dispatch = useAppDispatch();
 
-  const fetchNext = async (): Promise<void> => {
+  const fetchNext = async () => {
     const nextPage = currentPage + 1;
     if (hasMore) {
       await dispatch(

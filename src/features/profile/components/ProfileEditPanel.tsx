@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { selectAuthData } from '@/features/auth/authSlice';
@@ -67,6 +67,7 @@ const ProfileEditPanel = () => {
     register,
     handleSubmit,
     formState: { errors, isLoading: isSubmitLoading },
+    control,
   } = useForm<TProfilePatch>({
     resolver: zodResolver(profilePatchSchema),
     defaultValues: { firstName, lastName, username, email, bio, location },
@@ -76,12 +77,13 @@ const ProfileEditPanel = () => {
     usePatchProfileMutation();
   const dispatch = useAppDispatch();
 
-  const handleSubmitProfilePatch = async (data: TProfilePatch) => {
-    patchProfile(data);
-  };
-
   const handleClosePanel = () => {
     dispatch(profileEditPanelStateSet(false));
+  };
+
+  const handleSubmitProfilePatch = async (data: TProfilePatch) => {
+    await patchProfile(data);
+    handleClosePanel();
   };
 
   const isSubmitDisabled = isSubmitLoading || isPatchProfileLoading;
@@ -165,13 +167,23 @@ const ProfileEditPanel = () => {
           </div>
           <div className="space-y-2">
             <Label htmlFor="bio">Bio</Label>
-            <Textarea
-              {...register('bio')}
-              id="bio"
-              placeholder="Tell us about yourself"
-              rows={3}
-              wrap="hard"
-              className="resize-none"
+            <Controller
+              name="bio"
+              control={control}
+              render={({ field: { onChange, onBlur, value, ref } }) => (
+                <Textarea
+                  id="bio"
+                  name="bio"
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  ref={ref}
+                  placeholder="Tell us about yourself"
+                  rows={3}
+                  wrap="hard"
+                  className="resize-none"
+                />
+              )}
             />
             {errors.bio && (
               <ValidationError>{errors.bio.message}</ValidationError>
