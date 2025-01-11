@@ -1,5 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
+import appDate from '@/lib/AppDate';
+
 import {
   selectContactById,
   selectedContactIdSet,
@@ -11,7 +13,6 @@ import UserAvatar from '@/components/general/UserAvatar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { CalendarHeart, Mail, MapPin, User } from 'lucide-react';
-import appDate from '@/lib/AppDate';
 
 const ContactsProfileCard = () => {
   const selectedContactId = useAppSelector(selectSelectedContactId);
@@ -50,6 +51,14 @@ const ContactsProfileCard = () => {
           </div>
         </div>
         <CardContent className="grid gap-4 bg-gray-50 p-6">
+          {contact?.bio && (
+            <div className="border-b border-gray-200 pb-4">
+              <p className="text-sm leading-relaxed text-gray-700">
+                "{contact.bio}"
+              </p>
+            </div>
+          )}
+
           <div className="flex items-center gap-2">
             <Mail className="size-4" />
             <span>{contact?.email}</span>

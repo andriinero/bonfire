@@ -191,7 +191,7 @@ const ProfileEditPanel = () => {
           </div>
         </CardContent>
         <CardFooter className="flex justify-end  gap-4">
-          <Button onClick={handleClosePanel} variant="ghost">
+          <Button type="button" onClick={handleClosePanel} variant="ghost">
             Cancel
           </Button>
           <Button type="submit" disabled={isSubmitDisabled}>
