@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { selectAuthData } from '@/features/auth/authSlice';
 import {
-  profileEditPanelStateSet,
+  profileEditPanelOpenStateSet,
   usePatchProfileMutation,
 } from '../profileSlice';
 
@@ -78,7 +78,7 @@ const ProfileEditPanel = () => {
   const dispatch = useAppDispatch();
 
   const handleClosePanel = () => {
-    dispatch(profileEditPanelStateSet(false));
+    dispatch(profileEditPanelOpenStateSet(false));
   };
 
   const handleSubmitProfilePatch = async (data: TProfilePatch) => {

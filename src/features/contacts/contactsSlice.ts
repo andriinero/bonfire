@@ -12,11 +12,11 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 type ContactsState = {
   isCreateContactModalOpen: boolean;
-  selectedContactId: string | null;
+  openContactProfileId: string | null;
 };
 
 const initialState: ContactsState = {
-  selectedContactId: null,
+  openContactProfileId: null,
   isCreateContactModalOpen: false,
 };
 
@@ -30,8 +30,8 @@ const contactsSlice = createSlice({
     createContactsModalClosed: (state) => {
       state.isCreateContactModalOpen = false;
     },
-    selectedContactIdSet: (state, action: PayloadAction<string | null>) => {
-      state.selectedContactId = action.payload;
+    openContactProfileIdSet: (state, action: PayloadAction<string | null>) => {
+      state.openContactProfileId = action.payload;
     },
   },
 });
@@ -148,7 +148,7 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
 export const {
   createContactsModalOpened,
   createContactsModalClosed,
-  selectedContactIdSet,
+  openContactProfileIdSet,
 } = contactsSlice.actions;
 
 export const {
@@ -163,7 +163,7 @@ export const {
 export default contactsSlice;
 
 export const selectSelectedContactId = (state: RootState) =>
-  state.contacts.selectedContactId;
+  state.contacts.openContactProfileId;
 
 export const selectIsCreateContactModalOpen = (state: RootState) =>
   state.contacts.isCreateContactModalOpen;

@@ -1,23 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from '../api/apiSlice';
 
-import type { RootState } from '@/app/store';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { TProfilePatch } from './components/ProfileEditPanel';
-import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
-import { PushNotificationType } from '@/types/PushNotification';
 import { getErrorData } from '@/utils/getErrorData';
 
-type NotificationsState = { isProfilePanelOpen: boolean };
+import { pushNotificationAdded } from '../pushNotifications/pushNotificationsSlice';
 
-const initialState: NotificationsState = { isProfilePanelOpen: false };
+import type { RootState } from '@/app/store';
+import { PushNotificationType } from '@/types/PushNotification';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { TProfilePatch } from './components/ProfileEditPanel';
+
+type NotificationsState = { isProfileEditPanelOpen: boolean };
+
+const initialState: NotificationsState = { isProfileEditPanelOpen: false };
 
 const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    profileEditPanelStateSet: (state, actions: PayloadAction<boolean>) => {
-      state.isProfilePanelOpen = actions.payload;
+    profileEditPanelOpenStateSet: (state, actions: PayloadAction<boolean>) => {
+      state.isProfileEditPanelOpen = actions.payload;
     },
   },
 });
@@ -56,9 +58,9 @@ export const profileApiSlice = apiSlice.injectEndpoints({
 
 export const { usePatchProfileMutation } = profileApiSlice;
 
-export const { profileEditPanelStateSet } = profileSlice.actions;
+export const { profileEditPanelOpenStateSet } = profileSlice.actions;
 
 export const selectIsProfileEditPanelOpen = (state: RootState) =>
-  state.profile.isProfilePanelOpen;
+  state.profile.isProfileEditPanelOpen;
 
 export default profileSlice;

@@ -42,9 +42,10 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
   return (
     <div
       onMouseEnter={handleMarkAsRead}
-      className="flex items-start space-x-4 p-4 transition-colors hover:bg-gray-50"
+      className="flex items-start space-x-4 bg-gray-50 p-4 transition-colors"
     >
       <UserAvatar
+        style="sm"
         title={notification?.sender.username}
         colorClass={notification?.sender.colorClass}
       />
@@ -64,7 +65,7 @@ const NotificationItem = ({ id }: NotificationItemProps) => {
         </div>
       </div>
       <Button
-        className="p-1"
+        className="[&_svg]:size-4"
         variant="ghost"
         size="smallIcon"
         onClick={handleDismissNotification}

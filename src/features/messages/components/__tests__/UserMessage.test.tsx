@@ -15,6 +15,7 @@ const testUser: User = {
   lastName: 'Doe',
   location: 'Berlin, Germany',
   role: 'user',
+  bio: 'test bio',
   created: new Date().toISOString(),
   isOnline: true,
   profileImage:

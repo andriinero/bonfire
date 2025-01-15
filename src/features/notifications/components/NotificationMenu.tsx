@@ -14,7 +14,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -54,7 +53,7 @@ const NotificationMenu = () => {
     ? notifications.filter((n) => !n.isRead).length
     : 0;
   const isDismissButtonDisabled = isDeleteAllNotificationsLoading;
-  const notificationsPresent =
+  const areNotificationsPresent =
     isSuccess && notifications && notifications.length > 0;
 
   return (
@@ -77,30 +76,45 @@ const NotificationMenu = () => {
       <PopoverContent className="w-80 border-none p-0 shadow-none" align="end">
         <Card>
           <CardHeader
-            className={cn('p-4', { 'border-b': notificationsPresent })}
+            className={cn('flex-row justify-between gap-2 space-y-0 p-4', {
+              'border-b': areNotificationsPresent,
+            })}
           >
-            <CardTitle className="text-base">Notifications</CardTitle>
-            <CardDescription>
-              {areNotificationsLoading ? (
-                <></>
-              ) : isSuccess ? (
-                notifications.length > 0 ? (
-                  `You have ${unreadCount} unread messages`
+            <div className="space-y-1.5">
+              <CardTitle className="text-base">Notifications</CardTitle>
+              <CardDescription>
+                {areNotificationsLoading ? (
+                  <></>
+                ) : isSuccess ? (
+                  notifications.length > 0 ? (
+                    `You have ${unreadCount} unread messages`
+                  ) : (
+                    "You're all caught up!"
+                  )
                 ) : (
-                  "You're all caught up!"
-                )
-              ) : (
-                <p>It's quiet here... too quiet.</p>
-              )}
-            </CardDescription>
+                  <p>It's quiet here... too quiet.</p>
+                )}
+              </CardDescription>
+            </div>
+            {areNotificationsPresent && (
+              <Button
+                onClick={handleDismissAll}
+                disabled={isDismissButtonDisabled}
+                variant="text"
+                size="lean"
+                className="font-semibold text-gray-500"
+              >
+                Dismiss All
+              </Button>
+            )}
           </CardHeader>
-          <CardContent className="max-h-[300px] overflow-auto p-0">
+          <CardContent className="max-h-[300px] overflow-auto rounded-b-md p-0">
             {areNotificationsLoading ? (
               <div className="p-4">
                 <Spinner />
               </div>
             ) : (
-              notificationsPresent &&
+              areNotificationsPresent &&
               notifications.map((n, index) => (
                 <div key={n.id}>
                   <NotificationItem key={n.id} id={n.id} />
@@ -109,17 +123,6 @@ const NotificationMenu = () => {
               ))
             )}
           </CardContent>
-          {notificationsPresent && (
-            <CardFooter className="border-t p-4">
-              <Button
-                onClick={handleDismissAll}
-                className="w-full"
-                disabled={isDismissButtonDisabled}
-              >
-                Dismiss all
-              </Button>
-            </CardFooter>
-          )}
         </Card>
       </PopoverContent>
     </Popover>

@@ -15,12 +15,12 @@ type UserMessageProps = Pick<Message, 'user' | 'body' | 'created'>;
 const UserMessage = ({ user, body, created }: UserMessageProps) => {
   const authUserId = useAppSelector(selectAuthUserId);
 
-  const isAuthor = authUserId === user.id;
+  const isAuthUserMessage = authUserId === user.id;
 
   return (
     <li
       aria-label="chat-message"
-      className={cn('flex gap-2', { 'flex-row-reverse': isAuthor })}
+      className={cn('flex gap-2', { 'flex-row-reverse': isAuthUserMessage })}
     >
       <div>
         <UserAvatar
@@ -33,10 +33,10 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
       <div className="flex flex-col gap-2">
         <div
           className={cn('flex items-center gap-1 text-sm', {
-            'justify-end': isAuthor,
+            'justify-end': isAuthUserMessage,
           })}
         >
-          {!isAuthor && (
+          {!isAuthUserMessage && (
             <>
               <p className="font-medium text-gray-500">{user.username}</p>
               <DotDivider />
@@ -48,7 +48,7 @@ const UserMessage = ({ user, body, created }: UserMessageProps) => {
           className={cn(
             'max-w-[30ch] self-start rounded-2xl bg-gray-100 px-3 py-2 text-start text-sm font-medium text-gray-950',
             {
-              'self-end bg-amber-500 text-white': isAuthor,
+              'self-end bg-amber-500 text-white': isAuthUserMessage,
             },
           )}
         >

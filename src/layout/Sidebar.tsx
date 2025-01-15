@@ -1,12 +1,12 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
+import cn from '@/utils/cn';
+
 import { selectIsSidebarOpen } from '@/features/chat/chatSlice';
 import {
-  profileEditPanelStateSet,
+  profileEditPanelOpenStateSet,
   selectIsProfileEditPanelOpen,
 } from '@/features/profile/profileSlice';
-
-import cn from '@/utils/cn';
 
 import Modal from '@/components/general/Modal';
 import ProfileEditPanel from '@/features/profile/components/ProfileEditPanel';
@@ -19,7 +19,7 @@ const Sidebar = () => {
   const dispatch = useAppDispatch();
 
   const handleCloseProfileModal = () => {
-    dispatch(profileEditPanelStateSet(false));
+    dispatch(profileEditPanelOpenStateSet(false));
   };
 
   return (

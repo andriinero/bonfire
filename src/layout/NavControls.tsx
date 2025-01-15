@@ -5,6 +5,8 @@ import usePathnameEnd from '@/hooks/usePathnameEnd';
 
 import Paths from '@/constants/Paths';
 
+import { profileEditPanelOpenStateSet } from '@/features/profile/profileSlice';
+
 import AppLink from '@/components/general/AppLink';
 import UserAvatar from '@/components/general/UserAvatar';
 import { Button } from '@/components/ui/button';
@@ -16,7 +18,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { profileEditPanelStateSet } from '@/features/profile/profileSlice';
 import { LogOut, MessageSquare, Users } from 'lucide-react';
 
 const NavControls = () => {
@@ -28,7 +29,7 @@ const NavControls = () => {
   const handleSignOut = useHandleSignOut();
 
   const handleOpenProfileModal = () => {
-    dispatch(profileEditPanelStateSet(true));
+    dispatch(profileEditPanelOpenStateSet(true));
   };
 
   const isChatsSelected = pathEnd === 'chats';

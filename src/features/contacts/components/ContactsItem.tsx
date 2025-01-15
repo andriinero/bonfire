@@ -2,8 +2,8 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { motion } from 'framer-motion';
 
 import {
+  openContactProfileIdSet,
   selectContactById,
-  selectedContactIdSet,
   selectSelectedContactId,
   useDeleteContactMutation,
 } from '../contactsSlice';
@@ -22,7 +22,7 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
   const dispatch = useAppDispatch();
 
   const handleSetSelectedContactId = () => {
-    dispatch(selectedContactIdSet(contactId));
+    dispatch(openContactProfileIdSet(contactId));
   };
 
   const handleContactDelete = () => {
