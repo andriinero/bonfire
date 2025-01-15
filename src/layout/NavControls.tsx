@@ -91,7 +91,7 @@ const NavControls = () => {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleOpenProfileModal}>
-                Profile
+                Edit Profile
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={handleSignOut}

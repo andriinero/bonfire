@@ -44,9 +44,12 @@ const ContactsItem = ({ contactId }: ContactsItemProps) => {
     >
       <div
         onClick={handleSetSelectedContactId}
-        className="flex gap-3 hover:cursor-pointer "
+        className="flex items-center justify-center gap-3 hover:cursor-pointer "
       >
-        <UserAvatar title={contact?.username} colorClass={contact?.colorClass} />
+        <UserAvatar
+          title={contact?.username}
+          colorClass={contact?.colorClass}
+        />
         <div className="flex-grow">
           <p className="font-semibold">{contact?.username}</p>
           <p className="text-sm text-gray-500">{contact?.email}</p>

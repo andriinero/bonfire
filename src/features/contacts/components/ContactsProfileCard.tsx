@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 import appDate from '@/lib/AppDate';
 
+import { selectAuthUserId } from '@/features/auth/authSlice';
 import {
   selectContactById,
   selectedContactIdSet,
@@ -11,19 +12,22 @@ import {
 import Modal from '@/components/general/Modal';
 import UserAvatar from '@/components/general/UserAvatar';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { CalendarHeart, Mail, MapPin, User } from 'lucide-react';
+import { CalendarHeart, Mail, MapPin, Pencil, User } from 'lucide-react';
 
 const ContactsProfileCard = () => {
+  const authUserId = useAppSelector(selectAuthUserId);
   const selectedContactId = useAppSelector(selectSelectedContactId);
   const contact = useAppSelector(selectContactById(selectedContactId ?? ''));
   const dispatch = useAppDispatch();
 
+  const fullName = `${contact?.firstName} ${contact?.lastName}`;
+  const isAuthUserProfile = authUserId === contact?.id;
+
   const handleResetSelectedContactId = () => {
     dispatch(selectedContactIdSet(null));
   };
-
-  const fullName = `${contact?.firstName} ${contact?.lastName}`;
 
   return (
     <Modal
@@ -32,7 +36,7 @@ const ContactsProfileCard = () => {
       className="max-w-md"
     >
       <Card className="overflow-hidden border-none">
-        <div className="bg-amber-500 p-6 text-white">
+        <div className="flex justify-between bg-amber-500 p-6 text-white">
           <div className="flex items-center gap-4">
             <UserAvatar
               style="lg"
@@ -49,6 +53,9 @@ const ContactsProfileCard = () => {
               </p>
             </div>
           </div>
+          <Button variant="ghost" size="smallIcon">
+            <Pencil />
+          </Button>
         </div>
         <CardContent className="grid gap-4 bg-gray-50 p-6">
           {contact?.bio && (
