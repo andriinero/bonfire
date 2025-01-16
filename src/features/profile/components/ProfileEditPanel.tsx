@@ -83,7 +83,7 @@ const ProfileEditPanel = () => {
 
   const handleSubmitProfilePatch = async (data: TProfilePatch) => {
     await patchProfile(data);
-    handleClosePanel();
+    // handleClosePanel();
   };
 
   const isSubmitDisabled = isSubmitLoading || isPatchProfileLoading;

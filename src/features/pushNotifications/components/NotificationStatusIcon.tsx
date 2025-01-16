@@ -9,14 +9,17 @@ const styleMap: Record<
   PushNotificationType,
   { color: string; icon: ReactNode }
 > = {
-  [PushNotificationType.ERROR]: { color: 'text-red-400', icon: <CircleX /> },
+  [PushNotificationType.ERROR]: {
+    color: 'text-red-400',
+    icon: <CircleX className="size-5" />,
+  },
   [PushNotificationType.SUCCESS]: {
     color: 'text-green-400',
-    icon: <CircleCheck />,
+    icon: <CircleCheck className="size-5" />,
   },
   [PushNotificationType.WARNING]: {
     color: 'text-yellow-400',
-    icon: <CircleAlert />,
+    icon: <CircleAlert className="size-5" />,
   },
 };
 
@@ -30,7 +33,13 @@ const NotificationStatusIcon = ({
   className,
 }: NotificationStatusIconProps) => {
   return (
-    <span className={cn('mt-0.5 self-start', styleMap[type].color, className)}>
+    <span
+      className={cn(
+        'flex items-center justify-center self-start',
+        styleMap[type].color,
+        className,
+      )}
+    >
       {styleMap[type].icon}
     </span>
   );

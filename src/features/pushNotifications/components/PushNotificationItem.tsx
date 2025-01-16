@@ -37,7 +37,7 @@ const PushNotificationItem = ({ id }: PushNotificationItemProps) => {
       initial="initial"
       animate={isBeingDismissed ? 'exit' : 'animate'}
       className={cn(
-        'text-md flex items-center justify-between rounded-md p-4 text-sm shadow-md',
+        'text-md flex items-center justify-between rounded-md p-3 text-sm shadow-md',
         styleMap[type].bgColor,
       )}
     >

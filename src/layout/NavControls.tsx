@@ -85,7 +85,7 @@ const NavControls = () => {
                 className="ring-2 ring-amber-500 ring-offset-1"
               />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-40">
+            <DropdownMenuContent className="mb-2 w-40">
               <DropdownMenuLabel>{authData?.username}</DropdownMenuLabel>
               <DropdownMenuLabel className="pt-0 text-xs font-normal">
                 {authData?.email}
